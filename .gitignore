@@ -1,0 +1,11 @@
+# Source documents — kept local, not published
+PPC_ALIA___BIA_2025.pdf
+concursos.txt
+
+# Local assistant working memory
+.remember/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp

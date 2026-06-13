@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BIA · Bacharelado em Inteligência Artificial — UNIPAMPA Alegrete</title>
+  <meta name="description" content="O curso de IA mais disruptivo do Brasil. Currículo clean slate, trilha de Resolução de Problemas e a melhor matriz de Inteligência Artificial do país. UNIPAMPA · Campus Alegrete-RS." />
+  <meta name="theme-color" content="#06070d" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="BIA · Bacharelado em Inteligência Artificial — UNIPAMPA" />
+  <meta property="og:description" content="O curso de IA mais disruptivo do Brasil. Currículo clean slate. UNIPAMPA · Campus Alegrete-RS." />
+  <meta property="og:image" content="assets/img/og-image.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+
+  <!-- Fonts: distinctive pairing — Bricolage Grotesque (display) · Manrope (body) · JetBrains Mono (technical) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <!-- Animated neural backdrop -->
+  <canvas id="neural" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ===================== NAV ===================== -->
+  <header class="nav" id="nav">
+    <a class="brand" href="#top" aria-label="BIA — início">
+      <span class="brand__mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" width="28" height="28"><circle cx="8" cy="9" r="3"/><circle cx="24" cy="7" r="2.4"/><circle cx="25" cy="22" r="3"/><circle cx="9" cy="24" r="2.6"/><circle cx="16" cy="16" r="2.2"/><path d="M8 9 16 16M24 7 16 16M25 22 16 16M9 24 16 16M8 9 24 7M25 22 9 24"/></svg>
+      </span>
+      <span class="brand__text">BIA</span>
+    </a>
+
+    <nav class="nav__links" aria-label="Navegação principal">
+      <a href="#diferenciais" data-i18n="nav.about"></a>
+      <a href="#eixos" data-i18n="nav.axes"></a>
+      <a href="#matriz" data-i18n="nav.matrix"></a>
+      <a href="#rp" data-i18n="nav.rp"></a>
+      <a href="#carreira" data-i18n="nav.careers"></a>
+      <a href="#realizacao" data-i18n="nav.team"></a>
+    </nav>
+
+    <div class="nav__right">
+      <div class="langswitch" role="group" aria-label="Idioma / Language">
+        <button data-lang="pt" class="is-active">PT</button>
+        <button data-lang="es">ES</button>
+        <button data-lang="en">EN</button>
+      </div>
+      <a class="btn btn--solid nav__cta" href="#ingresso" data-i18n="nav.cta"></a>
+      <button class="nav__burger" id="burger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ===================== HERO ===================== -->
+    <section class="hero" id="hero">
+      <div class="hero__inner">
+        <p class="hero__badge reveal" data-i18n="hero.badge"></p>
+        <h1 class="hero__title">
+          <span class="reveal" data-i18n="hero.title1"></span>
+          <span class="hero__glitch reveal" data-i18n="hero.title2"></span>
+          <span class="reveal" data-i18n="hero.title3"></span>
+        </h1>
+        <p class="hero__subtitle reveal" data-i18n-html="hero.subtitle"></p>
+        <div class="hero__actions reveal">
+          <a class="btn btn--solid" href="#matriz" data-i18n="hero.cta1"></a>
+          <a class="btn btn--ghost" href="#diferenciais" data-i18n="hero.cta2"></a>
+        </div>
+
+        <dl class="hero__stats">
+          <div class="stat reveal"><dt class="stat__num">8</dt><dd data-i18n="hero.stat1"></dd></div>
+          <div class="stat reveal"><dt class="stat__num">3.210</dt><dd data-i18n="hero.stat2"></dd></div>
+          <div class="stat reveal"><dt class="stat__num">6</dt><dd data-i18n="hero.stat3"></dd></div>
+          <div class="stat reveal"><dt class="stat__num" data-i18n="hero.stat4v"></dt><dd data-i18n="hero.stat4"></dd></div>
+        </dl>
+      </div>
+      <a href="#diferenciais" class="hero__scroll" aria-hidden="true"><span data-i18n="hero.scroll"></span><i></i></a>
+    </section>
+
+    <!-- ===================== DIFERENCIAIS ===================== -->
+    <section class="section" id="diferenciais">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker" data-i18n="diff.kicker"></p>
+          <h2 class="section__title reveal" data-i18n="diff.title"></h2>
+          <p class="section__lead reveal" data-i18n="diff.intro"></p>
+        </header>
+
+        <div class="cards">
+          <article class="card reveal"><span class="card__n">01</span><h3 data-i18n="diff.c1.t"></h3><p data-i18n="diff.c1.d"></p></article>
+          <article class="card reveal card--accent"><span class="card__n">02</span><h3 data-i18n="diff.c2.t"></h3><p data-i18n="diff.c2.d"></p></article>
+          <article class="card reveal"><span class="card__n">03</span><h3 data-i18n="diff.c3.t"></h3><p data-i18n="diff.c3.d"></p></article>
+          <article class="card reveal"><span class="card__n">04</span><h3 data-i18n="diff.c4.t"></h3><p data-i18n="diff.c4.d"></p></article>
+          <article class="card reveal"><span class="card__n">05</span><h3 data-i18n="diff.c5.t"></h3><p data-i18n="diff.c5.d"></p></article>
+          <article class="card reveal"><span class="card__n">06</span><h3 data-i18n="diff.c6.t"></h3><p data-i18n="diff.c6.d"></p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== EIXOS ===================== -->
+    <section class="section section--alt" id="eixos">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker" data-i18n="axes.kicker"></p>
+          <h2 class="section__title reveal" data-i18n="axes.title"></h2>
+          <p class="section__lead reveal" data-i18n="axes.subtitle"></p>
+        </header>
+        <div class="axes" id="axesGrid"><!-- JS --></div>
+      </div>
+    </section>
+
+    <!-- ===================== MATRIZ ===================== -->
+    <section class="section" id="matriz">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker" data-i18n="matrix.kicker"></p>
+          <h2 class="section__title reveal" data-i18n="matrix.title"></h2>
+          <p class="section__lead reveal" data-i18n="matrix.subtitle"></p>
+        </header>
+
+        <div class="legend" id="legend" aria-hidden="false"></div>
+        <div class="matrix" id="matrix" role="list"><!-- JS --></div>
+      </div>
+    </section>
+
+    <!-- ===================== TRILHA RP ===================== -->
+    <section class="section section--rp" id="rp">
+      <div class="wrap rp">
+        <div class="rp__text">
+          <p class="kicker" data-i18n="rp.kicker"></p>
+          <h2 class="section__title reveal" data-i18n="rp.title"></h2>
+          <p class="rp__lead reveal" data-i18n="rp.lead"></p>
+          <p class="rp__body reveal" data-i18n="rp.body"></p>
+        </div>
+        <ol class="rp__cycles" id="rpCycles"><!-- JS --></ol>
+      </div>
+    </section>
+
+    <!-- ===================== ELETIVAS ===================== -->
+    <section class="section section--alt" id="eletivas">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker" data-i18n="elec.kicker"></p>
+          <h2 class="section__title reveal" data-i18n="elec.title"></h2>
+          <p class="section__lead reveal" data-i18n="elec.subtitle"></p>
+        </header>
+        <div class="electives" id="electives"><!-- JS --></div>
+        <p class="electives__more reveal" data-i18n="elec.more"></p>
+      </div>
+    </section>
+
+    <!-- ===================== CARREIRA ===================== -->
+    <section class="section" id="carreira">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker" data-i18n="careers.kicker"></p>
+          <h2 class="section__title reveal" data-i18n="careers.title"></h2>
+          <p class="section__lead reveal" data-i18n="careers.subtitle"></p>
+        </header>
+        <div class="careers">
+          <article class="career reveal"><span class="career__ico">⟁</span><h3 data-i18n="careers.c1.t"></h3><p data-i18n="careers.c1.d"></p></article>
+          <article class="career reveal"><span class="career__ico">◈</span><h3 data-i18n="careers.c2.t"></h3><p data-i18n="careers.c2.d"></p></article>
+          <article class="career reveal"><span class="career__ico">◇</span><h3 data-i18n="careers.c3.t"></h3><p data-i18n="careers.c3.d"></p></article>
+          <article class="career reveal"><span class="career__ico">⬡</span><h3 data-i18n="careers.c4.t"></h3><p data-i18n="careers.c4.d"></p></article>
+          <article class="career reveal"><span class="career__ico">✦</span><h3 data-i18n="careers.c5.t"></h3><p data-i18n="careers.c5.d"></p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== REALIZAÇÃO ===================== -->
+    <section class="section section--team" id="realizacao">
+      <div class="wrap team">
+        <div class="team__text">
+          <p class="kicker" data-i18n="team.kicker"></p>
+          <h2 class="section__title reveal" data-i18n="team.title"></h2>
+          <p class="team__body reveal" data-i18n-html="team.body"></p>
+        </div>
+        <a class="team__labs reveal" href="https://ai-horizon-labs.github.io" target="_blank" rel="noopener">
+          <span class="team__labs-orbit" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="team__labs-name">AI Horizon Labs</span>
+          <span class="team__labs-sub" data-i18n="team.labs"></span>
+          <span class="team__labs-cta" data-i18n="team.visit"></span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ===================== INGRESSO / CTA ===================== -->
+    <section class="section" id="ingresso">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker" data-i18n="cta.kicker"></p>
+          <h2 class="section__title reveal" data-i18n="cta.title"></h2>
+        </header>
+        <div class="info">
+          <div class="info__item reveal"><h3 data-i18n="cta.where.t"></h3><p data-i18n="cta.where.d"></p></div>
+          <div class="info__item reveal"><h3 data-i18n="cta.when.t"></h3><p data-i18n="cta.when.d"></p></div>
+          <div class="info__item reveal"><h3 data-i18n="cta.how.t"></h3><p data-i18n="cta.how.d"></p></div>
+        </div>
+        <div class="cta-actions reveal">
+          <a class="btn btn--solid" href="mailto:bia@unipampa.edu.br" data-i18n="cta.btn.contact"></a>
+          <a class="btn btn--ghost" href="https://www.instagram.com/bia.unipampa/" target="_blank" rel="noopener" data-i18n="cta.btn.insta"></a>
+          <a class="btn btn--ghost" href="https://alegrete-rs.github.io" target="_blank" rel="noopener" data-i18n="cta.btn.city"></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <div class="wrap footer__grid">
+      <div class="footer__brand">
+        <span class="brand__text">BIA</span>
+        <p data-i18n="footer.tagline"></p>
+      </div>
+      <nav class="footer__col" aria-label="Links">
+        <h4 data-i18n="footer.links"></h4>
+        <a href="https://ai-horizon-labs.github.io" target="_blank" rel="noopener" data-i18n="footer.l.labs"></a>
+        <a href="https://alegrete-rs.github.io" target="_blank" rel="noopener" data-i18n="footer.l.city"></a>
+        <a href="https://www.instagram.com/bia.unipampa/" target="_blank" rel="noopener" data-i18n="footer.l.insta"></a>
+        <a href="https://www.unipampa.edu.br" target="_blank" rel="noopener" data-i18n="footer.l.unipampa"></a>
+      </nav>
+      <div class="footer__col">
+        <h4 data-i18n="footer.contact"></h4>
+        <a href="mailto:bia@unipampa.edu.br">bia@unipampa.edu.br</a>
+        <a href="https://www.instagram.com/bia.unipampa/" target="_blank" rel="noopener">@bia.unipampa</a>
+        <span>Campus Alegrete-RS</span>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p data-i18n="footer.rights"></p>
+      <p class="footer__made" data-i18n="footer.made"></p>
+    </div>
+  </footer>
+
+  <!-- ===================== MODAL ===================== -->
+  <div class="modal" id="modal" hidden>
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal__close" data-close aria-label="">✕</button>
+      <span class="modal__axis" id="modalAxis"></span>
+      <h3 class="modal__title" id="modalTitle"></h3>
+      <p class="modal__desc" id="modalDesc"></p>
+      <div class="modal__meta" id="modalMeta"></div>
+    </div>
+  </div>
+
+  <script src="assets/js/curriculum.js"></script>
+  <script src="assets/js/i18n.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

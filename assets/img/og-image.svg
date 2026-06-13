@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#06070d"/>
+      <stop offset="1" stop-color="#0a0c16"/>
+    </linearGradient>
+    <linearGradient id="txt" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset="0.55" stop-color="#d946ef"/>
+      <stop offset="1" stop-color="#ff7ad9"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.15" cy="0.1" r="0.8">
+      <stop offset="0" stop-color="#22d3ee" stop-opacity="0.25"/>
+      <stop offset="1" stop-color="#22d3ee" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <g stroke="#2a3a6a" stroke-width="1.2" opacity="0.5">
+    <line x1="980" y1="90" x2="1080" y2="170"/><line x1="1080" y1="170" x2="1010" y2="270"/>
+    <line x1="1010" y1="270" x2="1110" y2="330"/><line x1="980" y1="90" x2="1110" y2="160"/>
+  </g>
+  <g fill="#22d3ee">
+    <circle cx="980" cy="90" r="7"/><circle cx="1080" cy="170" r="5"/>
+    <circle cx="1010" cy="270" r="6"/><circle cx="1110" cy="330" r="5"/>
+  </g>
+  <text x="90" y="250" font-family="Arial, sans-serif" font-size="34" letter-spacing="6" fill="#aab2d5">BACHARELADO EM INTELIGÊNCIA ARTIFICIAL</text>
+  <text x="86" y="380" font-family="Georgia, serif" font-weight="bold" font-size="120" fill="#eef1ff">BIA</text>
+  <text x="90" y="470" font-family="Arial, sans-serif" font-weight="bold" font-size="52" fill="url(#txt)">O curso de IA mais disruptivo do Brasil</text>
+  <text x="90" y="545" font-family="Arial, sans-serif" font-size="30" fill="#6f779c">UNIPAMPA · Campus Alegrete-RS · AI Horizon Labs</text>
+</svg>

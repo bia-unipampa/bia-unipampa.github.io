@@ -332,6 +332,51 @@ main, .nav, .footer { position: relative; z-index: 2; }
 .career h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.2rem; margin: 14px 0 8px; }
 .career p { color: var(--ink-soft); font-size: 0.95rem; }
 
+/* ===================== PARCEIROS ===================== */
+.partners-strong { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+.pstrong {
+  position: relative; display: flex; flex-direction: column; align-items: flex-start;
+  padding: 32px 30px 30px; border-radius: var(--radius-lg); overflow: hidden;
+  background: linear-gradient(165deg, rgba(34,211,238,0.10), rgba(217,70,239,0.06) 60%, rgba(255,255,255,0.012));
+  border: 1px solid rgba(34,211,238,0.32);
+  transition: transform 0.5s var(--ease), border-color 0.4s, box-shadow 0.5s;
+}
+.pstrong::before { content: ""; position: absolute; inset: 0; background: radial-gradient(120% 90% at 100% 0%, rgba(217,70,239,0.14), transparent 55%); opacity: 0; transition: opacity 0.5s; }
+.pstrong:hover { transform: translateY(-6px); border-color: var(--cyan); box-shadow: 0 30px 70px -30px var(--glow-cyan); }
+.pstrong:hover::before { opacity: 1; }
+.pstrong__badge {
+  position: relative; font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--cyan); background: rgba(34,211,238,0.12); border: 1px solid rgba(34,211,238,0.3);
+  padding: 6px 12px; border-radius: 100px;
+}
+.pstrong__name { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.5rem, 3vw, 2rem); letter-spacing: -0.01em; margin: 18px 0 4px; line-height: 1.05; }
+.pstrong__full { font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-dim); letter-spacing: 0.03em; }
+.pstrong__note { color: var(--ink-soft); font-size: 1rem; margin-top: 14px; }
+.pstrong__cta { margin-top: 18px; font-family: var(--font-mono); font-size: 0.82rem; color: var(--cyan); letter-spacing: 0.04em; }
+.pstrong__cta::after { content: " →"; }
+
+.partners-support { margin-top: clamp(40px, 6vw, 64px); }
+.partners-support__head { margin-bottom: 24px; }
+.partners-support__head h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.4rem; letter-spacing: -0.01em; }
+.partners-support__head p { color: var(--ink-dim); font-family: var(--font-mono); font-size: 0.82rem; letter-spacing: 0.03em; margin-top: 8px; }
+.partners-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); gap: 12px; }
+.psupp {
+  display: flex; align-items: center; gap: 13px;
+  padding: 16px 16px; border-radius: var(--radius);
+  background: rgba(255,255,255,0.025); border: 1px solid var(--line);
+  transition: transform 0.4s var(--ease), border-color 0.4s, background 0.4s, box-shadow 0.4s;
+}
+.psupp:hover { transform: translateY(-4px); border-color: var(--line-strong); background: rgba(255,255,255,0.05); box-shadow: 0 20px 44px -26px rgba(0,0,0,0.8); }
+.psupp__mark {
+  flex: none; width: 42px; height: 42px; border-radius: 12px;
+  display: grid; place-items: center;
+  font-family: var(--font-display); font-weight: 800; font-size: 0.95rem; letter-spacing: 0.01em;
+  color: #04060b; background: linear-gradient(150deg, var(--cyan), #7af0ff 45%, var(--magenta));
+  box-shadow: 0 0 22px -8px var(--glow-cyan);
+}
+.psupp__name { font-size: 0.92rem; font-weight: 600; color: var(--ink-soft); line-height: 1.22; }
+.psupp:hover .psupp__name { color: var(--ink); }
+
 /* ===================== REALIZAÇÃO / TEAM ===================== */
 .section--team { background: linear-gradient(180deg, transparent, rgba(34,211,238,0.05), transparent); }
 .team { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(36px, 6vw, 80px); align-items: center; }
@@ -404,7 +449,7 @@ main, .nav, .footer { position: relative; z-index: 2; }
 /* ===================== RESPONSIVE ===================== */
 @media (max-width: 980px) {
   .cards, .axes, .careers, .info, .shift__points { grid-template-columns: repeat(2, 1fr); }
-  .rp, .team, .shift { grid-template-columns: 1fr; }
+  .rp, .team, .shift, .partners-strong { grid-template-columns: 1fr; }
   .hero__stats { grid-template-columns: repeat(2, 1fr); gap: 28px 20px; }
   .footer__grid { grid-template-columns: 1fr 1fr; }
 }

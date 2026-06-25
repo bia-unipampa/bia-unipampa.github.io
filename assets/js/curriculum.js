@@ -217,4 +217,70 @@ const ELECTIVES = [
   { feature: false, name: { pt: "Segurança no Trabalho e Gestão Ambiental", es: "Seguridad Laboral y Gestión Ambiental", en: "Workplace Safety & Environmental Management" } }
 ];
 
-window.BIA_DATA = { AXES, SEMESTERS, ELECTIVES };
+/* =========================================================================
+   Parceiros do BIA
+   - strong: parceiros estratégicos com contrapartida firmada (destaque)
+   - supporters: instituições signatárias de cartas/moções de apoio
+   Fonte: cartas e moções de apoio reunidas em apoio/ (não publicadas).
+   ========================================================================= */
+const PARTNERS = {
+  strong: [
+    {
+      name: "PampaTec",
+      url: "https://bia-unipampa.github.io",
+      full: {
+        pt: "Parque Científico e Tecnológico do Pampa",
+        es: "Parque Científico y Tecnológico del Pampa",
+        en: "Pampa Science & Technology Park"
+      },
+      note: {
+        pt: "Ecossistema de inovação vizinho ao campus. Parceiro estratégico com compromisso de contrapartida firmado ao curso.",
+        es: "Ecosistema de innovación vecino al campus. Socio estratégico con compromiso de contrapartida firmado con el curso.",
+        en: "An innovation ecosystem next to the campus. A strategic partner with a committed contribution to the program."
+      }
+    },
+    {
+      name: "Prefeitura Municipal de Alegrete",
+      url: "https://www.alegrete.rs.gov.br",
+      full: {
+        pt: "Prefeitura Municipal de Alegrete",
+        es: "Municipalidad de Alegrete",
+        en: "Municipality of Alegrete"
+      },
+      note: {
+        pt: "Parceira estratégica do curso, com apoio e contrapartida firmados para viabilizar o BIA no município.",
+        es: "Socia estratégica del curso, con apoyo y contrapartida firmados para viabilizar el BIA en el municipio.",
+        en: "A strategic partner, with committed support and contribution to bring BIA to the city."
+      }
+    }
+  ],
+  supporters: [
+    { mark: "CV", name: "Câmara de Vereadores de Alegrete", full: "Câmara Municipal de Vereadores de Alegrete" },
+    { mark: "CO", name: "COREDE Fronteira Oeste", full: "Conselho Regional de Desenvolvimento da Fronteira Oeste" },
+    { mark: "AM", name: "AMFRO", full: "Associação dos Municípios da Fronteira Oeste" },
+    { mark: "UL", name: "ULFRO", full: "União dos Legislativos da Fronteira Oeste" },
+    { mark: "SB", name: "SEBRAE", full: "Serviço Brasileiro de Apoio às Micro e Pequenas Empresas" },
+    { mark: "CE", name: "Centro Empresarial de Alegrete", full: "Centro Empresarial de Alegrete (CEA)" },
+    { mark: "SL", name: "Sindilojas Alegrete", full: "Sindicato do Comércio Varejista de Alegrete" },
+    { mark: "SI", name: "Sicredi", full: "Sicredi Essência" },
+    { mark: "PN", name: "Grupo Pilecco Nobre", full: "Grupo Pilecco Nobre Alimentos" },
+    { mark: "FM", name: "Fundação Maronna", full: "Fundação Maronna" },
+    { mark: "KB", name: "Kabongo", full: "Kabongo Grupo" },
+    { mark: "DP", name: "DevPampa", full: "DevPampa" },
+    { mark: "AG", name: "Agrare", full: "Agrare Desenvolvimento de Sistemas" },
+    { mark: "DW", name: "Dwtec", full: "Dwtec Consultoria" },
+    { mark: "EG", name: "EGD Energia", full: "EGD Tecnologia em Energia" },
+    { mark: "DL", name: "EIXO Data Lab", full: "EIXO Data Lab Tecnologia e Consultoria" },
+    { mark: "CC", name: "Controll Customs", full: "Controll Customs Systems Consulting" },
+    { mark: "LS", name: "Lite SaaS", full: "Lite SaaS Soluções Tecnológicas" },
+    { mark: "VE", name: "Venda ERP", full: "Venda ERP" },
+    { mark: "AQ", name: "Agendei Quadras", full: "Agendei Quadras" },
+    { mark: "FF", name: "Fontoura e Fontoura", full: "Fontoura e Fontoura" },
+    { mark: "SG", name: "SEAC Gestão", full: "Saúde Empresarial, Assessoria e Consultoria em Gestão" },
+    { mark: "SE", name: "Sendas Equipamentos", full: "Sendas Equipamentos" },
+    { mark: "RT", name: "Rádio Tchê Alegrete", full: "Rádio Tchê Alegrete" },
+    { mark: "VV", name: "Vanessa M. P. Vargas", full: "Vanessa Machado Poltozi Vargas" }
+  ]
+};
+
+window.BIA_DATA = { AXES, SEMESTERS, ELECTIVES, PARTNERS };

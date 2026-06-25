@@ -5,7 +5,7 @@
 (function () {
   "use strict";
 
-  const { AXES, SEMESTERS, ELECTIVES } = window.BIA_DATA;
+  const { AXES, SEMESTERS, ELECTIVES, PARTNERS } = window.BIA_DATA;
   const I18N = window.BIA_I18N;
   const AXIS_ORDER = ["pi", "fm", "ia", "fc", "cp", "cg"];
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -42,6 +42,7 @@
     renderMatrix();
     renderElectives();
     renderCycles();
+    renderPartners();
   }
 
   /* ---------------- render: axes ---------------- */
@@ -143,6 +144,72 @@
       root.appendChild(li);
     }
     observeReveals(root);
+  }
+
+  /* ---------------- render: partners ---------------- */
+  function renderPartners() {
+    const strong = document.getElementById("partnersStrong");
+    if (strong) {
+      strong.innerHTML = "";
+      PARTNERS.strong.forEach((p) => {
+        const card = document.createElement(p.url ? "a" : "article");
+        card.className = "pstrong reveal";
+        if (p.url) {
+          card.href = p.url;
+          card.target = "_blank";
+          card.rel = "noopener";
+        }
+        const badge = document.createElement("span");
+        badge.className = "pstrong__badge";
+        badge.textContent = t("partners.strong.badge");
+
+        const name = document.createElement("h3");
+        name.className = "pstrong__name";
+        name.textContent = p.name;
+
+        const full = document.createElement("span");
+        full.className = "pstrong__full";
+        full.textContent = p.full[lang];
+
+        const note = document.createElement("p");
+        note.className = "pstrong__note";
+        note.textContent = p.note[lang];
+
+        card.append(badge, name, full, note);
+
+        if (p.url) {
+          const cta = document.createElement("span");
+          cta.className = "pstrong__cta";
+          cta.textContent = t("partners.visit");
+          card.appendChild(cta);
+        }
+        strong.appendChild(card);
+      });
+      observeReveals(strong);
+    }
+
+    const grid = document.getElementById("partnersGrid");
+    if (grid) {
+      grid.innerHTML = "";
+      PARTNERS.supporters.forEach((s) => {
+        const tile = document.createElement("article");
+        tile.className = "psupp reveal";
+        tile.title = s.full;
+
+        const mark = document.createElement("span");
+        mark.className = "psupp__mark";
+        mark.setAttribute("aria-hidden", "true");
+        mark.textContent = s.mark;
+
+        const nm = document.createElement("span");
+        nm.className = "psupp__name";
+        nm.textContent = s.name;
+
+        tile.append(mark, nm);
+        grid.appendChild(tile);
+      });
+      observeReveals(grid);
+    }
   }
 
   /* ---------------- modal ---------------- */
@@ -329,6 +396,7 @@
   renderMatrix();
   renderElectives();
   renderCycles();
+  renderPartners();
   document.querySelectorAll(".langswitch button").forEach((b) =>
     b.classList.toggle("is-active", b.dataset.lang === lang)
   );

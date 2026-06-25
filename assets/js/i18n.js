@@ -12,6 +12,7 @@ const I18N = {
     "nav.matrix": "Matriz",
     "nav.rp": "Trilha RP",
     "nav.careers": "Carreira",
+    "nav.partners": "Parceiros",
     "nav.team": "Realização",
     "nav.cta": "Quero estudar",
 
@@ -97,6 +98,14 @@ const I18N = {
     "careers.c5.t": "Empreendedor & cofundador",
     "careers.c5.d": "Criação de produtos, plataformas e serviços inteligentes com foco em soluções escaláveis e de impacto social ou econômico.",
 
+    "partners.kicker": "Quem apoia o BIA",
+    "partners.title": "Parceiros do BIA",
+    "partners.subtitle": "Uma rede crescente de instituições públicas, entidades e empresas da Fronteira Oeste já apoia formalmente a criação do curso, por meio de cartas de apoio e compromissos de contrapartida.",
+    "partners.strong.badge": "Parceiro estratégico · com contrapartida",
+    "partners.visit": "Visitar site",
+    "partners.support.title": "Instituições apoiadoras",
+    "partners.support.note": "Signatárias de cartas e moções de apoio à criação do curso.",
+
     "team.kicker": "Quem realiza",
     "team.title": "Construído para construir.",
     "team.body": "O BIA é coordenado e impulsionado pelo <a href=\"https://ai-horizon-labs.github.io\" target=\"_blank\" rel=\"noopener\">AI Horizon Labs</a>, que lidera a criação e a operacionalização do curso. A equipe docente — jovem, dinâmica e orientada à inovação real — já foi aprovada em concurso público e está pronta para protagonizar, desde o primeiro dia, a formação da próxima geração de profissionais de IA do país.",
@@ -142,6 +151,7 @@ const I18N = {
     "nav.matrix": "Malla",
     "nav.rp": "Trayecto RP",
     "nav.careers": "Carrera",
+    "nav.partners": "Aliados",
     "nav.team": "Realización",
     "nav.cta": "Quiero estudiar",
 
@@ -227,6 +237,14 @@ const I18N = {
     "careers.c5.t": "Emprendedor y cofundador",
     "careers.c5.d": "Creación de productos, plataformas y servicios inteligentes con foco en soluciones escalables y de impacto social o económico.",
 
+    "partners.kicker": "Quién apoya el BIA",
+    "partners.title": "Aliados del BIA",
+    "partners.subtitle": "Una red creciente de instituciones públicas, entidades y empresas de la Frontera Oeste ya apoya formalmente la creación del curso, mediante cartas de apoyo y compromisos de contrapartida.",
+    "partners.strong.badge": "Socio estratégico · con contrapartida",
+    "partners.visit": "Visitar sitio",
+    "partners.support.title": "Instituciones que apoyan",
+    "partners.support.note": "Firmantes de cartas y mociones de apoyo a la creación del curso.",
+
     "team.kicker": "Quién lo realiza",
     "team.title": "Construido para construir.",
     "team.body": "El BIA es coordinado e impulsado por el <a href=\"https://ai-horizon-labs.github.io\" target=\"_blank\" rel=\"noopener\">AI Horizon Labs</a>, que lidera la creación y la operacionalización del curso. El equipo docente — joven, dinámico y orientado a la innovación real — ya fue aprobado en concurso público y está listo para protagonizar, desde el primer día, la formación de la próxima generación de profesionales de IA del país.",
@@ -272,6 +290,7 @@ const I18N = {
     "nav.matrix": "Curriculum",
     "nav.rp": "PBL Track",
     "nav.careers": "Careers",
+    "nav.partners": "Partners",
     "nav.team": "Behind it",
     "nav.cta": "Apply",
 
@@ -356,6 +375,14 @@ const I18N = {
     "careers.c4.d": "In labs, universities and companies developing emerging technologies in AI, data, robotics and autonomous systems.",
     "careers.c5.t": "Entrepreneur & co-founder",
     "careers.c5.d": "Building intelligent products, platforms and services focused on scalable, socially and economically impactful solutions.",
+
+    "partners.kicker": "Who backs BIA",
+    "partners.title": "BIA Partners",
+    "partners.subtitle": "A growing network of public institutions, organizations and companies across the Western Frontier region already formally backs the program, through letters of support and committed contributions.",
+    "partners.strong.badge": "Strategic partner · with commitment",
+    "partners.visit": "Visit site",
+    "partners.support.title": "Supporting institutions",
+    "partners.support.note": "Signatories of letters and motions supporting the creation of the program.",
 
     "team.kicker": "Behind the course",
     "team.title": "Built to build.",

@@ -6,6 +6,7 @@
 const I18N = {
   pt: {
     "lang.name": "PT",
+    "nav.shift": "Manifesto",
     "nav.about": "Diferenciais",
     "nav.axes": "Eixos",
     "nav.matrix": "Matriz",
@@ -27,6 +28,18 @@ const I18N = {
     "hero.stat4": "currículo do zero",
     "hero.stat4v": "clean slate",
     "hero.scroll": "role para descobrir",
+
+    "shift.kicker": "Manifesto · O mercado já mudou",
+    "shift.title": "A educação precisa de uma <em>transformação radical</em>.",
+    "shift.lead": "Na computação, o jogo virou. O mercado já contrata, essencialmente, engenheiros sênior: profissionais capazes de conduzir problemas inteiros, do entendimento à entrega, com autonomia e visão de sistema.",
+    "shift.question": "Como formar engenheiros sênior dentro da universidade?",
+    "shift.answer": "A resposta do BIA é direta: <strong>elevar o nível dos problemas</strong>. No lugar de exercícios isolados e descartáveis a cada semestre, os estudantes enfrentam problemas maiores e mais complexos, que atravessam vários semestres e exigem maturidade técnica, trabalho em equipe e responsabilidade real.",
+    "shift.p1.t": "Problemas que transcendem o semestre",
+    "shift.p1.d": "Projetos complexos e contínuos, que evoluem ao longo de anos, no lugar de tarefas curtas que terminam na prova.",
+    "shift.p2.t": "Nível de formação elevado",
+    "shift.p2.d": "Ao resolver problemas de maior porte, o estudante desenvolve, desde cedo, a autonomia e a visão de sistema esperadas de um profissional sênior.",
+    "shift.p3.t": "Prontos para o mercado real",
+    "shift.p3.d": "Egressos saem muito mais preparados, porque já viveram a dinâmica de projetos complexos que o mercado de IA exige hoje.",
 
     "diff.kicker": "Por que o BIA é diferente",
     "diff.title": "Não é mais um curso de IA. É uma ruptura.",
@@ -123,6 +136,7 @@ const I18N = {
 
   es: {
     "lang.name": "ES",
+    "nav.shift": "Manifiesto",
     "nav.about": "Diferenciales",
     "nav.axes": "Ejes",
     "nav.matrix": "Malla",
@@ -144,6 +158,18 @@ const I18N = {
     "hero.stat4": "currículo desde cero",
     "hero.stat4v": "clean slate",
     "hero.scroll": "desplázate para descubrir",
+
+    "shift.kicker": "Manifiesto · El mercado ya cambió",
+    "shift.title": "La educación necesita una <em>transformación radical</em>.",
+    "shift.lead": "En computación, el juego cambió. El mercado ya contrata, esencialmente, ingenieros senior: profesionales capaces de conducir problemas completos, del entendimiento a la entrega, con autonomía y visión de sistema.",
+    "shift.question": "¿Cómo formar ingenieros senior dentro de la universidad?",
+    "shift.answer": "La respuesta del BIA es directa: <strong>elevar el nivel de los problemas</strong>. En lugar de ejercicios aislados y desechables cada semestre, los estudiantes enfrentan problemas más grandes y complejos, que atraviesan varios semestres y exigen madurez técnica, trabajo en equipo y responsabilidad real.",
+    "shift.p1.t": "Problemas que trascienden el semestre",
+    "shift.p1.d": "Proyectos complejos y continuos, que evolucionan a lo largo de años, en lugar de tareas cortas que terminan en el examen.",
+    "shift.p2.t": "Nivel de formación elevado",
+    "shift.p2.d": "Al resolver problemas de mayor envergadura, el estudiante desarrolla, desde temprano, la autonomía y la visión de sistema propias de un profesional senior.",
+    "shift.p3.t": "Listos para el mercado real",
+    "shift.p3.d": "Los egresados salen mucho más preparados, porque ya vivieron la dinámica de proyectos complejos que el mercado de IA exige hoy.",
 
     "diff.kicker": "Por qué el BIA es diferente",
     "diff.title": "No es otro curso de IA. Es una ruptura.",
@@ -240,6 +266,7 @@ const I18N = {
 
   en: {
     "lang.name": "EN",
+    "nav.shift": "Manifesto",
     "nav.about": "Why BIA",
     "nav.axes": "Axes",
     "nav.matrix": "Curriculum",
@@ -261,6 +288,18 @@ const I18N = {
     "hero.stat4": "built from scratch",
     "hero.stat4v": "clean slate",
     "hero.scroll": "scroll to explore",
+
+    "shift.kicker": "Manifesto · The market already shifted",
+    "shift.title": "Education needs a <em>radical transformation</em>.",
+    "shift.lead": "In computing, the game has changed. The market now hires, essentially, senior engineers: professionals who can own entire problems, from understanding to delivery, with autonomy and systems thinking.",
+    "shift.question": "How do you train senior engineers inside a university?",
+    "shift.answer": "BIA's answer is direct: <strong>raise the level of the problems</strong>. Instead of isolated, disposable exercises every semester, students take on bigger, more complex problems that span several semesters and demand technical maturity, teamwork and real responsibility.",
+    "shift.p1.t": "Problems that outlast the semester",
+    "shift.p1.d": "Complex, continuous projects that evolve over years, instead of short tasks that end at the exam.",
+    "shift.p2.t": "A higher bar for learning",
+    "shift.p2.d": "By tackling larger problems, students build the autonomy and systems thinking expected of a senior professional from early on.",
+    "shift.p3.t": "Ready for the real market",
+    "shift.p3.d": "Graduates leave far better prepared, because they have already lived the dynamics of complex projects that today's AI market demands.",
 
     "diff.kicker": "Why BIA is different",
     "diff.title": "Not another AI course. A break from the mold.",

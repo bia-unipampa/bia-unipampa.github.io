@@ -110,7 +110,15 @@ const I18N = {
     "footer.l.unipampa": "UNIPAMPA",
     "footer.contact": "Contato",
     "footer.rights": "© 2026 AI Horizon Labs · UNIPAMPA. Todos os direitos reservados.",
-    "footer.made": "Coordenado pelo AI Horizon Labs"
+    "footer.made": "Coordenado pelo AI Horizon Labs",
+
+    "stats.badge": "Painel interno · acesso ao site",
+    "stats.title": "Estatísticas de acesso",
+    "stats.subtitle": "Métricas de visitação de todas as páginas do site, incluindo a origem geográfica dos acessos. Dados via Umami (sem cookies).",
+    "stats.back": "Voltar ao site",
+    "stats.note": "O painel abaixo é atualizado automaticamente. Para ver o mapa de localização e as métricas detalhadas, role dentro do quadro.",
+    "stats.setup.title": "Painel ainda não configurado",
+    "stats.setup.body": "No Umami, abra as configurações do site e ative a URL de compartilhamento (share URL). Copie o link público e cole na constante <code>UMAMI_SHARE_URL</code> em <code>stats.html</code>."
   },
 
   es: {
@@ -219,7 +227,15 @@ const I18N = {
     "footer.l.unipampa": "UNIPAMPA",
     "footer.contact": "Contacto",
     "footer.rights": "© 2026 AI Horizon Labs · UNIPAMPA. Todos los derechos reservados.",
-    "footer.made": "Coordinado por AI Horizon Labs"
+    "footer.made": "Coordinado por AI Horizon Labs",
+
+    "stats.badge": "Panel interno · acceso al sitio",
+    "stats.title": "Estadísticas de acceso",
+    "stats.subtitle": "Métricas de visitas de todas las páginas del sitio, incluyendo el origen geográfico de los accesos. Datos vía Umami (sin cookies).",
+    "stats.back": "Volver al sitio",
+    "stats.note": "El panel de abajo se actualiza automáticamente. Para ver el mapa de ubicación y las métricas detalladas, desplázate dentro del cuadro.",
+    "stats.setup.title": "Panel aún no configurado",
+    "stats.setup.body": "En Umami, abre la configuración del sitio y activa la URL de uso compartido (share URL). Copia el enlace público y pégalo en la constante <code>UMAMI_SHARE_URL</code> en <code>stats.html</code>."
   },
 
   en: {
@@ -328,7 +344,15 @@ const I18N = {
     "footer.l.unipampa": "UNIPAMPA",
     "footer.contact": "Contact",
     "footer.rights": "© 2026 AI Horizon Labs · UNIPAMPA. All rights reserved.",
-    "footer.made": "Coordinated by AI Horizon Labs"
+    "footer.made": "Coordinated by AI Horizon Labs",
+
+    "stats.badge": "Internal dashboard · site traffic",
+    "stats.title": "Traffic statistics",
+    "stats.subtitle": "Visit metrics for every page of the site, including the geographic origin of visitors. Data via Umami (cookieless).",
+    "stats.back": "Back to the site",
+    "stats.note": "The dashboard below updates automatically. To see the location map and detailed metrics, scroll inside the frame.",
+    "stats.setup.title": "Dashboard not configured yet",
+    "stats.setup.body": "In Umami, open the website settings and enable the share URL. Copy the public link and paste it into the <code>UMAMI_SHARE_URL</code> constant in <code>stats.html</code>."
   }
 };
 

@@ -226,6 +226,21 @@ const ELECTIVES = [
 const PARTNERS = {
   strong: [
     {
+      name: "AI Horizon Labs",
+      url: "https://ai-horizon-labs.github.io",
+      tagKey: "partners.strong.enabler",
+      full: {
+        pt: "Laboratório que concebe e viabiliza o BIA",
+        es: "Laboratorio que concibe y viabiliza el BIA",
+        en: "The lab that conceives and enables BIA"
+      },
+      note: {
+        pt: "Idealizador e principal viabilizador do curso: coordena a criação, a operacionalização e a articulação de toda a rede de parceiros do BIA.",
+        es: "Ideador y principal viabilizador del curso: coordina la creación, la operación y la articulación de toda la red de aliados del BIA.",
+        en: "Originator and chief enabler of the program: it coordinates the creation, rollout and the entire BIA partner network."
+      }
+    },
+    {
       name: "PampaTec",
       url: "https://bia-unipampa.github.io",
       full: {
@@ -283,4 +298,85 @@ const PARTNERS = {
   ]
 };
 
-window.BIA_DATA = { AXES, SEMESTERS, ELECTIVES, PARTNERS };
+/* =========================================================================
+   Projetos de Extensão parceiros (Campus Alegrete · UNIPAMPA)
+   Fonte: cadastros institucionais reunidos em projetos/ (não publicados).
+   ========================================================================= */
+const PROJECTS = [
+  {
+    code: "2025.EX.AL.5038",
+    icon: "🎓",
+    status: "active",
+    coord: "Silvio Ereno Quincozes",
+    hours: 1260,
+    title: { pt: "Educador 5.0", es: "Educador 5.0", en: "Educador 5.0" },
+    tagline: {
+      pt: "Capacitação de professores para o uso de Inteligência Artificial na Educação Básica",
+      es: "Capacitación de docentes para el uso de Inteligencia Artificial en la Educación Básica",
+      en: "Training teachers to use Artificial Intelligence in basic education"
+    },
+    desc: {
+      pt: "Forma professores da Educação Básica no uso de IA: oficinas e workshops práticos para criar planos de aula, questões automatizadas e feedback personalizado, levando inovação pedagógica às escolas da região.",
+      es: "Forma a docentes de la Educación Básica en el uso de IA: talleres prácticos para crear planes de clase, preguntas automatizadas y feedback personalizado, llevando innovación pedagógica a las escuelas de la región.",
+      en: "Trains basic-education teachers to use AI: hands-on workshops to build lesson plans, automated questions and personalized feedback, bringing pedagogical innovation to the region's schools."
+    },
+    audience: { pt: "Professores da Educação Básica", es: "Docentes de Educación Básica", en: "Basic-education teachers" }
+  },
+  {
+    code: "2024.EX.AL.3204",
+    icon: "💻",
+    status: "done",
+    coord: "Silvio Ereno Quincozes",
+    hours: 900,
+    title: { pt: "Codefolio", es: "Codefolio", en: "Codefolio" },
+    tagline: {
+      pt: "Portfólios de código e compartilhamento de boas práticas de Engenharia de Software",
+      es: "Portafolios de código y difusión de buenas prácticas de Ingeniería de Software",
+      en: "Code portfolios and sharing of Software Engineering best practices"
+    },
+    desc: {
+      pt: "Estudantes resolvem desafios reais de software, documentam a jornada em tutoriais e mini-cursos em vídeo e montam portfólios digitais que viram vitrine de competências para o mercado.",
+      es: "Los estudiantes resuelven desafíos reales de software, documentan el proceso en tutoriales y minicursos en video y arman portafolios digitales que se vuelven una vitrina de competencias para el mercado.",
+      en: "Students tackle real software challenges, document the journey in video tutorials and mini-courses, and build digital portfolios that showcase their skills to the market."
+    },
+    audience: { pt: "Estudantes de graduação", es: "Estudiantes de grado", en: "Undergraduate students" }
+  }
+];
+
+/* =========================================================================
+   Competências da equipe proponente: prêmios e publicações de destaque.
+   ========================================================================= */
+const ACHIEVEMENTS = [
+  {
+    icon: "🏆",
+    kind: "award",
+    year: "2025",
+    org: "Google · SBSeg 2025",
+    paper: "Exploiting Latent Space Discontinuities for Building Universal LLM Jailbreaks and Data Extraction Attacks",
+    authors: "Kayuã O. Paim (UFRGS), Diego Kreutz (UNIPAMPA), Rodrigo B. Mansilha (UNIPAMPA), Muriel F. Franco (UFCSPA), Weverton L. da C. Cordeiro (UFRGS)",
+    title: { pt: "Prêmio Google Award", es: "Premio Google Award", en: "Google Award" },
+    desc: {
+      pt: "Trabalho premiado no XXV Simpósio Brasileiro de Cibersegurança (SBSeg’25): ataques universais de jailbreak e extração de dados em modelos de linguagem (LLMs).",
+      es: "Trabajo premiado en el XXV Simposio Brasileño de Ciberseguridad (SBSeg’25): ataques universales de jailbreak y extracción de datos en modelos de lenguaje (LLMs).",
+      en: "Award-winning paper at the 25th Brazilian Symposium on Cybersecurity (SBSeg’25): universal jailbreak and data-extraction attacks on large language models (LLMs)."
+    },
+    meta: { pt: "Foz do Iguaçu · setembro de 2025", es: "Foz do Iguaçu · septiembre de 2025", en: "Foz do Iguaçu · September 2025" }
+  },
+  {
+    icon: "🔬",
+    kind: "paper",
+    year: "2026",
+    org: "Nature · Scientific Data",
+    paper: "MH-1M: A 1.34 Million-Sample Multi-Feature Android Malware Dataset with Rich Metadata",
+    authors: "Hendrio Bragança, Diego Kreutz (UNIPAMPA), Vanderson Rocha, Joner Assolin, Eduardo Feitosa",
+    title: { pt: "Publicação na Scientific Data (Nature)", es: "Publicación en Scientific Data (Nature)", en: "Published in Scientific Data (Nature)" },
+    desc: {
+      pt: "Artigo de dados em acesso aberto que apresenta o MH-1M, um dos maiores datasets de malware Android do mundo: 1,34 milhão de amostras com metadados ricos.",
+      es: "Artículo de datos en acceso abierto que presenta el MH-1M, uno de los mayores datasets de malware Android del mundo: 1,34 millón de muestras con metadatos ricos.",
+      en: "Open-access data descriptor presenting MH-1M, one of the world's largest Android malware datasets: 1.34 million samples with rich metadata."
+    },
+    meta: { pt: "Scientific Data 13, art. 153 (2026) · acesso aberto", es: "Scientific Data 13, art. 153 (2026) · acceso abierto", en: "Scientific Data 13, art. 153 (2026) · open access" }
+  }
+];
+
+window.BIA_DATA = { AXES, SEMESTERS, ELECTIVES, PARTNERS, PROJECTS, ACHIEVEMENTS };

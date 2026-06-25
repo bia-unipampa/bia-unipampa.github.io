@@ -5,7 +5,7 @@
 (function () {
   "use strict";
 
-  const { AXES, SEMESTERS, ELECTIVES, PARTNERS } = window.BIA_DATA;
+  const { AXES, SEMESTERS, ELECTIVES, PARTNERS, PROJECTS, ACHIEVEMENTS } = window.BIA_DATA;
   const I18N = window.BIA_I18N;
   const AXIS_ORDER = ["pi", "fm", "ia", "fc", "cp", "cg"];
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -42,6 +42,8 @@
     renderMatrix();
     renderElectives();
     renderCycles();
+    renderAchievements();
+    renderProjects();
     renderPartners();
   }
 
@@ -146,6 +148,118 @@
     observeReveals(root);
   }
 
+  /* ---------------- render: team achievements ---------------- */
+  function renderAchievements() {
+    const root = document.getElementById("achievements");
+    if (!root) return;
+    root.innerHTML = "";
+    ACHIEVEMENTS.forEach((a) => {
+      const card = document.createElement("article");
+      card.className = "ach reveal ach--" + a.kind;
+
+      const top = document.createElement("div");
+      top.className = "ach__top";
+      const icon = document.createElement("span");
+      icon.className = "ach__icon";
+      icon.setAttribute("aria-hidden", "true");
+      icon.textContent = a.icon;
+      const kind = document.createElement("span");
+      kind.className = "ach__kind";
+      kind.textContent = t("ach.kind." + a.kind) + " · " + a.year;
+      top.append(icon, kind);
+
+      const org = document.createElement("span");
+      org.className = "ach__org";
+      org.textContent = a.org;
+
+      const title = document.createElement("h3");
+      title.className = "ach__title";
+      title.textContent = a.title[lang];
+
+      const paper = document.createElement("p");
+      paper.className = "ach__paper";
+      paper.textContent = "“" + a.paper + "”";
+
+      const desc = document.createElement("p");
+      desc.className = "ach__desc";
+      desc.textContent = a.desc[lang];
+
+      const authors = document.createElement("p");
+      authors.className = "ach__authors";
+      const al = document.createElement("span");
+      al.className = "ach__authors-label";
+      al.textContent = t("ach.authors") + ": ";
+      authors.append(al, document.createTextNode(a.authors));
+
+      const meta = document.createElement("span");
+      meta.className = "ach__meta";
+      meta.textContent = a.meta[lang];
+
+      card.append(top, org, title, paper, desc, authors, meta);
+      root.appendChild(card);
+    });
+    observeReveals(root);
+  }
+
+  /* ---------------- render: extension projects ---------------- */
+  function renderProjects() {
+    const root = document.getElementById("xprojects");
+    if (!root) return;
+    root.innerHTML = "";
+    PROJECTS.forEach((p) => {
+      const card = document.createElement("article");
+      card.className = "xproj reveal";
+
+      const top = document.createElement("div");
+      top.className = "xproj__top";
+      const icon = document.createElement("span");
+      icon.className = "xproj__icon";
+      icon.setAttribute("aria-hidden", "true");
+      icon.textContent = p.icon;
+      const status = document.createElement("span");
+      status.className = "xproj__status xproj__status--" + p.status;
+      status.textContent = t("ext.status." + p.status);
+      top.append(icon, status);
+
+      const title = document.createElement("h3");
+      title.className = "xproj__title";
+      title.textContent = p.title[lang];
+
+      const tagline = document.createElement("p");
+      tagline.className = "xproj__tagline";
+      tagline.textContent = p.tagline[lang];
+
+      const desc = document.createElement("p");
+      desc.className = "xproj__desc";
+      desc.textContent = p.desc[lang];
+
+      const meta = document.createElement("dl");
+      meta.className = "xproj__meta";
+      const rows = [
+        [t("ext.forms"), p.audience[lang]],
+        [t("ext.coord"), p.coord],
+        [t("ext.load"), p.hours + " h"]
+      ];
+      rows.forEach(([k, v]) => {
+        const row = document.createElement("div");
+        const dt = document.createElement("dt");
+        dt.textContent = k;
+        const dd = document.createElement("dd");
+        dd.textContent = v;
+        row.append(dt, dd);
+        meta.appendChild(row);
+      });
+
+      const code = document.createElement("span");
+      code.className = "xproj__code";
+      code.textContent = p.code;
+
+      card.append(top, title, tagline, desc, meta, code);
+      root.appendChild(card);
+    });
+    observeReveals(root);
+  }
+
   /* ---------------- render: partners ---------------- */
   function renderPartners() {
     const strong = document.getElementById("partnersStrong");
@@ -154,6 +268,7 @@
       PARTNERS.strong.forEach((p) => {
         const card = document.createElement(p.url ? "a" : "article");
         card.className = "pstrong reveal";
+        if (p.tagKey) card.classList.add("pstrong--enabler");
         if (p.url) {
           card.href = p.url;
           card.target = "_blank";
@@ -161,7 +276,7 @@
         }
         const badge = document.createElement("span");
         badge.className = "pstrong__badge";
-        badge.textContent = t("partners.strong.badge");
+        badge.textContent = t(p.tagKey || "partners.strong.badge");
 
         const name = document.createElement("h3");
         name.className = "pstrong__name";
@@ -396,6 +511,8 @@
   renderMatrix();
   renderElectives();
   renderCycles();
+  renderAchievements();
+  renderProjects();
   renderPartners();
   document.querySelectorAll(".langswitch button").forEach((b) =>
     b.classList.toggle("is-active", b.dataset.lang === lang)

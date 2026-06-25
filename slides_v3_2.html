@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BIA · Bacharelado em Inteligência Artificial · UNIPAMPA Campus Alegrete</title>
+<meta name="description" content="O primeiro curso de graduação do Brasil com 100% da matriz dedicada à Inteligência Artificial. UNIPAMPA, Campus Alegrete. Demanda regional, ciência de classe mundial, ROI e agenda nacional de IA.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FFFFFF;
+  --paper-2:#F6F5F1;
+  --ink:#0E1A16;
+  --ink-soft:#5A6B64;
+  --green:#15795A;
+  --green-deep:#0C3D2E;
+  --gold:#BC7F16;
+  --gold-bright:#E8A93A;
+  --line:#E6E4DC;
+  --line-strong:#D5D2C8;
+  --maxw:1160px;
+  --display:'Bricolage Grotesque',system-ui,sans-serif;
+  --body:'Manrope',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);background:var(--paper);color:var(--ink);line-height:1.55;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* ---------- Deck mechanics ---------- */
+.deck{height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory;scroll-behavior:smooth}
+.slide{min-height:100vh;scroll-snap-align:start;scroll-snap-stop:always;position:relative;
+  display:flex;flex-direction:column;justify-content:center;padding:92px 6.5vw 104px;background:var(--paper)}
+.slide--alt{background:var(--paper-2)}
+.slide--ink{background:var(--green-deep);color:#EAF2EC}
+.inner{width:100%;max-width:var(--maxw);margin:0 auto;position:relative}
+
+/* ---------- Logo ---------- */
+.logo{display:inline-flex;align-items:center;gap:14px}
+.logomark{width:auto;color:var(--green)}
+.logomark .apex{fill:var(--gold)}
+.slide--ink .logomark{color:#7FD9B4}
+.slide--ink .logomark .apex{fill:var(--gold-bright)}
+.logo-word{display:flex;flex-direction:column;line-height:1}
+.logo-word .b{font-family:var(--display);font-weight:800;letter-spacing:-.02em}
+.logo-word .t{font-family:var(--mono);text-transform:uppercase;letter-spacing:.16em;color:var(--ink-soft)}
+.slide--ink .logo-word .t{color:#9DB8AC}
+
+/* ---------- Type ---------- */
+.eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--green);display:flex;align-items:center;gap:13px;margin-bottom:30px}
+.eyebrow::before{content:"";width:30px;height:2px;background:var(--gold);display:inline-block}
+.slide--ink .eyebrow{color:#7FD9B4}
+
+h1{font-family:var(--display);font-weight:800;line-height:1;letter-spacing:-.03em;
+  font-size:clamp(2.6rem,6.6vw,5.6rem)}
+h2{font-family:var(--display);font-weight:700;line-height:1.04;letter-spacing:-.025em;
+  font-size:clamp(2rem,4.6vw,3.5rem);margin-bottom:.45em;max-width:20ch}
+h3{font-family:var(--display);font-weight:700;font-size:1.16rem;letter-spacing:-.01em;margin-bottom:.45em}
+p{font-size:clamp(1rem,1.2vw,1.16rem);color:var(--ink-soft);max-width:60ch}
+.slide--ink p{color:#B9CFC4}
+.lead{font-size:clamp(1.12rem,1.6vw,1.45rem);color:var(--ink);max-width:54ch;line-height:1.4}
+.slide--ink .lead{color:#EAF2EC}
+strong{color:var(--ink);font-weight:700}
+.slide--ink strong{color:#fff}
+.mono{font-family:var(--mono)}
+.green{color:var(--green)} .gold{color:var(--gold)}
+.kicker-q{font-family:var(--display);font-weight:600;font-style:normal;color:var(--green);
+  font-size:clamp(1.15rem,1.8vw,1.5rem);max-width:46ch;line-height:1.35}
+
+/* ---------- Layout helpers ---------- */
+.cols{display:grid;gap:24px}
+.cols-2{grid-template-columns:repeat(2,1fr)}
+.cols-3{grid-template-columns:repeat(3,1fr)}
+.cols-4{grid-template-columns:repeat(4,1fr)}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:54px;align-items:center}
+.split-wide{display:grid;grid-template-columns:1.1fr .9fr;gap:54px;align-items:center}
+
+/* ---------- Cards ---------- */
+.card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:26px 24px;
+  transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease}
+.slide--alt .card{background:#fff}
+.card:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(14,26,22,.07);border-color:var(--line-strong)}
+.card .k{font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--green);margin-bottom:13px}
+.card p{font-size:.96rem}
+.slide--ink .card{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.12)}
+.slide--ink .card .k{color:#7FD9B4}
+
+/* ---------- Stat / big numbers ---------- */
+.stat .n{font-family:var(--display);font-weight:800;font-size:clamp(2.2rem,4.4vw,3.4rem);line-height:.95;color:var(--gold);letter-spacing:-.02em;display:block}
+.stat .n.green{color:var(--green)}
+.stat .n.ink{color:var(--ink)}
+.slide--ink .stat .n.ink{color:#fff}
+.stat .lbl{font-size:.92rem;color:var(--ink-soft);margin-top:10px;display:block;max-width:30ch}
+.slide--ink .stat .lbl{color:#B9CFC4}
+.stat .src{font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--line-strong);margin-top:8px;display:block}
+.slide--ink .stat .src{color:#5E7A6E}
+
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;border-top:1px solid var(--line);padding-top:30px;margin-top:6px}
+
+/* ---------- Proposal bars ---------- */
+.matrix{display:flex;flex-direction:column;gap:22px;margin-top:6px}
+.mrow .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.mrow .top .name{font-family:var(--display);font-weight:600;font-size:1.05rem;color:var(--ink)}
+.mrow .top .val{font-family:var(--display);font-weight:800;font-size:1.3rem}
+.mrow.us .val{color:var(--green)} .mrow.them .val{color:var(--ink-soft)}
+.mtrack{height:16px;background:var(--paper-2);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.mfill{height:100%;width:0;border-radius:7px;transition:width 1.2s cubic-bezier(.2,.7,.2,1)}
+.mrow.us .mfill{background:linear-gradient(90deg,var(--green),var(--gold))}
+.mrow.them .mfill{background:var(--line-strong)}
+.is-visible .mrow.us .mfill{width:100%}
+.is-visible .mrow.them .mfill{width:50%}
+
+/* segmented bar (importance) */
+.segbar{display:flex;height:50px;border-radius:10px;overflow:hidden;border:1px solid var(--line);margin:16px 0 12px}
+.segbar .seg{display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.78rem;font-weight:700;min-width:0;transition:flex-grow 1s ease;flex-grow:0}
+.segbar .s5{background:var(--gold);color:#fff}
+.segbar .s4{background:var(--green);color:#fff}
+.segbar .s-low{background:var(--line);color:var(--ink-soft)}
+.is-visible .segbar .s5{flex-grow:863}
+.is-visible .segbar .s4{flex-grow:84}
+.is-visible .segbar .s-low{flex-grow:53}
+.seg-legend{display:flex;gap:20px;flex-wrap:wrap;font-size:.8rem;color:var(--ink-soft);font-family:var(--mono)}
+.seg-legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:7px;vertical-align:middle}
+.lg5::before{background:var(--gold)} .lg4::before{background:var(--green)} .lglow::before{background:var(--line-strong)}
+
+/* ---------- Lists ---------- */
+.ticks{list-style:none;display:flex;flex-direction:column;gap:15px;margin-top:4px}
+.ticks li{display:flex;gap:13px;align-items:flex-start;font-size:1.02rem;color:var(--ink-soft);max-width:52ch}
+.ticks li svg{flex:none;margin-top:3px}
+.slide--ink .ticks li{color:#B9CFC4}
+
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+.chip{font-family:var(--mono);font-size:.8rem;color:var(--ink);background:var(--paper-2);
+  border:1px solid var(--line);border-radius:8px;padding:9px 14px}
+.chip.gold{border-color:var(--gold);color:var(--gold)}
+.slide--ink .chip{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.14);color:#EAF2EC}
+
+/* versus (hospital) */
+.versus{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.vcol{border:1px solid var(--line);border-radius:14px;padding:30px 28px;background:#fff}
+.vcol.exp{border-color:var(--green);box-shadow:0 12px 34px rgba(21,121,90,.1)}
+.vcol .tag{font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:14px}
+.vcol.lin .tag{color:var(--ink-soft)} .vcol.exp .tag{color:var(--green)}
+.vcol h3{font-size:1.5rem;margin-bottom:10px}
+.vcol .meta{font-family:var(--mono);font-size:.78rem;color:var(--gold);margin-top:16px;letter-spacing:.04em}
+
+/* timeline / process */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:10px}
+.step{padding:22px 20px 22px 0;border-top:2px solid var(--line);position:relative}
+.step .no{font-family:var(--mono);font-size:.74rem;color:var(--gold);letter-spacing:.1em}
+.step h3{margin:10px 0 6px;font-size:1.05rem}
+.step p{font-size:.9rem}
+
+/* impact grid */
+.contact{display:grid;grid-template-columns:repeat(2,1fr);gap:8px 40px;margin-top:8px;max-width:640px}
+.contact .person{font-family:var(--mono);font-size:.86rem;color:#9DB8AC;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.12)}
+.contact .person b{color:#fff;font-weight:500}
+
+/* cover */
+.cover{text-align:left}
+.cover .logo{margin-bottom:auto}
+.cover-tag{font-family:var(--mono);font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--green);margin-bottom:26px}
+.cover h1{margin-bottom:24px}
+.cover h1 em{font-style:normal;color:var(--green)}
+.cover .sub{font-size:clamp(1.1rem,1.7vw,1.5rem);color:var(--ink-soft);max-width:48ch;font-family:var(--display);font-weight:500}
+.cover-foot{margin-top:42px;font-family:var(--mono);font-size:.8rem;color:var(--ink-soft);display:flex;flex-wrap:wrap;gap:8px 22px}
+.cover-foot b{color:var(--ink);font-weight:500}
+
+/* ---------- Fixed UI ---------- */
+.progress{position:fixed;top:0;left:0;height:3px;background:var(--green);width:0;z-index:50;transition:width .15s}
+.topbar{position:fixed;top:18px;left:6.5vw;right:6.5vw;z-index:40;display:flex;justify-content:space-between;align-items:center;pointer-events:none}
+.topbar .mini{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
+.topbar .mini b{color:var(--ink);font-weight:700}
+.topbar .pgs{font-family:var(--mono);font-size:.72rem;color:var(--ink-soft)}
+.topbar .pgs b{color:var(--green)}
+.slide-on-ink~.topbar{}
+.dots{position:fixed;right:20px;top:50%;transform:translateY(-50%);z-index:40;display:flex;flex-direction:column;gap:10px}
+.dots button{width:8px;height:8px;border-radius:50%;border:none;padding:0;cursor:pointer;background:var(--line-strong);transition:all .3s}
+.dots button.active{background:var(--green);transform:scale(1.6)}
+.dots button:hover{background:var(--green)}
+.hint{position:fixed;bottom:18px;right:24px;z-index:40;font-family:var(--mono);font-size:.7rem;color:var(--ink-soft);opacity:.65}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease}
+.is-visible .reveal{opacity:1;transform:none}
+.reveal.d1{transition-delay:.07s}.reveal.d2{transition-delay:.14s}.reveal.d3{transition-delay:.21s}
+.reveal.d4{transition-delay:.28s}.reveal.d5{transition-delay:.35s}.reveal.d6{transition-delay:.42s}
+
+@media(max-width:880px){
+  .slide{padding:84px 7vw 92px}
+  .cols-2,.cols-3,.cols-4,.split,.split-wide,.versus,.hero-stats,.contact{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr}
+  .dots,.hint{display:none}
+  h2{max-width:none}
+}
+@media(prefers-reduced-motion:reduce){
+  *{scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none;transition:none}
+  .mfill,.segbar .seg{transition:none}
+  .deck{scroll-snap-type:none}
+}
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+<div class="topbar">
+  <span class="mini">
+    <svg class="logomark" width="22" height="20" viewBox="0 0 48 44" fill="none" aria-hidden="true">
+      <line x1="24" y1="7" x2="7" y2="39" stroke="currentColor" stroke-width="2.2"/>
+      <line x1="24" y1="7" x2="41" y2="39" stroke="currentColor" stroke-width="2.2"/>
+      <line x1="7" y1="39" x2="41" y2="39" stroke="currentColor" stroke-width="2.2"/>
+      <line x1="24" y1="7" x2="24" y2="28" stroke="currentColor" stroke-width="1.4" opacity=".5"/>
+      <line x1="7" y1="39" x2="24" y2="28" stroke="currentColor" stroke-width="1.4" opacity=".5"/>
+      <line x1="41" y1="39" x2="24" y2="28" stroke="currentColor" stroke-width="1.4" opacity=".5"/>
+      <circle class="apex" cx="24" cy="7" r="5"/>
+      <circle cx="7" cy="39" r="4" fill="currentColor"/>
+      <circle cx="41" cy="39" r="4" fill="currentColor"/>
+      <circle cx="24" cy="28" r="3.4" fill="currentColor"/>
+    </svg>
+    <b>BIA</b> · UNIPAMPA
+  </span>
+  <span class="pgs"><b id="cur">01</b> / <span id="tot">19</span></span>
+</div>
+<nav class="dots" id="dots" aria-label="Navegação entre slides"></nav>
+<div class="hint">↑ ↓ ou role</div>
+
+<main class="deck" id="deck">
+
+  <!-- 01 COVER -->
+  <section class="slide cover" data-title="Capa">
+    <div class="inner" style="display:flex;flex-direction:column;height:100%;justify-content:space-between;padding:10px 0">
+      <div class="logo">
+        <svg class="logomark" width="62" height="56" viewBox="0 0 48 44" fill="none" aria-hidden="true">
+          <line x1="24" y1="7" x2="7" y2="39" stroke="currentColor" stroke-width="2.2"/>
+          <line x1="24" y1="7" x2="41" y2="39" stroke="currentColor" stroke-width="2.2"/>
+          <line x1="7" y1="39" x2="41" y2="39" stroke="currentColor" stroke-width="2.2"/>
+          <line x1="24" y1="7" x2="24" y2="28" stroke="currentColor" stroke-width="1.4" opacity=".5"/>
+          <line x1="7" y1="39" x2="24" y2="28" stroke="currentColor" stroke-width="1.4" opacity=".5"/>
+          <line x1="41" y1="39" x2="24" y2="28" stroke="currentColor" stroke-width="1.4" opacity=".5"/>
+          <circle class="apex" cx="24" cy="7" r="5"/>
+          <circle cx="7" cy="39" r="4" fill="currentColor"/>
+          <circle cx="41" cy="39" r="4" fill="currentColor"/>
+          <circle cx="24" cy="28" r="3.4" fill="currentColor"/>
+        </svg>
+        <span class="logo-word"><span class="b" style="font-size:1.9rem">BIA</span><span class="t" style="font-size:.62rem;margin-top:4px">Bacharelado em Inteligência Artificial</span></span>
+      </div>
+      <div>
+        <div class="cover-tag reveal">Universidade Federal do Pampa · Campus Alegrete · Fronteira Oeste / RS</div>
+        <h1 class="reveal d1">O primeiro curso<br>do Brasil <em>100% IA.</em></h1>
+        <p class="sub reveal d2">Uma graduação concebida do zero, integralmente em Inteligência Artificial moderna, do primeiro ao último semestre.</p>
+      </div>
+      <div class="cover-foot reveal d3">
+        <span>Proposta de implantação</span>
+        <span>Protocolo MEC <b>NUP 23000.037497/2025-83</b></span>
+        <span>Pesquisa: <b>AI Horizon Labs</b></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 NOVA ELETRICIDADE -->
+  <section class="slide slide--ink" data-title="Ponto de partida">
+    <div class="inner">
+      <span class="eyebrow reveal">O ponto de partida</span>
+      <h1 class="reveal d1" style="font-size:clamp(2.4rem,6vw,5rem);max-width:16ch">A IA é a nova eletricidade.</h1>
+      <p class="lead reveal d2" style="margin-top:26px">Como a eletricidade no século XX, a Inteligência Artificial vai redefinir todos os setores: o agro, a saúde, a indústria, a segurança e o próprio Estado.</p>
+      <p class="reveal d3" style="margin-top:22px;font-family:var(--display);font-weight:600;font-size:clamp(1.2rem,2.2vw,1.8rem);color:var(--gold-bright);max-width:30ch">A pergunta não é se isso vai acontecer. É quem vai dominar a tecnologia, e quem vai apenas consumi-la.</p>
+    </div>
+  </section>
+
+  <!-- 03 OPORTUNIDADE -->
+  <section class="slide" data-title="A oportunidade">
+    <div class="inner">
+      <span class="eyebrow reveal">O tamanho da oportunidade</span>
+      <h2 class="reveal d1">A corrida já começou. E vale trilhões.</h2>
+      <div class="hero-stats reveal d2">
+        <div class="stat"><span class="n">R$ 2 tri</span><span class="lbl">de potencial de acréscimo à economia brasileira até 2030 com IA.</span><span class="src">Fonte: BID, 2023</span></div>
+        <div class="stat"><span class="n green">800 mil</span><span class="lbl">é o déficit de profissionais de tecnologia no Brasil até 2025.</span><span class="src">Fonte: Brasscom</span></div>
+        <div class="stat"><span class="n ink">R$ 9 a 12 mil</span><span class="lbl">salário inicial de um profissional de IA no país.</span><span class="src">Fonte: demanda reprimida</span></div>
+      </div>
+      <p class="kicker-q reveal d3" style="margin-top:36px">Esse valor vai para alguma região. A questão é: o interior vai assistir ou vai liderar?</p>
+    </div>
+  </section>
+
+  <!-- 04 POR QUE O PAMPA -->
+  <section class="slide slide--alt" data-title="Por que o Pampa">
+    <div class="inner">
+      <span class="eyebrow reveal">Por que Alegrete, por que o Pampa</span>
+      <h2 class="reveal d1">O Brasil que queremos começa pelo interior.</h2>
+      <div class="cols cols-2 reveal d2" style="margin-top:14px">
+        <div class="card"><div class="k">Laboratório natural</div><h3>Agro, logística e energia</h3><p>A Fronteira Oeste é potência produtiva: o cenário ideal para IA aplicada com retorno real e imediato.</p></div>
+        <div class="card"><div class="k">Talento que fica</div><h3>Renda alta no interior</h3><p>Formar IA na região reduz a evasão de jovens qualificados e fixa renda elevada (R$ 9 a 12 mil) localmente.</p></div>
+        <div class="card"><div class="k">Descentralizar o futuro</div><h3>Equilíbrio territorial</h3><p>Inovação de ponta não pode se concentrar só nas capitais. O desenvolvimento equilibrado combate a desigualdade.</p></div>
+        <div class="card"><div class="k">Bioma único</div><h3>O Pampa em foco</h3><p>Um dos biomas mais ameaçados do país ganha tecnologia de vanguarda para preservação e transição climática justa.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 A PROPOSTA -->
+  <section class="slide" data-title="A proposta">
+    <div class="inner">
+      <span class="eyebrow reveal">A proposta</span>
+      <div class="split-wide">
+        <div>
+          <h2 class="reveal d1">Não é mais um curso de computação. É o primeiro 100% IA.</h2>
+          <p class="reveal d2">Os demais cursos do país reaproveitam disciplinas genéricas de Ciência da Computação. O BIA foi concebido do zero, integralmente em IA moderna.</p>
+          <div class="matrix reveal d2" style="margin-top:30px">
+            <div class="mrow us"><div class="top"><span class="name">BIA · UNIPAMPA</span><span class="val">100%</span></div><div class="mtrack"><div class="mfill"></div></div></div>
+            <div class="mrow them"><div class="top"><span class="name">UFG · UFRN · UFSM · UFMS</span><span class="val">~50%</span></div><div class="mtrack"><div class="mfill"></div></div></div>
+          </div>
+          <p class="reveal d3" style="font-size:.86rem;margin-top:10px">Percentual da matriz curricular dedicado à Inteligência Artificial.</p>
+        </div>
+        <div class="cols cols-2 reveal d3">
+          <div class="card stat"><span class="n green">8</span><span class="lbl">semestres de formação contínua.</span></div>
+          <div class="card stat"><span class="n green">3.210</span><span class="lbl">horas de curso.</span></div>
+          <div class="card stat"><span class="n green">6</span><span class="lbl">eixos estruturantes.</span></div>
+          <div class="card stat"><span class="n green">ABP</span><span class="lbl">aprendizagem baseada em problemas, do 1º ao último semestre.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 CIENCIA DE CLASSE MUNDIAL -->
+  <section class="slide slide--alt" data-title="Ciência já existe">
+    <div class="inner">
+      <span class="eyebrow reveal">Não partimos do zero</span>
+      <div class="split-wide">
+        <div>
+          <h2 class="reveal d1">Já fazemos ciência de IA de classe mundial, aqui.</h2>
+          <p class="reveal d2"><strong>MH-1M dataset:</strong> um dos maiores conjuntos de dados de malware Android do mundo, publicado na <strong>Nature Scientific Data (2025)</strong> por pesquisadores da UNIPAMPA e da UFAM.</p>
+          <div class="cols cols-3 reveal d3" style="margin-top:26px">
+            <div class="stat"><span class="n">1,34 mi</span><span class="lbl">amostras</span></div>
+            <div class="stat"><span class="n green">22.810</span><span class="lbl">atributos</span></div>
+            <div class="stat"><span class="n ink">400+ GB</span><span class="lbl">de dados</span></div>
+          </div>
+        </div>
+        <div class="card reveal d3">
+          <div class="k">AI Horizon Labs · o motor de pesquisa do campus</div>
+          <ul class="ticks" style="margin-top:8px">
+            <li><svg width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="4" fill="#BC7F16"/></svg>Publicação na ICSE 2025, conferência de ponta mundial em Engenharia de Software.</li>
+            <li><svg width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="4" fill="#BC7F16"/></svg>Financiamento de pesquisa aprovado pela FAPERGS.</li>
+            <li><svg width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="4" fill="#BC7F16"/></svg>Mais de 5 parcerias já estabelecidas.</li>
+            <li><svg width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="4" fill="#BC7F16"/></svg>Linhas ativas em ML, PLN e Engenharia de Software.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 O GARGALO -->
+  <section class="slide slide--ink" data-title="O ponto crítico">
+    <div class="inner">
+      <span class="eyebrow reveal">O ponto crítico</span>
+      <div class="split">
+        <div>
+          <h2 class="reveal d1" style="color:#fff">Temos os dados. Temos os cérebros. Falta a máquina.</h2>
+          <p class="reveal d2">Um conjunto de 400 GB e 1,34 milhão de amostras não se treina em computador comum. Sem GPUs de alto desempenho, dados de ponta ficam parados: a ciência existe, mas não vira modelos, produtos e patentes.</p>
+          <p class="reveal d3" style="margin-top:18px;color:var(--gold-bright);font-family:var(--display);font-weight:600;font-size:1.2rem;max-width:34ch">Esse é exatamente o gargalo que buscamos destravar com apoio, parcerias e editais.</p>
+        </div>
+        <div class="cols reveal d2" style="gap:18px">
+          <div class="card stat"><span class="n ink">10×</span><span class="lbl">GPUs NVIDIA H100 nos servidores de treinamento.</span></div>
+          <div class="card stat"><span class="n ink">50×</span><span class="lbl">estações com RTX 4090 para os estudantes.</span></div>
+          <div class="card stat"><span class="n ink">LLMs</span><span class="lbl">treino e ajuste fino de modelos de 7B a 70B parâmetros.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 DEMANDA -->
+  <section class="slide" data-title="Demanda comprovada">
+    <div class="inner" id="s-demanda">
+      <span class="eyebrow reveal">A região já disse sim</span>
+      <div class="split">
+        <div>
+          <h2 class="reveal d1">357 respostas. O recado foi inequívoco.</h2>
+          <p class="reveal d2">Duas pesquisas de interesse ouviram alunos, egressos, técnicos, professores e a comunidade. A importância do BIA foi avaliada de 1 a 5.</p>
+          <div class="segbar reveal d2">
+            <div class="seg s5">86,3%</div>
+            <div class="seg s4">8,4%</div>
+            <div class="seg s-low">5,3%</div>
+          </div>
+          <div class="seg-legend reveal d3">
+            <span class="lg5">Nota 5 (máxima)</span>
+            <span class="lg4">Nota 4</span>
+            <span class="lglow">Notas 1 a 3</span>
+          </div>
+        </div>
+        <div class="cols cols-2 reveal d3">
+          <div class="card stat"><span class="n">94,7%</span><span class="lbl">atribuem alta importância ao curso (notas 4 e 5).</span></div>
+          <div class="card stat"><span class="n green">93,2%</span><span class="lbl">creem em impacto positivo direto na região.</span></div>
+          <div class="card stat"><span class="n ink">85,9%</span><span class="lbl">querem cursar uma Especialização em IA.</span></div>
+          <div class="card stat"><span class="n ink">~68%</span><span class="lbl">têm interesse em Mestrado e Doutorado em IA.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 TRAÇÃO -->
+  <section class="slide slide--alt" data-title="Tração real">
+    <div class="inner">
+      <span class="eyebrow reveal">Tração real</span>
+      <h2 class="reveal d1">Isto não é uma ideia no papel. Já está acontecendo.</h2>
+      <div class="cols cols-4 reveal d2" style="margin-top:14px">
+        <div class="card"><div class="k">Protocolo no MEC</div><p>Demanda do curso e dos recursos registrada oficialmente. NUP 23000.037497/2025-83.</p></div>
+        <div class="card"><div class="k">Concurso já lançado</div><p>Concurso público aberto para 4 vagas de docentes do novo bacharelado, no Campus Alegrete.</p></div>
+        <div class="card"><div class="k">PPC pronto</div><p>Projeto Pedagógico completo: 236 páginas, com matriz curricular moderna e validada.</p></div>
+        <div class="card"><div class="k">Presença pública</div><p>Site oficial, identidade visual e comunicação ativa do curso já no ar.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 APOIO -->
+  <section class="slide" data-title="Apoio institucional">
+    <div class="inner">
+      <span class="eyebrow reveal">Apoio social e institucional</span>
+      <h2 class="reveal d1">A região já disse sim. Em números e em cartas.</h2>
+      <div class="cols cols-4 reveal d2" style="margin:14px 0 28px">
+        <div class="card stat"><span class="n green">+20</span><span class="lbl">municípios da Fronteira Oeste e do Pampa.</span></div>
+        <div class="card stat"><span class="n green">+20</span><span class="lbl">cartas oficiais de empresas e entidades.</span></div>
+        <div class="card stat"><span class="n">12</span><span class="lbl">bolsas sociais anuais (Prefeitura de Alegrete).</span></div>
+        <div class="card stat"><span class="n ink">100%</span><span class="lbl">dos prefeitos da AMFRO apoiam a proposta.</span></div>
+      </div>
+      <div class="chips reveal d3">
+        <span class="chip gold">AMFRO</span>
+        <span class="chip">ULFRO</span>
+        <span class="chip">CODEPAMPA</span>
+        <span class="chip">PampaTec · Parque Tecnológico de Alegrete</span>
+        <span class="chip">Órgãos públicos, cooperativas e startups</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 APLICAÇÕES -->
+  <section class="slide slide--alt" data-title="Aplicação imediata">
+    <div class="inner">
+      <span class="eyebrow reveal">Aplicação com retorno imediato</span>
+      <h2 class="reveal d1">Onde a IA vira valor na Fronteira Oeste.</h2>
+      <div class="cols cols-3 reveal d2" style="margin-top:14px">
+        <div class="card"><div class="k">Agro de precisão</div><p>Sensores e algoritmos na pecuária e na lavoura.</p></div>
+        <div class="card"><div class="k">Visão computacional</div><p>Controle de qualidade do arroz e da carne.</p></div>
+        <div class="card"><div class="k">Clima por satélite</div><p>Monitoramento e previsão para o campo.</p></div>
+        <div class="card"><div class="k">Logística inteligente</div><p>Otimização de rotas e de estoques.</p></div>
+        <div class="card"><div class="k">Saúde</div><p>Apoio ao diagnóstico e à gestão do SUS regional.</p></div>
+        <div class="card"><div class="k">Gestão pública por dados</div><p>Políticas e decisões orientadas por evidência.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 ROI -->
+  <section class="slide slide--ink" data-title="O número que importa">
+    <div class="inner">
+      <span class="eyebrow reveal">O número que importa</span>
+      <h2 class="reveal d1" style="color:#fff;max-width:24ch">Cada R$ 1 investido pode retornar de R$ 5 a R$ 8.</h2>
+      <div class="split reveal d2" style="margin-top:24px;align-items:end">
+        <div>
+          <span class="src" style="font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#9DB8AC">Investimento de implantação</span>
+          <div class="stat"><span class="n ink" style="font-size:clamp(2.4rem,5vw,3.6rem)">R$ 23 mi</span></div>
+        </div>
+        <div>
+          <span class="src" style="font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#9DB8AC">Retorno projetado em 10 anos (2026 a 2036)</span>
+          <div class="stat"><span class="n" style="color:var(--gold-bright);font-size:clamp(2.8rem,6.5vw,5rem)">R$ 120 a 180 mi</span></div>
+        </div>
+      </div>
+      <p class="reveal d3" style="margin-top:26px">Cenário conservador, com retorno do investimento em até 6 anos. Educação pública que se paga, e multiplica.</p>
+    </div>
+  </section>
+
+  <!-- 13 IMPACTO -->
+  <section class="slide" data-title="O que R$23mi constroem">
+    <div class="inner">
+      <span class="eyebrow reveal">Impacto projetado · 2026 a 2036</span>
+      <h2 class="reveal d1">O que R$ 23 milhões constroem em uma década.</h2>
+      <div class="cols cols-3 reveal d2" style="margin-top:14px">
+        <div class="card stat"><span class="n green">400+</span><span class="lbl">empregos qualificados, diretos e indiretos.</span></div>
+        <div class="card stat"><span class="n">15 a 20</span><span class="lbl">startups e spin-offs de base tecnológica.</span></div>
+        <div class="card stat"><span class="n ink">100%</span><span class="lbl">de empregabilidade dos egressos em 12 meses.</span></div>
+        <div class="card stat"><span class="n ink">R$ 40 a 70 mi</span><span class="lbl">em aportes privados (John Deere, Bayer, SLC, CNH).</span></div>
+        <div class="card stat"><span class="n green">10 + 30</span><span class="lbl">patentes e softwares com aplicação produtiva.</span></div>
+        <div class="card stat"><span class="n">R$ 15 a 30 mi</span><span class="lbl">em captação de editais de P&D.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 14 VALE -->
+  <section class="slide slide--alt" data-title="Vale da IA do Pampa">
+    <div class="inner">
+      <span class="eyebrow reveal">A visão territorial</span>
+      <div class="split">
+        <div>
+          <h2 class="reveal d1">O Vale da Inteligência Artificial do Pampa.</h2>
+          <p class="reveal d2">Um novo ecossistema de inovação no interior: parque tecnológico ativo, startups, laboratórios corporativos e atração de investimento.</p>
+          <p class="reveal d3" style="margin-top:14px;font-family:var(--display);font-weight:600;color:var(--green);font-size:1.2rem;max-width:30ch">Mais que empregos: uma nova identidade econômica para a Fronteira Oeste.</p>
+        </div>
+        <div class="reveal d3">
+          <h3 style="margin-bottom:16px">Inserção em redes globais</h3>
+          <div class="chips">
+            <span class="chip gold">FAO Innovation Lab</span>
+            <span class="chip gold">CGIAR · AI for Agriculture</span>
+            <span class="chip">NVIDIA</span>
+            <span class="chip">Google Cloud for Research</span>
+            <span class="chip">Embrapa</span>
+            <span class="chip">Laboratórios John Deere e Bayer</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15 ALCANCE NACIONAL -->
+  <section class="slide" data-title="Alcance nacional">
+    <div class="inner">
+      <span class="eyebrow reveal">Alcance nacional</span>
+      <h2 class="reveal d1">Começa em Alegrete. Chega ao Brasil inteiro.</h2>
+      <div class="cols cols-2 reveal d2" style="margin-top:14px">
+        <div class="card"><div class="k">Especialização em IA</div><h3>Demanda reprimida no país</h3><p>86% dos pesquisados querem cursar uma especialização na área.</p></div>
+        <div class="card"><div class="k">Mestrado em IA</div><h3>Acadêmico ou profissional</h3><p>Cerca de 68% de interesse declarado, abrindo caminho para o doutorado.</p></div>
+        <div class="card"><div class="k">ENIA</div><h3>Escola Nacional de IA</h3><p>Pública, gratuita e híbrida. Lema: IA para todos, de todos os cantos do Brasil.</p></div>
+        <div class="card"><div class="k">ERAMIA-RS</div><h3>Escola Regional</h3><p>Aprendizado de Máquina e IA, aproximando pesquisa, indústria e comunidade.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 16 A PERGUNTA DECISIVA -->
+  <section class="slide slide--alt" data-title="A pergunta decisiva">
+    <div class="inner">
+      <span class="eyebrow reveal">A pergunta decisiva</span>
+      <h2 class="reveal d1">Por que isto pode importar mais que um hospital regional?</h2>
+      <div class="versus reveal d2" style="margin-top:14px">
+        <div class="vcol lin">
+          <div class="tag">Um hospital</div>
+          <h3>Impacto essencial, porém linear.</h3>
+          <p>Atende um número definido de pessoas por ano. Seu alcance é local e estável. Indispensável, mas não se multiplica.</p>
+        </div>
+        <div class="vcol exp">
+          <div class="tag">Um polo de IA</div>
+          <h3>Impacto exponencial e composto.</h3>
+          <p>Forma pessoas que criam empresas, empregos e patentes, e ferramentas que melhoram a própria saúde, o agro e a gestão pública.</p>
+          <div class="meta">Multiplica por décadas.</div>
+        </div>
+      </div>
+      <p class="kicker-q reveal d3" style="margin-top:26px">Não é escolher entre saúde e tecnologia. A IA fortalece também a saúde, e tudo o mais.</p>
+    </div>
+  </section>
+
+  <!-- 17 POLITICA PUBLICA -->
+  <section class="slide" data-title="Agenda nacional">
+    <div class="inner">
+      <span class="eyebrow reveal">Política pública em execução</span>
+      <h2 class="reveal d1">Apoiar o BIA é executar a agenda nacional de IA.</h2>
+      <div class="chips reveal d2" style="margin-top:14px;gap:12px">
+        <span class="chip gold">Plano Brasileiro de IA 2025 · IA para o Bem de Todos</span>
+        <span class="chip">Plano Nacional de C, T e I 2030</span>
+        <span class="chip">Estratégia Brasileira de IA · EBIA</span>
+        <span class="chip">Estratégia de Transformação Digital · E-Digital</span>
+        <span class="chip">Plano de Neoindustrialização 2024 a 2026</span>
+        <span class="chip gold">COP30 · IA como objetivo-chave (item 27)</span>
+        <span class="chip">Universidades Inovadoras · SESU / MEC</span>
+        <span class="chip">Eixos: agro, SUS, indústria farmacêutica, engenharias</span>
+      </div>
+      <p class="reveal d3" style="margin-top:28px">O BIA não corre por fora das políticas nacionais de Inteligência Artificial. Ele as materializa no interior, exatamente onde a desigualdade territorial é mais aguda.</p>
+    </div>
+  </section>
+
+  <!-- 18 O PEDIDO -->
+  <section class="slide slide--alt" data-title="O pedido">
+    <div class="inner">
+      <span class="eyebrow reveal">O pedido a Vossa Excelência</span>
+      <h2 class="reveal d1">O que falta para destravar o BIA.</h2>
+      <div class="cols cols-3 reveal d2" style="margin:14px 0 30px">
+        <div class="card stat"><span class="n">R$ 23 mi</span><span class="lbl">infraestrutura, GPUs H100 e RTX 4090, e acervo técnico.</span></div>
+        <div class="card stat"><span class="n green">15</span><span class="lbl">docentes doutores em áreas centrais de IA.</span></div>
+        <div class="card stat"><span class="n green">3</span><span class="lbl">técnicos administrativos (2 laboratoristas).</span></div>
+      </div>
+      <h3 class="reveal d3" style="margin-bottom:14px">Onde a sua atuação destrava:</h3>
+      <div class="chips reveal d3">
+        <span class="chip gold">Emenda parlamentar</span>
+        <span class="chip">Articulação com MEC e MCTI</span>
+        <span class="chip">Editais FINEP e FNDCT</span>
+        <span class="chip">Parcerias com a indústria</span>
+        <span class="chip">FAPERGS e fomento estadual</span>
+        <span class="chip">Cooperação internacional</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 19 FECHAMENTO -->
+  <section class="slide slide--ink" data-title="Fechamento">
+    <div class="inner">
+      <div class="logo reveal" style="margin-bottom:36px">
+        <svg class="logomark" width="46" height="42" viewBox="0 0 48 44" fill="none" aria-hidden="true">
+          <line x1="24" y1="7" x2="7" y2="39" stroke="currentColor" stroke-width="2.2"/>
+          <line x1="24" y1="7" x2="41" y2="39" stroke="currentColor" stroke-width="2.2"/>
+          <line x1="7" y1="39" x2="41" y2="39" stroke="currentColor" stroke-width="2.2"/>
+          <line x1="24" y1="7" x2="24" y2="28" stroke="currentColor" stroke-width="1.4" opacity=".5"/>
+          <line x1="7" y1="39" x2="24" y2="28" stroke="currentColor" stroke-width="1.4" opacity=".5"/>
+          <line x1="41" y1="39" x2="24" y2="28" stroke="currentColor" stroke-width="1.4" opacity=".5"/>
+          <circle class="apex" cx="24" cy="7" r="5"/>
+          <circle cx="7" cy="39" r="4" fill="currentColor"/>
+          <circle cx="41" cy="39" r="4" fill="currentColor"/>
+          <circle cx="24" cy="28" r="3.4" fill="currentColor"/>
+        </svg>
+        <span class="logo-word"><span class="b" style="font-size:1.5rem;color:#fff">BIA</span></span>
+      </div>
+      <h1 class="reveal d1" style="font-size:clamp(2.2rem,5.4vw,4.6rem);color:#fff;max-width:18ch">O futuro da IA no Brasil pode começar pela sua assinatura.</h1>
+      <p class="lead reveal d2" style="margin-top:24px">A janela é agora. A região está pronta, a ciência já existe, o projeto está protocolado. Falta a decisão política que transforma potencial em realidade.</p>
+      <div class="contact reveal d3">
+        <div class="person"><b>Diego Kreutz</b><br>diegokreutz@unipampa.edu.br</div>
+        <div class="person"><b>Silvio Ereno Quincozes</b><br>silvioquincozes@unipampa.edu.br</div>
+        <div class="person"><b>Paulo Silas Severo de Souza</b><br>paulosilas@unipampa.edu.br</div>
+        <div class="person"><b>Rodrigo Mansilha</b><br>rodrigomansilha@unipampa.edu.br</div>
+      </div>
+      <p class="reveal d4" style="margin-top:24px;font-family:var(--mono);font-size:.82rem;color:var(--gold-bright)">bia@unipampa.edu.br · WhatsApp +55 55 99704 7891 · bia.unipampa.edu.br · ai-horizon-labs.github.io</p>
+    </div>
+  </section>
+
+</main>
+
+<script>
+(function(){
+  var deck=document.getElementById('deck');
+  var slides=Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var dotsWrap=document.getElementById('dots');
+  var progress=document.getElementById('progress');
+  var curEl=document.getElementById('cur');
+  document.getElementById('tot').textContent=String(slides.length).padStart(2,'0');
+
+  slides.forEach(function(s,i){
+    var b=document.createElement('button');
+    b.setAttribute('aria-label','Ir para slide '+(i+1)+': '+(s.dataset.title||''));
+    b.addEventListener('click',function(){ s.scrollIntoView({behavior:'smooth'}); });
+    dotsWrap.appendChild(b);
+  });
+  var dots=Array.prototype.slice.call(dotsWrap.children);
+
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      var idx=slides.indexOf(e.target);
+      if(e.isIntersecting){
+        e.target.classList.add('is-visible');
+        if(e.intersectionRatio>0.5){
+          dots.forEach(function(d){d.classList.remove('active')});
+          if(dots[idx]) dots[idx].classList.add('active');
+          curEl.textContent=String(idx+1).padStart(2,'0');
+        }
+      }
+    });
+  },{threshold:[0.2,0.5,0.75]});
+  slides.forEach(function(s){io.observe(s)});
+
+  deck.addEventListener('scroll',function(){
+    var max=deck.scrollHeight-deck.clientHeight;
+    progress.style.width=(max>0?(deck.scrollTop/max*100):0)+'%';
+  },{passive:true});
+
+  function currentIndex(){
+    var best=0,bestDist=Infinity;
+    slides.forEach(function(s,i){
+      var d=Math.abs(s.getBoundingClientRect().top);
+      if(d<bestDist){bestDist=d;best=i;}
+    });
+    return best;
+  }
+  window.addEventListener('keydown',function(ev){
+    var i=currentIndex();
+    if(['ArrowDown','PageDown',' '].indexOf(ev.key)>-1){ev.preventDefault(); if(slides[i+1])slides[i+1].scrollIntoView({behavior:'smooth'});}
+    else if(['ArrowUp','PageUp'].indexOf(ev.key)>-1){ev.preventDefault(); if(slides[i-1])slides[i-1].scrollIntoView({behavior:'smooth'});}
+    else if(ev.key==='Home'){ev.preventDefault(); slides[0].scrollIntoView({behavior:'smooth'});}
+    else if(ev.key==='End'){ev.preventDefault(); slides[slides.length-1].scrollIntoView({behavior:'smooth'});}
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Especialização em IA Aplicada</title>
+<meta name="description" content="Especialização em Inteligência Artificial Aplicada (EIA) da UNIPAMPA, Campus Alegrete: para profissionais de qualquer área resolverem problemas reais de organizações públicas e privadas com IA, sem programar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ffffff;
+  --paper-2:#f3f6f7;
+  --ink:#13232d;
+  --ink-soft:#4a5c66;
+  --line:#d5dee2;
+  --azul:#1f4e66;
+  --verde:#1d8a52;
+  --ouro:#b57f1c;
+  --roxo:#7a4fa0;
+  --azul-bg:#e6eff3;
+  --verde-bg:#e3f3ea;
+  --ouro-bg:#f8eedb;
+  --roxo-bg:#efe8f6;
+  --code:#26343c;
+  --maxw:1160px;
+  --display:"Archivo",system-ui,sans-serif;
+  --body:"Public Sans",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0f1a20;--paper-2:#15232b;--ink:#e8eef1;--ink-soft:#a7b6be;--line:#2a3b44;
+    --azul:#7fb4d0;--verde:#5ccf8f;--ouro:#e4b459;--roxo:#b896dc;
+    --azul-bg:#173040;--verde-bg:#143326;--ouro-bg:#3a2d12;--roxo-bg:#2c2140;--code:#0a1217;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0f1a20;--paper-2:#15232b;--ink:#e8eef1;--ink-soft:#a7b6be;--line:#2a3b44;
+  --azul:#7fb4d0;--verde:#5ccf8f;--ouro:#e4b459;--roxo:#b896dc;
+  --azul-bg:#173040;--verde-bg:#143326;--ouro-bg:#3a2d12;--roxo-bg:#2c2140;--code:#0a1217;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--azul);text-underline-offset:3px}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--ouro);outline-offset:3px;border-radius:4px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+@media (max-width:600px){.wrap{padding:0 16px}}
+h1,h2,h3{font-family:var(--display);line-height:1.08;margin:0;color:var(--ink)}
+h2{font-size:clamp(1.9rem,4.2vw,3rem);font-variation-settings:"wdth" 112;font-weight:800;letter-spacing:-.01em;max-width:22ch}
+h3{font-size:1.25rem;font-weight:700;font-variation-settings:"wdth" 100}
+p{margin:0 0 1em}
+.lead{font-size:1.2rem;color:var(--ink-soft);max-width:62ch}
+section{padding:96px 0;border-top:1px solid var(--line)}
+@media (max-width:700px){section{padding:64px 0}}
+.sec-head{display:grid;gap:18px;margin-bottom:44px}
+
+/* topo */
+.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:60px}
+.brand{font-family:var(--display);font-weight:900;font-variation-settings:"wdth" 125;font-size:1.25rem;text-decoration:none;color:var(--ink);letter-spacing:.02em}
+.brand small{font-family:var(--body);font-weight:500;font-size:.8rem;color:var(--ink-soft);letter-spacing:0;margin-left:8px}
+.top nav{display:flex;gap:22px;font-size:.95rem}
+.top nav a{color:var(--ink-soft);text-decoration:none}
+.top nav a:hover{color:var(--ink)}
+@media (max-width:860px){.top nav{display:none}}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--body);font-weight:700;font-size:1rem;padding:12px 20px;border-radius:999px;text-decoration:none;border:2px solid var(--azul);cursor:pointer}
+.btn-solid{background:var(--azul);color:var(--paper)}
+.btn-line{background:transparent;color:var(--azul)}
+.top .btn{padding:7px 14px;font-size:.9rem}
+
+/* hero */
+.hero{padding:72px 0 0;border-top:0}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:start}
+@media (max-width:960px){.hero-grid{grid-template-columns:1fr;gap:40px}}
+.hero-grid>*,.sem-grid>*,.two>*{min-width:0}
+.hero h1{font-size:clamp(2.2rem,4.4vw,3.7rem);font-weight:900;font-variation-settings:"wdth" 108;letter-spacing:-.02em;line-height:.98}
+.hero h1 span{display:block}
+.hero h1 .l3{color:var(--azul)}
+.hero .lead{margin-top:26px}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);margin-top:64px;border-top:2px solid var(--ink)}
+.facts div{padding:18px 16px 26px 0}
+.facts b{display:block;font-family:var(--display);font-variation-settings:"wdth" 120;font-weight:800;font-size:1.9rem;line-height:1.1}
+.facts span{color:var(--ink-soft);font-size:.95rem}
+@media (max-width:700px){.facts{grid-template-columns:repeat(2,1fr)}}
+.horizon{height:56px;margin-top:8px;background:linear-gradient(180deg,transparent 0,transparent 50%,var(--verde-bg) 50%,var(--verde-bg) 100%);border-bottom:1px solid var(--line)}
+
+/* demonstração do ciclo */
+.demo{border:1px solid var(--line);border-radius:14px;background:var(--paper-2);padding:20px;font-size:.98rem}
+.demo-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;color:var(--ink-soft);font-size:.9rem}
+.demo-head button{background:none;border:1px solid var(--line);color:var(--ink-soft);border-radius:999px;padding:4px 12px;font:inherit;cursor:pointer}
+.msg{border-radius:10px;padding:12px 14px;margin:0 0 10px;opacity:0;transform:translateY(6px);transition:opacity .45s ease,transform .45s ease}
+.msg.on{opacity:1;transform:none}
+.msg .who{display:block;font-weight:700;font-size:.85rem;margin-bottom:3px}
+.m-aluno{background:var(--paper);border:1px solid var(--line)}
+.m-aluno .who{color:var(--azul)}
+.m-ia{background:var(--code);color:#dfe8ec}
+.m-ia .who{color:#8fd3ae}
+.m-ia code{display:block;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.78rem;color:#9fb3bd;margin-top:6px;white-space:pre;overflow-x:auto}
+.m-adv{background:var(--ouro-bg);border:1px solid color-mix(in srgb,var(--ouro) 40%,transparent)}
+.m-adv .who{color:var(--ouro)}
+.m-ok{background:var(--verde-bg);border:1px solid color-mix(in srgb,var(--verde) 35%,transparent)}
+.m-ok .who{color:var(--verde)}
+@media (prefers-reduced-motion: reduce){.msg{transition:none}}
+
+/* para quem */
+.who-table{width:100%;border-collapse:collapse}
+.who-table th,.who-table td{text-align:left;vertical-align:top;padding:18px 16px 18px 0;border-bottom:1px solid var(--line)}
+.who-table th{font-family:var(--display);font-variation-settings:"wdth" 108;font-size:1.1rem;width:30%}
+.who-table td{color:var(--ink-soft)}
+.who-table tr.comp th{color:var(--azul)}
+@media (max-width:700px){.who-table th,.who-table td{display:block;width:100%;padding:0}.who-table th{padding-top:18px}.who-table td{padding-bottom:18px}}
+.req{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:40px}
+@media (max-width:760px){.req{grid-template-columns:1fr}}
+.req h3{margin-bottom:10px}
+.req ul{margin:0;padding-left:20px}
+.req li{margin-bottom:6px}
+
+/* ciclo */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:0;counter-reset:s}
+.steps li{padding:0 18px 0 0;border-top:4px solid var(--azul);padding-top:16px;counter-increment:s}
+.steps li:nth-child(3){border-color:var(--ouro)}
+.steps li:nth-child(5){border-color:var(--verde)}
+.steps li::before{content:counter(s);font-family:var(--display);font-weight:900;font-variation-settings:"wdth" 125;font-size:2rem;display:block;color:var(--ink-soft);line-height:1;margin-bottom:10px}
+.steps p{color:var(--ink-soft);font-size:.98rem;margin-top:8px}
+@media (max-width:900px){.steps{grid-template-columns:1fr;gap:24px}}
+
+/* matriz */
+.sem-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+@media (max-width:860px){.sem-grid{grid-template-columns:1fr}}
+.sem h3{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid var(--ink);padding-bottom:10px;margin-bottom:6px}
+.sem h3 small{font-family:var(--body);font-weight:500;font-size:.95rem;color:var(--ink-soft)}
+details.comp{border-bottom:1px solid var(--line)}
+details.comp summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:62px 1fr auto;gap:12px;padding:14px 0;align-items:baseline}
+details.comp summary::-webkit-details-marker{display:none}
+.code{font-weight:700;font-size:.9rem;color:var(--ink-soft)}
+.cname{font-weight:600}
+.ch{font-family:var(--display);font-weight:800;font-variation-settings:"wdth" 110;white-space:nowrap}
+details.comp[open] summary .cname{color:var(--azul)}
+details.comp.v summary .code,details.comp.v summary .cname{color:var(--roxo)}
+details.comp.n summary .code{color:var(--ouro)}
+.cbody{padding:0 0 18px 74px;color:var(--ink-soft);font-size:.98rem}
+.cbody b{color:var(--ink)}
+@media (max-width:600px){.cbody{padding-left:0}}
+.legend{display:flex;flex-wrap:wrap;gap:18px;margin-top:22px;font-size:.92rem;color:var(--ink-soft)}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.split{display:flex;height:34px;border-radius:6px;overflow:hidden;margin-top:36px;font-size:.82rem;font-weight:700;color:#fff}
+.split div{display:flex;align-items:center;padding:0 6px;white-space:nowrap;overflow:hidden;min-width:0}
+.split-cap{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:10px;font-size:.92rem;color:var(--ink-soft)}
+
+/* visão */
+.vision{background:var(--roxo-bg)}
+.vision h2,.vision .accent{color:var(--roxo)}
+.vis-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+@media (max-width:860px){.vis-grid{grid-template-columns:1fr}}
+.vis-grid article{border-top:2px solid var(--roxo);padding-top:16px}
+.vis-grid h3{margin-bottom:8px}
+.vis-grid p{color:var(--ink-soft);margin:0}
+.pixels{display:grid;grid-template-columns:repeat(24,1fr);gap:2px;max-width:420px;margin-top:8px}
+.pixels span{aspect-ratio:1;border-radius:1px}
+
+/* desafios */
+.ch-list{display:grid;grid-template-columns:repeat(2,1fr);gap:0 48px}
+@media (max-width:760px){.ch-list{grid-template-columns:1fr}}
+.ch-item{padding:20px 0;border-bottom:1px solid var(--line)}
+.ch-item .org{font-size:.9rem;font-weight:700;color:var(--verde)}
+.ch-item.priv .org{color:var(--azul)}
+.ch-item h3{font-size:1.12rem;margin:4px 0 6px}
+.ch-item p{color:var(--ink-soft);margin:0;font-size:.98rem}
+.note{font-size:.92rem;color:var(--ink-soft);margin-top:18px}
+
+/* computação */
+.comp-sec .two{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start}
+@media (max-width:860px){.comp-sec .two{grid-template-columns:1fr;gap:32px}}
+.adv{border-left:4px solid var(--azul);padding-left:22px}
+.adv dl{margin:0}
+.adv dt{font-weight:700;margin-top:14px}
+.adv dd{margin:2px 0 0;color:var(--ink-soft)}
+
+/* BIA */
+.bia{background:var(--azul);color:#eaf2f6}
+.bia h2,.bia h3{color:#fff}
+.bia .lead{color:#c8dbe4}
+.bia a{color:#ffd88a}
+.bia-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px 48px}
+@media (max-width:760px){.bia-grid{grid-template-columns:1fr}}
+.bia-grid div{border-top:1px solid rgba(255,255,255,.25);padding-top:16px}
+.bia-grid p{color:#c8dbe4;margin:6px 0 0}
+.path{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:44px;font-family:var(--display);font-variation-settings:"wdth" 112;font-weight:700}
+.path span{border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:8px 16px}
+.path .arrow{border:0;padding:0;opacity:.7}
+
+/* comparação */
+.cmp{width:100%;border-collapse:collapse;font-size:.98rem}
+.cmp th,.cmp td{padding:12px 12px 12px 0;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.cmp thead th{font-size:.9rem;color:var(--ink-soft);font-weight:600;border-bottom:2px solid var(--ink)}
+.cmp td.eia{font-weight:700;color:var(--azul)}
+.tbl-scroll{overflow-x:auto}
+
+/* docentes */
+.prof{display:grid;grid-template-columns:repeat(3,1fr);gap:0 36px}
+@media (max-width:860px){.prof{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.prof{grid-template-columns:1fr}}
+.prof div{padding:16px 0;border-bottom:1px solid var(--line)}
+.prof b{display:block}
+.prof span{color:var(--ink-soft);font-size:.95rem}
+
+/* seleção e FAQ */
+.sel{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+@media (max-width:860px){.sel{grid-template-columns:1fr}}
+.sel div{border-top:4px solid var(--ink);padding-top:14px}
+.sel b{font-family:var(--display);font-variation-settings:"wdth" 118;font-weight:900;font-size:2.2rem;display:block;line-height:1}
+.sel h3{margin:8px 0}
+.sel p{color:var(--ink-soft);margin:0}
+.faq details{border-bottom:1px solid var(--line);padding:16px 0}
+.faq summary{cursor:pointer;font-weight:700;font-size:1.08rem}
+.faq details p{color:var(--ink-soft);margin:10px 0 0;max-width:72ch}
+
+footer{border-top:1px solid var(--line);padding:48px 0 64px;color:var(--ink-soft);font-size:.95rem}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px}
+footer ul{list-style:none;margin:0;padding:0}
+footer li{margin-bottom:6px}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#inicio">EIA<small>UNIPAMPA Alegrete</small></a>
+    <nav aria-label="Seções">
+      <a href="#para-quem">Para quem</a>
+      <a href="#como">Como funciona</a>
+      <a href="#matriz">Matriz</a>
+      <a href="#visao">Visão computacional</a>
+      <a href="#desafios">Desafios reais</a>
+      <a href="#bia">BIA</a>
+    </nav>
+    <a class="btn btn-solid" href="#selecao">Seleção</a>
+  </div>
+</header>
+
+<main id="inicio">
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <h1><span>Você traz o problema.</span><span>A IA escreve o código.</span><span class="l3">Você responde pela solução.</span></h1>
+      <p class="lead">A Especialização em Inteligência Artificial Aplicada da UNIPAMPA forma profissionais de qualquer área para resolver problemas reais de prefeituras, órgãos públicos, cooperativas e empresas com IA. Sem aulas de programação: todo o código é gerado pela IA, e você aprende a dirigi-la, conferir o que ela entrega e decidir.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-solid" href="#matriz">Ver a matriz curricular</a>
+        <a class="btn btn-line" href="analise-especializacoes-ia.html">Comparar com outros cursos</a>
+      </div>
+    </div>
+
+    <div class="demo" aria-label="Exemplo do ciclo de trabalho no curso">
+      <div class="demo-head"><span>Um problema real, do começo ao fim</span><button type="button" id="replay">Repetir</button></div>
+      <div class="msg m-aluno"><span class="who">Aluna, servidora da prefeitura</span>Recebemos 3 mil fotos de buracos por mês pelo aplicativo. Quero saber quais são graves e onde estão, para priorizar as equipes.</div>
+      <div class="msg m-ia"><span class="who">IA programadora</span>Montei um classificador de imagens e um mapa por bairro. Código gerado e executado, 214 linhas.<code>modelo = treinar(fotos_anotadas, classes=["leve","grave"])
+mapa = agrupar_por_bairro(predicoes, gps)</code></div>
+      <div class="msg m-adv"><span class="who">Agente adversarial</span>Testei fotos noturnas, com chuva e de celular antigo: a precisão em "grave" caiu de 91% para 58%. E 12% das fotos não têm GPS.</div>
+      <div class="msg m-aluno"><span class="who">Aluna</span>Inclua fotos noturnas no treino, peça o endereço quando faltar GPS e me mostre a medição antes e depois.</div>
+      <div class="msg m-ok"><span class="who">Evidência entregue à prefeitura</span>Precisão em "grave": 88% de dia, 81% à noite. Limitação documentada: fotos muito desfocadas. Solução em teste com a equipe de obras.</div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="facts">
+      <div><b>12 meses</b><span>a distância, com encontros ao vivo</span></div>
+      <div><b>375 h</b><span>em 10 componentes, mais o TCC</span></div>
+      <div><b>60 h</b><span>de imagens e visão computacional</span></div>
+      <div><b>0 h</b><span>de aulas de programação</span></div>
+    </div>
+  </div>
+  <div class="horizon" aria-hidden="true"></div>
+</section>
+
+<section id="para-quem">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Para quem resolve problemas no trabalho</h2>
+      <p class="lead">O que une a turma não é a graduação, é o tipo de problema: muitas variáveis, dados espalhados e mais de uma resposta possível. Veja exemplos do que cada pessoa pode trazer.</p>
+    </div>
+    <table class="who-table">
+      <tr><th>Servidores públicos</th><td>Priorizar fiscalizações, ler processos e editais em escala, prever demanda de saúde e educação, responder ao cidadão com base nas normas do órgão.</td></tr>
+      <tr><th>Empresas e cooperativas</th><td>Prever vendas e estoques, classificar atendimentos, conferir notas e contratos, automatizar rotinas de RH, logística e qualidade.</td></tr>
+      <tr><th>Agronegócio e ambiente</th><td>Contar plantas e animais em imagens de drone, identificar doenças em folhas, monitorar áreas alagadas por satélite, estimar produtividade.</td></tr>
+      <tr><th>Saúde, direito, educação e comunicação</th><td>Organizar prontuários e laudos, pesquisar jurisprudência com fontes conferíveis, criar tutores para alunos, analisar opinião pública com responsabilidade.</td></tr>
+      <tr class="comp"><th>Egressos de computação e engenharias</th><td>Liderar desenvolvimento com agentes de IA, dominar visão computacional e segurança de IA, e trabalhar lado a lado com quem conhece o problema. Há um Modo Avançado em cada componente.</td></tr>
+    </table>
+    <div class="req">
+      <div>
+        <h3>O que pedimos</h3>
+        <ul>
+          <li>Diploma de graduação em qualquer área.</li>
+          <li>Experiência com computadores e com ferramentas de IA no dia a dia, como assistentes conversacionais e planilhas.</li>
+          <li>Cerca de 10 horas por semana.</li>
+          <li>Um problema real para resolver, seu ou do Banco de Desafios Reais.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>O que não pedimos</h3>
+        <ul>
+          <li>Saber programar.</li>
+          <li>Matemática avançada.</li>
+          <li>Inglês.</li>
+          <li>Formação em computação.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="como">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Toda entrega passa pelo mesmo ciclo</h2>
+      <p class="lead">Em cada componente, o professor prepara uma skill, que funciona como tutor disponível a qualquer hora, e um agente adversarial, que tenta derrubar a sua solução antes da entrega. Quem não lê código precisa de outra forma de confiar no que a IA fez: aqui, a confiança vem de evidências.</p>
+    </div>
+    <ol class="steps">
+      <li><h3>Problema real</h3><p>O seu problema, ou um desafio de uma organização parceira.</p></li>
+      <li><h3>A IA programa</h3><p>Você descreve, define o que é resultado correto e pede. A IA escreve e executa o código.</p></li>
+      <li><h3>Ataque adversarial</h3><p>Um agente procura erros, vieses, vazamento de dados e falhas de segurança.</p></li>
+      <li><h3>Correção</h3><p>Você responde às críticas, pede as correções e mede de novo.</p></li>
+      <li><h3>Avaliação humana</h3><p>O professor avalia a solução, as evidências e como você tratou as críticas.</p></li>
+    </ol>
+    <p class="note">O problema que você apresenta na seleção é trabalhado em todos os componentes e se torna o seu TCC: um artigo científico ou um produto de software com pedido de registro no INPI.</p>
+  </div>
+</section>
+
+<section id="matriz">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Dez componentes em dois semestres</h2>
+      <p class="lead">Toque em um componente para ver o que se estuda, o que fica com você e o que fica com a IA, e o que ele entrega para o seu TCC.</p>
+    </div>
+    <div class="sem-grid" id="sem-grid"></div>
+    <div class="legend">
+      <span><i style="background:var(--ouro)"></i>Nivelamento</span>
+      <span><i style="background:var(--roxo)"></i>Imagens e visão computacional</span>
+      <span><i style="background:var(--azul)"></i>Demais componentes</span>
+    </div>
+    <div class="split" role="img" aria-label="Distribuição das 375 horas por eixo">
+      <div style="flex:45;background:var(--ouro)">45 h</div>
+      <div style="flex:105;background:var(--azul)">105 h</div>
+      <div style="flex:60;background:var(--roxo)">60 h</div>
+      <div style="flex:90;background:var(--verde)">90 h</div>
+      <div style="flex:75;background:var(--ink-soft)">75 h</div>
+    </div>
+    <div class="split-cap">
+      <span>Nivelamento</span><span>Dados, previsão e decisão</span><span>Imagens e visão</span><span>LLMs e agentes</span><span>Soluções, segurança e governança</span>
+    </div>
+  </div>
+</section>
+
+<section id="visao" class="vision">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Imagens viram decisões</h2>
+      <p class="lead">Boa parte dos problemas reais chega em forma de foto, vídeo, documento digitalizado ou imagem de satélite. Por isso o curso dedica dois componentes, 60 horas, a processamento de imagens e visão computacional, mais do que a maioria das especializações em IA do país.</p>
+      <div class="pixels" id="pixels" aria-hidden="true"></div>
+    </div>
+    <div class="vis-grid">
+      <article>
+        <h3>EIA05, 1º semestre</h3>
+        <p class="accent"><b>Processamento de Imagens e Visão Computacional</b></p>
+        <p>Pixels, filtros, segmentação e medição de objetos. Como uma rede neural aprende a reconhecer padrões. Classificação com modelos pré-treinados. Quando uma técnica clássica basta.</p>
+      </article>
+      <article>
+        <h3>EIA09, 2º semestre</h3>
+        <p class="accent"><b>Visão Computacional Aplicada e IA Multimodal</b></p>
+        <p>Detecção, segmentação e vídeo. Drones e satélites. Leitura automática de documentos. Modelos que combinam imagem e texto. Privacidade de imagens de pessoas e LGPD.</p>
+      </article>
+      <article>
+        <h3>Exemplos de projetos</h3>
+        <p>Falhas de plantio em imagens de drone. Contagem de veículos em vias públicas. Inspeção visual em linhas de produção. Leitura de laudos e notas digitalizadas. Danos em vias urbanas a partir de fotos do cidadão.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="desafios">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Banco de Desafios Reais</h2>
+      <p class="lead">Não tem um problema para trazer? Escolha um. A cada turma, organizações públicas e privadas publicam desafios com dados, contato responsável e regras de privacidade. No fim do curso, as soluções são apresentadas a elas no Dia de Demonstração, no PampaTec e on-line.</p>
+    </div>
+    <div class="ch-list">
+      <div class="ch-item"><span class="org">Setor público municipal</span><h3>Priorizar a manutenção de vias</h3><p>Classificar fotos enviadas pelo cidadão e montar o mapa de prioridades por bairro.</p></div>
+      <div class="ch-item priv"><span class="org">Cooperativa agrícola</span><h3>Estimar falhas de plantio no arroz</h3><p>Contar falhas em imagens de drone e cruzar com dados de solo e clima.</p></div>
+      <div class="ch-item"><span class="org">Câmara de vereadores</span><h3>Pesquisar a legislação municipal</h3><p>Agente que responde com base nas leis do município e cita o artigo de origem.</p></div>
+      <div class="ch-item priv"><span class="org">Comércio e serviços</span><h3>Prever demanda e estoque</h3><p>Previsão de vendas por loja, com sazonalidade de safra e de fronteira.</p></div>
+      <div class="ch-item"><span class="org">Saúde pública</span><h3>Organizar a fila de exames</h3><p>Extrair dados de pedidos digitalizados e sinalizar casos urgentes para revisão humana.</p></div>
+      <div class="ch-item priv"><span class="org">Indústria e startups do PampaTec</span><h3>Inspeção visual de qualidade</h3><p>Detectar defeitos em embalagens e peças a partir de câmeras na linha.</p></div>
+    </div>
+    <p class="note">Os desafios acima são ilustrativos. O banco de cada turma é publicado com o edital, a partir da rede de parceiros da UNIPAMPA e do BIA.</p>
+  </div>
+</section>
+
+<section id="computacao" class="comp-sec">
+  <div class="wrap two">
+    <div>
+      <h2>Já programa? Aprenda a liderar quem programa por você</h2>
+      <p class="lead" style="margin-top:18px">Para quem vem da computação, a mudança não é aprender a escrever código, e sim deixar de escrevê-lo à mão: especificar, planejar, dirigir agentes, medir e assinar o resultado. É a competência que o mercado procura agora, e poucos cursos a ensinam com método.</p>
+      <p>Cada componente tem um Modo Avançado, opcional e sem créditos extras, e os grupos de encontros ao vivo misturam áreas de propósito: você trabalha com o especialista que conhece o problema.</p>
+    </div>
+    <div class="adv">
+      <dl>
+        <dt>Desenvolvimento com agentes</dt><dd>Repositório real, especificação, plano, testes automatizados e revisão do código gerado.</dd>
+        <dt>Visão computacional na borda</dt><dd>Modelos rodando em celular, drone ou câmera, com medição de custo e desempenho.</dd>
+        <dt>LLMs abertos</dt><dd>Ajuste fino e avaliação automatizada com conjuntos de teste.</dd>
+        <dt>Agentes em produção</dt><dd>Servidor MCP próprio, observabilidade e implantação.</dd>
+        <dt>Segurança de IA</dt><dd>Red teaming automatizado e validação adversarial no pipeline de entrega contínua.</dd>
+        <dt>Ponte para a pesquisa</dt><dd>Contato com o Mestrado em Engenharia de Software (PPGES) e com o AI Horizon Labs.</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section id="bia" class="bia">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>A especialização do BIA para quem já se formou</h2>
+      <p class="lead">O Campus Alegrete criou o <a href="https://bia-unipampa.github.io">Bacharelado em Inteligência Artificial (BIA)</a>, com currículo desenhado do zero para a IA e uma trilha de Resolução de Problemas que atravessa seis semestres. A EIA leva essa mesma ideia para profissionais já graduados, em 12 meses e a distância.</p>
+    </div>
+    <div class="bia-grid">
+      <div><h3>Mesma metodologia</h3><p>Aprendizagem baseada em problemas, praticada desde 2011 na Engenharia de Software do campus e base da trilha de RP do BIA.</p></div>
+      <div><h3>Mesmos docentes</h3><p>Doutores que atuam no BIA, na Ciência da Computação, na Engenharia de Software e no mestrado PPGES.</p></div>
+      <div><h3>Mesma rede de parceiros</h3><p>Prefeitura e Câmara de Alegrete, COREDE Fronteira Oeste, SEBRAE, Sicredi, Fundação Maronna, PampaTec e empresas da região propõem desafios para os dois cursos.</p></div>
+      <div><h3>Uma comunidade só</h3><p>Estudantes do BIA participam do Dia de Demonstração, e os desafios que ficarem abertos na especialização podem seguir na trilha de RP do bacharelado.</p></div>
+    </div>
+    <div class="path" aria-label="Caminho de formação">
+      <span>BIA, graduação</span><span class="arrow">→</span><span>EIA, especialização</span><span class="arrow">→</span><span>PPGES, mestrado</span><span class="arrow">→</span><span>PampaTec, startup</span>
+    </div>
+  </div>
+</section>
+
+<section id="comparar">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Como a EIA se compara</h2>
+      <p class="lead">Mapeamos 84 especializações e MBAs em IA oferecidos no Brasil em 2026. Nenhum combina acesso aberto a qualquer graduação, construção de soluções sem programar e visão computacional com profundidade. <a href="analise-especializacoes-ia.html">Veja a análise completa.</a></p>
+    </div>
+    <div class="tbl-scroll">
+    <table class="cmp">
+      <thead><tr><th>Critério</th><th>EIA UNIPAMPA</th><th>35 cursos de instituições públicas</th><th>49 cursos de instituições privadas</th></tr></thead>
+      <tbody>
+        <tr><th>Aberto a qualquer graduação</th><td class="eia">Sim, sem exigir programação</td><td>14 de 35; os demais pedem base técnica ou não informam</td><td>21 de 49, quase todos de IA para negócios ou para um setor</td></tr>
+        <tr><th>Programação</th><td class="eia">Gerada pela IA, sob direção do aluno</td><td>13 ensinam Python ou outra linguagem</td><td>18 ensinam Python ou outra linguagem</td></tr>
+        <tr><th>Visão computacional</th><td class="eia">60 h em dois componentes</td><td>6 com disciplina própria, todos para público técnico</td><td>13 com disciplina própria; só 1 aberto a qualquer graduação</td></tr>
+        <tr><th>Problema real de organização</th><td class="eia">Do processo seletivo ao TCC, com banco de desafios</td><td>Projeto ou TCC, em geral sem parceiro definido</td><td>Projetos aplicados e estudos de caso</td></tr>
+        <tr><th>Validação adversarial</th><td class="eia">Em todos os componentes</td><td>Nenhum descreve</td><td>Nenhum descreve</td></tr>
+        <tr><th>Duração</th><td class="eia">12 meses</td><td>10 a 30 meses, mediana de 18</td><td>4 a 24 meses, mediana de 12</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<section id="docentes">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Quem ensina</h2>
+      <p class="lead">Dez docentes do Campus Alegrete, nove deles doutores já definidos, quatro com experiência de pesquisa no exterior.</p>
+    </div>
+    <div class="prof">
+      <div><b>Aline Lunkes</b><span>Doutora em Modelagem Computacional (LNCC). Estatística e aprendizado de máquina.</span></div>
+      <div><b>Diego Kreutz</b><span>Doutor em Informática (Univ. de Luxemburgo). Segurança, agentes e engenharia de soluções.</span></div>
+      <div><b>Dionatan Schmidt</b><span>Doutor em Matemática Aplicada (UFRGS). Raciocínio quantitativo e nivelamento.</span></div>
+      <div><b>Eliezer Flores</b><span>Doutor em Computação (UFRGS). Processamento de imagens e visão computacional.</span></div>
+      <div><b>Francisco Vogt</b><span>Doutor em Ciência da Computação (Unicamp). Dados, nuvem e visão computacional.</span></div>
+      <div><b>Marcelo Luizelli</b><span>Doutor em Computação (UFRGS). Dados, aprendizado de máquina e agentes.</span></div>
+      <div><b>Paulo Souza</b><span>Doutor em Ciência da Computação (PUCRS). Agentes, implantação e engenharia de soluções.</span></div>
+      <div><b>Rodrigo Mansilha</b><span>Doutor em Ciência da Computação (UFRGS). Imagens, engenharia de soluções e segurança.</span></div>
+      <div><b>Silvio Quincozes</b><span>Doutor em Ciência da Computação (UFF). LLMs, nivelamento e segurança de IA.</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="selecao">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Seleção em três etapas</h2>
+      <p class="lead">A seleção não testa programação. Ela verifica se você tem um problema real, se sabe explicá-lo e se tem senso crítico diante do que a IA entrega. São 100 vagas por turma.</p>
+    </div>
+    <div class="sel">
+      <div><b>20</b><h3>Currículo</h3><p>Experiência profissional, projetos com dados ou decisões complexas e produção técnica.</p></div>
+      <div><b>40</b><h3>Proposta de problema</h3><p>Até duas páginas sobre um problema seu ou um desafio do Banco de Desafios Reais.</p></div>
+      <div><b>40</b><h3>Desafio prático com IA</h3><p>Uma hora resolvendo um pequeno problema com um assistente de IA. A planilha tem um erro de propósito: vale percebê-lo.</p></div>
+    </div>
+    <div class="faq" style="margin-top:56px">
+      <details><summary>Preciso saber programar?</summary><p>Não. O nivelamento de 45 horas ensina a pedir, executar e conferir código gerado por IA. Você nunca precisa escrever código à mão.</p></details>
+      <details><summary>Por que um curso sem programação ensina aprendizado de máquina e visão computacional?</summary><p>Porque quem decide se um modelo serve precisa entender o que ele faz e como falha, mesmo sem escrevê-lo. O curso ensina o suficiente para escolher, medir e questionar.</p></details>
+      <details><summary>Sou da computação. O curso não vai ser básico demais?</summary><p>O núcleo é o mesmo para todos, mas cada componente tem um Modo Avançado com desafios de implantação, avaliação, ajuste fino, visão na borda e segurança. E dirigir agentes de IA com método é uma competência nova também para quem programa.</p></details>
+      <details><summary>Posso usar dados da minha organização?</summary><p>Sim, com autorização e em ferramentas aprovadas pelo curso. Dados pessoais e sigilosos são tratados conforme a LGPD, com anonimização quando necessário.</p></details>
+      <details><summary>Qual o valor?</summary><p>O curso é autofinanciado e o valor será definido com a fundação de apoio e publicado no edital, incluindo o custo de acesso a ferramentas de IA para todos os alunos.</p></details>
+      <details><summary>Qual o título?</summary><p>Especialista em Inteligência Artificial, emitido pela Universidade Federal do Pampa, curso de pós-graduação lato sensu.</p></details>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <b>Especialização em Inteligência Artificial Aplicada (EIA)</b><br>
+      UNIPAMPA, Campus Alegrete, RS<br>
+      Proposta em elaboração, versão 3.0, outubro de 2026.
+    </div>
+    <ul>
+      <li><a href="analise-especializacoes-ia.html">Análise das especializações em IA no Brasil</a></li>
+      <li><a href="https://bia-unipampa.github.io">Bacharelado em Inteligência Artificial (BIA)</a></li>
+      <li><a href="https://alinelunkesazl.github.io/especializacao-ia-unipampa/">Estudo comparativo internacional</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+const COMPS=[
+ {s:1,c:"EIA01",n:"IA Generativa e Desenvolvimento Assistido por IA",h:45,t:"n",e:"Como funcionam os modelos de linguagem, engenharia de prompt, skills e agentes de programação. Especificar, pedir um plano, gerar, executar e corrigir código na nuvem. Conferir sem programar.",a:"Você descreve o problema e define o que é resultado correto. A IA escreve e executa o código.",d:"Diagnóstico do seu problema e uma primeira automação com casos de teste."},
+ {s:1,c:"EIA02",n:"Raciocínio Quantitativo e Estatística para Decisões",h:30,e:"Estatística descritiva, visualização, probabilidade, correlação e causalidade, amostragem e vieses. Como um modelo aprende.",a:"Você escolhe a pergunta e interpreta. A IA calcula e faz os gráficos.",d:"Análise exploratória dos seus dados e das incertezas."},
+ {s:1,c:"EIA03",n:"Dados, Nuvem e Automação de Processos",h:30,e:"Da planilha ao banco de dados, consultas em linguagem natural, bancos vetoriais, automação de rotinas administrativas e serviços de IA em nuvem, com LGPD.",a:"Você decide quais dados importam e quem pode vê-los. A IA cria o banco e as consultas.",d:"Base de dados do projeto, documentada."},
+ {s:1,c:"EIA04",n:"Aprendizado de Máquina para Previsão e Decisão",h:45,e:"Previsão, classificação e agrupamento. Comparação de modelos, métricas, validação, vazamento de dados e sobreajuste. Quando não usar aprendizado de máquina.",a:"Você escolhe o alvo e a métrica e decide se o modelo serve. A IA treina e compara.",d:"Modelo de referência com métricas e limitações."},
+ {s:1,c:"EIA05",n:"Processamento de Imagens e Visão Computacional",h:30,t:"v",e:"Pixels, cores, filtros, segmentação e medição de objetos. Intuição de redes neurais convolucionais. Classificação com modelos pré-treinados. Anotação de imagens e métricas.",a:"Você define o que precisa ser visto, anota exemplos e julga. A IA processa e treina.",d:"Experimento com imagens aplicado ao seu problema, ou a imagens de um parceiro."},
+ {s:1,c:"EIA06",n:"Engenharia de Soluções com IA: Direção, Evidências e Responsabilidade",h:30,e:"Abstrair a execução não é abstrair a responsabilidade. Do problema ao plano, testes e medições de antes e depois, revisão sem ler código, documentação honesta e registro no INPI.",a:"Você define o plano, os critérios e os testes, e assina. A IA implementa e mede.",d:"Pré-projeto do TCC em formato de proposta técnica."},
+ {s:2,c:"EIA07",n:"LLMs, Documentos e IA Generativa nas Organizações",h:45,e:"Transformers e embeddings em nível conceitual, prompts avançados, extração de dados de editais, contratos e laudos, avaliação com conjuntos de teste, modelos abertos e ajuste fino.",a:"Você define o que é uma boa resposta e monta os testes. A IA executa em escala.",d:"Componente com LLM e testes de qualidade."},
+ {s:2,c:"EIA08",n:"Agentes de IA, Skills, RAG e Implantação",h:45,e:"Agentes que usam ferramentas, protocolo MCP, construção de skills, RAG, orquestração, automações e publicação com monitoramento de qualidade e custo.",a:"Você define o que o agente pode e não pode fazer. A IA monta as integrações.",d:"Protótipo funcional e a sua primeira skill."},
+ {s:2,c:"EIA09",n:"Visão Computacional Aplicada e IA Multimodal",h:30,t:"v",e:"Detecção, segmentação e vídeo, modelos de fundação para visão, drones e satélites, leitura automática de documentos, modelos que combinam imagem e texto, privacidade de imagens.",a:"Você define as classes, anota e valida no campo. A IA treina e integra.",d:"Componente de visão ou multimodal da sua solução."},
+ {s:2,c:"EIA10",n:"IA Adversarial, Cibersegurança, Ética e Governança",h:45,e:"Ataques a sistemas de IA, injeção de instruções, red teaming, explicabilidade, vieses, LGPD, regulação brasileira e europeia, governança nas organizações.",a:"Você decide quais riscos são aceitáveis. A IA ajuda a atacar e auditar.",d:"Relatório de validação adversarial, que integra o TCC."}
+];
+const grid=document.getElementById("sem-grid");
+[1,2].forEach(s=>{
+  const list=COMPS.filter(x=>x.s===s);
+  const total=list.reduce((a,x)=>a+x.h,0);
+  const col=document.createElement("div");col.className="sem";
+  col.innerHTML=`<h3>${s}º semestre <small>${s===1?"meses 1 a 5":"meses 6 a 10, com o TCC até o mês 12"}, ${total} h</small></h3>`;
+  list.forEach(x=>{
+    const d=document.createElement("details");d.className="comp"+(x.t?" "+x.t:"");
+    d.innerHTML=`<summary><span class="code">${x.c}</span><span class="cname">${x.n}</span><span class="ch">${x.h} h</span></summary><div class="cbody"><p>${x.e}</p><p><b>Você e a IA.</b> ${x.a}</p><p><b>Para o TCC.</b> ${x.d}</p></div>`;
+    col.appendChild(d);
+  });
+  grid.appendChild(col);
+});
+
+// pequena imagem em pixels: um campo com falhas de plantio destacadas
+const px=document.getElementById("pixels");
+const fails=new Set([29,30,53,54,101,125,126,150,174,175]);
+for(let i=0;i<24*8;i++){
+  const sp=document.createElement("span");
+  const row=Math.floor(i/24);
+  sp.style.background=fails.has(i)?"var(--roxo)":(row%2?"color-mix(in srgb,var(--verde) 70%,transparent)":"color-mix(in srgb,var(--verde) 45%,transparent)");
+  px.appendChild(sp);
+}
+
+// demonstração: revela as mensagens uma vez, em sequência
+const msgs=[...document.querySelectorAll(".demo .msg")];
+const reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+function play(){
+  msgs.forEach(m=>m.classList.remove("on"));
+  if(reduce){msgs.forEach(m=>m.classList.add("on"));return;}
+  msgs.forEach((m,i)=>setTimeout(()=>m.classList.add("on"),300+i*1100));
+}
+document.getElementById("replay").addEventListener("click",play);
+play();
+</script>
+</body>
+</html>

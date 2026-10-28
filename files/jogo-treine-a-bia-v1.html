@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Treine a Bia</title>
+<meta name="description" content="Jogo do BIA nas Escolas: ensine a robô Bia a separar o lixo com exemplos e descubra como uma inteligência artificial aprende.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400..700&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fffaf2;--panel:#ffffff;--ink:#1b1035;--soft:#5b4f75;--line:#eadff0;
+  --seco:#13b5d6;--org:#7cc417;--purple:#8b3dff;--sun:#ffc21a;--ok:#12b981;--bad:#fb3b5c;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#140c33;--panel:#1f1550;--ink:#f4efff;--soft:#c3b8e0;--line:#34286a}
+}
+:root[data-theme="dark"]{--bg:#140c33;--panel:#1f1550;--ink:#f4efff;--soft:#c3b8e0;--line:#34286a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Nunito",system-ui,sans-serif;line-height:1.5}
+button{font-family:inherit;cursor:pointer}
+button:focus-visible{outline:4px solid var(--sun);outline-offset:3px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 16px;max-width:960px;margin:0 auto}
+.top a{color:var(--soft);font-weight:700;text-decoration:none;font-size:.95rem}
+.phase{font-weight:800;background:var(--panel);border:2px solid var(--line);border-radius:999px;padding:6px 14px}
+main{max-width:960px;margin:0 auto;padding:0 16px 40px}
+h1{font-family:"Fredoka",sans-serif;font-weight:700;font-size:clamp(2.4rem,8vw,4rem);line-height:1;margin:10px 0}
+.sub{color:var(--soft);font-size:1.12rem;max-width:52ch}
+.hidden{display:none!important}
+.big{font-family:"Fredoka",sans-serif;font-weight:600;font-size:1.35rem;border:0;border-radius:999px;padding:15px 36px;background:var(--purple);color:#fff;box-shadow:0 6px 0 #5a1fc0}
+.big:active{transform:translateY(4px);box-shadow:0 2px 0 #5a1fc0}
+.ghost{font-weight:800;font-size:1.02rem;background:transparent;border:3px solid var(--purple);color:var(--purple);border-radius:999px;padding:11px 24px}
+.intro{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center;margin-top:20px}
+@media (max-width:640px){.intro{grid-template-columns:1fr;text-align:center}.intro .sub{margin:0 auto}}
+.steps{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 24px}
+.steps span{background:var(--panel);border:2px solid var(--line);border-radius:16px;padding:8px 14px;font-weight:700}
+@media (max-width:640px){.steps{justify-content:center}}
+.stage{display:grid;grid-template-columns:200px 1fr;gap:18px;align-items:center;margin-top:8px}
+@media (max-width:640px){.stage{grid-template-columns:90px 1fr}}
+.bot{width:100%;height:auto;transition:transform .2s}
+.bot.hop{animation:hop .5s}
+@keyframes hop{40%{transform:translateY(-16px) rotate(-4deg)}}
+.say{background:var(--panel);border:3px solid var(--line);border-radius:26px;padding:16px 20px;font-family:"Fredoka",sans-serif;font-size:clamp(1.1rem,3.6vw,1.5rem);font-weight:500;position:relative;min-height:3.2em}
+.say::before{content:"";position:absolute;left:-16px;top:28px;border:8px solid transparent;border-right:14px solid var(--line)}
+.item{background:var(--panel);border:3px solid var(--line);border-radius:30px;text-align:center;padding:16px 10px 20px;margin:18px auto;max-width:360px;position:relative}
+.item .em{font-size:clamp(4.5rem,18vw,7rem);line-height:1.1;display:block}
+.item .nm{font-family:"Fredoka",sans-serif;font-weight:600;font-size:1.5rem}
+.item.in{animation:in .3s ease-out}
+@keyframes in{from{transform:scale(.5) rotate(6deg);opacity:0}}
+.item .mark{position:absolute;right:-8px;top:-14px;font-size:3rem}
+.bins{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bin{border:0;border-radius:26px;padding:16px 10px 18px;color:#fff;text-align:center;font-family:"Fredoka",sans-serif;font-weight:600;font-size:clamp(1.15rem,4vw,1.5rem);line-height:1.15;position:relative}
+.bin .ic{font-size:2.6rem;display:block}
+.bin small{display:block;font-family:"Nunito",sans-serif;font-weight:700;font-size:.85rem;opacity:.92;margin-top:2px}
+.bin.seco{background:var(--seco);box-shadow:0 6px 0 #0b7f97}
+.bin.org{background:var(--org);box-shadow:0 6px 0 #4f8a07}
+.bin:active{transform:translateY(4px);box-shadow:none}
+.bin.glow{animation:glow .6s}
+@keyframes glow{50%{transform:scale(1.06)}}
+.bin .cnt{position:absolute;top:8px;right:14px;background:rgba(0,0,0,.18);border-radius:999px;padding:0 10px;font-size:1rem}
+.mem{margin-top:22px;background:var(--panel);border:2px dashed var(--line);border-radius:22px;padding:12px 16px}
+.mem h3{font-family:"Fredoka",sans-serif;font-weight:600;margin:0 0 6px;font-size:1.1rem}
+.mem .list{display:flex;flex-wrap:wrap;gap:8px;min-height:44px}
+.chip{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:4px 12px 4px 6px;font-weight:800;font-size:.9rem;color:#fff;animation:in .3s}
+.chip .e{font-size:1.5rem}
+.chip.seco{background:var(--seco)}.chip.org{background:var(--org)}
+.chip.hl{outline:4px solid var(--sun);outline-offset:2px}
+.res{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin:18px 0}
+.res div{background:var(--panel);border:2px solid var(--line);border-radius:18px;padding:10px 12px;font-size:.95rem}
+.res b{font-family:"Fredoka",sans-serif;font-weight:600}
+.res .ok{border-color:var(--ok)}.res .bad{border-color:var(--bad)}
+.score{font-family:"Fredoka",sans-serif;font-weight:700;font-size:clamp(3rem,12vw,5.5rem);line-height:1;color:var(--purple)}
+.lesson{background:var(--panel);border-left:8px solid var(--purple);border-radius:16px;padding:14px 18px;margin:16px 0;font-size:1.08rem}
+.row{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+#fx{position:fixed;inset:0;pointer-events:none;z-index:10}
+@media (prefers-reduced-motion: reduce){.item.in,.chip,.bot.hop,.bin.glow{animation:none}}
+</style>
+</head>
+<body>
+<header class="top">
+  <a href="escolas-bia-v1.html">← BIA nas Escolas</a>
+  <span class="phase" id="phase">Treine a Bia</span>
+</header>
+
+<main>
+  <!-- abertura -->
+  <section id="sIntro" class="intro">
+    <svg class="bot" style="width:180px;margin:0 auto" viewBox="0 0 380 470" aria-hidden="true"><use href="#botsym"/></svg>
+    <div>
+      <h1>Treine a Bia!</h1>
+      <p class="sub">A Bia ainda não sabe separar o lixo. Uma inteligência artificial aprende com <b>exemplos</b>, e quem vai ensinar é você.</p>
+      <div class="steps"><span>1. Ensine com 8 exemplos</span><span>2. A Bia separa 8 coisas novas</span><span>3. Veja se ela aprendeu</span></div>
+      <button class="big" id="go">Começar a ensinar</button>
+    </div>
+  </section>
+
+  <!-- jogo -->
+  <section id="sPlay" class="hidden">
+    <div class="stage">
+      <svg class="bot" id="bot" viewBox="0 0 380 470" aria-hidden="true"><use href="#botsym"/></svg>
+      <div class="say" id="say" aria-live="polite"></div>
+    </div>
+    <div class="item" id="item"><span class="em" id="em"></span><span class="nm" id="nm"></span><span class="mark" id="mark"></span></div>
+    <div class="bins">
+      <button class="bin seco" id="bSeco"><span class="cnt" id="cSeco" hidden>0</span><span class="ic">♻️</span>Lixo seco<small>reciclável</small></button>
+      <button class="bin org" id="bOrg"><span class="cnt" id="cOrg" hidden>0</span><span class="ic">🍌</span>Lixo orgânico<small>restos de comida e plantas</small></button>
+    </div>
+    <div class="mem"><h3>🧠 Memória da Bia</h3><div class="list" id="mem"></div></div>
+  </section>
+
+  <!-- resultado -->
+  <section id="sEnd" class="hidden">
+    <div class="stage" style="margin-top:16px">
+      <svg class="bot" id="bot2" viewBox="0 0 380 470" aria-hidden="true"><use href="#botsym"/></svg>
+      <div><div class="score" id="score"></div><p class="sub" id="verdict" style="margin:6px 0 0"></p></div>
+    </div>
+    <div class="lesson" id="lesson"></div>
+    <div class="res" id="res"></div>
+    <div class="lesson" style="border-color:var(--sun)"><b>Como a Bia decidiu?</b> Para cada coisa nova, ela procurou na memória o exemplo <b>mais parecido</b> (de papel, de plástico, de metal, de vidro ou de comida) e copiou a lixeira que você ensinou. Esse jeito de aprender existe de verdade e se chama <b>vizinho mais próximo</b>.</div>
+    <div class="row">
+      <button class="big" id="again">Ensinar de novo</button>
+      <button class="ghost" id="trick">😈 Ensinar errado de propósito</button>
+    </div>
+    <p class="sub" style="margin-top:22px">No <b>BIA</b>, o Bacharelado em Inteligência Artificial da UNIPAMPA, você aprende a ensinar máquinas a resolver problemas de verdade, com muito cuidado com os exemplos. <a href="jogo-tem-ia-v1.html">Jogue também "Tem IA ou não tem?"</a></p>
+  </section>
+</main>
+<canvas id="fx"></canvas>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="botsym" viewBox="0 0 380 470">
+    <line x1="190" y1="70" x2="190" y2="22" stroke="#c9b8ff" stroke-width="10" stroke-linecap="round"/><circle cx="190" cy="20" r="18" fill="#ffc21a"/>
+    <rect x="18" y="285" width="70" height="32" rx="16" fill="#8b3dff"/><rect x="292" y="285" width="70" height="32" rx="16" fill="#8b3dff"/>
+    <circle cx="22" cy="301" r="24" fill="#e3dcff"/><circle cx="358" cy="301" r="24" fill="#e3dcff"/>
+    <rect x="88" y="250" width="204" height="190" rx="54" fill="#efeaff"/>
+    <text x="190" y="372" text-anchor="middle" font-family="Fredoka" font-weight="700" font-size="62" fill="#8b3dff">BIA</text>
+    <rect x="140" y="440" width="36" height="26" rx="10" fill="#c9b8ff"/><rect x="204" y="440" width="36" height="26" rx="10" fill="#c9b8ff"/>
+    <rect x="40" y="62" width="300" height="200" rx="70" fill="#efeaff"/><rect x="70" y="92" width="240" height="140" rx="50" fill="#1b1035"/>
+    <ellipse cx="145" cy="148" rx="22" ry="26" fill="#2ee6a6"/><ellipse cx="235" cy="148" rx="22" ry="26" fill="#2ee6a6"/>
+    <path d="M160 192 Q190 214 220 192" stroke="#2ee6a6" stroke-width="9" fill="none" stroke-linecap="round"/>
+    <circle cx="100" cy="196" r="13" fill="#ff5e7a" opacity=".55"/><circle cx="280" cy="196" r="13" fill="#ff5e7a" opacity=".55"/>
+  </symbol>
+</svg>
+
+<script>
+// características de cada coisa: [fruta, casca, suculenta, de animal, planta, seca, resto de cozinha, papel, plástico, metal, vidro, transparente]
+const TRAIN=[
+ {e:"🍌",n:"Casca de banana",f:[1,1,0,0,0,0,0,0,0,0,0,0],c:"org"},
+ {e:"📰",n:"Jornal velho",f:[0,0,0,0,0,0.3,0,1,0,0,0,0],c:"seco"},
+ {e:"🥤",n:"Copo plástico",f:[0,0,0,0,0,0,0,0,1,0,0,0.6],c:"seco"},
+ {e:"🍎",n:"Maçã mordida",f:[1,0,1,0,0,0,0,0,0,0,0,0],c:"org"},
+ {e:"🥫",n:"Lata vazia",f:[0,0,0,0,0,0,0,0,0,1,0,0],c:"seco"},
+ {e:"🍾",n:"Garrafa de vidro",f:[0,0,0,0,0,0,0,0,0,0,1,0.8],c:"seco"},
+ {e:"🥚",n:"Casca de ovo",f:[0,1,0,1,0,0,1,0,0,0,0,0],c:"org"},
+ {e:"🍂",n:"Folhas secas",f:[0,0,0,0,1,1,0,0,0,0,0,0],c:"org"}
+];
+const TEST=[
+ {e:"📦",n:"Caixa de papelão",f:[0,0,0,0,0,0.5,0,1,0,0,0,0],c:"seco"},
+ {e:"🍉",n:"Casca de melancia",f:[1,0.6,1,0,0,0,0,0,0,0,0,0],c:"org"},
+ {e:"🧴",n:"Frasco de xampu",f:[0,0,0,0,0,0,0,0,1,0,0,0.2],c:"seco"},
+ {e:"🥕",n:"Resto de cenoura",f:[0,0,0.3,0,1,0,0,0,0,0,0,0],c:"org"},
+ {e:"🫙",n:"Pote de vidro",f:[0,0,0,0,0,0,0,0,0,0,1,0.9],c:"seco"},
+ {e:"🍞",n:"Pão velho",f:[0,0.5,0,0,0,0.3,1,0,0,0,0,0],c:"org"},
+ {e:"🔩",n:"Parafuso",f:[0,0,0,0,0,0,0,0,0,1,0,0],c:"seco"},
+ {e:"📄",n:"Folha de caderno",f:[0,0,0,0,0,0.2,0,1,0,0,0,0],c:"seco"}
+];
+const NAME={seco:"lixo seco",org:"lixo orgânico"};
+const $=id=>document.getElementById(id);
+let mem=[],i=0,mode="teach",trick=false,results=[],busy=false;
+
+// sons
+let ac=null;
+function beep(fs,d=.09,type="triangle",v=.16){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();fs.forEach((f,k)=>{const o=ac.createOscillator(),g=ac.createGain();o.type=type;o.frequency.value=f;const t=ac.currentTime+k*d;g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.001,t+d*1.6);o.connect(g).connect(ac.destination);o.start(t);o.stop(t+d*1.7);});}catch(e){}}
+const sTeach=()=>beep([520,780]),sThink=()=>beep([300,360,420],.06,"sine",.08),sOk=()=>beep([660,990]),sBad=()=>beep([240,170],.14,"square",.07),sEnd=()=>beep([523,659,784,1046],.12);
+
+function say(t){$("say").innerHTML=t;}
+function hop(){const b=$("bot");b.classList.remove("hop");void b.offsetWidth;b.classList.add("hop");}
+function showItem(it){
+  $("em").textContent=it.e;$("nm").textContent=it.n;$("mark").textContent="";
+  const el=$("item");el.classList.remove("in");void el.offsetWidth;el.classList.add("in");
+}
+function renderMem(hl){
+  $("mem").innerHTML=mem.map((m,k)=>`<span class="chip ${m.c}${k===hl?" hl":""}"><span class="e">${m.e}</span>${m.c==="seco"?"seco":"orgânico"}</span>`).join("")||'<span style="color:var(--soft)">Vazia. Ensine o primeiro exemplo!</span>';
+}
+function startTeach(){
+  mem=[];i=0;mode="teach";results=[];busy=false;
+  ["sIntro","sEnd"].forEach(x=>$(x).classList.add("hidden"));$("sPlay").classList.remove("hidden");
+  $("cSeco").hidden=$("cOrg").hidden=true;
+  $("bSeco").disabled=$("bOrg").disabled=false;
+  $("phase").textContent="Ensinando: 1 de 8";
+  say(trick?"😈 Modo travesso: ensine algumas coisas <b>na lixeira errada</b> e veja o que acontece comigo!":"Em qual lixeira vai isto? Me ensina! 🙏");
+  renderMem();showItem(TRAIN[0]);
+}
+function teach(c){
+  if(mode!=="teach"||busy)return;
+  const it=TRAIN[i];mem.push({...it,c});sTeach();hop();
+  $(c==="seco"?"bSeco":"bOrg").classList.remove("glow");void $("bSeco").offsetWidth;$(c==="seco"?"bSeco":"bOrg").classList.add("glow");
+  renderMem(mem.length-1);i++;
+  if(i<TRAIN.length){
+    const lines=["Anotado! 📝","Hum, faz sentido! 🤔","Guardei na memória! 🧠","Entendi! Próximo!","Legal, estou aprendendo! ✨"];
+    say(lines[i%lines.length]+" E este aqui?");$("phase").textContent=`Ensinando: ${i+1} de 8`;showItem(TRAIN[i]);
+  }else{
+    $("bSeco").disabled=$("bOrg").disabled=true;busy=true;
+    say("Pronto, aprendi! Agora deixa <b>comigo</b>: vou separar 8 coisas que eu nunca vi. 🤖");
+    setTimeout(startTest,2200);
+  }
+}
+function nearest(it){
+  let best=Infinity,cands=[];
+  mem.forEach((m,k)=>{const d=Math.hypot(...m.f.map((v,j)=>v-it.f[j]));if(d<best-1e-9){best=d;cands=[k];}else if(Math.abs(d-best)<1e-9)cands.push(k);});
+  const votes={seco:0,org:0};cands.forEach(k=>votes[mem[k].c]++);
+  const c=votes.seco===votes.org?mem[cands[0]].c:(votes.seco>votes.org?"seco":"org");
+  return {c,k:cands.find(k=>mem[k].c===c)};
+}
+let cnt={seco:0,org:0};
+function startTest(){
+  mode="test";i=0;results=[];cnt={seco:0,org:0};busy=true;
+  $("cSeco").hidden=$("cOrg").hidden=false;$("cSeco").textContent=$("cOrg").textContent="0";
+  testStep();
+}
+function testStep(){
+  if(i>=TEST.length){setTimeout(finish,900);return;}
+  const it=TEST[i];$("phase").textContent=`A Bia testando: ${i+1} de 8`;
+  showItem(it);say("Deixa eu pensar... 🤔");sThink();renderMem();
+  setTimeout(()=>{
+    const {c,k}=nearest(it);renderMem(k);
+    say(`Parece com <b>${mem[k].e} ${mem[k].n.toLowerCase()}</b>, então vai no <b>${NAME[c]}</b>!`);
+    cnt[c]++;$(c==="seco"?"cSeco":"cOrg").textContent=cnt[c];
+    const b=$(c==="seco"?"bSeco":"bOrg");b.classList.remove("glow");void b.offsetWidth;b.classList.add("glow");
+    setTimeout(()=>{
+      const ok=c===it.c;$("mark").textContent=ok?"✅":"❌";ok?sOk():sBad();if(ok)hop();
+      results.push({it,c,ok,like:mem[k]});i++;
+      setTimeout(testStep,1300);
+    },900);
+  },900);
+}
+function finish(){
+  $("sPlay").classList.add("hidden");$("sEnd").classList.remove("hidden");$("phase").textContent="Resultado";
+  const hits=results.filter(r=>r.ok).length,wrongTeach=mem.filter(m=>m.c!==TRAIN.find(t=>t.n===m.n).c).length;
+  $("score").textContent=`${hits} de 8`;
+  $("verdict").textContent=hits===8?"A Bia acertou tudo! Você ensinou muito bem. 🎉":hits>=6?"A Bia foi bem, mas errou algumas.":"Ih, a Bia se confundiu bastante!";
+  $("lesson").innerHTML=wrongTeach===0
+    ?"<b>Por que a Bia acertou?</b> Porque todos os exemplos que você deu estavam certos. Uma IA só é boa se os exemplos forem bons. Agora experimente ensinar errado de propósito!"
+    :hits===8?`<b>Você ensinou ${wrongTeach} exemplo${wrongTeach>1?"s":""} na lixeira errada</b>, mas por sorte nenhuma das coisas novas parecia com ele. Com mais coisas para separar, cedo ou tarde o erro apareceria: a IA copia os padrões dos exemplos, inclusive os errados.`
+    :`<b>Por que a Bia errou?</b> Você colocou <b>${wrongTeach} exemplo${wrongTeach>1?"s":""}</b> na lixeira errada, e ela aprendeu exatamente o que foi ensinado. A IA não sabe o que é certo: ela copia os padrões dos exemplos. Por isso quem cria uma IA precisa escolher e conferir os exemplos com muito cuidado.`;
+  $("res").innerHTML=results.map(r=>`<div class="${r.ok?"ok":"bad"}">${r.ok?"✅":"❌"} ${r.it.e} <b>${r.it.n}</b><br>A Bia disse ${NAME[r.c]}, porque lembrou de ${r.like.e}</div>`).join("");
+  sEnd();if(hits===8)burst(140);
+}
+$("go").onclick=()=>{trick=false;startTeach();};
+$("again").onclick=()=>{trick=false;startTeach();};
+$("trick").onclick=()=>{trick=true;startTeach();};
+$("bSeco").onclick=()=>teach("seco");$("bOrg").onclick=()=>teach("org");
+addEventListener("keydown",e=>{if(e.key==="ArrowLeft")teach("seco");if(e.key==="ArrowRight")teach("org");});
+
+// confete
+const cv=$("fx"),cx=cv.getContext("2d");let parts=[];
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+function size(){cv.width=innerWidth;cv.height=innerHeight;}addEventListener("resize",size);size();
+function burst(n){if(reduce)return;const C=["#fb3b5c","#8b3dff","#12b981","#ffc21a","#13b5d6"];for(let k=0;k<n;k++)parts.push({x:innerWidth/2,y:innerHeight*.35,vx:(Math.random()-.5)*16,vy:-Math.random()*13-4,r:Math.random()*6,c:C[k%5],life:110});if(parts.length===n)requestAnimationFrame(tick);}
+function tick(){cx.clearRect(0,0,cv.width,cv.height);parts.forEach(p=>{p.vy+=.35;p.x+=p.vx;p.y+=p.vy;p.life--;p.r+=.2;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-6,-4,12,8);cx.restore();});parts=parts.filter(p=>p.life>0&&p.y<cv.height+20);if(parts.length)requestAnimationFrame(tick);else cx.clearRect(0,0,cv.width,cv.height);}
+</script>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tem IA ou não tem?</title>
+<meta name="description" content="Jogo rápido do BIA nas Escolas: em 60 segundos, descubra quais coisas do dia a dia usam inteligência artificial.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400..700&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fffaf2;--panel:#ffffff;--ink:#1b1035;--soft:#5b4f75;--line:#eadff0;
+  --yes:#12b981;--no:#fb3b5c;--purple:#8b3dff;--sun:#ffc21a;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#140c33;--panel:#1f1550;--ink:#f4efff;--soft:#c3b8e0;--line:#34286a}
+}
+:root[data-theme="dark"]{--bg:#140c33;--panel:#1f1550;--ink:#f4efff;--soft:#c3b8e0;--line:#34286a}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Nunito",system-ui,sans-serif;display:flex;flex-direction:column;min-height:100%}
+button{font-family:inherit;cursor:pointer}
+button:focus-visible{outline:4px solid var(--sun);outline-offset:3px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 16px;max-width:900px;width:100%;margin:0 auto}
+.top a{color:var(--soft);font-weight:700;text-decoration:none;font-size:.95rem}
+.hud{display:flex;gap:10px}
+.pill{background:var(--panel);border:2px solid var(--line);border-radius:999px;padding:6px 14px;font-weight:800;font-variant-numeric:tabular-nums}
+main{flex:1;display:flex;align-items:center;justify-content:center;padding:8px 16px 24px}
+.screen{width:100%;max-width:720px;text-align:center}
+h1{font-family:"Fredoka",sans-serif;font-weight:700;font-size:clamp(2.4rem,8vw,4.2rem);line-height:1;margin:6px 0 10px}
+h1 .y{color:var(--yes)}h1 .n{color:var(--no)}
+.sub{color:var(--soft);font-size:1.15rem;max-width:46ch;margin:0 auto 22px}
+.big{font-family:"Fredoka",sans-serif;font-weight:600;font-size:1.4rem;border:0;border-radius:999px;padding:16px 38px;background:var(--purple);color:#fff;box-shadow:0 6px 0 #5a1fc0}
+.big:active{transform:translateY(4px);box-shadow:0 2px 0 #5a1fc0}
+.card{background:var(--panel);border:3px solid var(--line);border-radius:32px;padding:28px 20px 30px;margin:0 auto 22px;max-width:520px;position:relative;transition:transform .18s}
+.card .em{font-size:clamp(5rem,20vw,8rem);line-height:1.1;display:block}
+.card .nm{font-family:"Fredoka",sans-serif;font-weight:600;font-size:clamp(1.5rem,5vw,2.1rem);line-height:1.15;margin-top:6px}
+.card.pop{animation:pop .28s ease-out}
+@keyframes pop{0%{transform:scale(.6) rotate(-4deg);opacity:0}100%{transform:none;opacity:1}}
+.card.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-14px)}50%{transform:translateX(12px)}75%{transform:translateX(-6px)}}
+.answers{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:520px;margin:0 auto}
+.answers button{font-family:"Fredoka",sans-serif;font-weight:600;font-size:clamp(1.2rem,4.5vw,1.6rem);border:0;border-radius:24px;padding:20px 10px;color:#fff}
+.answers .y{background:var(--yes);box-shadow:0 6px 0 #0a7a55}
+.answers .n{background:var(--no);box-shadow:0 6px 0 #b51d3a}
+.answers button:active{transform:translateY(4px);box-shadow:none}
+.answers small{display:block;font-family:"Nunito",sans-serif;font-size:.8rem;opacity:.85;font-weight:700}
+.why{min-height:3.4em;margin:16px auto 0;max-width:520px;font-size:1.05rem;font-weight:700}
+.why.ok{color:var(--yes)}.why.bad{color:var(--no)}
+.timer{height:12px;border-radius:999px;background:var(--line);overflow:hidden;max-width:520px;margin:0 auto 18px}
+.timer i{display:block;height:100%;background:linear-gradient(90deg,var(--yes),var(--sun),var(--no));transition:width .2s linear}
+.score{font-family:"Fredoka",sans-serif;font-size:clamp(4rem,16vw,7rem);font-weight:700;line-height:1;color:var(--purple)}
+.medal{font-size:4rem}
+.recap{text-align:left;background:var(--panel);border:2px solid var(--line);border-radius:20px;padding:14px 18px;margin:18px auto;max-width:560px;max-height:260px;overflow:auto;font-size:.98rem}
+.recap div{padding:6px 0;border-bottom:1px solid var(--line)}
+.recap div:last-child{border-bottom:0}
+.recap b{font-family:"Fredoka",sans-serif;font-weight:600}
+.row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.ghost{font-weight:800;font-size:1.05rem;background:transparent;border:3px solid var(--purple);color:var(--purple);border-radius:999px;padding:12px 26px}
+.hidden{display:none}
+.mascot{width:130px;height:auto;display:block;margin:0 auto}
+.keys{color:var(--soft);font-size:.9rem;margin-top:14px}
+#fx{position:fixed;inset:0;pointer-events:none;z-index:10}
+@media (prefers-reduced-motion: reduce){.card.pop,.card.shake{animation:none}}
+</style>
+</head>
+<body>
+<header class="top">
+  <a href="escolas-bia-v1.html">← BIA nas Escolas</a>
+  <div class="hud"><span class="pill" id="hudScore">⭐ 0</span><span class="pill" id="hudStreak">🔥 0</span></div>
+</header>
+
+<main>
+  <section class="screen" id="intro">
+    <svg class="mascot" viewBox="0 0 380 470" aria-hidden="true"><line x1="190" y1="70" x2="190" y2="22" stroke="#c9b8ff" stroke-width="10" stroke-linecap="round"/><circle cx="190" cy="20" r="18" fill="#ffc21a"/><rect x="18" y="285" width="70" height="32" rx="16" fill="#8b3dff"/><rect x="292" y="285" width="70" height="32" rx="16" fill="#8b3dff"/><circle cx="22" cy="301" r="24" fill="#e3dcff"/><circle cx="358" cy="301" r="24" fill="#e3dcff"/><rect x="88" y="250" width="204" height="190" rx="54" fill="#efeaff"/><text x="190" y="372" text-anchor="middle" font-family="Fredoka" font-weight="700" font-size="62" fill="#8b3dff">BIA</text><rect x="40" y="62" width="300" height="200" rx="70" fill="#efeaff"/><rect x="70" y="92" width="240" height="140" rx="50" fill="#1b1035"/><ellipse cx="145" cy="148" rx="22" ry="26" fill="#2ee6a6"/><ellipse cx="235" cy="148" rx="22" ry="26" fill="#2ee6a6"/><path d="M160 192 Q190 214 220 192" stroke="#2ee6a6" stroke-width="9" fill="none" stroke-linecap="round"/></svg>
+    <h1>Tem <span class="y">IA</span> ou <span class="n">não tem?</span></h1>
+    <p class="sub">Você tem 60 segundos. Para cada coisa que aparecer, diga se ela usa inteligência artificial. Acertos seguidos valem bônus!</p>
+    <button class="big" id="start">Jogar!</button>
+    <p class="keys">No computador: seta ← para "Tem IA" e seta → para "Não tem".</p>
+  </section>
+
+  <section class="screen hidden" id="game">
+    <div class="timer"><i id="bar" style="width:100%"></i></div>
+    <div class="card" id="card"><span class="em" id="em">🎵</span><div class="nm" id="nm"></div></div>
+    <div class="answers">
+      <button class="y" id="bYes">🤖 Tem IA<small>seta ←</small></button>
+      <button class="n" id="bNo">🔌 Não tem<small>seta →</small></button>
+    </div>
+    <p class="why" id="why" aria-live="polite"></p>
+  </section>
+
+  <section class="screen hidden" id="end">
+    <div class="medal" id="medal">🏆</div>
+    <div class="score" id="final">0</div>
+    <p class="sub" id="msg"></p>
+    <div class="row"><button class="big" id="again">Jogar de novo</button><button class="ghost" id="seeRecap">Ver respostas</button></div>
+    <div class="recap hidden" id="recap"></div>
+    <p class="sub" style="margin-top:22px">Gostou? Quem estuda no <b>BIA</b>, o Bacharelado em Inteligência Artificial da UNIPAMPA, aprende a criar essas IAs. <a href="jogo-treine-a-bia-v1.html">Agora tente treinar a Bia!</a></p>
+  </section>
+</main>
+<canvas id="fx"></canvas>
+
+<script>
+// cartas: [emoji, nome, tem IA?, explicação]
+const ITEMS=[
+ ["🎵","Músicas recomendadas para você",true,"Tem IA: o app aprende com o que você ouve e adivinha do que você vai gostar."],
+ ["📸","Filtro que coloca orelhas de cachorro no seu rosto",true,"Tem IA: a câmera precisa achar seus olhos, nariz e boca. Isso é visão computacional."],
+ ["🗺️","Mapa que desvia do trânsito",true,"Tem IA: ele prevê o trânsito com dados de milhões de celulares."],
+ ["💬","Chatbot que responde perguntas",true,"Tem IA: é um modelo de linguagem, que aprendeu lendo muitos textos."],
+ ["🔓","Celular que desbloqueia com o seu rosto",true,"Tem IA: reconhecimento facial compara o seu rosto com o que ele aprendeu."],
+ ["🌐","Tradutor que traduz placas pela câmera",true,"Tem IA: ele lê as letras da foto e traduz o texto."],
+ ["📧","Filtro de spam do e-mail",true,"Tem IA: aprendeu com milhões de e-mails o que é propaganda chata."],
+ ["⌨️","Teclado que sugere a próxima palavra",true,"Tem IA: ele prevê a palavra mais provável a partir do que você escreve."],
+ ["🧹","Robô aspirador que mapeia a casa",true,"Tem IA: ele monta um mapa e decide por onde passar."],
+ ["🌾","Drone que encontra pragas na lavoura",true,"Tem IA: analisa as imagens e aponta as plantas doentes."],
+ ["🗣️","Assistente que entende a sua voz",true,"Tem IA: transforma a fala em texto e entende o pedido."],
+ ["🎬","Vídeos sugeridos na sua tela inicial",true,"Tem IA: o sistema aprende com o que você assiste."],
+ ["🧮","Calculadora",false,"Não tem IA: ela só segue regras fixas de matemática. Nunca aprende nada."],
+ ["💡","Interruptor de luz",false,"Não tem IA: só liga e desliga um circuito."],
+ ["⏰","Despertador",false,"Não tem IA: toca sempre na hora que você marcou."],
+ ["🚦","Semáforo com tempo fixo",false,"Não tem IA: muda de cor sempre no mesmo tempo, com ou sem carros."],
+ ["🌡️","Termômetro",false,"Não tem IA: só mede a temperatura."],
+ ["📺","Controle remoto",false,"Não tem IA: só envia um sinal quando você aperta o botão."],
+ ["🔦","Lanterna",false,"Não tem IA: acende e apaga, mais nada."],
+ ["🍿","Micro-ondas com timer",false,"Não tem IA: esquenta pelo tempo que você escolher."],
+ ["🔔","Campainha",false,"Não tem IA: toca quando alguém aperta."],
+ ["🛗","Elevador com botões",false,"Não tem IA: segue os andares que foram apertados, numa regra fixa."]
+];
+
+// sons curtos com Web Audio
+let ac=null;
+function beep(freqs,dur=.09,type="triangle",vol=.18){
+  try{
+    ac=ac||new (window.AudioContext||window.webkitAudioContext)();
+    freqs.forEach((f,i)=>{const o=ac.createOscillator(),g=ac.createGain();o.type=type;o.frequency.value=f;
+      const t=ac.currentTime+i*dur;g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(.001,t+dur*1.6);
+      o.connect(g).connect(ac.destination);o.start(t);o.stop(t+dur*1.7);});
+  }catch(e){}
+}
+const sndOk=()=>beep([660,880]),sndBad=()=>beep([220,160],.14,"square",.08),sndEnd=()=>beep([523,659,784,1046],.12);
+
+const $=id=>document.getElementById(id);
+const intro=$("intro"),game=$("game"),end=$("end");
+let deck=[],cur=null,score=0,streak=0,best=0,tLeft=60,timer=null,locked=false,log=[];
+const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+
+function show(s){[intro,game,end].forEach(x=>x.classList.toggle("hidden",x!==s));}
+function hud(){$("hudScore").textContent="⭐ "+score;$("hudStreak").textContent="🔥 "+streak;}
+function next(){
+  if(!deck.length)deck=shuffle(ITEMS.slice());
+  cur=deck.pop();
+  $("em").textContent=cur[0];$("nm").textContent=cur[1];
+  const c=$("card");c.classList.remove("pop","shake");void c.offsetWidth;c.classList.add("pop");
+  locked=false;
+}
+function answer(yes){
+  if(locked||!cur)return;locked=true;
+  const ok=yes===cur[2],w=$("why");
+  if(ok){streak++;best=Math.max(best,streak);const pts=10+Math.min(streak-1,5)*2;score+=pts;sndOk();burst(14);w.className="why ok";w.textContent="✅ +"+pts+" · "+cur[0]+" "+cur[1]+". "+cur[3];}
+  else{streak=0;sndBad();const c=$("card");c.classList.remove("pop");void c.offsetWidth;c.classList.add("shake");w.className="why bad";w.textContent="❌ "+cur[0]+" "+cur[1]+". "+cur[3];}
+  log.push([cur,ok]);hud();
+  setTimeout(()=>{if(tLeft>0)next();},ok?650:1500);
+}
+function start(){
+  score=0;streak=0;best=0;tLeft=60;log=[];deck=shuffle(ITEMS.slice());hud();
+  $("why").textContent="";$("recap").classList.add("hidden");
+  show(game);next();
+  clearInterval(timer);
+  timer=setInterval(()=>{tLeft-=.2;$("bar").style.width=Math.max(0,tLeft/60*100)+"%";if(tLeft<=0)finish();},200);
+}
+function finish(){
+  clearInterval(timer);locked=true;sndEnd();
+  const hits=log.filter(x=>x[1]).length;
+  $("final").textContent=score;
+  let rec=0;try{rec=+localStorage.getItem("bia-temia-recorde")||0;if(score>rec)localStorage.setItem("bia-temia-recorde",score);}catch(e){}
+  $("medal").textContent=score>=200?"🏆":score>=120?"🥇":score>=60?"🥈":"🥉";
+  $("msg").innerHTML=`Você acertou <b>${hits} de ${log.length}</b>, com sequência máxima de <b>${best}</b>.`+(score>rec&&rec>0?" <b>Novo recorde neste aparelho!</b>":rec?` Recorde neste aparelho: ${Math.max(rec,score)}.`:"");
+  $("recap").innerHTML=log.map(([it,ok])=>`<div>${ok?"✅":"❌"} ${it[0]} <b>${it[1]}</b><br>${it[3]}</div>`).join("");
+  show(end);if(score>=60)burst(120);
+}
+$("start").onclick=start;$("again").onclick=start;
+$("bYes").onclick=()=>answer(true);$("bNo").onclick=()=>answer(false);
+$("seeRecap").onclick=()=>$("recap").classList.toggle("hidden");
+addEventListener("keydown",e=>{if(game.classList.contains("hidden"))return;if(e.key==="ArrowLeft")answer(true);if(e.key==="ArrowRight")answer(false);});
+
+// confete
+const cv=$("fx"),cx=cv.getContext("2d");let parts=[];
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+function size(){cv.width=innerWidth;cv.height=innerHeight;}addEventListener("resize",size);size();
+function burst(n){
+  if(reduce)return;
+  const C=["#fb3b5c","#8b3dff","#12b981","#ffc21a","#13b5d6"];
+  for(let i=0;i<n;i++)parts.push({x:innerWidth/2,y:innerHeight*.4,vx:(Math.random()-.5)*14,vy:-Math.random()*12-4,r:Math.random()*6,c:C[i%5],life:90});
+  if(parts.length===n)requestAnimationFrame(tick);
+}
+function tick(){
+  cx.clearRect(0,0,cv.width,cv.height);
+  parts.forEach(p=>{p.vy+=.35;p.x+=p.vx;p.y+=p.vy;p.life--;p.r+=.2;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-6,-4,12,8);cx.restore();});
+  parts=parts.filter(p=>p.life>0&&p.y<cv.height+20);
+  if(parts.length)requestAnimationFrame(tick);else cx.clearRect(0,0,cv.width,cv.height);
+}
+</script>
+</body>
+</html>

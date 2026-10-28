@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BIA nas Escolas</title>
+<meta name="description" content="Proposta de divulgação do Bacharelado em Inteligência Artificial (BIA) da UNIPAMPA para escolas de ensino fundamental e médio: vídeo animado, jogos e oficina de 50 minutos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400..700&family=Nunito:ital,wght@0,500;0,700;0,800;1,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fffaf2;--panel:#ffffff;--ink:#1b1035;--soft:#5b4f75;--line:#eadff0;
+  --pink:#fb3b5c;--purple:#8b3dff;--mint:#12b981;--lime:#7cc417;--cyan:#13b5d6;--sun:#ffc21a;
+  --night:#140c33;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#140c33;--panel:#1f1550;--ink:#f4efff;--soft:#c3b8e0;--line:#34286a;--purple:#b58bff}
+}
+:root[data-theme="dark"]{--bg:#140c33;--panel:#1f1550;--ink:#f4efff;--soft:#c3b8e0;--line:#34286a;--purple:#b58bff}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Nunito",system-ui,sans-serif;font-size:1.07rem;line-height:1.6}
+a{color:var(--purple);text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:4px solid var(--sun);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+@media (max-width:600px){.wrap{padding:0 16px}}
+h1,h2,h3{font-family:"Fredoka",system-ui,sans-serif;line-height:1.05;margin:0}
+h2{font-size:clamp(2rem,5vw,3rem);font-weight:700}
+h3{font-size:1.4rem;font-weight:600}
+.kicker{display:inline-block;font-weight:800;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;color:var(--pink)}
+.lead{font-size:1.18rem;color:var(--soft);max-width:62ch}
+section{padding:84px 0}
+@media (max-width:700px){section{padding:60px 0}}
+.sec-head{display:grid;gap:12px;margin-bottom:36px}
+
+/* topo */
+.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(8px);border-bottom:2px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:62px}
+.brand{font-family:"Fredoka",sans-serif;font-weight:700;font-size:1.35rem;text-decoration:none;color:var(--ink)}
+.brand span{color:var(--purple)}
+.top nav{display:flex;gap:20px;font-weight:700;font-size:.97rem}
+.top nav a{color:var(--soft);text-decoration:none}
+.top nav a:hover{color:var(--ink)}
+@media (max-width:860px){.top nav{display:none}}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:"Fredoka",sans-serif;font-weight:600;font-size:1.12rem;padding:13px 28px;border-radius:999px;text-decoration:none;border:0}
+.btn-p{background:var(--purple);color:#fff;box-shadow:0 5px 0 #5a1fc0}
+.btn-y{background:var(--sun);color:#1b1035;box-shadow:0 5px 0 #c08f00}
+.btn-g{background:var(--mint);color:#fff;box-shadow:0 5px 0 #0a7a55}
+.btn:active{transform:translateY(3px);box-shadow:none}
+.top .btn{padding:8px 18px;font-size:.98rem}
+
+/* hero */
+.hero{padding:56px 0 70px;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr}}
+.hero h1{font-size:clamp(2.8rem,7vw,5.2rem);font-weight:700;letter-spacing:-.01em}
+.hero h1 .g{background:linear-gradient(90deg,var(--pink),var(--purple) 50%,var(--mint));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .lead{margin:18px 0 26px}
+.ctas{display:flex;flex-wrap:wrap;gap:14px}
+.botwrap{position:relative;text-align:center}
+.botwrap svg{width:min(340px,80%);height:auto;animation:float 3.2s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-14px) rotate(-2deg)}}
+@media (prefers-reduced-motion: reduce){.botwrap svg{animation:none}}
+.balloon{position:absolute;z-index:2;top:-4%;right:0;background:var(--panel);border:3px solid var(--line);border-radius:22px;padding:10px 16px;font-family:"Fredoka",sans-serif;font-size:1.15rem;font-weight:500;max-width:220px}
+@media (max-width:900px){.balloon{right:6%}}
+.facts{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+.facts span{border-radius:999px;padding:8px 18px;font-weight:800;color:#1b1035}
+
+/* para quem e objetivos */
+.goals{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media (max-width:860px){.goals{grid-template-columns:1fr}}
+.goal{background:var(--panel);border:3px solid var(--line);border-radius:26px;padding:22px}
+.goal .ic{font-size:2.6rem;line-height:1}
+.goal h3{margin:10px 0 6px}
+.goal p{margin:0;color:var(--soft)}
+
+/* vídeo */
+.video{background:var(--night);color:#f4efff}
+.video h2{color:#fff}
+.video .lead{color:#c9bdf0}
+.vid-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:34px;align-items:start}
+@media (max-width:900px){.vid-grid{grid-template-columns:1fr}}
+.vid-grid video{width:100%;height:auto;border-radius:18px;display:block;background:#000}
+.scenes{list-style:none;margin:0;padding:0;counter-reset:c}
+.scenes li{counter-increment:c;display:grid;grid-template-columns:34px 1fr;gap:8px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.12);color:#d9ccff}
+.scenes li::before{content:counter(c);font-family:"Fredoka",sans-serif;font-weight:700;color:var(--sun)}
+.scenes b{color:#fff}
+.video a{color:#ffd86b}
+
+/* jogos */
+.games{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media (max-width:860px){.games{grid-template-columns:1fr}}
+.game{border-radius:30px;padding:28px;color:#fff;position:relative;overflow:hidden;min-height:330px;display:flex;flex-direction:column}
+.game.g1{background:linear-gradient(140deg,#8b3dff,#5a1fc0)}
+.game.g2{background:linear-gradient(140deg,#12b981,#0b7f97)}
+.game .em{font-size:4.2rem;line-height:1}
+.game h3{font-size:2rem;margin:12px 0 8px;color:#fff}
+.game p{margin:0 0 8px;color:rgba(255,255,255,.92)}
+.game .tags{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 18px}
+.game .tags span{background:rgba(255,255,255,.2);border-radius:999px;padding:3px 12px;font-weight:800;font-size:.85rem}
+.game .btn{margin-top:auto;align-self:flex-start;background:#fff;color:#1b1035;box-shadow:0 5px 0 rgba(0,0,0,.25)}
+.learn{margin-top:18px;color:var(--soft)}
+
+/* roteiro */
+.plan{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.plan li{display:grid;grid-template-columns:110px 1fr;gap:18px;background:var(--panel);border:3px solid var(--line);border-radius:22px;padding:18px 20px;align-items:start}
+@media (max-width:600px){.plan li{grid-template-columns:1fr;gap:6px}}
+.plan .min{font-family:"Fredoka",sans-serif;font-weight:700;font-size:1.6rem;color:var(--purple);line-height:1}
+.plan .min small{display:block;font-family:"Nunito",sans-serif;font-size:.85rem;color:var(--soft);font-weight:700;margin-top:4px}
+.plan h3{font-size:1.25rem;margin-bottom:4px}
+.plan p{margin:0;color:var(--soft)}
+
+/* trilhas */
+.tracks{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media (max-width:860px){.tracks{grid-template-columns:1fr}}
+.track{border-radius:28px;padding:26px;border:3px solid}
+.track.f{border-color:var(--sun);background:color-mix(in srgb,var(--sun) 10%,var(--panel))}
+.track.m{border-color:var(--cyan);background:color-mix(in srgb,var(--cyan) 10%,var(--panel))}
+.track h3{font-size:1.7rem}
+.track .age{font-weight:800;color:var(--soft);margin:4px 0 12px}
+.track ul{margin:0;padding-left:22px}
+.track li{margin-bottom:7px}
+
+/* desplugada */
+.unplug{display:grid;grid-template-columns:.9fr 1.1fr;gap:34px;align-items:start}
+@media (max-width:860px){.unplug{grid-template-columns:1fr}}
+.cards{display:flex;flex-wrap:wrap;gap:10px}
+.cards span{width:86px;height:110px;background:var(--panel);border:3px solid var(--line);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:2.4rem;box-shadow:0 4px 0 var(--line)}
+.cards span small{font-size:.75rem;font-weight:800;color:var(--soft)}
+.cards span:nth-child(odd){transform:rotate(-3deg)}.cards span:nth-child(even){transform:rotate(2deg)}
+.unplug ol{padding-left:22px;margin:0}
+.unplug li{margin-bottom:8px}
+
+/* logística, FAQ */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:34px}
+@media (max-width:860px){.two{grid-template-columns:1fr}}
+.list-check{list-style:none;margin:0;padding:0}
+.list-check li{padding:10px 0 10px 34px;border-bottom:2px dashed var(--line);position:relative}
+.list-check li::before{content:"✔";position:absolute;left:4px;top:9px;color:var(--mint);font-weight:800}
+.faq details{background:var(--panel);border:3px solid var(--line);border-radius:20px;padding:14px 20px;margin-bottom:12px}
+.faq summary{cursor:pointer;font-family:"Fredoka",sans-serif;font-weight:600;font-size:1.2rem}
+.faq p{margin:10px 0 0;color:var(--soft)}
+.decide{background:var(--panel);border:3px dashed var(--purple);border-radius:26px;padding:24px 26px}
+.decide ol{margin:10px 0 0;padding-left:22px}
+.decide li{margin-bottom:8px}
+footer{border-top:2px solid var(--line);padding:40px 0 64px;color:var(--soft);font-size:.97rem}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:18px}
+footer ul{list-style:none;margin:0;padding:0}
+footer li{margin-bottom:5px}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#inicio">BIA <span>nas Escolas</span></a>
+    <nav aria-label="Seções">
+      <a href="#video">Vídeo</a>
+      <a href="#jogos">Jogos</a>
+      <a href="#oficina">Oficina</a>
+      <a href="#trilhas">Fundamental e médio</a>
+      <a href="#faq">Perguntas</a>
+    </nav>
+    <a class="btn btn-p" href="#jogos">Jogar</a>
+  </div>
+</header>
+
+<main id="inicio">
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="kicker">Proposta de divulgação · versão 1 · outubro de 2026</span>
+      <h1>A inteligência artificial vai à <span class="g">escola!</span></h1>
+      <p class="lead">Uma oficina de 50 minutos para turmas do ensino fundamental e médio, com um vídeo animado, dois jogos e uma atividade sem computador. A ideia é mostrar, brincando, o que é IA, como ela aprende e por que vale a pena estudar Inteligência Artificial no BIA, em Alegrete.</p>
+      <div class="ctas">
+        <a class="btn btn-y" href="#video">▶ Ver o vídeo</a>
+        <a class="btn btn-g" href="#jogos">🎮 Jogar</a>
+      </div>
+      <div class="facts">
+        <span style="background:var(--sun)">🎓 Universidade pública e gratuita</span>
+        <span style="background:var(--mint);color:#fff">📝 Ingresso pelo SiSU, com o ENEM</span>
+        <span style="background:#d9ccff">📍 UNIPAMPA, Alegrete-RS</span>
+      </div>
+    </div>
+    <div class="botwrap">
+      <div class="balloon">Oi! Eu sou a Bia. Vamos aprender juntos? 🤖</div>
+      <svg viewBox="0 0 380 470" role="img" aria-label="A robô Bia, mascote do BIA"><line x1="190" y1="70" x2="190" y2="22" stroke="#c9b8ff" stroke-width="10" stroke-linecap="round"/><circle cx="190" cy="20" r="18" fill="#ffc21a"/><rect x="18" y="285" width="70" height="32" rx="16" fill="#8b3dff"/><rect x="292" y="255" width="70" height="32" rx="16" fill="#8b3dff" transform="rotate(-30 300 270)"/><circle cx="22" cy="301" r="24" fill="#e3dcff"/><circle cx="352" cy="232" r="24" fill="#e3dcff"/><rect x="88" y="250" width="204" height="190" rx="54" fill="#efeaff"/><text x="190" y="372" text-anchor="middle" font-family="Fredoka" font-weight="700" font-size="62" fill="#8b3dff">BIA</text><rect x="140" y="440" width="36" height="26" rx="10" fill="#c9b8ff"/><rect x="204" y="440" width="36" height="26" rx="10" fill="#c9b8ff"/><rect x="40" y="62" width="300" height="200" rx="70" fill="#efeaff"/><rect x="70" y="92" width="240" height="140" rx="50" fill="#1b1035"/><ellipse cx="145" cy="148" rx="22" ry="26" fill="#2ee6a6"/><ellipse cx="235" cy="148" rx="22" ry="26" fill="#2ee6a6"/><path d="M160 192 Q190 214 220 192" stroke="#2ee6a6" stroke-width="9" fill="none" stroke-linecap="round"/><circle cx="100" cy="196" r="13" fill="#ff5e7a" opacity=".55"/><circle cx="280" cy="196" r="13" fill="#ff5e7a" opacity=".55"/></svg>
+    </div>
+  </div>
+</section>
+
+<section id="objetivos" style="padding-top:20px">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker">Por que ir às escolas</span>
+      <h2>Três objetivos</h2>
+    </div>
+    <div class="goals">
+      <div class="goal"><div class="ic">🔍</div><h3>Desmistificar a IA</h3><p>Mostrar que a IA já está no celular de todo mundo e que ela não é mágica: aprende com exemplos, e por isso também erra.</p></div>
+      <div class="goal"><div class="ic">🧠</div><h3>Despertar o pensamento crítico</h3><p>Quem ensina a máquina é responsável pelo que ela aprende. Exemplos ruins geram uma IA injusta ou errada.</p></div>
+      <div class="goal"><div class="ic">🎓</div><h3>Mostrar um caminho</h3><p>Apresentar o BIA: um curso público, gratuito e perto de casa, para quem quer criar soluções com IA para a própria região.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="video" class="video">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker" style="color:#ffd86b">Vídeo animado · 1 min 16 s</span>
+      <h2>Conheça a Bia</h2>
+      <p class="lead">A robô Bia apresenta a IA do dia a dia, mostra como aprende com exemplos (e o que acontece quando alguém ensina errado) e convida a turma para o BIA. Abre a oficina e também funciona sozinho nas redes sociais da escola.</p>
+    </div>
+    <div class="vid-grid">
+      <div>
+        <video controls preload="metadata" poster="escolas-bia-v1/poster.jpg">
+          <source src="escolas-bia-v1/video-bia-escolas-v1.mp4" type="video/mp4">
+          <track kind="captions" src="escolas-bia-v1/legendas.vtt" srclang="pt-BR" label="Português">
+        </video>
+        <p style="margin-top:12px"><a href="escolas-bia-v1/video-bia-escolas-v1.mp4" download>Baixar MP4</a> · <a href="video-bia-escolas-v1.html">versão animada no navegador e roteiro</a></p>
+      </div>
+      <ol class="scenes">
+        <li><span><b>Oi, eu sou a Bia!</b> A mascote se apresenta.</span></li>
+        <li><span><b>Você já usa IA todo dia:</b> músicas, filtros, mapa, tradutor.</span></li>
+        <li><span><b>Eu aprendo com exemplos:</b> gatos e cachorros passam numa esteira.</span></li>
+        <li><span><b>Ensinou errado? Aprende errado!</b> Um cachorro marcado como "gato".</span></li>
+        <li><span><b>Pode ser você!</b> Quem ensina a IA a resolver problemas.</span></li>
+        <li><span><b>Problemas reais:</b> saúde, campo, jogos, cidades e startups.</span></li>
+        <li><span><b>Como entrar:</b> pública, gratuita, SiSU e ENEM.</span></li>
+        <li><span><b>Vem pro BIA!</b> Confete e o endereço do site.</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section id="jogos">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker">Jogos no navegador</span>
+      <h2>Jogue e aprenda</h2>
+      <p class="lead">Os dois jogos funcionam no celular, no computador e no projetor da sala, sem instalar nada e sem cadastro. Têm som, confete e explicação de cada resposta.</p>
+    </div>
+    <div class="games">
+      <article class="game g1">
+        <div class="em">🤖♻️</div>
+        <h3>Treine a Bia</h3>
+        <p>Ensine a robô a separar o lixo seco do orgânico com 8 exemplos. Depois, ela separa 8 coisas que nunca viu. Será que aprendeu? E se você ensinar errado de propósito?</p>
+        <div class="tags"><span>5 minutos</span><span>a partir do 6º ano</span><span>aprendizado de máquina</span></div>
+        <a class="btn" href="jogo-treine-a-bia-v1.html">Jogar Treine a Bia</a>
+      </article>
+      <article class="game g2">
+        <div class="em">⏱️🤔</div>
+        <h3>Tem IA ou não tem?</h3>
+        <p>Um minuto contra o relógio: filtro de rosto, calculadora, mapa, despertador... Quais usam inteligência artificial? Acertos seguidos valem bônus.</p>
+        <div class="tags"><span>1 minuto por rodada</span><span>todas as idades</span><span>IA no dia a dia</span></div>
+        <a class="btn" href="jogo-tem-ia-v1.html">Jogar Tem IA ou não tem?</a>
+      </article>
+    </div>
+    <p class="learn"><b>O que se aprende:</b> o "Treine a Bia" usa de verdade o algoritmo do vizinho mais próximo, um dos métodos clássicos de aprendizado de máquina, e mostra que exemplos errados produzem uma IA errada. O "Tem IA ou não tem?" separa sistemas que aprendem com dados de aparelhos que só seguem regras fixas.</p>
+  </div>
+</section>
+
+<section id="oficina" style="background:color-mix(in srgb,var(--purple) 6%,var(--bg))">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker">Roteiro da visita</span>
+      <h2>Uma aula de 50 minutos</h2>
+      <p class="lead">Pensada para caber num período de aula, com duas pessoas do BIA (um docente e um estudante monitor). Precisa só de projetor e som; celulares ou computadores são opcionais.</p>
+    </div>
+    <ol class="plan">
+      <li><div class="min">5 min<small>abertura</small></div><div><h3>Mãos para cima!</h3><p>"Quem usou IA hoje?" Poucos levantam a mão. Depois do vídeo, a pergunta se repete, e quase todos levantam.</p></div></li>
+      <li><div class="min">2 min<small>vídeo</small></div><div><h3>Conheça a Bia</h3><p>O vídeo animado apresenta a mascote e as ideias da aula.</p></div></li>
+      <li><div class="min">10 min<small>jogo em equipes</small></div><div><h3>Tem IA ou não tem?</h3><p>No projetor, a turma se divide em dois times que gritam a resposta. O monitor comenta as cartas que geraram dúvida.</p></div></li>
+      <li><div class="min">15 min<small>mão na massa</small></div><div><h3>Treine a Bia</h3><p>Em duplas, no celular ou no computador, ou na versão desplugada com cartas. Metade das duplas ensina certo e metade ensina errado de propósito. No fim, as duplas comparam os resultados.</p></div></li>
+      <li><div class="min">10 min<small>conversa</small></div><div><h3>E se fosse você?</h3><p>Que problema da escola ou da cidade uma IA poderia ajudar a resolver? Em seguida, o que é o BIA, como se entra pelo SiSU e como é estudar em Alegrete.</p></div></li>
+      <li><div class="min">8 min<small>fechamento</small></div><div><h3>Desafio para casa</h3><p>Anotar três vezes em que usaram IA durante a semana e jogar de novo com a família. A turma recebe um QR code com os jogos e o vídeo.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section id="trilhas">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker">Duas versões da oficina</span>
+      <h2>Fundamental e médio</h2>
+    </div>
+    <div class="tracks">
+      <div class="track f">
+        <h3>🧒 Ensino fundamental</h3>
+        <p class="age">6º ao 9º ano · 11 a 14 anos</p>
+        <ul>
+          <li>Foco na curiosidade: o que é IA e onde ela aparece no dia a dia.</li>
+          <li>Linguagem de história: a Bia é uma "aluna" que aprende com a turma.</li>
+          <li>Mais jogo e menos conversa: duas rodadas do "Tem IA ou não tem?".</li>
+          <li>Ética em uma frase: "se ensinar errado, ela aprende errado".</li>
+          <li>Convite para clubes de ciência, olimpíadas e feiras de ciências.</li>
+        </ul>
+      </div>
+      <div class="track m">
+        <h3>🧑‍🎓 Ensino médio</h3>
+        <p class="age">1º ao 3º ano · 15 a 17 anos</p>
+        <ul>
+          <li>Foco no futuro: profissões em IA, mercado de trabalho e empreendedorismo.</li>
+          <li>Como funciona o vizinho mais próximo e o que é um viés nos dados.</li>
+          <li>Mini-desafio: em grupos, projetar uma IA para um problema de Alegrete ou da escola.</li>
+          <li>Como entrar no BIA: SiSU, nota do ENEM, assistência estudantil.</li>
+          <li>Conversa com estudantes do BIA sobre a vida na universidade.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="desplugada" style="padding-top:20px">
+  <div class="wrap unplug">
+    <div>
+      <span class="kicker">Sem computador</span>
+      <h2 style="margin:10px 0 14px">Treine a Bia com cartas</h2>
+      <p class="lead">Para escolas sem internet ou sem equipamentos: a mesma lógica do jogo, com cartas impressas e duas caixas.</p>
+      <div class="cards" aria-hidden="true">
+        <span>🍌<small>banana</small></span><span>📰<small>jornal</small></span><span>🥤<small>copo</small></span><span>🍎<small>maçã</small></span><span>🥫<small>lata</small></span><span>🍾<small>garrafa</small></span>
+      </div>
+    </div>
+    <ol>
+      <li>Uma pessoa da dupla é a "professora" e a outra é a "IA", que só pode seguir a regra combinada.</li>
+      <li>A professora separa 8 cartas nas caixas "lixo seco" e "lixo orgânico". A IA olha e guarda as cartas na mesa como memória.</li>
+      <li>Novas cartas aparecem. A IA só pode responder procurando na mesa a carta <b>mais parecida</b> e copiando a caixa dela.</li>
+      <li>Contem os acertos. Depois, a professora repete ensinando errado de propósito e a dupla compara.</li>
+      <li>Conversa: por que a IA errou? De quem é a culpa? Como evitar?</li>
+    </ol>
+  </div>
+</section>
+
+<section id="logistica" style="background:color-mix(in srgb,var(--mint) 7%,var(--bg))">
+  <div class="wrap two">
+    <div>
+      <span class="kicker">O que a escola precisa</span>
+      <h2 style="margin:10px 0 18px">Logística</h2>
+      <ul class="list-check">
+        <li>Um período de aula (45 a 50 minutos) com uma ou duas turmas.</li>
+        <li>Projetor ou TV e caixa de som.</li>
+        <li>Opcional: celulares ou computadores com internet, um por dupla.</li>
+        <li>Sem internet? A versão desplugada com cartas resolve.</li>
+        <li>O BIA leva os materiais impressos, as cartas e os brindes.</li>
+      </ul>
+    </div>
+    <div>
+      <span class="kicker">Como medir</span>
+      <h2 style="margin:10px 0 18px">Avaliação</h2>
+      <ul class="list-check">
+        <li>Duas perguntas no início e no fim: "Você usa IA no dia a dia?" e "Você sabe explicar como uma IA aprende?".</li>
+        <li>Pergunta final para o ensino médio: "Você pensaria em cursar IA?".</li>
+        <li>Número de escolas, turmas e estudantes alcançados por semestre.</li>
+        <li>Acessos aos jogos e ao vídeo a partir do QR code entregue às turmas.</li>
+        <li>Estudantes do BIA que atuam como monitores registram as horas como ação de extensão.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap two">
+    <div class="faq">
+      <span class="kicker">Perguntas que a turma sempre faz</span>
+      <h2 style="margin:10px 0 18px">Respostas rápidas</h2>
+      <details><summary>Quanto custa estudar no BIA?</summary><p>Nada. A UNIPAMPA é uma universidade federal, pública e gratuita.</p></details>
+      <details><summary>Como eu entro?</summary><p>Pelo SiSU, usando a nota do ENEM. As atividades do curso têm início previsto para meados de 2027.</p></details>
+      <details><summary>Preciso ser gênio em matemática?</summary><p>Não. O curso ensina a matemática de que você vai precisar, com prática desde o primeiro semestre. Curiosidade e vontade de resolver problemas contam muito.</p></details>
+      <details><summary>Quanto tempo dura?</summary><p>8 semestres, ou seja, 4 anos. Em seis deles há a trilha de Resolução de Problemas, em equipe, com problemas reais.</p></details>
+      <details><summary>E depois de formado, faço o quê?</summary><p>Você pode desenvolver soluções de IA em empresas e órgãos públicos, gerir projetos, fazer pesquisa ou criar a sua própria empresa.</p></details>
+      <details><summary>Onde fica?</summary><p>No Campus Alegrete da UNIPAMPA, na Fronteira Oeste do Rio Grande do Sul. Saiba mais em <a href="../alegrete.html">por que estudar em Alegrete</a>.</p></details>
+    </div>
+    <div>
+      <div class="decide">
+        <span class="kicker">Para decidir com o grupo</span>
+        <h3 style="margin-top:8px;font-size:1.6rem">Próximos passos</h3>
+        <ol>
+          <li>Quais escolas visitar primeiro (Alegrete e região) e em que época do ano.</li>
+          <li>Quem forma a equipe de visita: docentes e estudantes monitores do BIA, da Ciência da Computação e da Engenharia de Software.</li>
+          <li>Registro como ação de extensão e certificado para os monitores.</li>
+          <li>Impressão das cartas da versão desplugada e brindes (adesivos da Bia).</li>
+          <li>Trocar a voz sintética do vídeo pela de estudantes e criar uma versão vertical para as redes.</li>
+          <li>Novos jogos: "Bia vê" (visão computacional com a câmera) e "Complete a frase" (como um modelo de linguagem prevê palavras).</li>
+          <li>Pedir autorização dos responsáveis antes de qualquer foto ou vídeo com estudantes menores de idade.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><b>BIA nas Escolas</b>, proposta v1, outubro de 2026.<br>Bacharelado em Inteligência Artificial, UNIPAMPA, Campus Alegrete-RS.</div>
+    <ul>
+      <li><a href="../index.html">Site do BIA</a></li>
+      <li><a href="video-bia-escolas-v1.html">Vídeo animado e roteiro</a></li>
+      <li><a href="jogo-treine-a-bia-v1.html">Jogo: Treine a Bia</a></li>
+      <li><a href="jogo-tem-ia-v1.html">Jogo: Tem IA ou não tem?</a></li>
+    </ul>
+  </div>
+</footer>
+</body>
+</html>

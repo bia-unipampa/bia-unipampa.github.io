@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vídeo BIA nas Escolas</title>
+<meta name="description" content="Vídeo animado de divulgação do Bacharelado em Inteligência Artificial (BIA) da UNIPAMPA para estudantes do ensino fundamental e médio, apresentado pela robô Bia.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400..700&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fffaf2;--ink:#1b1035;--soft:#5b4f75;--line:#eadff0;
+  --pink:#fb3b5c;--purple:#8b3dff;--mint:#12c48b;--lime:#7cc417;--cyan:#13b5d6;--sun:#ffc21a;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#140c33;--ink:#f4efff;--soft:#c3b8e0;--line:#2e2357}
+}
+:root[data-theme="dark"]{--bg:#140c33;--ink:#f4efff;--soft:#c3b8e0;--line:#2e2357}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Nunito",system-ui,sans-serif;font-size:1.06rem;line-height:1.6}
+a{color:var(--purple)}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+@media (max-width:600px){.wrap{padding:0 16px}}
+h1,h2{font-family:"Fredoka",system-ui,sans-serif;line-height:1.05;margin:0}
+.hd{padding:44px 0 22px}
+.hd h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:700}
+.hd p{color:var(--soft);max-width:66ch;margin:10px 0 0}
+.viewer{position:relative;width:100%;aspect-ratio:16/9;border-radius:18px;overflow:hidden;background:#140c33;box-shadow:0 10px 40px rgba(27,16,53,.25)}
+.viewer #stage{position:absolute;left:0;top:0;transform-origin:top left}
+.ctrl{display:flex;align-items:center;gap:14px;margin-top:14px;flex-wrap:wrap}
+.ctrl button{font:700 1rem "Nunito",sans-serif;background:var(--purple);color:#fff;border:0;border-radius:999px;padding:10px 22px;cursor:pointer}
+.ctrl button:focus-visible{outline:3px solid var(--sun);outline-offset:3px}
+.ctrl input{flex:1;min-width:160px;accent-color:var(--purple)}
+.ctrl span{font-variant-numeric:tabular-nums;color:var(--soft);font-size:.95rem}
+.ctrl a{font-weight:700}
+.rot{margin:40px 0 64px}
+.rot h2{font-size:1.8rem;margin-bottom:10px}
+.rot table{width:100%;border-collapse:collapse;font-size:.98rem}
+.rot td,.rot th{text-align:left;vertical-align:top;padding:10px 12px 10px 0;border-bottom:1px solid var(--line)}
+.rot th{color:var(--soft);font-size:.88rem}
+.rot td:first-child{font-weight:800;color:var(--purple);white-space:nowrap}
+.tbl{overflow-x:auto}
+
+/* ===== palco 1920 x 1080 ===== */
+#stage{width:1920px;height:1080px;background:#140c33;overflow:hidden;font-family:"Fredoka",system-ui,sans-serif;color:#fff;position:relative}
+#bgc{position:absolute;inset:0}
+.sc{position:absolute;inset:0;opacity:0;transform:translateY(70px)}
+.el{position:absolute;opacity:0;will-change:transform,opacity}
+.t-big{font-weight:700;font-size:120px;line-height:1;letter-spacing:-.01em}
+.t-mid{font-weight:600;font-size:84px;line-height:1.05}
+.t-sm{font-family:"Nunito",sans-serif;font-weight:800;font-size:44px;line-height:1.2;color:#d9ccff}
+.grad{background:linear-gradient(90deg,#ff5e7a,#b366ff 45%,#2ee6a6);-webkit-background-clip:text;background-clip:text;color:transparent}
+.card{background:#fff;color:#1b1035;border-radius:36px;padding:30px 34px;text-align:center;box-shadow:0 14px 0 rgba(0,0,0,.25)}
+.card .em{font-size:120px;line-height:1.1;display:block}
+.card b{display:block;font-size:42px;font-weight:600;margin-top:8px}
+.mini{background:#fff;color:#1b1035;border-radius:26px;width:200px;padding:16px 10px;text-align:center;box-shadow:0 10px 0 rgba(0,0,0,.25)}
+.mini .em{font-size:96px;line-height:1.1;display:block}
+.mini b{font-size:34px;font-weight:600}
+.mini.bad b{color:#fb3b5c}
+.stamp{font-weight:700;font-size:150px;color:#fb3b5c;transform:rotate(-14deg)}
+.bubble{background:#fff;color:#1b1035;border-radius:40px;padding:24px 40px;font-size:62px;font-weight:600;white-space:nowrap}
+.bubble::after{content:"";position:absolute;left:44px;bottom:-26px;border:16px solid transparent;border-top:26px solid #fff;border-left:26px solid #fff}
+.chip{border-radius:999px;padding:22px 50px;font-weight:600;font-size:66px;color:#1b1035;white-space:nowrap}
+#bot{position:absolute;left:0;top:0;width:380px;height:470px;transform-origin:50% 100%}
+#confetti{position:absolute;inset:0;pointer-events:none}
+body.render{margin:0;background:#140c33}
+body.render #page>*:not(.wrap-stage){display:none}
+</style>
+</head>
+<body>
+<div id="page">
+<header class="hd">
+  <div class="wrap">
+    <h1>Conheça a Bia</h1>
+    <p>Vídeo animado de cerca de 76 segundos para apresentar a inteligência artificial e o BIA a estudantes do ensino fundamental e médio. A robô Bia mostra onde a IA já está no dia a dia, como ela aprende com exemplos e por que precisa de gente que pense com cuidado.</p>
+  </div>
+</header>
+<div class="wrap wrap-stage">
+  <div class="viewer" id="viewer">
+    <div id="stage">
+      <canvas id="bgc" width="1920" height="1080"></canvas>
+
+      <section class="sc" data-s="0">
+        <div class="el t-big" data-in="1.0" data-fx="pop" style="left:900px;top:330px">Oi! Eu sou<br>a <span class="grad">Bia</span>!</div>
+        <div class="el t-sm" data-in="2.0" data-fx="up" style="left:906px;top:600px">uma inteligência artificial 🤖</div>
+      </section>
+
+      <section class="sc" data-s="1">
+        <div class="el t-mid" data-in="0.3" data-fx="up" style="left:620px;top:110px">Você já usa IA <span class="grad">todo dia!</span></div>
+        <div class="el card" data-in="4.4" data-fx="pop" style="left:620px;top:330px;width:290px"><span class="em">🎵</span><b>Músicas</b></div>
+        <div class="el card" data-in="5.7" data-fx="pop" style="left:940px;top:330px;width:290px"><span class="em">📸</span><b>Filtros</b></div>
+        <div class="el card" data-in="7.0" data-fx="pop" style="left:1260px;top:330px;width:290px"><span class="em">🗺️</span><b>Mapa</b></div>
+        <div class="el card" data-in="8.2" data-fx="pop" style="left:1580px;top:330px;width:290px"><span class="em">🌐</span><b>Tradutor</b></div>
+        <div class="el t-sm" data-in="8.8" data-fx="up" style="left:626px;top:720px">e em muitos outros lugares...</div>
+      </section>
+
+      <section class="sc" data-s="2">
+        <div class="el t-mid" data-in="0.3" data-fx="up" style="left:620px;top:110px">Eu aprendo com <span class="grad">exemplos</span></div>
+        <div class="el" id="belt" data-in="2.0" data-fx="fade" style="left:0;top:330px;width:1920px;height:260px"></div>
+        <div class="el mini" data-in="6.9" data-fx="pop" style="left:1180px;top:640px"><span class="em">🐈</span><b>???</b></div>
+        <div class="el bubble" data-in="8.0" data-fx="pop" style="left:1440px;top:660px">É um gato! ✅</div>
+      </section>
+
+      <section class="sc" data-s="3">
+        <div class="el t-mid" data-in="0.3" data-fx="up" style="left:620px;top:110px">Ensinou errado? <span style="color:#ff5e7a">Aprende errado!</span></div>
+        <div class="el mini bad" data-in="1.2" data-fx="pop" style="left:820px;top:330px;width:260px"><span class="em">🐶</span><b>"gato"</b></div>
+        <div class="el stamp" data-in="2.0" data-fx="zoom" style="left:1010px;top:250px">✗</div>
+        <div class="el bubble" data-in="2.6" data-fx="pop" style="left:1180px;top:390px">Hã?! 🤯</div>
+        <div class="el t-sm" data-in="4.4" data-fx="up" style="left:626px;top:740px;width:1200px">A IA precisa de gente que<br>pense com cuidado. 🧠</div>
+      </section>
+
+      <section class="sc" data-s="4">
+        <div class="el t-mid" data-in="0.3" data-fx="up" style="left:120px;top:150px">Quem ensina a IA a resolver<br>problemas de verdade?</div>
+        <div class="el t-big grad" data-in="3.9" data-fx="zoom" style="left:120px;top:400px;font-size:180px">Pode ser você!</div>
+        <div class="el t-sm" data-in="6.6" data-fx="up" style="left:126px;top:660px;color:#fff">BIA · Bacharelado em Inteligência Artificial</div>
+        <div class="el t-sm" data-in="7.2" data-fx="up" style="left:126px;top:730px">UNIPAMPA · Alegrete-RS</div>
+      </section>
+
+      <section class="sc" data-s="5">
+        <div class="el t-mid" data-in="0.3" data-fx="up" style="left:620px;top:110px">No BIA você resolve<br><span class="grad">problemas reais</span></div>
+        <div class="el chip" data-in="2.6" data-fx="pop" style="left:626px;top:320px;background:#ffc21a;font-size:48px;padding:14px 36px">desde o 1º semestre</div>
+        <div class="el card" data-in="4.6" data-fx="pop" style="left:620px;top:470px;width:240px"><span class="em">🏥</span><b>Saúde</b></div>
+        <div class="el card" data-in="5.2" data-fx="pop" style="left:885px;top:470px;width:240px"><span class="em">🌾</span><b>Campo</b></div>
+        <div class="el card" data-in="5.8" data-fx="pop" style="left:1150px;top:470px;width:240px"><span class="em">🎮</span><b>Jogos</b></div>
+        <div class="el card" data-in="6.6" data-fx="pop" style="left:1415px;top:470px;width:240px"><span class="em">🏙️</span><b>Cidades</b></div>
+        <div class="el chip" data-in="8.6" data-fx="up" style="left:626px;top:830px;background:#2ee6a6">🚀 e criar a sua empresa</div>
+      </section>
+
+      <section class="sc" data-s="6">
+        <div class="el chip" data-in="0.6" data-fx="left" style="left:620px;top:200px;background:#2ee6a6">Universidade pública</div>
+        <div class="el chip" data-in="1.6" data-fx="left" style="left:620px;top:350px;background:#ffc21a">e gratuita 🎉</div>
+        <div class="el chip" data-in="3.4" data-fx="left" style="left:620px;top:540px;background:#b366ff;color:#fff">Entra pelo SiSU</div>
+        <div class="el chip" data-in="4.4" data-fx="left" style="left:620px;top:690px;background:#ff5e7a;color:#fff">com a nota do ENEM</div>
+        <div class="el t-sm" data-in="5.4" data-fx="up" style="left:626px;top:860px">8 semestres · início previsto para 2027</div>
+      </section>
+
+      <section class="sc" data-s="7">
+        <div class="el t-big" data-in="0.6" data-fx="zoom" style="left:0;width:1920px;text-align:center;top:60px;font-size:210px">Vem pro <span class="grad">BIA!</span></div>
+        <div class="el t-sm" data-in="1.8" data-fx="up" style="left:0;width:1920px;text-align:center;top:310px;color:#fff;font-size:56px">bia-unipampa.github.io</div>
+      </section>
+
+      <canvas id="confetti" width="1920" height="1080"></canvas>
+
+      <svg id="bot" viewBox="0 0 380 470" aria-hidden="true">
+        <defs>
+          <linearGradient id="gb" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e3dcff"/></linearGradient>
+        </defs>
+        <g id="ant"><line x1="190" y1="70" x2="190" y2="22" stroke="#d9ccff" stroke-width="10" stroke-linecap="round"/><circle id="antball" cx="190" cy="20" r="18" fill="#2ee6a6"/></g>
+        <g id="armL" style="transform-origin:78px 300px"><rect x="18" y="285" width="70" height="32" rx="16" fill="#b366ff"/><circle cx="22" cy="301" r="24" fill="#fff"/></g>
+        <g id="armR" style="transform-origin:302px 300px"><rect x="292" y="285" width="70" height="32" rx="16" fill="#b366ff"/><circle cx="358" cy="301" r="24" fill="#fff"/></g>
+        <rect x="88" y="250" width="204" height="190" rx="54" fill="url(#gb)"/>
+        <text x="190" y="372" text-anchor="middle" font-family="Fredoka" font-weight="700" font-size="62" fill="#8b3dff">BIA</text>
+        <rect x="140" y="440" width="36" height="26" rx="10" fill="#d9ccff"/><rect x="204" y="440" width="36" height="26" rx="10" fill="#d9ccff"/>
+        <rect x="40" y="62" width="300" height="200" rx="70" fill="url(#gb)"/>
+        <rect x="70" y="92" width="240" height="140" rx="50" fill="#1b1035"/>
+        <g id="eyes" style="transform-origin:190px 150px"><ellipse cx="145" cy="148" rx="22" ry="26" fill="#2ee6a6"/><ellipse cx="235" cy="148" rx="22" ry="26" fill="#2ee6a6"/></g>
+        <path id="mouth" d="M160 192 Q190 214 220 192" stroke="#2ee6a6" stroke-width="9" fill="none" stroke-linecap="round"/>
+        <circle cx="100" cy="196" r="13" fill="#ff5e7a" opacity=".55"/><circle cx="280" cy="196" r="13" fill="#ff5e7a" opacity=".55"/>
+      </svg>
+    </div>
+  </div>
+  <div class="ctrl">
+    <button type="button" id="play">▶ Assistir</button>
+    <input type="range" id="seek" min="0" max="1000" value="0" aria-label="Posição do vídeo">
+    <span id="clock">0:00</span>
+    <a href="escolas-bia-v1/video-bia-escolas-v1.mp4" download>Baixar MP4</a>
+  </div>
+</div>
+
+<div class="wrap rot">
+  <h2>Roteiro</h2>
+  <div class="tbl"><table><thead><tr><th>Tempo</th><th>Cena</th><th>Narração da Bia</th></tr></thead><tbody id="rot"></tbody></table></div>
+  <p style="color:var(--soft)">A voz é sintética e serve para marcar o ritmo; a versão final pode ser dublada por estudantes do BIA. Veja a <a href="escolas-bia-v1.html">proposta completa do BIA nas Escolas</a>.</p>
+</div>
+</div>
+
+<audio id="aud" src="escolas-bia-v1/trilha-video.m4a" preload="auto"></audio>
+
+<script>
+// cenas: duração (s), momento em que a narração começa e texto falado
+const S=[
+ {d:6.0, n:1.0, nome:"Oi, eu sou a Bia", txt:"Oi! Eu sou a Bia, uma inteligência artificial."},
+ {d:11.0,n:0.6, nome:"IA no dia a dia", txt:"Sabia que você já usa inteligência artificial todos os dias? Nas músicas recomendadas, nos filtros de foto, no mapa e no tradutor."},
+ {d:10.2,n:0.6, nome:"Aprender com exemplos", txt:"Mas eu não nasci sabendo. Eu aprendo com exemplos. Depois de ver muitos gatos e cachorros, eu reconheço um que nunca vi."},
+ {d:8.4, n:0.6, nome:"Exemplo errado", txt:"E se alguém me ensinar errado, eu aprendo errado! Por isso a IA precisa de gente que pense com cuidado."},
+ {d:12.4,n:0.6, nome:"Pode ser você", txt:"E quem ensina a IA a resolver problemas de verdade? Pode ser você! A UNIPAMPA, em Alegrete, criou um curso inteirinho de inteligência artificial: o BIA."},
+ {d:12.2,n:0.6, nome:"Problemas reais", txt:"No BIA, você resolve problemas reais desde o primeiro semestre: na saúde, no campo, nos jogos e nas cidades. E pode até criar a sua própria empresa."},
+ {d:7.6, n:0.6, nome:"Como entrar", txt:"É numa universidade pública e gratuita. E você entra pelo SiSU, com a nota do ENEM."},
+ {d:8.0, n:0.6, nome:"Vem pro BIA", txt:"Bora criar o futuro com inteligência artificial? Vem pro BIA!"}
+];
+let acc=0;S.forEach(s=>{s.t0=acc;acc+=s.d;});
+const TOTAL=acc;
+
+// posição da robô ao longo do vídeo: [tempo, x, y, escala]
+const BOT=[[0,330,1500,1.3],[0.9,330,860,1.3],[5.6,330,860,1.3],[6.4,70,880,1.1],[37.4,70,880,1.1],[38.2,1480,880,1],[49.8,1480,880,1],[50.5,150,1010,.75],[67.4,150,1010,.75],[68.2,798,1075,.85],[TOTAL,798,1075,.85]];
+
+const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const ease=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const back=x=>{const c1=1.70158,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2);};
+function lerpKF(kf,t){
+  if(t<=kf[0][0])return kf[0].slice(1);
+  for(let i=1;i<kf.length;i++){
+    if(t<=kf[i][0]){const a=kf[i-1],b=kf[i],p=ease((t-a[0])/(b[0]-a[0]||1));return a.slice(1).map((v,j)=>v+(b[j+1]-v)*p);}
+  }
+  return kf[kf.length-1].slice(1);
+}
+function sceneAt(t){for(let i=S.length-1;i>=0;i--)if(t>=S[i].t0)return i;return 0;}
+
+// esteira de exemplos (cena 3)
+const belt=document.getElementById("belt");
+const EX=[["🐱","gato"],["🐶","cachorro"],["🐱","gato"],["🐕","cachorro"],["🐈‍⬛","gato"],["🐶","cachorro"],["🐱","gato"],["🐩","cachorro"]];
+EX.forEach(([e,l])=>{const d=document.createElement("div");d.className="mini";d.style.position="absolute";d.style.top="0";d.innerHTML=`<span class="em">${e}</span><b>${l}</b>`;belt.appendChild(d);});
+
+// fundo: rede neural com pontos e ligações
+const bg=document.getElementById("bgc").getContext("2d");
+const P=[...Array(46)].map((_,i)=>({x:(i*397)%1920,y:(i*211+90)%1080,a:i*1.7,r:3+(i%4)}));
+function drawBg(t){
+  bg.clearRect(0,0,1920,1080);
+  const pts=P.map(p=>({x:p.x+Math.sin(t*.35+p.a)*40,y:p.y+Math.cos(t*.3+p.a)*30,r:p.r}));
+  bg.lineWidth=2;
+  for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){
+    const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.hypot(dx,dy);
+    if(d<260){bg.strokeStyle=`rgba(179,102,255,${.22*(1-d/260)})`;bg.beginPath();bg.moveTo(pts[i].x,pts[i].y);bg.lineTo(pts[j].x,pts[j].y);bg.stroke();}
+  }
+  pts.forEach((p,i)=>{bg.fillStyle=i%3?"rgba(46,230,166,.55)":"rgba(255,94,122,.5)";bg.beginPath();bg.arc(p.x,p.y,p.r,0,7);bg.fill();});
+}
+
+// confete (cena final)
+const cf=document.getElementById("confetti").getContext("2d");
+const COLORS=["#ff5e7a","#b366ff","#2ee6a6","#ffc21a","#13b5d6","#a3e635"];
+function drawConfetti(t){
+  cf.clearRect(0,0,1920,1080);
+  const t0=S[7].t0+0.6; if(t<t0)return;
+  const k=t-t0;
+  for(let i=0;i<160;i++){
+    const x0=(i*523)%1920, vy=280+(i*37)%260, sway=Math.sin(k*3+i)*40;
+    const y=-60+(k-(i%20)*0.12)*vy; if(y<-60||y>1120)continue;
+    cf.save();cf.translate(x0+sway,y);cf.rotate(k*4+i);cf.fillStyle=COLORS[i%6];cf.fillRect(-10,-6,20,12);cf.restore();
+  }
+}
+
+const bot=document.getElementById("bot"),armL=document.getElementById("armL"),armR=document.getElementById("armR"),eyes=document.getElementById("eyes"),mouth=document.getElementById("mouth"),antball=document.getElementById("antball");
+const els=[...document.querySelectorAll(".sc")].map(sc=>({sc,s:+sc.dataset.s,items:[...sc.querySelectorAll(".el")]}));
+
+function renderAt(t){
+  drawBg(t);
+  const si=sceneAt(t);
+  els.forEach(({sc,s,items})=>{
+    const sd=S[s],loc=t-sd.t0;
+    let o=0;
+    if(loc>=0&&loc<sd.d){o=Math.min(clamp(loc/0.35),s===S.length-1?1:clamp((sd.d-loc)/0.35));}
+    sc.style.opacity=o;
+    if(!o)return;
+    items.forEach(el=>{
+      const p=clamp((loc-(+el.dataset.in||0))/0.55);
+      const fx=el.dataset.fx;let tr="",op=p>0?1:0;
+      if(fx==="pop"){const b=back(p);tr=`scale(${0.2+0.8*b})`;op=clamp(p*3);}
+      else if(fx==="zoom"){const b=back(p);tr=`scale(${1.6-0.6*b})`;op=clamp(p*2.5);}
+      else if(fx==="up"){tr=`translateY(${(1-ease(p))*60}px)`;op=ease(p);}
+      else if(fx==="left"){tr=`translateX(${(1-ease(p))*-140}px)`;op=ease(p);}
+      else {op=ease(p);}
+      el.style.opacity=op;el.style.transform=tr;
+    });
+  });
+  // esteira: exemplos passam da direita para a robô
+  const s3=S[2],l3=t-s3.t0;
+  [...belt.children].forEach((c,i)=>{const x=1960-(l3-2.0)*420+i*250;c.style.left=x+"px";c.style.opacity=x<470?clamp((x-300)/170):1;c.style.transform=`translateY(${Math.sin(l3*6+i)*8}px) rotate(${Math.sin(l3*3+i)*4}deg)`;});
+  // robô
+  const [x,y,sc]=lerpKF(BOT,t);
+  const bob=Math.sin(t*3.2)*10, jump=(si===7)?-Math.abs(Math.sin(t*5))*60:0;
+  bot.style.transform=`translate(${x}px,${y-470+bob+jump}px) scale(${sc})`;
+  const wave=(t>1&&t<4.6)||si===7||(si===4&&t-S[4].t0>3.9&&t-S[4].t0<6.5);
+  armR.style.transform=`rotate(${wave?-35+Math.sin(t*10)*28:Math.sin(t*2)*6}deg)`;
+  armL.style.transform=`rotate(${si===3?20:Math.sin(t*2+1)*6}deg)`;
+  const blink=(t%3.1)<0.12;eyes.style.transform=`scaleY(${blink?0.1:1})`;
+  const conf=si===3&&t-S[3].t0>2.4;
+  mouth.setAttribute("d",conf?"M172 200 Q190 180 208 200 Q190 220 172 200":"M160 192 Q190 214 220 192");
+  antball.setAttribute("fill",(Math.floor(t*2)%2)?"#2ee6a6":"#ffc21a");
+  drawConfetti(t);
+}
+window.renderAt=renderAt;window.TOTAL=TOTAL;
+
+// roteiro em tabela
+const fmt=s=>{s=Math.round(s);return Math.floor(s/60)+":"+String(s%60).padStart(2,"0");};
+const rot=document.getElementById("rot");
+S.forEach((s,i)=>{const tr=document.createElement("tr");tr.innerHTML=`<td>${fmt(s.t0)} a ${fmt(s.t0+s.d)}</td><td>${i+1}. ${s.nome}</td><td>${s.txt}</td>`;rot.appendChild(tr);});
+
+// reprodução no navegador, sincronizada com o áudio quando ele existir
+const stage=document.getElementById("stage"),viewer=document.getElementById("viewer"),aud=document.getElementById("aud");
+const playB=document.getElementById("play"),seek=document.getElementById("seek"),clock=document.getElementById("clock");
+function fit(){stage.style.transform=`scale(${viewer.clientWidth/1920})`;}
+let playing=false,base=0,tStart=0,useAudio=true;
+aud.addEventListener("error",()=>{useAudio=false;});
+function now(){return useAudio&&!aud.paused?aud.currentTime:base+(performance.now()-tStart)/1000;}
+function loop(){
+  if(!playing)return;
+  let t=now();if(t>=TOTAL){t=TOTAL;stop();}
+  renderAt(t);seek.value=t/TOTAL*1000;clock.textContent=fmt(t);
+  requestAnimationFrame(loop);
+}
+function start(){
+  if(base>=TOTAL-0.05)base=0;
+  playing=true;playB.textContent="❚❚ Pausar";tStart=performance.now();
+  if(useAudio){aud.currentTime=base;aud.play().catch(()=>{useAudio=false;});}
+  loop();
+}
+function stop(){playing=false;base=Math.min(now(),TOTAL);aud.pause();playB.textContent="▶ Assistir";}
+playB.addEventListener("click",()=>playing?stop():start());
+seek.addEventListener("input",()=>{base=seek.value/1000*TOTAL;if(playing){aud.currentTime=base;tStart=performance.now();}renderAt(base);clock.textContent=fmt(base);});
+
+// modo de exportação: #render deixa só o palco, em tamanho real
+if(location.hash==="#render"){
+  document.body.className="render";
+  document.body.replaceChildren(stage);
+}else{
+  addEventListener("resize",fit);fit();
+}
+document.fonts.ready.then(()=>renderAt(location.hash==="#render"?0:1.6));
+</script>
+</body>
+</html>

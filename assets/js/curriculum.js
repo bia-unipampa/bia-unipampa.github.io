@@ -188,33 +188,34 @@ const SEMESTERS = [
 ];
 
 /* Componentes Curriculares Complementares (CCCGs) — trilhas eletivas (Tabela 7).
-   "feature" marca as trilhas de IA aplicada que viram a constelação de destaque. */
+   "feature" marca as trilhas de IA aplicada que viram a constelação de destaque.
+   credits/hours/from: créditos, carga horária e semestre mínimo de oferta (Tabela 7). */
 const ELECTIVES = [
-  { feature: true, icon: "🩺", name: { pt: "IA Aplicada à Saúde", es: "IA Aplicada a la Salud", en: "AI Applied to Health" } },
-  { feature: true, icon: "🌱", name: { pt: "IA Aplicada ao Agronegócio", es: "IA Aplicada al Agronegocio", en: "AI Applied to Agribusiness" } },
-  { feature: true, icon: "🤖", name: { pt: "IA Aplicada à Robótica", es: "IA Aplicada a la Robótica", en: "AI Applied to Robotics" } },
-  { feature: true, icon: "🛡️", name: { pt: "IA Aplicada à Cibersegurança", es: "IA Aplicada a la Ciberseguridad", en: "AI Applied to Cybersecurity" } },
-  { feature: true, icon: "🏛️", name: { pt: "IA Aplicada a Políticas Públicas", es: "IA Aplicada a Políticas Públicas", en: "AI Applied to Public Policy" } },
-  { feature: true, icon: "🎮", name: { pt: "IA para Jogos Digitais", es: "IA para Juegos Digitales", en: "AI for Digital Games" } },
-  { feature: true, icon: "⚛️", name: { pt: "Computação Quântica Aplicada à IA", es: "Computación Cuántica Aplicada a la IA", en: "Quantum Computing for AI" } },
-  { feature: true, icon: "🎨", name: { pt: "IA em Computação Gráfica", es: "IA en Computación Gráfica", en: "AI in Computer Graphics" } },
-  { feature: true, icon: "🏭", name: { pt: "IA Aplicada às Engenharias", es: "IA Aplicada a las Ingenierías", en: "AI Applied to Engineering" } },
-  { feature: true, icon: "🎓", name: { pt: "IA Aplicada à Educação", es: "IA Aplicada a la Educación", en: "AI Applied to Education" } },
-  { feature: true, icon: "🏢", name: { pt: "IA na Automação das Empresas", es: "IA en la Automatización de Empresas", en: "AI in Business Automation" } },
-  { feature: true, icon: "🏗️", name: { pt: "IA na Automação no Governo", es: "IA en la Automatización del Gobierno", en: "AI in Government Automation" } },
-  { feature: true, icon: "📐", name: { pt: "IA Aplicada à Matemática", es: "IA Aplicada a la Matemática", en: "AI Applied to Mathematics" } },
-  { feature: true, icon: "🧳", name: { pt: "IA Aplicada ao Turismo", es: "IA Aplicada al Turismo", en: "AI Applied to Tourism" } },
-  { feature: true, icon: "⚙️", name: { pt: "MLOps — Operações de ML", es: "MLOps — Operaciones de ML", en: "MLOps — ML Operations" } },
-  { feature: false, name: { pt: "Linguagem de Programação para Ciência de Dados", es: "Lenguaje de Programación para Ciencia de Datos", en: "Programming Language for Data Science" } },
-  { feature: false, name: { pt: "Pesquisa e Inovação", es: "Investigación e Innovación", en: "Research & Innovation" } },
-  { feature: false, name: { pt: "Práticas de Leitura e Escrita em Inglês", es: "Prácticas de Lectura y Escritura en Inglés", en: "English Reading & Writing Practice" } },
-  { feature: false, name: { pt: "Laboratório de Escrita e Revisão de Artigos", es: "Laboratorio de Escritura y Revisión de Artículos", en: "Paper Writing & Review Lab" } },
-  { feature: false, name: { pt: "Ética e Dados", es: "Ética y Datos", en: "Ethics & Data" } },
-  { feature: false, name: { pt: "Acessibilidade e Inclusão Digital", es: "Accesibilidad e Inclusión Digital", en: "Accessibility & Digital Inclusion" } },
-  { feature: false, name: { pt: "Tecnologia em Contexto Social", es: "Tecnología en Contexto Social", en: "Technology in Social Context" } },
-  { feature: false, name: { pt: "Relações Étnico-Raciais", es: "Relaciones Étnico-Raciales", en: "Ethnic-Racial Relations" } },
-  { feature: false, name: { pt: "Libras", es: "Lengua de Señas (Libras)", en: "Brazilian Sign Language (Libras)" } },
-  { feature: false, name: { pt: "Segurança no Trabalho e Gestão Ambiental", es: "Seguridad Laboral y Gestión Ambiental", en: "Workplace Safety & Environmental Management" } }
+  { feature: true, icon: "🩺", credits: 4, hours: 60, from: 4, name: { pt: "IA Aplicada à Saúde", es: "IA Aplicada a la Salud", en: "AI Applied to Health" } },
+  { feature: true, icon: "🌱", credits: 4, hours: 60, from: 4, name: { pt: "IA Aplicada ao Agronegócio", es: "IA Aplicada al Agronegocio", en: "AI Applied to Agribusiness" } },
+  { feature: true, icon: "🤖", credits: 4, hours: 60, from: 4, name: { pt: "IA Aplicada à Robótica", es: "IA Aplicada a la Robótica", en: "AI Applied to Robotics" } },
+  { feature: true, icon: "🛡️", credits: 4, hours: 60, from: 4, name: { pt: "IA Aplicada à Cibersegurança", es: "IA Aplicada a la Ciberseguridad", en: "AI Applied to Cybersecurity" } },
+  { feature: true, icon: "🏛️", credits: 4, hours: 60, from: 4, name: { pt: "IA Aplicada a Políticas Públicas", es: "IA Aplicada a Políticas Públicas", en: "AI Applied to Public Policy" } },
+  { feature: true, icon: "🎮", credits: 4, hours: 60, from: 4, name: { pt: "IA para Jogos Digitais", es: "IA para Juegos Digitales", en: "AI for Digital Games" } },
+  { feature: true, icon: "⚛️", credits: 4, hours: 60, from: 4, name: { pt: "Computação Quântica Aplicada à IA", es: "Computación Cuántica Aplicada a la IA", en: "Quantum Computing for AI" } },
+  { feature: true, icon: "🎨", credits: 4, hours: 60, from: 4, name: { pt: "IA em Computação Gráfica", es: "IA en Computación Gráfica", en: "AI in Computer Graphics" } },
+  { feature: true, icon: "🏭", credits: 4, hours: 60, from: 4, name: { pt: "IA Aplicada às Engenharias", es: "IA Aplicada a las Ingenierías", en: "AI Applied to Engineering" } },
+  { feature: true, icon: "🎓", credits: 4, hours: 60, from: 4, name: { pt: "IA Aplicada à Educação", es: "IA Aplicada a la Educación", en: "AI Applied to Education" } },
+  { feature: true, icon: "🏢", credits: 4, hours: 60, from: 4, name: { pt: "IA na Automação das Empresas", es: "IA en la Automatización de Empresas", en: "AI in Business Automation" } },
+  { feature: true, icon: "🏗️", credits: 4, hours: 60, from: 4, name: { pt: "IA na Automação no Governo", es: "IA en la Automatización del Gobierno", en: "AI in Government Automation" } },
+  { feature: true, icon: "📐", credits: 4, hours: 60, from: 4, name: { pt: "IA Aplicada à Matemática", es: "IA Aplicada a la Matemática", en: "AI Applied to Mathematics" } },
+  { feature: true, icon: "🧳", credits: 4, hours: 60, from: 4, name: { pt: "IA Aplicada ao Turismo", es: "IA Aplicada al Turismo", en: "AI Applied to Tourism" } },
+  { feature: true, icon: "⚙️", credits: 4, hours: 60, from: 4, name: { pt: "MLOps — Operações de ML", es: "MLOps — Operaciones de ML", en: "MLOps — ML Operations" } },
+  { feature: false, credits: 4, hours: 60, from: 2, name: { pt: "Linguagem de Programação para Ciência de Dados", es: "Lenguaje de Programación para Ciencia de Datos", en: "Programming Language for Data Science" } },
+  { feature: false, credits: 2, hours: 30, from: 1, name: { pt: "Pesquisa e Inovação", es: "Investigación e Innovación", en: "Research & Innovation" } },
+  { feature: false, credits: 4, hours: 60, from: 1, name: { pt: "Práticas de Leitura e Escrita em Inglês", es: "Prácticas de Lectura y Escritura en Inglés", en: "English Reading & Writing Practice" } },
+  { feature: false, credits: 4, hours: 60, from: 1, name: { pt: "Laboratório de Escrita e Revisão de Artigos", es: "Laboratorio de Escritura y Revisión de Artículos", en: "Paper Writing & Review Lab" } },
+  { feature: false, credits: 2, hours: 30, from: 4, name: { pt: "Ética e Dados", es: "Ética y Datos", en: "Ethics & Data" } },
+  { feature: false, credits: 4, hours: 60, from: 4, name: { pt: "Acessibilidade e Inclusão Digital", es: "Accesibilidad e Inclusión Digital", en: "Accessibility & Digital Inclusion" } },
+  { feature: false, credits: 4, hours: 30, from: 4, name: { pt: "Tecnologia em Contexto Social", es: "Tecnología en Contexto Social", en: "Technology in Social Context" } },
+  { feature: false, credits: 4, hours: 30, from: 4, name: { pt: "Relações Étnico-Raciais", es: "Relaciones Étnico-Raciales", en: "Ethnic-Racial Relations" } },
+  { feature: false, credits: 4, hours: 60, from: 4, name: { pt: "Libras", es: "Lengua de Señas (Libras)", en: "Brazilian Sign Language (Libras)" } },
+  { feature: false, credits: 4, hours: 30, from: 4, name: { pt: "Segurança no Trabalho e Gestão Ambiental", es: "Seguridad Laboral y Gestión Ambiental", en: "Workplace Safety & Environmental Management" } }
 ];
 
 /* =========================================================================

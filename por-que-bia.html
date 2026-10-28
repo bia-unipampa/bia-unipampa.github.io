@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Por que o BIA é único · UNIPAMPA</title>
+  <meta name="description" content="100% Inteligência Artificial do primeiro ao último semestre, foco em problemas reais e corpo docente jovem e inovador: o que torna o BIA único no Brasil." />
+  <meta name="theme-color" content="#06070d" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Por que o BIA é único · UNIPAMPA" />
+  <meta property="og:description" content="100% Inteligência Artificial do primeiro ao último semestre, foco em problemas reais e corpo docente jovem e inovador: o que torna o BIA único no Brasil." />
+  <meta property="og:image" content="assets/img/og-image.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/pages.css" />
+
+  <!-- Umami analytics (sem cookies, compatível com a LGPD) -->
+  <script defer src="https://stats-bia.iotedu.org/script.js" data-website-id="42daa7a0-8da8-4c04-96aa-3e7dc8e12986"></script>
+</head>
+<body>
+  <canvas id="neural" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ===================== NAV ===================== -->
+  <header class="nav" id="nav">
+    <a class="brand" href="index.html" aria-label="BIA — início">
+      <span class="brand__mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" width="28" height="28"><circle cx="8" cy="9" r="3"/><circle cx="24" cy="7" r="2.4"/><circle cx="25" cy="22" r="3"/><circle cx="9" cy="24" r="2.6"/><circle cx="16" cy="16" r="2.2"/><path d="M8 9 16 16M24 7 16 16M25 22 16 16M9 24 16 16M8 9 24 7M25 22 9 24"/></svg>
+      </span>
+      <span class="brand__text">BIA</span>
+    </a>
+
+    <nav class="nav__links" aria-label="Navegação principal">
+      <a href="index.html">Início</a>
+      <a href="matriz.html">Matriz</a>
+      <a href="grade.html">Monte sua grade</a>
+      <a href="mercado.html">Mercado</a>
+      <a href="inovacao.html">Inovação</a>
+      <a href="por-que-bia.html" aria-current="page">Por que o BIA</a>
+      <a href="alegrete.html">Por que Alegrete</a>
+    </nav>
+
+    <div class="nav__right">
+      <a class="btn btn--solid nav__cta" href="index.html#ingresso">Quero estudar</a>
+      <button class="nav__burger" id="burger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="phero">
+      <div class="wrap">
+        <p class="phero__crumb"><a href="index.html">BIA</a> / Por que o BIA</p>
+        <h1 class="phero__title reveal">Um curso <em>único</em>. Por projeto, não por acaso.</h1>
+        <p class="phero__lead reveal">O BIA não é um curso de Computação com algumas disciplinas de IA no final. É um bacharelado <strong>100% Inteligência Artificial, do primeiro ao último semestre</strong>, construído em torno da resolução de problemas reais. Uma proposta única no Brasil.</p>
+        <div class="phero__actions reveal">
+          <a class="btn btn--solid" href="#ia-em-todo-semestre">Ver a prova na matriz</a>
+          <a class="btn btn--ghost" href="#comparativo">Comparar com o modelo tradicional</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== PILARES ===================== -->
+    <section class="section section--tight" style="padding-top:0">
+      <div class="wrap">
+        <div class="grid grid--3">
+          <article class="tile tile--accent reveal"><span class="tile__ico" aria-hidden="true">⚡</span><h3>100% IA, do 1º ao 8º semestre</h3><p>Único no Brasil. Introdução à IA no primeiro semestre, matemática e programação “para IA”, e todos os semestres com componentes de IA no centro, até o TCC.</p></article>
+          <article class="tile reveal"><span class="tile__ico" aria-hidden="true">🧩</span><h3>Problemas reais no centro</h3><p>Seis semestres de Resolução de Problemas: 720 horas em equipe, enfrentando demandas reais da comunidade e de empresas, com 270 h de extensão.</p></article>
+          <article class="tile reveal"><span class="tile__ico" aria-hidden="true">📄</span><h3>Currículo clean slate</h3><p>Desenhado a partir de uma página em branco, nativamente para a IA. Nada de remendos sobre currículos antigos.</p></article>
+          <article class="tile reveal"><span class="tile__ico" aria-hidden="true">🚀</span><h3>Corpo docente jovem e transformador</h3><p>Professores aprovados em concurso público, com pesquisa publicada em veículos como a Nature Scientific Data e premiações nacionais e internacionais. Gente que faz IA, não só ensina.</p></article>
+          <article class="tile reveal"><span class="tile__ico" aria-hidden="true">🎯</span><h3>Formação de nível sênior</h3><p>O mercado contrata quem conduz problemas inteiros. Projetos que atravessam semestres desenvolvem autonomia, visão de sistema e responsabilidade real.</p></article>
+          <article class="tile reveal"><span class="tile__ico" aria-hidden="true">⚖️</span><h3>IA responsável e segura</h3><p>Componentes obrigatórios de IA, Equidade e Direitos e de Cibersegurança em IA. Formamos quem constrói IA confiável.</p></article>
+          <article class="tile reveal"><span class="tile__ico" aria-hidden="true">🔁</span><h3>Currículo vivo</h3><p>As eletivas acompanham o estado da arte e podem ser renovadas pela Comissão de Curso a qualquer momento, sem reforma curricular.</p></article>
+          <article class="tile reveal"><span class="tile__ico" aria-hidden="true">🏘️</span><h3>Impacto na região</h3><p>Extensão em escolas, prefeituras e empresas da Fronteira Oeste. As soluções que você cria saem da universidade e mudam vidas.</p></article>
+          <article class="tile reveal"><span class="tile__ico" aria-hidden="true">🎟️</span><h3>Público e gratuito</h3><p>Uma universidade federal, sem mensalidade, com a mesma ambição dos melhores cursos de IA do mundo.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== IA EM TODO SEMESTRE ===================== -->
+    <section class="section section--tight section--alt" id="ia-em-todo-semestre">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker">A prova está na matriz</p>
+          <h2 class="section__title reveal">IA em todos os semestres. Sem exceção.</h2>
+          <p class="section__lead reveal">Em cursos tradicionais, a IA costuma aparecer como optativa nos últimos anos. No BIA, cada semestre tem componentes de IA, e até a matemática é ensinada “para IA”.</p>
+        </header>
+        <div class="aistrip reveal" id="aistrip"></div>
+        <p class="note">Componentes obrigatórios do eixo de IA ou com IA no nome, conforme o PPC v1.4. No 7º e no 8º semestres, somam-se as trilhas eletivas de IA aplicada.</p>
+      </div>
+    </section>
+
+    <!-- ===================== RP ===================== -->
+    <section class="section section--tight section--rp">
+      <div class="wrap rp">
+        <div class="rp__text">
+          <p class="kicker">Aprender resolvendo</p>
+          <h2 class="section__title reveal">Problemas reais, do primeiro dia à formatura.</h2>
+          <p class="rp__lead reveal">Em vez de exercícios descartáveis, problemas grandes, complexos e verdadeiros.</p>
+          <p class="rp__body reveal">A trilha de Resolução de Problemas herda a Aprendizagem Baseada em Problemas praticada desde 2011 na Engenharia de Software da UNIPAMPA, apontada pelos egressos como a experiência de maior impacto em suas carreiras. No BIA, ela ocupa 120 horas em cada um dos seis primeiros semestres e sempre envolve IA.</p>
+        </div>
+        <div class="grid grid--2">
+          <div class="bignum reveal"><span class="bignum__n">720 h</span><p class="bignum__d">de projetos em equipe na trilha de RP</p></div>
+          <div class="bignum reveal"><span class="bignum__n">6</span><p class="bignum__d">semestres seguidos resolvendo problemas</p></div>
+          <div class="bignum reveal"><span class="bignum__n">330 h</span><p class="bignum__d">de extensão junto à comunidade</p></div>
+          <div class="bignum reveal"><span class="bignum__n">2011</span><p class="bignum__d">desde quando a ABP é praticada no campus</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== COMPARATIVO ===================== -->
+    <section class="section section--tight" id="comparativo">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker">Lado a lado</p>
+          <h2 class="section__title reveal">Modelo tradicional vs. BIA.</h2>
+          <p class="section__lead reveal">Comparação com o formato mais comum de graduação em computação com ênfase em IA.</p>
+        </header>
+        <table class="compare reveal">
+          <thead><tr><th scope="col">Aspecto</th><th scope="col">Modelo tradicional</th><th scope="col">BIA · UNIPAMPA</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Ponto de partida</th><td>Adaptação de um currículo de Computação existente</td><td>Currículo clean slate, desenhado do zero para a IA</td></tr>
+            <tr><th scope="row">Quando a IA aparece</th><td>Nos últimos semestres, muitas vezes como optativa</td><td>Desde o 1º semestre, em todos os semestres</td></tr>
+            <tr><th scope="row">Matemática</th><td>Genérica, desconectada das aplicações</td><td>Cálculo, álgebra e estatística “para IA”</td></tr>
+            <tr><th scope="row">Prática</th><td>Exercícios curtos que terminam na prova</td><td>Problemas reais e contínuos ao longo de seis semestres</td></tr>
+            <tr><th scope="row">Trabalho em equipe</th><td>Pontual, em trabalhos de disciplina</td><td>Estrutural: 720 h de projetos em equipe</td></tr>
+            <tr><th scope="row">Ética e segurança</th><td>Tópicos dispersos ou ausentes</td><td>Componentes obrigatórios dedicados</td></tr>
+            <tr><th scope="row">Atualização</th><td>Depende de reformas curriculares demoradas</td><td>Eletivas renovadas continuamente</td></tr>
+            <tr><th scope="row">Perfil do egresso</th><td>Profissional júnior que aprende a prática no emprego</td><td>Profissional com vivência de projeto, pronto para assumir problemas inteiros</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ===================== DOCENTES ===================== -->
+    <section class="section section--tight section--alt">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker">Quem ensina</p>
+          <h2 class="section__title reveal">Professores que fazem IA de verdade.</h2>
+          <p class="section__lead reveal">Uma equipe jovem, dinâmica e orientada à inovação real, que já pesquisa, publica e constrói soluções de IA e segurança reconhecidas dentro e fora do país.</p>
+        </header>
+        <div class="grid grid--3">
+          <article class="tile reveal"><span class="tile__ico" aria-hidden="true">📚</span><h3>Pesquisa de ponta</h3><p>Publicações em veículos internacionais de alto impacto, como a Scientific Data, do grupo Nature.</p></article>
+          <article class="tile reveal"><span class="tile__ico" aria-hidden="true">🏆</span><h3>Reconhecimento</h3><p>Prêmios nacionais e internacionais em pesquisa de IA e cibersegurança.</p></article>
+          <article class="tile reveal"><span class="tile__ico" aria-hidden="true">🛰️</span><h3>Conexão com o mercado</h3><p>Projetos com empresas, governo e o PampaTec, coordenados pelo AI Horizon Labs.</p></article>
+        </div>
+        <p class="note"><a href="index.html#competencias">Veja as publicações e prêmios da equipe na página inicial.</a></p>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="wrap">
+        <div class="callout reveal">
+          <h2>Se você quer IA de verdade, desde o primeiro dia, é aqui.</h2>
+          <p>Conheça os semestres em detalhe ou descubra por que Alegrete é o lugar certo para essa formação.</p>
+          <div class="cta-actions"><a class="btn btn--solid" href="matriz.html">Explorar a matriz</a><a class="btn btn--ghost" href="alegrete.html">Por que Alegrete</a></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <div class="wrap footer__grid">
+      <div class="footer__brand">
+        <span class="brand__text">BIA</span>
+        <p>Bacharelado em Inteligência Artificial · Universidade Federal do Pampa · Campus Alegrete</p>
+      </div>
+      <nav class="footer__col" aria-label="Explore">
+        <h4>Explore</h4>
+        <a href="matriz.html">Matriz</a>
+        <a href="grade.html">Monte sua grade</a>
+        <a href="mercado.html">Mercado</a>
+        <a href="inovacao.html">Inovação</a>
+        <a href="por-que-bia.html">Por que o BIA</a>
+        <a href="alegrete.html">Por que Alegrete</a>
+      </nav>
+      <nav class="footer__col" aria-label="Links">
+        <h4>Links</h4>
+        <a href="https://ai-horizon-labs.github.io" target="_blank" rel="noopener">AI Horizon Labs</a>
+        <a href="https://alegrete-rs.github.io" target="_blank" rel="noopener">Alegrete-RS</a>
+        <a href="https://www.unipampa.edu.br" target="_blank" rel="noopener">UNIPAMPA</a>
+      </nav>
+      <div class="footer__col">
+        <h4>Contato</h4>
+        <a href="mailto:bia@unipampa.edu.br">bia@unipampa.edu.br</a>
+        <a href="https://www.instagram.com/bia.unipampa/" target="_blank" rel="noopener">@bia.unipampa</a>
+        <span>Campus Alegrete-RS</span>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2026 AI Horizon Labs · UNIPAMPA. Todos os direitos reservados.</p>
+      <p class="footer__made">Coordenado pelo AI Horizon Labs</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/curriculum.js"></script>
+  <script src="assets/js/neural.js"></script>
+  <script src="assets/js/site.js"></script>
+  <script>
+    /* IA em todos os semestres: componentes obrigatórios do eixo IA ou com IA no nome */
+    (function () {
+      const { SEMESTERS } = window.BIA_DATA;
+      const root = document.getElementById("aistrip");
+      SEMESTERS.forEach((s) => {
+        const ai = s.components.filter((c) => !c.elective && (c.axis === "ia" || /IA|Inteligência/.test(c.name.pt)));
+        const extra = s.n >= 7 ? ["Trabalho de Conclusão em IA", "Trilhas de IA aplicada"] : [];
+        const names = ai.filter((c) => c.axis !== "pi").map((c) => c.name.pt).concat(s.n <= 6 ? ["Resolução de Problemas " + ["I","II","III","IV","V","VI"][s.n - 1] + " (com IA)"] : extra);
+        const col = document.createElement("div");
+        col.className = "aistrip__sem";
+        col.innerHTML = '<span class="aistrip__n">' + s.n + 'º</span><ul>' + names.map((n) => "<li>" + n + "</li>").join("") + "</ul>";
+        root.appendChild(col);
+      });
+    })();
+  </script>
+</body>
+</html>

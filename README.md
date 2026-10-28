@@ -15,13 +15,26 @@ matriz curricular interativa baseada no PPC (v1.4, 2026).
 ## Estrutura
 
 ```
-index.html                 Página única
-assets/css/styles.css       Estilos
-assets/js/curriculum.js     Dados da matriz (8 semestres + trilhas eletivas)
-assets/js/i18n.js           Traduções PT/ES/EN
-assets/js/app.js            Rede neural animada, i18n, render, modal, interações
+index.html                 Página inicial (trilíngue PT/ES/EN)
+matriz.html                Matriz passo a passo (explorador por semestre e por eixo)
+grade.html                 Monte sua grade (planejador salvo no navegador)
+mercado.html               Mercado de IA: dados e estatísticas
+inovacao.html              Inovação e criação de empresas com IA
+por-que-bia.html           Por que o BIA é único
+alegrete.html              Por que estudar em Alegrete / UNIPAMPA
+assets/css/styles.css       Estilos base
+assets/css/pages.css        Componentes das páginas internas
+assets/js/curriculum.js     Dados da matriz (8 semestres + eletivas com CH e semestre mínimo)
+assets/js/i18n.js           Traduções PT/ES/EN (página inicial)
+assets/js/app.js            i18n, render, modal e interações da página inicial
+assets/js/neural.js         Fundo animado de rede neural (todas as páginas)
+assets/js/site.js           Nav, revelação e tooltip das páginas internas
+assets/js/matriz-guia.js    Lógica da página da matriz
+assets/js/grade.js          Lógica do planejador de grade
 assets/img/                 Favicon e OG image
 ```
+
+As páginas internas estão, por ora, apenas em português.
 
 ## Desenvolvimento
 

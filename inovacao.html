@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inovação com IA · BIA · UNIPAMPA</title>
+  <meta name="description" content="As grandes oportunidades para criar novos negócios e empresas com Inteligência Artificial, e como o BIA prepara empreendedores." />
+  <meta name="theme-color" content="#06070d" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Inovação com IA · BIA · UNIPAMPA" />
+  <meta property="og:description" content="As grandes oportunidades para criar novos negócios e empresas com Inteligência Artificial, e como o BIA prepara empreendedores." />
+  <meta property="og:image" content="assets/img/og-image.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/pages.css" />
+
+  <!-- Umami analytics (sem cookies, compatível com a LGPD) -->
+  <script defer src="https://stats-bia.iotedu.org/script.js" data-website-id="42daa7a0-8da8-4c04-96aa-3e7dc8e12986"></script>
+</head>
+<body>
+  <canvas id="neural" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ===================== NAV ===================== -->
+  <header class="nav" id="nav">
+    <a class="brand" href="index.html" aria-label="BIA — início">
+      <span class="brand__mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" width="28" height="28"><circle cx="8" cy="9" r="3"/><circle cx="24" cy="7" r="2.4"/><circle cx="25" cy="22" r="3"/><circle cx="9" cy="24" r="2.6"/><circle cx="16" cy="16" r="2.2"/><path d="M8 9 16 16M24 7 16 16M25 22 16 16M9 24 16 16M8 9 24 7M25 22 9 24"/></svg>
+      </span>
+      <span class="brand__text">BIA</span>
+    </a>
+
+    <nav class="nav__links" aria-label="Navegação principal">
+      <a href="index.html">Início</a>
+      <a href="matriz.html">Matriz</a>
+      <a href="grade.html">Monte sua grade</a>
+      <a href="mercado.html">Mercado</a>
+      <a href="inovacao.html" aria-current="page">Inovação</a>
+      <a href="por-que-bia.html">Por que o BIA</a>
+      <a href="alegrete.html">Por que Alegrete</a>
+    </nav>
+
+    <div class="nav__right">
+      <a class="btn btn--solid nav__cta" href="index.html#ingresso">Quero estudar</a>
+      <button class="nav__burger" id="burger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="phero">
+      <div class="wrap">
+        <p class="phero__crumb"><a href="index.html">BIA</a> / Inovação com IA</p>
+        <h1 class="phero__title reveal">Crie a próxima <em>empresa de IA</em>.</h1>
+        <p class="phero__lead reveal">A inteligência artificial abriu a maior janela para novos negócios desde a chegada da internet. Equipes pequenas constroem hoje produtos que antes exigiam centenas de pessoas, e <strong>quem domina a tecnologia e entende um problema real</strong> sai na frente.</p>
+      </div>
+    </section>
+
+    <!-- ===================== POR QUE AGORA ===================== -->
+    <section class="section section--tight" style="padding-top:0">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker">Por que agora</p>
+          <h2 class="section__title reveal">Nunca foi tão possível começar.</h2>
+        </header>
+        <div class="grid grid--4">
+          <article class="bignum reveal"><span class="bignum__n">~50%</span><p class="bignum__d">do capital de risco global foi para empresas de IA em 2025.</p><span class="bignum__src">Crunchbase</span></article>
+          <article class="bignum reveal"><span class="bignum__n">R$ 13,7 bi</span><p class="bignum__d">do Plano Brasileiro de IA são voltados à inovação empresarial.</p><span class="bignum__src">MCTI · PBIA 2024–2028</span></article>
+          <article class="bignum reveal"><span class="bignum__n">4×</span><p class="bignum__d">mais crescimento de produtividade nos setores que mais usam IA.</p><span class="bignum__src">PwC 2025</span></article>
+          <article class="bignum reveal"><span class="bignum__n">1º sem.</span><p class="bignum__d">é quando você começa, no BIA, a resolver problemas reais com IA em equipe.</p><span class="bignum__src">Matriz do BIA</span></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== OPORTUNIDADES ===================== -->
+    <section class="section section--tight section--alt">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker">Onde estão as oportunidades</p>
+          <h2 class="section__title reveal">Grandes problemas, perto de você.</h2>
+          <p class="section__lead reveal">As melhores startups de IA nascem de quem conhece um problema de perto. A Fronteira Oeste gaúcha está cheia deles, e muitos têm escala nacional.</p>
+        </header>
+        <div class="grid grid--3">
+          <article class="tile tile--line reveal" style="--c:var(--fc)"><span class="tile__tag">AgroTech</span><h3>IA para o campo</h3><p>Monitoramento de lavouras de arroz e soja por imagens, previsão de produtividade, manejo de irrigação e saúde do rebanho com visão computacional.</p></article>
+          <article class="tile tile--line reveal" style="--c:var(--pi)"><span class="tile__tag">HealthTech</span><h3>Saúde no interior</h3><p>Triagem inteligente, apoio ao diagnóstico e telessaúde para regiões com poucos especialistas.</p></article>
+          <article class="tile tile--line reveal" style="--c:var(--cp)"><span class="tile__tag">GovTech</span><h3>Prefeituras inteligentes</h3><p>Agentes que atendem o cidadão, automatizam processos e ajudam gestores a decidir com dados. Centenas de municípios pequenos precisam disso.</p></article>
+          <article class="tile tile--line reveal" style="--c:var(--ia)"><span class="tile__tag">Agentes de IA</span><h3>Automação para PMEs</h3><p>Atendimento, vendas, finanças e estoque operados por agentes, a preço acessível para o comércio e os serviços locais.</p></article>
+          <article class="tile tile--line reveal" style="--c:var(--cg)"><span class="tile__tag">EdTech</span><h3>Educação personalizada</h3><p>Tutores inteligentes, correção assistida e trilhas adaptativas para escolas e cursos.</p></article>
+          <article class="tile tile--line reveal" style="--c:var(--fm)"><span class="tile__tag">Energia e clima</span><h3>Energia e ambiente</h3><p>Previsão de geração renovável, eficiência energética e monitoramento ambiental do bioma Pampa.</p></article>
+          <article class="tile tile--line reveal" style="--c:var(--magenta)"><span class="tile__tag">LegalTech e serviços</span><h3>Escritórios aumentados</h3><p>IA para contabilidade, jurídico e despachantes: leitura de documentos, conformidade e relatórios.</p></article>
+          <article class="tile tile--line reveal" style="--c:var(--cyan)"><span class="tile__tag">CyberTech</span><h3>Segurança de IA</h3><p>Proteger modelos e dados é um mercado novo e carente de soluções. A equipe do BIA já é referência em pesquisa nessa área.</p></article>
+          <article class="tile tile--line reveal" style="--c:var(--cp)"><span class="tile__tag">Turismo e cultura</span><h3>Fronteira digital</h3><p>Experiências e serviços trilíngues para a região de fronteira com Argentina e Uruguai.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== MODELOS ===================== -->
+    <section class="section section--tight">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker">Modelos de negócio</p>
+          <h2 class="section__title reveal">Formas de transformar IA em empresa.</h2>
+        </header>
+        <div class="grid grid--3">
+          <article class="tile reveal"><span class="tile__ico" aria-hidden="true">🧩</span><h3>SaaS vertical</h3><p>Software com IA para um setor específico (clínicas, cooperativas, escritórios), cobrado por assinatura.</p></article>
+          <article class="tile reveal"><span class="tile__ico" aria-hidden="true">🤝</span><h3>Agentes como serviço</h3><p>Agentes que executam tarefas completas no lugar de horas de trabalho manual, cobrados por resultado.</p></article>
+          <article class="tile reveal"><span class="tile__ico" aria-hidden="true">🗂️</span><h3>Dados como produto</h3><p>Conjuntos de dados curados, rotulados e de qualidade, o insumo mais valioso da IA.</p></article>
+          <article class="tile reveal"><span class="tile__ico" aria-hidden="true">📡</span><h3>IA embarcada</h3><p>Sensores, drones e dispositivos que rodam modelos na ponta, sem depender de conexão.</p></article>
+          <article class="tile reveal"><span class="tile__ico" aria-hidden="true">🧑‍💼</span><h3>Consultoria e integração</h3><p>Levar IA para empresas tradicionais: diagnóstico, implantação, treinamento e governança.</p></article>
+          <article class="tile reveal"><span class="tile__ico" aria-hidden="true">🌱</span><h3>Impacto social</h3><p>Negócios que resolvem problemas públicos e são financiados por governo, fundações e editais de inovação.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== DA SALA À STARTUP ===================== -->
+    <section class="section section--tight section--alt">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker">Da sala de aula à startup</p>
+          <h2 class="section__title reveal">O BIA foi desenhado para isso.</h2>
+          <p class="section__lead reveal">Quem passa seis semestres resolvendo problemas reais com usuários reais já está fazendo, na prática, o que uma startup faz: descobrir uma dor, construir uma solução e validar.</p>
+        </header>
+        <ol class="steps">
+          <li class="reveal"><h3>Descobrir o problema</h3><p>Na trilha de RP, sua equipe trabalha com demandas reais da comunidade e de empresas parceiras.</p></li>
+          <li class="reveal"><h3>Construir a solução</h3><p>Aprendizado de máquina, LLMs, visão e agentes viram ferramentas de trabalho desde os primeiros semestres.</p></li>
+          <li class="reveal"><h3>Validar com usuários</h3><p>A extensão leva a solução para fora da universidade e traz o retorno de quem usa.</p></li>
+          <li class="reveal"><h3>TCC como MVP</h3><p>O projeto final pode ser o protótipo da sua empresa, com orientação técnica e científica.</p></li>
+          <li class="reveal"><h3>Incubar e captar</h3><p>Pré-incubação e incubação no PampaTec, editais como Centelha e apoio do Sebrae e das agências de fomento.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===================== ECOSSISTEMA ===================== -->
+    <section class="section section--tight">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker">Ecossistema</p>
+          <h2 class="section__title reveal">Você não começa sozinho.</h2>
+        </header>
+        <div class="grid grid--3">
+          <article class="tile reveal tile--accent"><span class="tile__tag">Parque tecnológico</span><h3>PampaTec</h3><p>Parque Científico e Tecnológico do Pampa, vizinho do campus, com programas de pré-incubação e incubação de empresas de base tecnológica. Parceiro estratégico do BIA.</p></article>
+          <article class="tile reveal"><span class="tile__tag">Laboratório</span><h3>AI Horizon Labs</h3><p>Laboratório que concebe e coordena o BIA, com pesquisa aplicada em IA e segurança e projetos com empresas e governo.</p></article>
+          <article class="tile reveal"><span class="tile__tag">Rede de apoio</span><h3>Empresas e entidades</h3><p>Sebrae, Sicredi, empresas de tecnologia e entidades da região apoiam formalmente o curso e abrem portas para projetos e estágios.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="wrap">
+        <div class="callout reveal">
+          <h2>Seu TCC pode ser o primeiro produto da sua empresa.</h2>
+          <p>No BIA, empreender não é disciplina isolada: é consequência natural de resolver problemas reais com IA durante toda a graduação.</p>
+          <div class="cta-actions"><a class="btn btn--solid" href="matriz.html">Ver a matriz</a><a class="btn btn--ghost" href="mercado.html">Ver dados de mercado</a></div>
+        </div>
+        <p class="note">Fontes: Crunchbase News (2025); Ministério da Ciência, Tecnologia e Inovação, Plano Brasileiro de Inteligência Artificial 2024–2028; PwC, 2025 Global AI Jobs Barometer.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <div class="wrap footer__grid">
+      <div class="footer__brand">
+        <span class="brand__text">BIA</span>
+        <p>Bacharelado em Inteligência Artificial · Universidade Federal do Pampa · Campus Alegrete</p>
+      </div>
+      <nav class="footer__col" aria-label="Explore">
+        <h4>Explore</h4>
+        <a href="matriz.html">Matriz</a>
+        <a href="grade.html">Monte sua grade</a>
+        <a href="mercado.html">Mercado</a>
+        <a href="inovacao.html">Inovação</a>
+        <a href="por-que-bia.html">Por que o BIA</a>
+        <a href="alegrete.html">Por que Alegrete</a>
+      </nav>
+      <nav class="footer__col" aria-label="Links">
+        <h4>Links</h4>
+        <a href="https://ai-horizon-labs.github.io" target="_blank" rel="noopener">AI Horizon Labs</a>
+        <a href="https://alegrete-rs.github.io" target="_blank" rel="noopener">Alegrete-RS</a>
+        <a href="https://www.unipampa.edu.br" target="_blank" rel="noopener">UNIPAMPA</a>
+      </nav>
+      <div class="footer__col">
+        <h4>Contato</h4>
+        <a href="mailto:bia@unipampa.edu.br">bia@unipampa.edu.br</a>
+        <a href="https://www.instagram.com/bia.unipampa/" target="_blank" rel="noopener">@bia.unipampa</a>
+        <span>Campus Alegrete-RS</span>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2026 AI Horizon Labs · UNIPAMPA. Todos os direitos reservados.</p>
+      <p class="footer__made">Coordenado pelo AI Horizon Labs</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/neural.js"></script>
+  <script src="assets/js/site.js"></script>
+
+</body>
+</html>

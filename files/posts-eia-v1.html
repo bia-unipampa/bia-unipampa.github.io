@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Posts EIA v1</title>
+<meta name="description" content="Sugestões de posts para Instagram, WhatsApp e LinkedIn de divulgação da Especialização em Inteligência Artificial Aplicada (EIA) da UNIPAMPA, Campus Alegrete. Versão 1, em proposta.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ffffff;--paper-2:#f3f6f7;--ink:#13232d;--ink-soft:#4a5c66;--line:#d5dee2;
+  --azul:#1f4e66;--verde:#1d8a52;--ouro:#b57f1c;--roxo:#7a4fa0;
+  --display:"Archivo",system-ui,sans-serif;--body:"Public Sans",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--paper:#0f1a20;--paper-2:#15232b;--ink:#e8eef1;--ink-soft:#a7b6be;--line:#2a3b44;--azul:#7fb4d0}
+}
+:root[data-theme="dark"]{--paper:#0f1a20;--paper-2:#15232b;--ink:#e8eef1;--ink-soft:#a7b6be;--line:#2a3b44;--azul:#7fb4d0}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--azul);text-underline-offset:3px}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+@media (max-width:600px){.wrap{padding:0 16px}}
+h1,h2,h3{font-family:var(--display);line-height:1.08;margin:0}
+header.top{padding:56px 0 32px;border-bottom:1px solid var(--line)}
+header.top h1{font-size:clamp(2rem,4.4vw,3.2rem);font-weight:900;font-variation-settings:"wdth" 108;letter-spacing:-.02em}
+.kicker{font-size:.85rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ouro)}
+.lead{font-size:1.15rem;color:var(--ink-soft);max-width:68ch;margin:16px 0 0}
+.toc{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:22px;font-weight:600}
+section.blk{padding:64px 0;border-bottom:1px solid var(--line)}
+section.blk>.wrap>h2{font-size:clamp(1.7rem,3.6vw,2.5rem);font-weight:800;font-variation-settings:"wdth" 112;margin-bottom:10px}
+.rules{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:28px}
+@media (max-width:860px){.rules{grid-template-columns:1fr}}
+.rules div{border-top:2px solid var(--ink);padding-top:12px}
+.rules p{color:var(--ink-soft);margin:6px 0 0}
+
+/* galeria de peças */
+.posts{display:grid;gap:44px;margin-top:32px}
+.post{display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:start}
+@media (max-width:820px){.post{grid-template-columns:1fr}}
+.post h3{font-size:1.2rem;margin-bottom:4px}
+.post .meta{font-size:.9rem;color:var(--ink-soft);margin-bottom:10px}
+.frames{display:flex;gap:12px;overflow-x:auto;padding-bottom:6px;max-width:100%}
+.frame{flex:none;overflow:hidden;border-radius:8px;box-shadow:0 2px 12px rgba(0,0,0,.14)}
+.frame.sq{width:324px;height:324px}
+.frame.st{width:216px;height:384px}
+.frame .card{transform-origin:top left}
+.frame.sq .card{transform:scale(.3)}
+.frame.st .card{transform:scale(.2)}
+.dl{font-size:.85rem;display:inline-block;margin-top:6px}
+.copybox{border:1px solid var(--line);border-radius:10px;background:var(--paper-2);padding:14px 16px;position:relative;min-width:0}
+.copybox pre{margin:0;white-space:pre-wrap;word-wrap:break-word;font-family:var(--body);font-size:.97rem;line-height:1.55}
+.copy{position:absolute;top:10px;right:10px;font:inherit;font-size:.8rem;font-weight:700;border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:999px;padding:3px 12px;cursor:pointer}
+.copy.ok{color:var(--verde);border-color:var(--verde)}
+.copybox .lbl{font-size:.8rem;font-weight:700;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;display:block}
+.msgs{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:28px}
+@media (max-width:860px){.msgs{grid-template-columns:1fr}}
+.msgs h3{font-size:1.1rem;margin-bottom:4px}
+.msgs .meta{font-size:.9rem;color:var(--ink-soft);margin-bottom:10px}
+.cal{width:100%;border-collapse:collapse;margin-top:24px}
+.cal th,.cal td{text-align:left;vertical-align:top;padding:12px 14px 12px 0;border-bottom:1px solid var(--line)}
+.cal thead th{font-size:.9rem;color:var(--ink-soft);border-bottom:2px solid var(--ink)}
+.tbl{overflow-x:auto}
+footer{padding:40px 0 64px;color:var(--ink-soft);font-size:.95rem}
+
+/* ===== peças (tamanho real em px: 1080 x 1080 e 1080 x 1920) ===== */
+.card{width:1080px;height:1080px;background:#fff;color:#13232d;font-family:var(--body);position:relative;overflow:hidden;padding:90px 88px 80px;display:flex;flex-direction:column}
+.card.st{height:1920px;padding:150px 96px 140px}
+.card .org{display:flex;justify-content:space-between;font-size:26px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#4a5c66;border-bottom:5px solid #13232d;padding-bottom:22px}
+.card .org span:last-child{color:#b57f1c}
+.card h2,.card .big{font-family:var(--display);font-weight:900;letter-spacing:-.02em;line-height:.98;color:#13232d}
+.card .az{color:#1f4e66}.card .rx{color:#7a4fa0}.card .vd{color:#1d8a52}.card .ou{color:#b57f1c}
+.card .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;border-top:5px solid #13232d;padding-top:24px;font-size:28px;color:#4a5c66}
+.card .foot b{font-family:var(--display);font-size:34px;color:#13232d;font-variation-settings:"wdth" 112}
+.card p{margin:0}
+.px{display:grid;gap:6px}
+.px i{aspect-ratio:1;border-radius:3px}
+.card .chip{display:inline-block;font-size:28px;font-weight:700;border:3px solid currentColor;border-radius:999px;padding:8px 26px}
+.bub{border-radius:26px;padding:30px 36px;font-size:38px;line-height:1.35;margin-bottom:26px}
+.bub .who{display:block;font-size:26px;font-weight:700;margin-bottom:8px;letter-spacing:.02em}
+.b-al{border:3px solid #d5dee2}.b-al .who{color:#1f4e66}
+.b-ia{background:#26343c;color:#e6eef1}.b-ia .who{color:#8fd3ae}
+.b-ad{background:#f8eedb;border:3px solid #e5c98e}.b-ad .who{color:#b57f1c}
+.b-ok{background:#e3f3ea;border:3px solid #a9d8bd}.b-ok .who{color:#1d8a52}
+.step-n{font-family:var(--display);font-weight:900;font-size:200px;line-height:.8;font-variation-settings:"wdth" 125}
+.list{list-style:none;margin:0;padding:0}
+.list li{display:grid;grid-template-columns:1fr;border-bottom:3px solid #d5dee2;padding:22px 0;font-size:36px;line-height:1.3}
+.list li b{font-family:var(--display);font-size:40px;color:#1f4e66}
+.list li.c b{color:#7a4fa0}
+.poll{border:4px solid #13232d;border-radius:30px;padding:40px;margin-top:60px}
+.poll div{border:3px solid #d5dee2;border-radius:20px;padding:26px 30px;font-size:44px;font-weight:700;margin-top:22px;text-align:center}
+.sticker{margin-top:50px;border:4px dashed #4a5c66;border-radius:24px;padding:30px;text-align:center;font-size:34px;color:#4a5c66}
+
+body.render{background:#fff;margin:0}
+body.render .card{transform:none}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <span class="kicker">Divulgação da EIA · versão 1 · outubro de 2026</span>
+    <h1>Posts para redes sociais</h1>
+    <p class="lead">Sugestões de peças e textos para Instagram, WhatsApp e LinkedIn, prontos para copiar. Enquanto o curso estiver em proposição, todos os posts convidam a <b>manifestar interesse</b>, não a se inscrever. Troque <b>[link]</b> pelo endereço do formulário de interesse antes de publicar.</p>
+    <nav class="toc" aria-label="Seções">
+      <a href="#regras">Regras de uso</a><a href="#instagram">Instagram</a><a href="#whatsapp">WhatsApp</a><a href="#linkedin">LinkedIn</a><a href="#calendario">Calendário</a><a href="proposta-eia-v2.html">Proposta v2</a>
+    </nav>
+  </div>
+</header>
+
+<section class="blk" id="regras">
+  <div class="wrap">
+    <h2>Antes de publicar</h2>
+    <div class="rules">
+      <div><h3>Curso em proposição</h3><p>Use "manifeste interesse" e "avisamos quando o edital sair". Não fale em matrícula, valor ou data de início até a aprovação (questões Q16 e Q20 da proposta).</p></div>
+      <div><h3>Uma mensagem por post</h3><p>Cada peça defende uma ideia só: sem programação, problema real, visão computacional ou validação adversarial. O link vai sempre na bio, no fim da mensagem ou no primeiro comentário.</p></div>
+      <div><h3>Mesma identidade</h3><p>As peças usam as cores e fontes do flyer e do folder. As imagens em PNG, em tamanho de publicação, estão logo abaixo de cada peça.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="blk" id="instagram">
+  <div class="wrap">
+    <h2>Instagram</h2>
+    <p class="lead">Cinco posts de feed (1080 × 1080), um carrossel de cinco telas e dois stories (1080 × 1920).</p>
+    <div class="posts">
+
+      <article class="post">
+        <div>
+          <div class="frames"><div class="frame sq"><div class="card" id="ig1">
+            <div class="org"><span>UNIPAMPA · Alegrete</span><span>Pós-graduação</span></div>
+            <h2 class="big" style="font-size:96px;margin-top:56px;font-variation-settings:'wdth' 100">Você traz o problema.<br>A IA escreve o código.<br><span class="az">Você responde pela solução.</span></h2>
+            <div class="foot"><span><b>Especialização em IA Aplicada</b><br>Para qualquer área. Sem programar.</span><span class="ou" style="font-weight:700">Curso em proposição</span></div>
+          </div></div></div>
+          <a class="dl" href="posts-eia-v1/ig1.png" download>Baixar PNG</a>
+        </div>
+        <div>
+          <h3>Post 1 · Apresentação</h3>
+          <p class="meta">Primeiro post da campanha. Fixe no topo do perfil.</p>
+          <div class="copybox"><span class="lbl">Legenda</span><button class="copy" type="button">Copiar</button><pre>E se você pudesse usar inteligência artificial para resolver aquele problema do seu trabalho que ninguém tem tempo de resolver?
+
+A UNIPAMPA, Campus Alegrete, está propondo a Especialização em Inteligência Artificial Aplicada: 12 meses, a distância, para profissionais de qualquer área.
+
+Aqui você não aprende a programar. A IA escreve o código. Você aprende a dirigi-la, a conferir o que ela entrega e a decidir.
+
+Quer ser avisado quando o edital sair? Link na bio.
+
+#InteligenciaArtificial #IA #PosGraduacao #Especializacao #UNIPAMPA #Alegrete #FronteiraOeste #RioGrandeDoSul</pre></div>
+        </div>
+      </article>
+
+      <article class="post">
+        <div>
+          <div class="frames"><div class="frame sq"><div class="card" id="ig2">
+            <div class="org"><span>EIA · UNIPAMPA</span><span>Curso em proposição</span></div>
+            <p class="big az" style="font-size:420px;margin-top:40px;font-variation-settings:'wdth' 125;line-height:.9">0 h</p>
+            <p style="font-family:var(--display);font-weight:800;font-size:64px;line-height:1.05;margin-top:10px">de aulas de programação.</p>
+            <p style="font-size:38px;line-height:1.35;color:#4a5c66;margin-top:26px">Todo o código é gerado pela IA. Você aprende a pedir, executar e conferir.</p>
+            <div class="foot"><span><b>Especialização em IA Aplicada</b></span><span>UNIPAMPA Alegrete</span></div>
+          </div></div></div>
+          <a class="dl" href="posts-eia-v1/ig2.png" download>Baixar PNG</a>
+        </div>
+        <div>
+          <h3>Post 2 · Sem programação</h3>
+          <p class="meta">Quebra a principal objeção de quem não é da computação.</p>
+          <div class="copybox"><span class="lbl">Legenda</span><button class="copy" type="button">Copiar</button><pre>"Mas eu não sei programar."
+
+Não precisa. Na Especialização em IA Aplicada, a IA escreve e executa o código. O seu trabalho é outro: dizer o que é um resultado correto, conferir o que a IA entregou e decidir se a solução serve.
+
+Não pedimos programação, matemática avançada, inglês nem formação em computação. Pedimos uma graduação em qualquer área e um problema real para resolver.
+
+Manifeste interesse pelo link na bio.
+
+#IAGenerativa #InteligenciaArtificial #PosGraduacao #UNIPAMPA #SemProgramar</pre></div>
+        </div>
+      </article>
+
+      <article class="post">
+        <div>
+          <div class="frames"><div class="frame sq"><div class="card" id="ig3">
+            <div class="org"><span>EIA · Visão computacional</span><span>60 h</span></div>
+            <div class="px" id="px3" style="grid-template-columns:repeat(20,1fr);margin-top:56px" aria-hidden="true"></div>
+            <h2 class="big" style="font-size:96px;margin-top:44px;font-variation-settings:'wdth' 106">Imagens viram <span class="rx">decisões.</span></h2>
+            <div class="foot"><span>Falhas de plantio em imagens de drone</span><span><b>EIA · UNIPAMPA</b></span></div>
+          </div></div></div>
+          <a class="dl" href="posts-eia-v1/ig3.png" download>Baixar PNG</a>
+        </div>
+        <div>
+          <h3>Post 3 · Visão computacional</h3>
+          <p class="meta">Diferencial do curso. Bom para o público do agro e da indústria.</p>
+          <div class="copybox"><span class="lbl">Legenda</span><button class="copy" type="button">Copiar</button><pre>Cada quadrado roxo é uma falha de plantio que um drone encontrou numa lavoura de arroz.
+
+Boa parte dos problemas reais chega em forma de imagem: foto do celular, vídeo de câmera, documento digitalizado, imagem de satélite. Por isso a Especialização em IA Aplicada da UNIPAMPA dedica 60 horas a processamento de imagens e visão computacional, mais do que a maioria das especializações em IA do país.
+
+Contar plantas e animais, inspecionar a qualidade na linha de produção, ler laudos e notas digitalizadas: tudo sem escrever uma linha de código.
+
+Link na bio para manifestar interesse.
+
+#VisaoComputacional #Agro #Drones #InteligenciaArtificial #UNIPAMPA #Alegrete</pre></div>
+        </div>
+      </article>
+
+      <article class="post">
+        <div>
+          <div class="frames"><div class="frame sq"><div class="card" id="ig4">
+            <div class="org"><span>Para quem é</span><span>Qualquer graduação</span></div>
+            <ul class="list" style="margin-top:34px">
+              <li><b>Servidores públicos</b>fiscalizações, editais, demanda de saúde</li>
+              <li><b>Empresas e cooperativas</b>vendas, estoques, contratos</li>
+              <li><b>Agro e ambiente</b>drones, satélites, doenças em folhas</li>
+              <li><b>Saúde, direito e educação</b>laudos, jurisprudência, tutores</li>
+              <li class="c"><b>Computação</b>liderar quem programa por você</li>
+            </ul>
+            <div class="foot" style="border-top:0;padding-top:0"><span><b>Especialização em IA Aplicada</b></span><span>UNIPAMPA</span></div>
+          </div></div></div>
+          <a class="dl" href="posts-eia-v1/ig4.png" download>Baixar PNG</a>
+        </div>
+        <div>
+          <h3>Post 4 · Para quem é</h3>
+          <p class="meta">Faz cada perfil se reconhecer. Peça para marcarem colegas.</p>
+          <div class="copybox"><span class="lbl">Legenda</span><button class="copy" type="button">Copiar</button><pre>O que une a turma não é a graduação. É o tipo de problema: muitas variáveis, dados espalhados e mais de uma resposta possível.
+
+Servidor que precisa priorizar fiscalizações. Cooperativa que quer prever a safra. Advogada que pesquisa jurisprudência. Professor que quer criar um tutor para os alunos. Engenheiro que quer liderar agentes de IA.
+
+Marque aqui alguém que tem um problema assim no trabalho. 👇
+
+Manifeste interesse pelo link na bio.
+
+#InteligenciaArtificial #ServicoPublico #Cooperativismo #Agronegocio #UNIPAMPA</pre></div>
+        </div>
+      </article>
+
+      <article class="post">
+        <div>
+          <div class="frames"><div class="frame sq"><div class="card" id="ig5">
+            <div class="org"><span>Como funciona</span><span>Validação adversarial</span></div>
+            <h2 class="big" style="font-size:94px;margin-top:64px;font-variation-settings:'wdth' 106">Antes de entregar,<br>um agente de IA tenta <span class="ou">derrubar</span> a sua solução.</h2>
+            <p style="font-size:38px;line-height:1.35;color:#4a5c66;margin-top:36px">Erros, vieses, vazamento de dados, falhas de segurança. Você corrige e mede de novo. A confiança vem de evidências.</p>
+            <div class="foot"><span><b>Especialização em IA Aplicada</b></span><span>UNIPAMPA</span></div>
+          </div></div></div>
+          <a class="dl" href="posts-eia-v1/ig5.png" download>Baixar PNG</a>
+        </div>
+        <div>
+          <h3>Post 5 · Validação adversarial</h3>
+          <p class="meta">Mostra o rigor do método. Nenhuma das 84 especializações mapeadas descreve algo parecido.</p>
+          <div class="copybox"><span class="lbl">Legenda</span><button class="copy" type="button">Copiar</button><pre>Se você não lê código, como confiar no que a IA fez?
+
+Na Especialização em IA Aplicada, toda entrega passa por um agente adversarial: uma IA preparada pelo professor para procurar erros, vieses, vazamento de dados e falhas de segurança na sua solução.
+
+Você responde às críticas, pede as correções e mede de novo. Só então o professor avalia. Abstrair a execução não é abstrair a responsabilidade.
+
+Link na bio.
+
+#IAResponsavel #SegurancaDeIA #InteligenciaArtificial #UNIPAMPA</pre></div>
+        </div>
+      </article>
+
+      <article class="post">
+        <div>
+          <div class="frames">
+            <div class="frame sq"><div class="card" id="car1">
+              <div class="org"><span>Um problema real</span><span>1/5</span></div>
+              <p style="font-size:44px;color:#4a5c66;margin-top:70px">Uma servidora da prefeitura recebe</p>
+              <p class="big az" style="font-size:230px;font-variation-settings:'wdth' 118;margin-top:10px">3 mil</p>
+              <p style="font-family:var(--display);font-weight:800;font-size:66px;line-height:1.05">fotos de buracos por mês.<br>Quais são graves?</p>
+              <div class="foot"><span>Arraste para ver →</span><span><b>EIA · UNIPAMPA</b></span></div>
+            </div></div>
+            <div class="frame sq"><div class="card" id="car2">
+              <div class="org"><span>Ela descreve, a IA programa</span><span>2/5</span></div>
+              <div style="margin-top:60px">
+                <div class="bub b-al"><span class="who">ALUNA</span>Quero saber quais buracos são graves e onde estão, para priorizar as equipes.</div>
+                <div class="bub b-ia"><span class="who">IA PROGRAMADORA</span>Montei um classificador de imagens e um mapa por bairro. Código gerado e executado.</div>
+              </div>
+              <div class="foot"><span>Sem escrever código</span><span><b>EIA · UNIPAMPA</b></span></div>
+            </div></div>
+            <div class="frame sq"><div class="card" id="car3">
+              <div class="org"><span>O agente adversarial ataca</span><span>3/5</span></div>
+              <div class="bub b-ad" style="margin-top:60px"><span class="who">AGENTE ADVERSARIAL</span>Testei fotos noturnas, com chuva e de celular antigo: a precisão em "grave" caiu de <b>91%</b> para <b>58%</b>. E 12% das fotos não têm GPS.</div>
+              <div class="foot"><span>Antes da entrega, não depois</span><span><b>EIA · UNIPAMPA</b></span></div>
+            </div></div>
+            <div class="frame sq"><div class="card" id="car4">
+              <div class="org"><span>Ela decide e mede de novo</span><span>4/5</span></div>
+              <div style="margin-top:60px">
+                <div class="bub b-al"><span class="who">ALUNA</span>Inclua fotos noturnas no treino, peça o endereço quando faltar GPS e me mostre o antes e o depois.</div>
+                <div class="bub b-ok"><span class="who">EVIDÊNCIA ENTREGUE</span>Precisão em "grave": 88% de dia, 81% à noite. Limitação documentada. Em teste com a equipe de obras.</div>
+              </div>
+              <div class="foot"><span>Quem responde é ela</span><span><b>EIA · UNIPAMPA</b></span></div>
+            </div></div>
+            <div class="frame sq"><div class="card" id="car5">
+              <div class="org"><span>UNIPAMPA · Alegrete</span><span>5/5</span></div>
+              <h2 class="big" style="font-size:100px;margin-top:70px;font-variation-settings:'wdth' 106">Qual problema<br><span class="az">você</span> traria?</h2>
+              <p style="font-size:40px;line-height:1.35;color:#4a5c66;margin-top:34px">Especialização em Inteligência Artificial Aplicada. 12 meses, a distância, para qualquer graduação.</p>
+              <div class="foot"><span><b>Manifeste interesse</b><br>link na bio</span><span class="ou" style="font-weight:700">Curso em proposição</span></div>
+            </div></div>
+          </div>
+          <a class="dl" href="posts-eia-v1/car1.png" download>Baixar PNGs (car1 a car5)</a>
+        </div>
+        <div>
+          <h3>Carrossel · Um problema do começo ao fim</h3>
+          <p class="meta">Peça mais forte da campanha: mostra o método em ação, com a mesma história da proposta.</p>
+          <div class="copybox"><span class="lbl">Legenda</span><button class="copy" type="button">Copiar</button><pre>3 mil fotos de buracos por mês. Como saber quais são graves? 🕳️
+
+Arraste e veja como uma servidora resolveria isso na Especialização em IA Aplicada, sem escrever uma linha de código:
+
+1. Ela descreve o problema e o que é um resultado correto.
+2. A IA escreve e executa o código.
+3. Um agente adversarial testa fotos noturnas, com chuva e de celular antigo, e encontra as falhas.
+4. Ela decide o que corrigir e mede de novo.
+5. A prefeitura recebe uma solução com evidências e limitações documentadas.
+
+E você, qual problema traria? Conte nos comentários.
+
+#InteligenciaArtificial #GestaoPublica #CidadesInteligentes #UNIPAMPA #Alegrete</pre></div>
+        </div>
+      </article>
+
+      <article class="post">
+        <div>
+          <div class="frames">
+            <div class="frame st"><div class="card st" id="st1">
+              <div class="org"><span>EIA · UNIPAMPA</span><span>Enquete</span></div>
+              <h2 class="big" style="font-size:104px;margin-top:120px;font-variation-settings:'wdth' 104">Você usaria IA para resolver um problema do <span class="az">seu trabalho?</span></h2>
+              <div class="poll"><div>Já uso</div><div>Usaria, se soubesse como</div><div>Ainda não</div></div>
+              <div class="foot"><span><b>Especialização em IA Aplicada</b></span><span class="ou" style="font-weight:700">Em proposição</span></div>
+            </div></div>
+            <div class="frame st"><div class="card st" id="st2">
+              <div class="org"><span>EIA · UNIPAMPA</span><span>Pergunte</span></div>
+              <h2 class="big" style="font-size:100px;margin-top:140px;font-variation-settings:'wdth' 96">Qual problema você <span class="az">traria</span> para a especialização?</h2>
+              <div class="sticker">Figurinha de perguntas</div>
+              <div class="sticker">Figurinha de link: formulário de interesse</div>
+              <div class="foot"><span><b>Especialização em IA Aplicada</b></span><span class="ou" style="font-weight:700">Em proposição</span></div>
+            </div></div>
+          </div>
+          <a class="dl" href="posts-eia-v1/st1.png" download>Baixar PNGs (st1 e st2)</a>
+        </div>
+        <div>
+          <h3>Stories · Enquete e caixa de perguntas</h3>
+          <p class="meta">Geram interação e, de quebra, mostram que problemas o público traria. As respostas ajudam a montar o Banco de Desafios Reais.</p>
+          <div class="copybox"><span class="lbl">Como usar</span><button class="copy" type="button">Copiar</button><pre>Story 1: publique a imagem e cole a figurinha de enquete do Instagram sobre as três opções.
+Story 2: cole a figurinha de perguntas ("Qual problema você traria?") e a figurinha de link apontando para [link].
+Nos dias seguintes, repostar algumas respostas (sem identificar pessoas) mostra a variedade de problemas e de áreas.</pre></div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="blk" id="whatsapp">
+  <div class="wrap">
+    <h2>WhatsApp</h2>
+    <p class="lead">Mensagens curtas, para encaminhar em grupos e listas. O WhatsApp mostra em negrito o texto entre asteriscos. Envie junto a imagem do post 1 ou o flyer.</p>
+    <div class="msgs">
+      <div>
+        <h3>Para grupos de servidores e prefeituras</h3>
+        <p class="meta">Prefeituras, câmaras, secretarias, COREDE.</p>
+        <div class="copybox"><button class="copy" type="button">Copiar</button><pre>*Especialização em IA Aplicada na UNIPAMPA* 🤖
+
+A UNIPAMPA, Campus Alegrete, está propondo uma especialização para *servidores e profissionais de qualquer área* usarem inteligência artificial em problemas reais do trabalho: priorizar fiscalizações, ler editais e processos em escala, prever demanda de saúde e educação.
+
+✅ 12 meses, a distância
+✅ Não precisa saber programar: a IA escreve o código
+✅ O seu problema do trabalho vira o seu TCC
+
+O curso está em fase de proposta. Para ser avisado quando o edital sair: [link]</pre></div>
+      </div>
+      <div>
+        <h3>Para empresas, cooperativas e agro</h3>
+        <p class="meta">Associações comerciais, sindicatos rurais, cooperativas, PampaTec.</p>
+        <div class="copybox"><button class="copy" type="button">Copiar</button><pre>*IA para resolver problemas da sua empresa, sem programar* 🌾📦
+
+A UNIPAMPA Alegrete está propondo a *Especialização em Inteligência Artificial Aplicada*: prever vendas e estoque, contar falhas de plantio em imagens de drone, inspecionar a qualidade com câmeras, conferir notas e contratos.
+
+São 12 meses a distância, com 60 h de visão computacional, para profissionais de qualquer graduação.
+
+Sua empresa tem um problema que poderia virar um desafio para os alunos? Fale com a gente.
+
+Manifeste interesse: [link]</pre></div>
+      </div>
+      <div>
+        <h3>Status do WhatsApp</h3>
+        <p class="meta">Curto, para acompanhar a imagem do post 1 ou do post 2.</p>
+        <div class="copybox"><button class="copy" type="button">Copiar</button><pre>Você traz o problema. A IA escreve o código. Você responde pela solução. Especialização em IA Aplicada, UNIPAMPA. Em breve. [link]</pre></div>
+      </div>
+      <div>
+        <h3>Mensagem pessoal de docente</h3>
+        <p class="meta">Para egressos, ex-alunos e contatos profissionais. Personalize o nome.</p>
+        <div class="copybox"><button class="copy" type="button">Copiar</button><pre>Oi, [nome]! Tudo bem?
+
+Estamos montando na UNIPAMPA Alegrete uma *Especialização em IA Aplicada*, a distância, para profissionais de qualquer área resolverem problemas reais do trabalho com IA, sem precisar programar. Lembrei de você porque [motivo: o problema que a pessoa enfrenta no trabalho].
+
+Ainda está em fase de proposta, e estamos medindo o interesse. Se fizer sentido para você ou para alguém da sua equipe, deixa o contato aqui: [link]
+
+Pode encaminhar à vontade. Abraço!</pre></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="blk" id="linkedin">
+  <div class="wrap">
+    <h2>LinkedIn</h2>
+    <p class="lead">Posts mais longos, com argumento. Funcionam melhor publicados pelo perfil pessoal dos docentes e compartilhados pela página da universidade. Coloque o link no primeiro comentário, porque o LinkedIn reduz o alcance de posts com link no corpo.</p>
+    <div class="msgs">
+      <div>
+        <h3>Anúncio institucional</h3>
+        <p class="meta">Página da UNIPAMPA ou do campus. Imagem: post 1 ou flyer.</p>
+        <div class="copybox"><button class="copy" type="button">Copiar</button><pre>A UNIPAMPA, Campus Alegrete, está propondo a Especialização em Inteligência Artificial Aplicada (EIA).
+
+O curso é para profissionais de qualquer área que precisam resolver problemas reais de prefeituras, órgãos públicos, cooperativas e empresas com IA, sem precisar programar.
+
+Como funciona:
+→ O aluno traz um problema real, seu ou de uma organização parceira.
+→ A IA escreve e executa o código.
+→ Um agente adversarial tenta derrubar a solução antes da entrega.
+→ O aluno corrige, mede de novo e responde pelo resultado.
+→ O problema trabalhado ao longo do curso vira o TCC: um artigo científico ou um software com pedido de registro no INPI.
+
+São 12 meses a distância, 375 horas em 10 componentes e 60 horas dedicadas a imagens e visão computacional.
+
+O curso está em fase de proposta. Para receber o edital, o link está no primeiro comentário.
+
+#InteligenciaArtificial #EducacaoExecutiva #PosGraduacao #UNIPAMPA #InovacaoPublica</pre></div>
+      </div>
+      <div>
+        <h3>Artigo de opinião de docente</h3>
+        <p class="meta">Tom pessoal, sobre a ideia central do curso.</p>
+        <div class="copybox"><button class="copy" type="button">Copiar</button><pre>Abstrair a execução não é abstrair a responsabilidade.
+
+Hoje uma servidora pública consegue pedir a uma IA que escreva um classificador de imagens, e ele funciona. Mas funciona à noite? Com chuva? Com fotos de celular antigo? Quem responde quando ele erra?
+
+A pergunta deixou de ser "quem sabe programar" e passou a ser "quem sabe dirigir, conferir e assinar o que a IA entrega". Essa é uma competência nova, e quase nenhum curso a ensina com método.
+
+É isso que estamos propondo na Especialização em IA Aplicada da UNIPAMPA: profissionais de qualquer área, cada um com um problema real, aprendendo a especificar o que é um resultado correto, a submeter a solução a um agente adversarial e a decidir com base em evidências.
+
+Se você trabalha com problemas que têm muitas variáveis, dados espalhados e mais de uma resposta possível, eu gostaria de saber qual problema você traria. Responda nos comentários.
+
+#IAResponsavel #InteligenciaArtificial #GestaoPublica #Educacao</pre></div>
+      </div>
+      <div>
+        <h3>Para profissionais de computação</h3>
+        <p class="meta">Público técnico, que pode achar o curso básico demais.</p>
+        <div class="copybox"><button class="copy" type="button">Copiar</button><pre>Já programa? A próxima competência não é escrever mais código. É deixar de escrevê-lo à mão.
+
+Especificar, planejar, dirigir agentes de IA, medir e assinar o resultado. É o que o mercado começou a pedir, e poucos cursos ensinam com método.
+
+Na Especialização em IA Aplicada da UNIPAMPA, cada componente tem um Modo Avançado para quem vem da computação e das engenharias:
+• desenvolvimento com agentes em repositório real, com especificação, testes e revisão;
+• visão computacional na borda, em celular, drone ou câmera;
+• ajuste fino e avaliação de LLMs abertos;
+• servidor MCP próprio, observabilidade e implantação;
+• red teaming automatizado no pipeline de entrega.
+
+E você trabalha lado a lado com o especialista que conhece o problema: a médica, o agrônomo, a gestora pública.
+
+Curso em proposição. Link para manifestar interesse no primeiro comentário.
+
+#AgentesDeIA #EngenhariaDeSoftware #VisaoComputacional #LLM #UNIPAMPA</pre></div>
+      </div>
+      <div>
+        <h3>Dados do mapeamento nacional</h3>
+        <p class="meta">Post de autoridade, com base na análise das especializações em IA no Brasil.</p>
+        <div class="copybox"><button class="copy" type="button">Copiar</button><pre>Mapeamos 84 especializações e MBAs em inteligência artificial oferecidos no Brasil em 2026. Três números chamaram a atenção:
+
+• 31 ensinam Python ou outra linguagem. Para quem não é da computação, isso costuma significar meses aprendendo a programar antes de resolver qualquer problema.
+• Só 1 curso aberto a qualquer graduação tem uma disciplina própria de visão computacional.
+• Nenhum descreve validação adversarial das soluções dos alunos.
+
+Foi a partir desse mapa que desenhamos a proposta da Especialização em IA Aplicada da UNIPAMPA: aberta a qualquer graduação, com a IA escrevendo o código, 60 horas de visão computacional e um agente adversarial em todos os componentes.
+
+A análise completa e a proposta estão no primeiro comentário.
+
+#InteligenciaArtificial #EducacaoSuperior #PosGraduacao #UNIPAMPA</pre></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="blk" id="calendario">
+  <div class="wrap">
+    <h2>Sugestão de calendário (4 semanas)</h2>
+    <p class="lead">Uma sequência que vai da apresentação ao método e termina pedindo a manifestação de interesse. Comece só depois de o grupo decidir quando divulgar (questão Q21 da proposta).</p>
+    <div class="tbl">
+    <table class="cal">
+      <thead><tr><th>Semana</th><th>Instagram</th><th>WhatsApp</th><th>LinkedIn</th></tr></thead>
+      <tbody>
+        <tr><th>1 · Apresentação</th><td>Post 1 (fixado) e story de enquete</td><td>Grupos de servidores e de empresas</td><td>Anúncio institucional</td></tr>
+        <tr><th>2 · Sem programar</th><td>Post 2 e post 4</td><td>Status com o post 2</td><td>Artigo de opinião de docente</td></tr>
+        <tr><th>3 · O método</th><td>Carrossel e post 5</td><td>Mensagens pessoais de docentes</td><td>Post para profissionais de computação</td></tr>
+        <tr><th>4 · Diferenciais</th><td>Post 3 e story de perguntas</td><td>Reenvio aos grupos com o flyer</td><td>Dados do mapeamento nacional</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Especialização em Inteligência Artificial Aplicada (EIA), UNIPAMPA, Campus Alegrete. Posts para redes sociais, versão 1, outubro de 2026. Materiais relacionados: <a href="proposta-eia-v2.html">proposta v2</a>, <a href="flyer-eia-v1.html">flyer</a> e <a href="folder-eia-v1.html">folder</a>.
+  </div>
+</footer>
+
+<script>
+// campo de arroz em pixels para o post 3
+const px=document.getElementById("px3");
+const fails=new Set([24,25,44,45,86,106,107,128,148,149]);
+for(let i=0;i<20*8;i++){
+  const c=document.createElement("i");
+  const row=Math.floor(i/20);
+  c.style.background=fails.has(i)?"#7a4fa0":(row%2?"#6db58c":"#a6d4b9");
+  px.appendChild(c);
+}
+
+// botões de copiar
+document.querySelectorAll(".copy").forEach(b=>b.addEventListener("click",async()=>{
+  const t=b.parentElement.querySelector("pre").innerText;
+  try{await navigator.clipboard.writeText(t);b.textContent="Copiado";b.classList.add("ok");}
+  catch(e){b.textContent="Selecione e copie";}
+  setTimeout(()=>{b.textContent="Copiar";b.classList.remove("ok");},1800);
+}));
+
+// modo de exportação: posts-eia-v1.html#render=ig1 mostra só a peça, em tamanho real
+const m=location.hash.match(/^#render=(\w+)$/);
+if(m){
+  const card=document.getElementById(m[1]);
+  if(card){document.body.className="render";document.body.replaceChildren(card);}
+}
+</script>
+</body>
+</html>

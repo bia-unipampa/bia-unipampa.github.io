@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Divulgação da EIA</title>
+<meta name="description" content="Materiais de divulgação da Especialização em Inteligência Artificial Aplicada (EIA) da UNIPAMPA, Campus Alegrete: flyer, folder e posts para redes sociais, em versão de proposta.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ffffff;--paper-2:#f3f6f7;--ink:#13232d;--ink-soft:#4a5c66;--line:#d5dee2;
+  --azul:#1f4e66;--verde:#1d8a52;--ouro:#b57f1c;--roxo:#7a4fa0;
+  --display:"Archivo",system-ui,sans-serif;--body:"Public Sans",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--paper:#0f1a20;--paper-2:#15232b;--ink:#e8eef1;--ink-soft:#a7b6be;--line:#2a3b44;--azul:#7fb4d0;--ouro:#e4b459}
+}
+:root[data-theme="dark"]{--paper:#0f1a20;--paper-2:#15232b;--ink:#e8eef1;--ink-soft:#a7b6be;--line:#2a3b44;--azul:#7fb4d0;--ouro:#e4b459}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--azul);text-underline-offset:3px}
+a:focus-visible{outline:3px solid var(--ouro);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+@media (max-width:600px){.wrap{padding:0 16px}}
+h1,h2,h3{font-family:var(--display);line-height:1.08;margin:0}
+.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:60px}
+.brand{font-family:var(--display);font-weight:900;font-variation-settings:"wdth" 125;font-size:1.25rem;text-decoration:none;color:var(--ink);letter-spacing:.02em}
+.brand small{font-family:var(--body);font-weight:500;font-size:.8rem;color:var(--ink-soft);letter-spacing:0;margin-left:8px}
+.top nav{display:flex;gap:22px;font-size:.95rem}
+.top nav a{color:var(--ink-soft);text-decoration:none}
+.top nav a:hover,.top nav a[aria-current="page"]{color:var(--ink)}
+@media (max-width:700px){.top nav{gap:14px;font-size:.9rem}}
+.hero{padding:64px 0 40px}
+.kicker{font-size:.85rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ouro)}
+.hero h1{font-size:clamp(2.2rem,4.6vw,3.6rem);font-weight:900;font-variation-settings:"wdth" 108;letter-spacing:-.02em;margin-top:10px}
+.lead{font-size:1.15rem;color:var(--ink-soft);max-width:66ch;margin:16px 0 0}
+.notice{margin-top:28px;border-left:4px solid var(--ouro);padding:4px 0 4px 18px;max-width:72ch}
+.notice b{color:var(--ink)}
+section.blk{padding:56px 0;border-top:1px solid var(--line)}
+section.blk h2{font-size:clamp(1.6rem,3.4vw,2.3rem);font-weight:800;font-variation-settings:"wdth" 112;margin-bottom:8px}
+.sub{color:var(--ink-soft);max-width:66ch;margin:0 0 26px}
+.print{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+@media (max-width:860px){.print{grid-template-columns:1fr}}
+.item{min-width:0}
+.thumbs{display:flex;gap:14px;align-items:flex-start;background:var(--paper-2);border:1px solid var(--line);border-radius:12px;padding:18px;overflow-x:auto}
+.thumbs img{display:block;height:220px;width:auto;box-shadow:0 2px 10px rgba(0,0,0,.15);background:#fff;flex:none}
+.item h3{font-size:1.3rem;margin:16px 0 4px}
+.item .spec{font-size:.95rem;color:var(--ink-soft);margin:0 0 10px}
+.actions{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-flex;align-items:center;font-weight:700;font-size:.95rem;padding:9px 16px;border-radius:999px;text-decoration:none;border:2px solid var(--azul)}
+.btn.solid{background:var(--azul);color:var(--paper)}
+.btn.line{color:var(--azul)}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+@media (max-width:860px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:520px){.grid{grid-template-columns:repeat(2,1fr)}}
+.grid a{display:block;border-radius:8px;overflow:hidden;border:1px solid var(--line)}
+.grid img{display:block;width:100%;height:auto;background:#fff}
+.stories{display:flex;gap:12px;margin-top:12px}
+.stories a{width:140px;flex:none;border-radius:8px;overflow:hidden;border:1px solid var(--line)}
+.stories img{display:block;width:100%;height:auto}
+.channels{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:32px}
+@media (max-width:760px){.channels{grid-template-columns:1fr}}
+.channels div{border-top:2px solid var(--ink);padding-top:12px}
+.channels p{color:var(--ink-soft);margin:6px 0 0}
+.ver{width:100%;border-collapse:collapse;font-size:.98rem}
+.ver th,.ver td{text-align:left;padding:11px 14px 11px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.ver thead th{font-size:.9rem;color:var(--ink-soft);border-bottom:2px solid var(--ink)}
+.tbl{overflow-x:auto}
+footer{border-top:1px solid var(--line);padding:40px 0 64px;color:var(--ink-soft);font-size:.95rem}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="proposta-eia-v2.html">EIA<small>Divulgação</small></a>
+    <nav aria-label="Seções">
+      <a href="#impressos">Impressos</a>
+      <a href="#video">Vídeo</a>
+      <a href="#redes">Redes sociais</a>
+      <a href="#versoes">Versões</a>
+      <a href="proposta-eia-v2.html">Proposta</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap">
+    <span class="kicker">Especialização em Inteligência Artificial Aplicada · UNIPAMPA Alegrete</span>
+    <h1>Divulgação</h1>
+    <p class="lead">Todos os materiais de divulgação da EIA num só lugar: flyer e folder para impressão, um clip de vídeo, posts para Instagram, WhatsApp e LinkedIn, e o histórico de versões de cada peça.</p>
+    <p class="notice"><b>Material em proposta.</b> O curso ainda está em proposição, e a decisão sobre quando e como divulgar está na pauta do grupo (questão Q21 da <a href="proposta-eia-v2.html#q21">proposta v2</a>). Até lá, as peças convidam a manifestar interesse, e o QR code e o <b>[link]</b> do formulário ainda precisam ser preenchidos.</p>
+  </div>
+</section>
+
+<section class="blk" id="impressos">
+  <div class="wrap">
+    <h2>Impressos</h2>
+    <p class="sub">Abra a versão HTML para ajustar o texto e imprimir, ou baixe o PDF já pronto. Imprima sem margens e frente e verso.</p>
+    <div class="print">
+      <div class="item">
+        <div class="thumbs"><img src="divulgacao-eia/flyer-v1-1.png" alt="Frente do flyer: Você traz o problema. A IA escreve o código. Você responde pela solução." loading="lazy"></div>
+        <h3>Flyer</h3>
+        <p class="spec">A5 (148 × 210 mm), frente e verso. Para balcões, eventos e distribuição em mãos.</p>
+        <div class="actions"><a class="btn solid" href="flyer-eia-v1.html">Abrir flyer</a><a class="btn line" href="divulgacao-eia/flyer-eia-v1.pdf" download>Baixar PDF</a></div>
+      </div>
+      <div class="item">
+        <div class="thumbs"><img src="divulgacao-eia/folder-v1-1.png" alt="Face externa do folder, com a capa à direita" loading="lazy"><img src="divulgacao-eia/folder-v1-2.png" alt="Face interna do folder: público, ciclo de trabalho e matriz curricular" loading="lazy"></div>
+        <h3>Folder</h3>
+        <p class="spec">A4 paisagem, tríptico com duas dobras, frente e verso. Para visitas a prefeituras, empresas e cooperativas.</p>
+        <div class="actions"><a class="btn solid" href="folder-eia-v1.html">Abrir folder</a><a class="btn line" href="divulgacao-eia/folder-eia-v1.pdf" download>Baixar PDF</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="blk" id="video">
+  <div class="wrap">
+    <h2>Vídeo</h2>
+    <p class="sub">Primeira proposta de clip, com 1 min 31 s, em 16:9 e com legendas. A narração é sintética e serve para marcar o ritmo; a versão final pede locução humana e trilha sonora.</p>
+    <video controls preload="metadata" poster="clip-eia-v1/poster.png" style="display:block;width:100%;max-width:880px;height:auto;border-radius:10px;border:1px solid var(--line);background:#fff">
+      <source src="clip-eia-v1/clip-eia-v1.mp4" type="video/mp4">
+      <track kind="captions" src="clip-eia-v1/legendas.vtt" srclang="pt-BR" label="Português">
+    </video>
+    <div class="actions" style="margin-top:16px"><a class="btn solid" href="clip-eia-v1.html">Roteiro e próximos passos</a><a class="btn line" href="clip-eia-v1/clip-eia-v1.mp4" download>Baixar MP4</a></div>
+  </div>
+</section>
+
+<section class="blk" id="redes">
+  <div class="wrap">
+    <h2>Redes sociais</h2>
+    <p class="sub">Cinco posts de feed, um carrossel de cinco telas e dois stories, em PNG no tamanho de publicação. As legendas, as mensagens de WhatsApp, os posts de LinkedIn e um calendário de quatro semanas estão na página de posts.</p>
+    <div class="grid">
+      <a href="posts-eia-v1/ig1.png"><img src="posts-eia-v1/ig1.png" alt="Post 1: apresentação do curso" loading="lazy"></a>
+      <a href="posts-eia-v1/ig2.png"><img src="posts-eia-v1/ig2.png" alt="Post 2: 0 h de aulas de programação" loading="lazy"></a>
+      <a href="posts-eia-v1/ig3.png"><img src="posts-eia-v1/ig3.png" alt="Post 3: imagens viram decisões" loading="lazy"></a>
+      <a href="posts-eia-v1/ig4.png"><img src="posts-eia-v1/ig4.png" alt="Post 4: para quem é o curso" loading="lazy"></a>
+      <a href="posts-eia-v1/ig5.png"><img src="posts-eia-v1/ig5.png" alt="Post 5: validação adversarial" loading="lazy"></a>
+      <a href="posts-eia-v1/car1.png"><img src="posts-eia-v1/car1.png" alt="Carrossel, tela 1: 3 mil fotos de buracos por mês" loading="lazy"></a>
+      <a href="posts-eia-v1/car2.png"><img src="posts-eia-v1/car2.png" alt="Carrossel, tela 2: a aluna descreve e a IA programa" loading="lazy"></a>
+      <a href="posts-eia-v1/car3.png"><img src="posts-eia-v1/car3.png" alt="Carrossel, tela 3: o agente adversarial ataca" loading="lazy"></a>
+      <a href="posts-eia-v1/car4.png"><img src="posts-eia-v1/car4.png" alt="Carrossel, tela 4: a aluna decide e mede de novo" loading="lazy"></a>
+      <a href="posts-eia-v1/car5.png"><img src="posts-eia-v1/car5.png" alt="Carrossel, tela 5: qual problema você traria?" loading="lazy"></a>
+    </div>
+    <div class="stories">
+      <a href="posts-eia-v1/st1.png"><img src="posts-eia-v1/st1.png" alt="Story 1: enquete sobre uso de IA no trabalho" loading="lazy"></a>
+      <a href="posts-eia-v1/st2.png"><img src="posts-eia-v1/st2.png" alt="Story 2: caixa de perguntas" loading="lazy"></a>
+    </div>
+    <div class="channels">
+      <div><h3>Instagram</h3><p>Posts, carrossel e stories com legendas e hashtags prontas.</p><p><a href="posts-eia-v1.html#instagram">Ver legendas</a></p></div>
+      <div><h3>WhatsApp</h3><p>Mensagens para grupos de servidores e de empresas, status e mensagem pessoal de docente.</p><p><a href="posts-eia-v1.html#whatsapp">Ver mensagens</a></p></div>
+      <div><h3>LinkedIn</h3><p>Anúncio institucional, artigo de opinião, post para a computação e dados do mapeamento nacional.</p><p><a href="posts-eia-v1.html#linkedin">Ver posts</a></p></div>
+    </div>
+    <div class="actions" style="margin-top:28px"><a class="btn solid" href="posts-eia-v1.html">Abrir a página de posts</a><a class="btn line" href="posts-eia-v1.html#calendario">Calendário de publicação</a></div>
+  </div>
+</section>
+
+<section class="blk" id="versoes">
+  <div class="wrap">
+    <h2>Versões</h2>
+    <p class="sub">Cada peça é versionada como a proposta: uma versão nova é um arquivo novo, e as anteriores continuam disponíveis.</p>
+    <div class="tbl">
+    <table class="ver">
+      <thead><tr><th>Material</th><th>Versão atual</th><th>Data</th><th>Arquivo</th></tr></thead>
+      <tbody>
+        <tr><th>Proposta do curso</th><td>v2</td><td>outubro de 2026</td><td><a href="proposta-eia-v2.html">proposta-eia-v2.html</a> · anterior: <a href="proposta-eia-v1.html">v1</a></td></tr>
+        <tr><th>Flyer</th><td>v1</td><td>outubro de 2026</td><td><a href="flyer-eia-v1.html">flyer-eia-v1.html</a></td></tr>
+        <tr><th>Folder</th><td>v1</td><td>outubro de 2026</td><td><a href="folder-eia-v1.html">folder-eia-v1.html</a></td></tr>
+        <tr><th>Clip de vídeo</th><td>v1</td><td>outubro de 2026</td><td><a href="clip-eia-v1.html">clip-eia-v1.html</a></td></tr>
+        <tr><th>Posts para redes sociais</th><td>v1</td><td>outubro de 2026</td><td><a href="posts-eia-v1.html">posts-eia-v1.html</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    Especialização em Inteligência Artificial Aplicada (EIA), UNIPAMPA, Campus Alegrete, RS. Curso em proposição. <a href="proposta-eia-v2.html">Voltar à proposta</a> · <a href="especializacoes-ia-BR.html">Análise das especializações em IA no Brasil</a>
+  </div>
+</footer>
+</body>
+</html>

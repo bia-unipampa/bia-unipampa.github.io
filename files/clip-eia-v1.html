@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clip EIA v1</title>
+<meta name="description" content="Primeira proposta de clip de divulgação da Especialização em Inteligência Artificial Aplicada (EIA) da UNIPAMPA, Campus Alegrete: vídeo de cerca de 90 segundos, roteiro e narração.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ffffff;--paper-2:#f3f6f7;--ink:#13232d;--ink-soft:#4a5c66;--line:#d5dee2;
+  --azul:#1f4e66;--verde:#1d8a52;--ouro:#b57f1c;--roxo:#7a4fa0;
+  --display:"Archivo",system-ui,sans-serif;--body:"Public Sans",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--paper:#0f1a20;--paper-2:#15232b;--ink:#e8eef1;--ink-soft:#a7b6be;--line:#2a3b44;--azul:#7fb4d0;--ouro:#e4b459}
+}
+:root[data-theme="dark"]{--paper:#0f1a20;--paper-2:#15232b;--ink:#e8eef1;--ink-soft:#a7b6be;--line:#2a3b44;--azul:#7fb4d0;--ouro:#e4b459}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--azul);text-underline-offset:3px}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+@media (max-width:600px){.wrap{padding:0 16px}}
+h1,h2,h3{font-family:var(--display);line-height:1.08;margin:0}
+header.hd{padding:56px 0 28px}
+.kicker{font-size:.85rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ouro)}
+header.hd h1{font-size:clamp(2rem,4.4vw,3.2rem);font-weight:900;font-variation-settings:"wdth" 108;letter-spacing:-.02em;margin-top:8px}
+.lead{font-size:1.15rem;color:var(--ink-soft);max-width:68ch;margin:14px 0 0}
+.toc{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:18px;font-weight:600}
+.player video{display:block;width:100%;height:auto;border-radius:10px;border:1px solid var(--line);background:#fff}
+.player .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.btn{display:inline-flex;font-weight:700;font-size:.95rem;padding:9px 16px;border-radius:999px;text-decoration:none;border:2px solid var(--azul)}
+.btn.solid{background:var(--azul);color:var(--paper)}
+.btn.line{color:var(--azul)}
+section.blk{padding:52px 0;border-top:1px solid var(--line);margin-top:44px}
+section.blk h2{font-size:clamp(1.6rem,3.4vw,2.3rem);font-weight:800;font-variation-settings:"wdth" 112;margin-bottom:8px}
+.sub{color:var(--ink-soft);max-width:68ch;margin:0 0 22px}
+.tbl{overflow-x:auto}
+.rot{width:100%;border-collapse:collapse;font-size:.98rem;min-width:720px}
+.rot th,.rot td{text-align:left;vertical-align:top;padding:12px 14px 12px 0;border-bottom:1px solid var(--line)}
+.rot thead th{font-size:.88rem;color:var(--ink-soft);border-bottom:2px solid var(--ink)}
+.rot td:first-child{font-weight:700;white-space:nowrap;color:var(--azul)}
+.rot td.nar{font-style:italic}
+.notes{display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
+@media (max-width:760px){.notes{grid-template-columns:1fr}}
+.notes div{border-top:2px solid var(--ink);padding-top:12px}
+.notes ul{margin:6px 0 0;padding-left:20px;color:var(--ink-soft)}
+.notes li{margin-bottom:6px}
+footer{border-top:1px solid var(--line);margin-top:52px;padding:36px 0 60px;color:var(--ink-soft);font-size:.95rem}
+
+/* ===== palco do vídeo (1920 x 1080), usado só para gerar os quadros ===== */
+#stage{display:none}
+body.render{background:#fff;margin:0}
+body.render #stage{display:block}
+.scene{width:1920px;height:1080px;background:#fff;color:#13232d;position:relative;overflow:hidden;padding:110px 150px 100px;display:none;flex-direction:column;font-family:var(--body)}
+.scene.on{display:flex}
+.scene [data-step]{opacity:0}
+.scene [data-step].vis{opacity:1}
+.sbar{position:absolute;left:150px;right:150px;bottom:70px;display:flex;justify-content:space-between;border-top:4px solid #13232d;padding-top:20px;font-size:28px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#4a5c66}
+.sbar span:last-child{color:#b57f1c}
+.D{font-family:var(--display);font-weight:900;letter-spacing:-.02em;line-height:.98;color:#13232d}
+.az{color:#1f4e66}.rx{color:#7a4fa0}.vd{color:#1d8a52}.ou{color:#b57f1c}.sf{color:#4a5c66}
+.rowbig{display:grid;grid-template-columns:640px 1fr;align-items:baseline;border-bottom:3px solid #d5dee2;padding:26px 0}
+.rowbig b{font-family:var(--display);font-weight:900;font-size:140px;line-height:1;font-variation-settings:"wdth" 112;white-space:nowrap}
+.rowbig span{font-size:58px;font-weight:600;line-height:1.15}
+.bub{border-radius:30px;padding:36px 44px;font-size:52px;line-height:1.3;margin-bottom:32px;max-width:1500px}
+.bub .who{display:block;font-size:30px;font-weight:700;letter-spacing:.06em;margin-bottom:10px}
+.b-al{border:4px solid #d5dee2}.b-al .who{color:#1f4e66}
+.b-ia{background:#26343c;color:#e6eef1;align-self:flex-end}.b-ia .who{color:#8fd3ae}
+.b-ad{background:#f8eedb;border:4px solid #e5c98e}.b-ad .who{color:#b57f1c}
+.b-ok{background:#e3f3ea;border:4px solid #a9d8bd;align-self:flex-end}.b-ok .who{color:#1d8a52}
+.code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:34px;background:#26343c;color:#9fd3b6;border-radius:18px;padding:30px 36px;line-height:1.5;white-space:pre;margin-top:50px;align-self:flex-start}
+.facts3{display:grid;grid-template-columns:repeat(3,1fr);gap:50px;margin-top:70px}
+.facts3 div{border-top:8px solid #13232d;padding-top:24px}
+.facts3 b{display:block;font-family:var(--display);font-weight:900;font-size:170px;line-height:1;font-variation-settings:"wdth" 118}
+.facts3 span{font-size:44px;line-height:1.2;color:#4a5c66;display:block;margin-top:14px}
+.who5{list-style:none;margin:40px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:0 80px}
+.who5 li{font-family:var(--display);font-weight:800;font-size:66px;border-bottom:3px solid #d5dee2;padding:22px 0;line-height:1.1}
+.who5 li.c{color:#7a4fa0;grid-column:1 / -1}
+.px{display:grid;grid-template-columns:repeat(32,1fr);gap:7px;margin-top:auto;margin-bottom:110px}
+.px i{aspect-ratio:1;border-radius:3px}
+</style>
+</head>
+<body>
+
+<div id="page">
+<header class="hd">
+  <div class="wrap">
+    <span class="kicker">Divulgação da EIA · versão 1 · outubro de 2026</span>
+    <h1>Clip de divulgação</h1>
+    <p class="lead">Primeira proposta de um clip de cerca de 90 segundos para apresentar a Especialização em IA Aplicada. A narração usa uma voz sintética, só para marcar o ritmo; a versão final pede locução humana e trilha sonora.</p>
+    <nav class="toc" aria-label="Seções"><a href="#roteiro">Roteiro</a><a href="#producao">Próximos passos</a><a href="divulgacao-eia.html">Divulgação</a><a href="proposta-eia-v2.html">Proposta v2</a></nav>
+  </div>
+</header>
+
+<div class="wrap player">
+  <video controls preload="metadata" poster="clip-eia-v1/poster.png">
+    <source src="clip-eia-v1/clip-eia-v1.mp4" type="video/mp4">
+    <track kind="captions" src="clip-eia-v1/legendas.vtt" srclang="pt-BR" label="Português" default>
+  </video>
+  <div class="actions">
+    <a class="btn solid" href="clip-eia-v1/clip-eia-v1.mp4" download>Baixar MP4 (1920 × 1080)</a>
+    <a class="btn line" href="clip-eia-v1/legendas.vtt" download>Baixar legendas (VTT)</a>
+  </div>
+</div>
+
+<section class="blk" id="roteiro">
+  <div class="wrap">
+    <h2>Roteiro</h2>
+    <p class="sub">Dez cenas em quatro movimentos: o problema, o método (a mesma história da prefeitura usada na proposta), a promessa e o convite. O texto na tela repete a ideia central da narração, para quem assiste sem som.</p>
+    <div class="tbl">
+    <table class="rot">
+      <thead><tr><th>Tempo</th><th>Cena</th><th>Na tela</th><th>Narração</th></tr></thead>
+      <tbody id="rot-body"></tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<section class="blk" id="producao">
+  <div class="wrap">
+    <h2>Próximos passos para a versão final</h2>
+    <div class="notes">
+      <div>
+        <h3>Som e imagem</h3>
+        <ul>
+          <li>Trocar a voz sintética por locução de docente ou de um egresso, gravada com o mesmo texto.</li>
+          <li>Acrescentar trilha sonora livre de direitos, baixa, sob a voz.</li>
+          <li>Inserir imagens reais nas cenas 1 e 4: fotos de vias de Alegrete, imagens de drone de lavouras de arroz, a tela de um assistente de IA.</li>
+          <li>Animar as entradas de texto (hoje são cortes com fusão curta).</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Formatos e uso</h3>
+        <ul>
+          <li>Versão vertical (1080 × 1920) para Reels, Status do WhatsApp e Shorts.</li>
+          <li>Corte de 30 segundos (cenas 1, 3, 7 e 10) para anúncios e stories.</li>
+          <li>Trocar a cena final por QR code e link do formulário quando existirem.</li>
+          <li>Publicar só depois da decisão do grupo sobre divulgação (questão Q21 da proposta).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">Especialização em Inteligência Artificial Aplicada (EIA), UNIPAMPA, Campus Alegrete. Clip de divulgação, versão 1, outubro de 2026. Curso em proposição. <a href="divulgacao-eia.html">Todos os materiais de divulgação</a>.</div>
+</footer>
+</div>
+
+<!-- palco: cada cena tem passos (data-step) que aparecem em sequência -->
+<div id="stage">
+  <section class="scene" id="c1">
+    <div class="rowbig" data-step="0"><b class="az">3 mil</b><span>fotos de buracos por mês</span></div>
+    <div class="rowbig" data-step="1"><b class="ou">200</b><span>editais para ler</span></div>
+    <div class="rowbig" data-step="2"><b class="vd">1 safra</b><span>inteira em imagens de drone</span></div>
+    <div class="sbar"><span>Problemas reais</span><span>EIA · UNIPAMPA</span></div>
+  </section>
+
+  <section class="scene" id="c2">
+    <p class="D" data-step="0" style="font-size:150px;margin:120px 0 0;font-variation-settings:'wdth' 104">Você conhece<br>o problema.</p>
+    <p class="D sf" data-step="1" style="font-size:110px;margin:50px 0 0;font-variation-settings:'wdth' 104">Mas não sabe programar?</p>
+    <div class="sbar"><span>Problemas reais</span><span>EIA · UNIPAMPA</span></div>
+  </section>
+
+  <section class="scene" id="c3">
+    <p class="D" data-step="0" style="font-size:210px;margin:70px 0 0;font-variation-settings:'wdth' 110">Não precisa.</p>
+    <p class="D az" data-step="1" style="font-size:110px;margin:30px 0 0;font-variation-settings:'wdth' 104">A IA escreve o código.</p>
+    <div class="code" data-step="1">modelo = treinar(fotos_anotadas, classes=["leve", "grave"])
+mapa = agrupar_por_bairro(predicoes, gps)</div>
+    <div class="sbar"><span>O método</span><span>EIA · UNIPAMPA</span></div>
+  </section>
+
+  <section class="scene" id="c4">
+    <div class="bub b-al" data-step="0" style="margin-top:20px"><span class="who">ALUNA, SERVIDORA DA PREFEITURA</span>Quero saber quais buracos são graves e onde estão, para priorizar as equipes.</div>
+    <div class="bub b-ia" data-step="1"><span class="who">IA PROGRAMADORA</span>Montei um classificador de imagens e um mapa por bairro. Código gerado e executado.</div>
+    <div class="sbar"><span>O método · 1. A IA programa</span><span>EIA · UNIPAMPA</span></div>
+  </section>
+
+  <section class="scene" id="c5">
+    <div class="bub b-ad" data-step="0" style="margin-top:20px"><span class="who">AGENTE ADVERSARIAL</span>Testei fotos noturnas, com chuva e de celular antigo.</div>
+    <p class="D" data-step="1" style="font-size:240px;margin:30px 0 0;font-variation-settings:'wdth' 118"><span class="sf">91%</span> <span style="font-size:160px" class="sf">→</span> <span class="ou">58%</span></p>
+    <p data-step="1" style="font-size:44px;color:#4a5c66;margin:10px 0 0">precisão em "grave" com fotos noturnas</p>
+    <div class="sbar"><span>O método · 2. O ataque</span><span>EIA · UNIPAMPA</span></div>
+  </section>
+
+  <section class="scene" id="c6">
+    <div class="bub b-al" data-step="0" style="margin-top:20px"><span class="who">ALUNA</span>Inclua fotos noturnas no treino e me mostre o antes e o depois.</div>
+    <div class="bub b-ok" data-step="1"><span class="who">EVIDÊNCIA ENTREGUE</span>Precisão em "grave": 88% de dia, 81% à noite. Limitação documentada.</div>
+    <div class="sbar"><span>O método · 3. Você decide</span><span>EIA · UNIPAMPA</span></div>
+  </section>
+
+  <section class="scene" id="c7">
+    <p class="D" data-step="0" style="font-size:120px;margin:40px 0 0;font-variation-settings:'wdth' 104">Você traz o problema.</p>
+    <p class="D" data-step="1" style="font-size:120px;margin:16px 0 0;font-variation-settings:'wdth' 104">A IA escreve o código.</p>
+    <p class="D az" data-step="2" style="font-size:120px;margin:16px 0 0;font-variation-settings:'wdth' 104">Você responde pela solução.</p>
+    <div class="sbar"><span>A promessa</span><span>EIA · UNIPAMPA</span></div>
+  </section>
+
+  <section class="scene" id="c8">
+    <p class="D" style="font-size:90px;margin:0;font-variation-settings:'wdth' 110">Especialização em IA Aplicada</p>
+    <div class="facts3">
+      <div data-step="0"><b>12</b><span>meses, a distância</span></div>
+      <div data-step="1"><b class="rx">60 h</b><span>de imagens e visão computacional</span></div>
+      <div data-step="2"><b class="az">0 h</b><span>de aulas de programação</span></div>
+    </div>
+    <div class="sbar"><span>O curso</span><span>EIA · UNIPAMPA</span></div>
+  </section>
+
+  <section class="scene" id="c9">
+    <p class="D" style="font-size:96px;margin:0;font-variation-settings:'wdth' 110">Para quem resolve problemas no trabalho</p>
+    <ul class="who5">
+      <li data-step="0">Servidores públicos</li>
+      <li data-step="1">Empresas e cooperativas</li>
+      <li data-step="2">Agro e ambiente</li>
+      <li data-step="3">Saúde, direito e educação</li>
+      <li class="c" data-step="4">E quem vem da computação</li>
+    </ul>
+    <div class="sbar"><span>Qualquer graduação</span><span>EIA · UNIPAMPA</span></div>
+  </section>
+
+  <section class="scene" id="c10">
+    <p style="font-size:34px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#4a5c66;margin:0">UNIPAMPA · Campus Alegrete</p>
+    <p class="D" data-step="0" style="font-size:132px;margin:30px 0 0;font-variation-settings:'wdth' 104">Especialização em<br><span class="az">Inteligência Artificial Aplicada</span></p>
+    <p data-step="1" style="font-size:54px;font-weight:700;margin:50px 0 0">Manifeste o seu interesse. <span class="ou">Curso em proposição.</span></p>
+    <div class="px" id="px" aria-hidden="true"></div>
+  </section>
+</div>
+
+<script>
+// roteiro: tempo de cada cena (s), texto na tela, narração e instante de cada passo (s desde o início da cena)
+const SCENES=[
+ {id:"c1",d:9.2,steps:[0,2.9,5.0],tela:"3 mil fotos de buracos por mês · 200 editais · 1 safra em imagens de drone",nar:"Três mil fotos de buracos por mês. Duzentos editais para ler. Uma safra inteira em imagens de drone."},
+ {id:"c2",d:6.7,steps:[0,3.2],tela:"Você conhece o problema. Mas não sabe programar?",nar:"Você conhece o problema melhor do que ninguém. Mas não sabe programar?"},
+ {id:"c3",d:6.6,steps:[0,1.8],tela:"Não precisa. A IA escreve o código.",nar:"Não precisa. Aqui, a inteligência artificial escreve o código."},
+ {id:"c4",d:8.4,steps:[0,3.8],tela:"Conversa entre a aluna e a IA programadora",nar:"Você descreve o problema e diz o que é um resultado correto. A IA monta e executa a solução."},
+ {id:"c5",d:12.8,steps:[0,5.6],tela:"Agente adversarial: 91% → 58% com fotos noturnas",nar:"Antes da entrega, um agente adversarial tenta derrubar o seu trabalho. Com fotos noturnas, a precisão caiu de noventa e um para cinquenta e oito por cento."},
+ {id:"c6",d:6.9,steps:[0,3.0],tela:"A aluna decide; evidência: 88% de dia, 81% à noite",nar:"Você decide o que corrigir, mede de novo, e entrega com evidências."},
+ {id:"c7",d:7.6,steps:[0,2.0,3.9],tela:"Você traz o problema. A IA escreve o código. Você responde pela solução.",nar:"Você traz o problema. A IA escreve o código. Você responde pela solução."},
+ {id:"c8",d:10.0,steps:[0,2.4,5.9],tela:"12 meses a distância · 60 h de visão computacional · 0 h de programação",nar:"Doze meses, a distância. Sessenta horas de imagens e visão computacional. E zero hora de aulas de programação."},
+ {id:"c9",d:10.8,steps:[0,2.1,3.6,5.0,7.3],tela:"Servidores, empresas, agro, saúde, direito, educação e computação",nar:"Para servidores públicos, empresas, cooperativas, agro, saúde, direito e educação. E para quem vem da computação."},
+ {id:"c10",d:11.5,steps:[0,6.0],tela:"Especialização em Inteligência Artificial Aplicada · Manifeste o seu interesse",nar:"Especialização em Inteligência Artificial Aplicada. UNIPAMPA, Campus Alegrete. Manifeste o seu interesse."}
+];
+
+// tabela do roteiro
+const fmt=s=>{s=Math.round(s);return Math.floor(s/60)+":"+String(s%60).padStart(2,"0");};
+let t=0;const tb=document.getElementById("rot-body");
+SCENES.forEach((s,i)=>{
+  const tr=document.createElement("tr");
+  tr.innerHTML=`<td>${fmt(t)} a ${fmt(t+s.d)}</td><td>${i+1}</td><td>${s.tela}</td><td class="nar">${s.nar}</td>`;
+  tb.appendChild(tr);t+=s.d;
+});
+
+// campo de arroz com falhas de plantio na cena final
+const px=document.getElementById("px");
+const fails=new Set([40,41,73,74,107,139,140,172,204,205]);
+for(let i=0;i<32*7;i++){
+  const c=document.createElement("i");const row=Math.floor(i/32);
+  c.style.background=fails.has(i)?"#7a4fa0":(row%2?"#6db58c":"#a6d4b9");
+  px.appendChild(c);
+}
+
+// modo de exportação: clip-eia-v1.html#render=c4-1 mostra a cena c4 com os passos 0 e 1
+const m=location.hash.match(/^#render=(c\d+)-(\d+)$/);
+if(m){
+  document.getElementById("page").remove();
+  document.body.className="render";
+  const sc=document.getElementById(m[1]);sc.classList.add("on");
+  sc.querySelectorAll("[data-step]").forEach(e=>{if(+e.dataset.step<=+m[2])e.classList.add("vis");});
+}
+</script>
+</body>
+</html>

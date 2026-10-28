@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mercado de IA · BIA · UNIPAMPA</title>
+  <meta name="description" content="Dados e estatísticas sobre a demanda e as oportunidades do mercado para profissionais de Inteligência Artificial." />
+  <meta name="theme-color" content="#06070d" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Mercado de IA · BIA · UNIPAMPA" />
+  <meta property="og:description" content="Dados e estatísticas sobre a demanda e as oportunidades do mercado para profissionais de Inteligência Artificial." />
+  <meta property="og:image" content="assets/img/og-image.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/pages.css" />
+
+  <!-- Umami analytics (sem cookies, compatível com a LGPD) -->
+  <script defer src="https://stats-bia.iotedu.org/script.js" data-website-id="42daa7a0-8da8-4c04-96aa-3e7dc8e12986"></script>
+</head>
+<body>
+  <canvas id="neural" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ===================== NAV ===================== -->
+  <header class="nav" id="nav">
+    <a class="brand" href="index.html" aria-label="BIA — início">
+      <span class="brand__mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" width="28" height="28"><circle cx="8" cy="9" r="3"/><circle cx="24" cy="7" r="2.4"/><circle cx="25" cy="22" r="3"/><circle cx="9" cy="24" r="2.6"/><circle cx="16" cy="16" r="2.2"/><path d="M8 9 16 16M24 7 16 16M25 22 16 16M9 24 16 16M8 9 24 7M25 22 9 24"/></svg>
+      </span>
+      <span class="brand__text">BIA</span>
+    </a>
+
+    <nav class="nav__links" aria-label="Navegação principal">
+      <a href="index.html">Início</a>
+      <a href="matriz.html">Matriz</a>
+      <a href="grade.html">Monte sua grade</a>
+      <a href="mercado.html" aria-current="page">Mercado</a>
+      <a href="inovacao.html">Inovação</a>
+      <a href="por-que-bia.html">Por que o BIA</a>
+      <a href="alegrete.html">Por que Alegrete</a>
+    </nav>
+
+    <div class="nav__right">
+      <a class="btn btn--solid nav__cta" href="index.html#ingresso">Quero estudar</a>
+      <button class="nav__burger" id="burger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="phero">
+      <div class="wrap">
+        <p class="phero__crumb"><a href="index.html">BIA</a> / Mercado</p>
+        <h1 class="phero__title reveal">O mercado de IA <em>não espera</em>.</h1>
+        <p class="phero__lead reveal">Empresas de todos os setores já adotaram inteligência artificial, e a disputa agora é por <strong>gente que sabe construir, operar e governar</strong> esses sistemas. Veja os números que mostram o tamanho da oportunidade.</p>
+      </div>
+    </section>
+
+    <!-- ===================== NÚMEROS ===================== -->
+    <section class="section section--tight" style="padding-top:0">
+      <div class="wrap">
+        <div class="grid grid--4">
+          <article class="bignum reveal"><span class="bignum__n">78%</span><p class="bignum__d">das organizações usavam IA em 2024. Em 2023, eram 55%.</p><span class="bignum__src">Stanford AI Index 2025</span></article>
+          <article class="bignum reveal"><span class="bignum__n">+56%</span><p class="bignum__d">de prêmio salarial médio para profissionais com habilidades em IA, o dobro do ano anterior (25%).</p><span class="bignum__src">PwC AI Jobs Barometer 2025</span></article>
+          <article class="bignum reveal"><span class="bignum__n">4×</span><p class="bignum__d">mais crescimento de produtividade nos setores mais expostos à IA: de 7% para 27%.</p><span class="bignum__src">PwC AI Jobs Barometer 2025</span></article>
+          <article class="bignum reveal"><span class="bignum__n">170 mi</span><p class="bignum__d">de novos empregos até 2030. Especialistas em IA e aprendizado de máquina estão entre as funções que mais crescem.</p><span class="bignum__src">WEF · Future of Jobs 2025</span></article>
+          <article class="bignum reveal"><span class="bignum__n">~50%</span><p class="bignum__d">de todo o capital de risco do mundo foi para empresas de IA em 2025 (34% em 2024).</p><span class="bignum__src">Crunchbase</span></article>
+          <article class="bignum reveal"><span class="bignum__n">R$ 23 bi</span><p class="bignum__d">previstos no Plano Brasileiro de Inteligência Artificial (2024–2028), dos quais R$ 1,1 bi para formação e capacitação.</p><span class="bignum__src">MCTI · PBIA</span></article>
+          <article class="bignum reveal"><span class="bignum__n">106 mil</span><p class="bignum__d">profissionais de tecnologia faltam por ano no Brasil: a demanda é de ~159 mil e só ~53 mil se formam.</p><span class="bignum__src">Brasscom</span></article>
+          <article class="bignum reveal"><span class="bignum__n">71%</span><p class="bignum__d">das organizações já usam IA generativa em pelo menos uma área do negócio (33% em 2023).</p><span class="bignum__src">Stanford AI Index 2025</span></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== GRÁFICO ===================== -->
+    <section class="section section--tight section--alt">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker">Adoção acelerada</p>
+          <h2 class="section__title reveal">Em um ano, a IA virou padrão.</h2>
+          <p class="section__lead reveal">A adoção de IA generativa mais do que dobrou entre 2023 e 2024. Cada empresa que adota IA precisa de profissionais para integrar, avaliar, proteger e manter esses sistemas.</p>
+        </header>
+        <figure class="chart reveal">
+          <figcaption>
+            <p class="chart__title">Organizações que usam IA (% das respondentes)</p>
+            <p class="chart__sub">Pesquisa global com organizações · 2023 vs. 2024</p>
+          </figcaption>
+          <div class="chart__legend" aria-hidden="true">
+            <span style="--c:#5b6385"><i></i>2023</span>
+            <span style="--c:#22d3ee"><i></i>2024</span>
+          </div>
+          <div class="bars" id="adoptionChart"></div>
+          <details>
+            <summary>Ver dados em tabela</summary>
+            <table class="dtable">
+              <thead><tr><th>Indicador</th><th>2023</th><th>2024</th></tr></thead>
+              <tbody>
+                <tr><td>Usam IA em ao menos uma função</td><td>55%</td><td>78%</td></tr>
+                <tr><td>Usam IA generativa em ao menos uma função</td><td>33%</td><td>71%</td></tr>
+              </tbody>
+            </table>
+          </details>
+          <p class="note" style="margin-top:12px">Fonte: Stanford HAI, AI Index Report 2025 (dados de pesquisa da McKinsey).</p>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ===================== FUNÇÕES ===================== -->
+    <section class="section section--tight">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker">Funções em alta</p>
+          <h2 class="section__title reveal">Para onde vão os egressos.</h2>
+          <p class="section__lead reveal">Estas são algumas das funções mais disputadas do mercado, e onde cada uma é construída na matriz do BIA.</p>
+        </header>
+        <div class="grid grid--3">
+          <article class="tile reveal" style="--c:var(--ia)"><span class="tile__ico" aria-hidden="true">🧠</span><h3>Engenheiro(a) de IA / ML</h3><p>Projeta, treina e coloca modelos em produção, de classificadores a LLMs ajustados para o negócio.</p><p class="tile__foot"><b>No BIA:</b> Aprendizado de Máquina I–III, Aprendizado Profundo, RP III–VI</p></article>
+          <article class="tile reveal" style="--c:var(--ia)"><span class="tile__ico" aria-hidden="true">🤖</span><h3>Desenvolvedor(a) de agentes e LLMs</h3><p>Constrói assistentes, agentes autônomos e sistemas que combinam modelos de linguagem, ferramentas e dados da empresa.</p><p class="tile__foot"><b>No BIA:</b> Processamento de Linguagem Natural, Sistemas Multiagentes, Aprendizado Profundo</p></article>
+          <article class="tile reveal" style="--c:var(--fc)"><span class="tile__ico" aria-hidden="true">📊</span><h3>Cientista de dados</h3><p>Transforma dados em decisões: análise exploratória, modelagem estatística, experimentos e comunicação de resultados.</p><p class="tile__foot"><b>No BIA:</b> Ciência de Dados, Probabilidade e Estatística para IA, Visualização de Dados</p></article>
+          <article class="tile reveal" style="--c:var(--fc)"><span class="tile__ico" aria-hidden="true">🛠️</span><h3>Engenheiro(a) de dados e MLOps</h3><p>Constrói os pipelines e a infraestrutura que mantêm modelos funcionando em escala, com monitoramento e versionamento.</p><p class="tile__foot"><b>No BIA:</b> Engenharia de Dados I–II, Grandes Volumes de Dados, eletiva de MLOps</p></article>
+          <article class="tile reveal" style="--c:var(--pi)"><span class="tile__ico" aria-hidden="true">🛡️</span><h3>Especialista em segurança de IA</h3><p>Protege modelos contra ataques adversariais, vazamento de dados e uso indevido. Uma das áreas com maior escassez de profissionais.</p><p class="tile__foot"><b>No BIA:</b> Cibersegurança em IA, eletiva de IA Aplicada à Cibersegurança</p></article>
+          <article class="tile reveal" style="--c:var(--cp)"><span class="tile__ico" aria-hidden="true">⚖️</span><h3>Governança e IA responsável</h3><p>Avalia riscos, vieses e conformidade regulatória de sistemas de IA, função que cresce com as novas leis de IA.</p><p class="tile__foot"><b>No BIA:</b> IA, Equidade e Direitos, eletiva de Ética e Dados</p></article>
+          <article class="tile reveal" style="--c:var(--fm)"><span class="tile__ico" aria-hidden="true">👁️</span><h3>Engenheiro(a) de visão computacional</h3><p>Sistemas que enxergam: inspeção industrial, diagnóstico por imagem, monitoramento de lavouras e rebanhos.</p><p class="tile__foot"><b>No BIA:</b> Visão Computacional, Aprendizado Profundo, eletivas de Saúde e Agronegócio</p></article>
+          <article class="tile reveal" style="--c:var(--cg)"><span class="tile__ico" aria-hidden="true">🧭</span><h3>Gestor(a) de produtos de IA</h3><p>Conecta problema de negócio, usuários e tecnologia para decidir o que construir e como medir o sucesso.</p><p class="tile__foot"><b>No BIA:</b> trilha de Resolução de Problemas, Análise e Projeto de Sistemas Baseados em IA</p></article>
+          <article class="tile reveal" style="--c:var(--magenta)"><span class="tile__ico" aria-hidden="true">🔬</span><h3>Pesquisador(a) em IA</h3><p>Em universidades, centros de pesquisa e laboratórios de empresas, avançando o estado da arte.</p><p class="tile__foot"><b>No BIA:</b> TCC, eletivas de Pesquisa e Inovação e de Escrita de Artigos, grupos de pesquisa</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SETORES ===================== -->
+    <section class="section section--tight section--alt">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker">Quem contrata</p>
+          <h2 class="section__title reveal">Todo setor virou setor de IA.</h2>
+          <p class="section__lead reveal">A demanda não está só nas big techs. Está no campo, no hospital, na prefeitura, no banco e na indústria, inclusive aqui na Fronteira Oeste.</p>
+        </header>
+        <div class="grid grid--4">
+          <article class="tile reveal"><span class="tile__ico" aria-hidden="true">🌾</span><h3>Agronegócio</h3><p>Agricultura de precisão, previsão de safra, manejo de rebanhos e irrigação inteligente.</p></article>
+          <article class="tile reveal"><span class="tile__ico" aria-hidden="true">🩺</span><h3>Saúde</h3><p>Triagem, apoio ao diagnóstico por imagem e gestão hospitalar.</p></article>
+          <article class="tile reveal"><span class="tile__ico" aria-hidden="true">🏦</span><h3>Finanças</h3><p>Crédito, detecção de fraude, atendimento automatizado e cooperativas.</p></article>
+          <article class="tile reveal"><span class="tile__ico" aria-hidden="true">🏛️</span><h3>Governo</h3><p>Serviços públicos digitais, análise de políticas e automação de processos.</p></article>
+          <article class="tile reveal"><span class="tile__ico" aria-hidden="true">🏭</span><h3>Indústria e energia</h3><p>Manutenção preditiva, controle de qualidade e otimização de redes de energia.</p></article>
+          <article class="tile reveal"><span class="tile__ico" aria-hidden="true">🛒</span><h3>Comércio e serviços</h3><p>Recomendação, previsão de demanda e agentes de atendimento para pequenas empresas.</p></article>
+          <article class="tile reveal"><span class="tile__ico" aria-hidden="true">🎓</span><h3>Educação</h3><p>Tutores inteligentes, personalização do ensino e análise de aprendizagem.</p></article>
+          <article class="tile reveal"><span class="tile__ico" aria-hidden="true">🌍</span><h3>Trabalho global</h3><p>Equipes remotas e empresas de outros países contratam talento brasileiro em IA sem exigir mudança de cidade.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="wrap">
+        <div class="callout reveal">
+          <h2>O mercado pede engenheiros sênior. O BIA forma desde o primeiro dia.</h2>
+          <p>Seis semestres resolvendo problemas reais com IA, em equipe, significam chegar ao mercado com experiência de projeto, não só com teoria.</p>
+          <div class="cta-actions"><a class="btn btn--solid" href="inovacao.html">E se eu quiser empreender?</a><a class="btn btn--ghost" href="por-que-bia.html">Por que o BIA é diferente</a></div>
+        </div>
+        <p class="note">Fontes: <a href="https://hai.stanford.edu/ai-index/2025-ai-index-report" target="_blank" rel="noopener">Stanford HAI, AI Index Report 2025</a>; <a href="https://www.pwc.com/gx/en/issues/artificial-intelligence/ai-jobs-barometer.html" target="_blank" rel="noopener">PwC, 2025 Global AI Jobs Barometer</a>; <a href="https://www.weforum.org/publications/the-future-of-jobs-report-2025/" target="_blank" rel="noopener">Fórum Econômico Mundial, Future of Jobs Report 2025</a>; <a href="https://news.crunchbase.com/ai/big-funding-trends-charts-eoy-2025/" target="_blank" rel="noopener">Crunchbase News (2025)</a>; Ministério da Ciência, Tecnologia e Inovação, Plano Brasileiro de Inteligência Artificial 2024–2028; Brasscom, estudos de demanda de talentos em TIC. Os números se referem aos períodos indicados em cada fonte.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <div class="wrap footer__grid">
+      <div class="footer__brand">
+        <span class="brand__text">BIA</span>
+        <p>Bacharelado em Inteligência Artificial · Universidade Federal do Pampa · Campus Alegrete</p>
+      </div>
+      <nav class="footer__col" aria-label="Explore">
+        <h4>Explore</h4>
+        <a href="matriz.html">Matriz</a>
+        <a href="grade.html">Monte sua grade</a>
+        <a href="mercado.html">Mercado</a>
+        <a href="inovacao.html">Inovação</a>
+        <a href="por-que-bia.html">Por que o BIA</a>
+        <a href="alegrete.html">Por que Alegrete</a>
+      </nav>
+      <nav class="footer__col" aria-label="Links">
+        <h4>Links</h4>
+        <a href="https://ai-horizon-labs.github.io" target="_blank" rel="noopener">AI Horizon Labs</a>
+        <a href="https://alegrete-rs.github.io" target="_blank" rel="noopener">Alegrete-RS</a>
+        <a href="https://www.unipampa.edu.br" target="_blank" rel="noopener">UNIPAMPA</a>
+      </nav>
+      <div class="footer__col">
+        <h4>Contato</h4>
+        <a href="mailto:bia@unipampa.edu.br">bia@unipampa.edu.br</a>
+        <a href="https://www.instagram.com/bia.unipampa/" target="_blank" rel="noopener">@bia.unipampa</a>
+        <span>Campus Alegrete-RS</span>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2026 AI Horizon Labs · UNIPAMPA. Todos os direitos reservados.</p>
+      <p class="footer__made">Coordenado pelo AI Horizon Labs</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/neural.js"></script>
+  <script src="assets/js/site.js"></script>
+  <script>
+    /* Gráfico de adoção de IA (Stanford AI Index 2025) */
+    (function () {
+      const data = [
+        { label: "Usam IA em ao menos uma função", v: [55, 78] },
+        { label: "Usam IA generativa em ao menos uma função", v: [33, 71] }
+      ];
+      const years = [{ y: "2023", c: "#5b6385" }, { y: "2024", c: "#22d3ee" }];
+      const root = document.getElementById("adoptionChart");
+      data.forEach((d) => {
+        const g = document.createElement("div");
+        g.className = "bars__group";
+        g.innerHTML = "<h4>" + d.label + "</h4>";
+        d.v.forEach((v, i) => {
+          const row = document.createElement("div");
+          row.className = "bars__row";
+          row.innerHTML = '<span class="bars__lab">' + years[i].y + '</span><div class="bars__track"><div class="bars__bar" tabindex="0" style="--c:' + years[i].c + ';width:' + v + '%"><span class="bars__val">' + v + '%</span></div></div>';
+          g.appendChild(row);
+          window.BIA_SITE.bindTooltip(row.querySelector(".bars__bar"), "<b>" + years[i].y + "</b>" + d.label + ": " + v + "%");
+        });
+        root.appendChild(g);
+      });
+    })();
+  </script>
+</body>
+</html>

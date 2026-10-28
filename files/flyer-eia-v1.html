@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flyer EIA v1</title>
+<meta name="description" content="Proposta de flyer de divulgação da Especialização em Inteligência Artificial Aplicada (EIA) da UNIPAMPA, Campus Alegrete. Formato A5, frente e verso.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#13232d;--soft:#4a5c66;--line:#d5dee2;
+  --azul:#1f4e66;--verde:#1d8a52;--ouro:#b57f1c;--roxo:#7a4fa0;
+  --desk:#e9eef0;--paper:#ffffff;
+  --display:"Archivo",system-ui,sans-serif;--body:"Public Sans",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--desk:#0f1a20}
+}
+:root[data-theme="dark"]{--desk:#0f1a20}
+*{box-sizing:border-box}
+body{margin:0;background:var(--desk);font-family:var(--body);color:var(--ink);-webkit-font-smoothing:antialiased}
+.bar{max-width:900px;margin:0 auto;padding:20px 16px 0;font-size:14px;color:#6b7c85}
+.bar b{color:inherit}
+.desk{display:flex;flex-wrap:wrap;justify-content:center;gap:28px;padding:20px 16px 48px}
+.sheet{width:148mm;height:210mm;background:var(--paper);box-shadow:0 6px 24px rgba(0,0,0,.18);position:relative;overflow:hidden;padding:12mm 11mm 10mm;display:flex;flex-direction:column;flex:none}
+@media (max-width:620px){.sheet{zoom:.62}}
+.label{position:absolute;top:-22px;left:0;font-size:12px;color:#6b7c85}
+h1,h2,h3{font-family:var(--display);margin:0;line-height:1.02}
+
+/* frente */
+.org{display:flex;justify-content:space-between;align-items:baseline;font-size:8.5pt;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--soft);border-bottom:1.5pt solid var(--ink);padding-bottom:3mm}
+.org span:last-child{color:var(--ouro)}
+.front h1{font-size:30pt;font-weight:900;font-variation-settings:"wdth" 106;letter-spacing:-.02em;margin-top:12mm}
+.front h1 span{display:block}
+.front h1 .l3{color:var(--azul)}
+.course{margin-top:8mm;font-family:var(--display);font-variation-settings:"wdth" 112;font-weight:800;font-size:14pt;line-height:1.15}
+.course small{display:block;font-family:var(--body);font-weight:500;font-size:9.5pt;color:var(--soft);margin-top:2mm;letter-spacing:0}
+.pitch{font-size:10.5pt;line-height:1.45;margin-top:6mm;color:var(--ink)}
+.pixels{display:grid;grid-template-columns:repeat(30,1fr);gap:.6mm;margin-top:auto}
+.pixels i{aspect-ratio:1;border-radius:.3mm}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);border-top:1.5pt solid var(--ink);margin-top:5mm}
+.facts div{padding:2.5mm 2mm 0 0}
+.facts b{display:block;font-family:var(--display);font-variation-settings:"wdth" 118;font-weight:800;font-size:16pt;line-height:1.05}
+.facts span{font-size:7.5pt;color:var(--soft);line-height:1.25;display:block}
+
+/* verso */
+.back h2{font-size:15pt;font-variation-settings:"wdth" 110;font-weight:800;margin-bottom:3mm}
+.back section{margin-bottom:6mm}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:2mm;counter-reset:s}
+.steps li{border-top:2pt solid var(--azul);padding-top:1.5mm;font-size:8pt;line-height:1.3;counter-increment:s}
+.steps li:nth-child(3){border-color:var(--ouro)}
+.steps li:nth-child(5){border-color:var(--verde)}
+.steps li::before{content:counter(s);display:block;font-family:var(--display);font-weight:900;font-size:12pt;color:var(--soft)}
+.steps b{display:block;font-size:8.5pt}
+.ex{display:grid;grid-template-columns:1fr 1fr;gap:1.5mm 5mm;margin:0;padding:0;list-style:none;font-size:8.5pt;line-height:1.35}
+.ex li{border-bottom:.5pt solid var(--line);padding:1.3mm 0}
+.ex b{color:var(--azul)}
+.ex .v b{color:var(--roxo)}
+.yesno{display:grid;grid-template-columns:1fr 1fr;gap:5mm;font-size:8.8pt;line-height:1.4}
+.yesno h3{font-size:10pt;margin-bottom:1mm}
+.yesno ul{margin:0;padding-left:4mm}
+.cta{margin-top:auto;display:grid;grid-template-columns:1fr 30mm;gap:5mm;align-items:end;border-top:1.5pt solid var(--ink);padding-top:4mm}
+.cta h2{margin-bottom:1.5mm}
+.cta p{margin:0;font-size:8.8pt;line-height:1.4}
+.qr{width:30mm;height:30mm;border:1pt dashed var(--soft);display:flex;align-items:center;justify-content:center;text-align:center;font-size:7pt;color:var(--soft);padding:2mm}
+.fine{font-size:6.8pt;color:var(--soft);margin-top:3mm;line-height:1.35}
+
+@media print{
+  @page{size:A5 portrait;margin:0}
+  body{background:#fff}
+  .bar,.label{display:none}
+  .desk{display:block;padding:0}
+  .sheet{box-shadow:none;page-break-after:always;break-after:page;zoom:1}
+}
+</style>
+</head>
+<body>
+<p class="bar"><b>Proposta de flyer, v1.</b> Formato A5 (148 × 210 mm), frente e verso. Para imprimir, use Ctrl+P ou Cmd+P, tamanho A5, sem margens e com gráficos de fundo ativados. O QR code entra quando o formulário de interesse existir.</p>
+
+<div class="desk">
+  <article class="sheet front" aria-label="Frente do flyer">
+    <span class="label">Frente</span>
+    <div class="org"><span>UNIPAMPA · Campus Alegrete</span><span>Pós-graduação</span></div>
+    <h1><span>Você traz</span><span>o problema.</span><span>A IA escreve</span><span>o código.</span><span class="l3">Você responde pela solução.</span></h1>
+    <p class="course">Especialização em Inteligência Artificial Aplicada<small>Para profissionais de qualquer área. Não é preciso saber programar.</small></p>
+    <p class="pitch">Aprenda a usar IA para resolver problemas reais de prefeituras, órgãos públicos, cooperativas e empresas: você dirige a IA, confere o que ela entrega e decide.</p>
+    <div class="pixels" id="pixels" aria-hidden="true"></div>
+    <div class="facts">
+      <div><b>12</b><span>meses, a distância</span></div>
+      <div><b>375 h</b><span>em 10 componentes e TCC</span></div>
+      <div><b>60 h</b><span>de imagens e visão computacional</span></div>
+      <div><b>0 h</b><span>de aulas de programação</span></div>
+    </div>
+  </article>
+
+  <article class="sheet back" aria-label="Verso do flyer">
+    <span class="label">Verso</span>
+    <div class="org"><span>EIA · UNIPAMPA</span><span>Curso em proposição</span></div>
+    <section style="margin-top:6mm">
+      <h2>Toda entrega passa pelo mesmo ciclo</h2>
+      <ol class="steps">
+        <li><b>Problema real</b>O seu ou de um parceiro.</li>
+        <li><b>A IA programa</b>Você descreve e define o que é correto.</li>
+        <li><b>Ataque</b>Um agente procura erros e vieses.</li>
+        <li><b>Correção</b>Você responde e mede de novo.</li>
+        <li><b>Avaliação</b>O professor avalia as evidências.</li>
+      </ol>
+    </section>
+    <section>
+      <h2>O que você pode resolver</h2>
+      <ul class="ex">
+        <li><b>Prefeitura.</b> Priorizar a manutenção de vias a partir de fotos.</li>
+        <li class="v"><b>Agro.</b> Contar falhas de plantio em imagens de drone.</li>
+        <li><b>Câmara.</b> Pesquisar leis municipais citando o artigo.</li>
+        <li><b>Comércio.</b> Prever vendas e estoque com a safra.</li>
+        <li><b>Saúde.</b> Organizar a fila de exames digitalizados.</li>
+        <li class="v"><b>Indústria.</b> Inspecionar qualidade com câmeras.</li>
+      </ul>
+    </section>
+    <section class="yesno">
+      <div>
+        <h3>O que pedimos</h3>
+        <ul><li>Graduação em qualquer área</li><li>Uso de IA no dia a dia</li><li>Cerca de 10 h por semana</li><li>Um problema real para resolver</li></ul>
+      </div>
+      <div>
+        <h3>O que não pedimos</h3>
+        <ul><li>Saber programar</li><li>Matemática avançada</li><li>Inglês</li><li>Formação em computação</li></ul>
+      </div>
+    </section>
+    <div class="cta">
+      <div>
+        <h2>Tem interesse?</h2>
+        <p>Deixe seu contato e avisamos quando o edital for publicado. O seu problema pode virar o seu TCC: um artigo científico ou um software com pedido de registro no INPI.</p>
+      </div>
+      <div class="qr">QR code do formulário de interesse</div>
+    </div>
+    <p class="fine">Curso em proposição na UNIPAMPA, Campus Alegrete. Carga horária, vagas, valores e calendário serão definidos no edital. Proposta de divulgação v1, outubro de 2026.</p>
+  </article>
+</div>
+
+<script>
+// campo de arroz em pixels, com falhas de plantio destacadas
+const px=document.getElementById("pixels");
+const fails=new Set([37,38,67,68,99,127,128,158,159,189,212,213]);
+for(let i=0;i<30*8;i++){
+  const c=document.createElement("i");
+  const row=Math.floor(i/30);
+  c.style.background=fails.has(i)?"var(--roxo)":(row%2?"color-mix(in srgb,var(--verde) 70%,white)":"color-mix(in srgb,var(--verde) 42%,white)");
+  px.appendChild(c);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Matriz curricular passo a passo · BIA · UNIPAMPA</title>
+  <meta name="description" content="Entenda a matriz do Bacharelado em Inteligência Artificial da UNIPAMPA semestre a semestre: componentes, eixos, eletivas, extensão e atividades complementares." />
+  <meta name="theme-color" content="#06070d" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Matriz curricular passo a passo · BIA · UNIPAMPA" />
+  <meta property="og:description" content="Entenda a matriz do Bacharelado em Inteligência Artificial da UNIPAMPA semestre a semestre: componentes, eixos, eletivas, extensão e atividades complementares." />
+  <meta property="og:image" content="assets/img/og-image.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/pages.css" />
+
+  <!-- Umami analytics (sem cookies, compatível com a LGPD) -->
+  <script defer src="https://stats-bia.iotedu.org/script.js" data-website-id="42daa7a0-8da8-4c04-96aa-3e7dc8e12986"></script>
+</head>
+<body>
+  <canvas id="neural" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ===================== NAV ===================== -->
+  <header class="nav" id="nav">
+    <a class="brand" href="index.html" aria-label="BIA — início">
+      <span class="brand__mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" width="28" height="28"><circle cx="8" cy="9" r="3"/><circle cx="24" cy="7" r="2.4"/><circle cx="25" cy="22" r="3"/><circle cx="9" cy="24" r="2.6"/><circle cx="16" cy="16" r="2.2"/><path d="M8 9 16 16M24 7 16 16M25 22 16 16M9 24 16 16M8 9 24 7M25 22 9 24"/></svg>
+      </span>
+      <span class="brand__text">BIA</span>
+    </a>
+
+    <nav class="nav__links" aria-label="Navegação principal">
+      <a href="index.html">Início</a>
+      <a href="matriz.html" aria-current="page">Matriz</a>
+      <a href="grade.html">Monte sua grade</a>
+      <a href="mercado.html">Mercado</a>
+      <a href="inovacao.html">Inovação</a>
+      <a href="por-que-bia.html">Por que o BIA</a>
+      <a href="alegrete.html">Por que Alegrete</a>
+    </nav>
+
+    <div class="nav__right">
+      <a class="btn btn--solid nav__cta" href="index.html#ingresso">Quero estudar</a>
+      <button class="nav__burger" id="burger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="phero">
+      <div class="wrap">
+        <p class="phero__crumb"><a href="index.html">BIA</a> / Matriz curricular</p>
+        <h1 class="phero__title reveal">A matriz, <em>passo a passo</em>.</h1>
+        <p class="phero__lead reveal">Oito semestres, <strong>3.210 horas</strong> e Inteligência Artificial do primeiro ao último dia. Aqui você entende como tudo se encaixa, semestre a semestre, sem precisar ler as 200 páginas do Projeto Pedagógico.</p>
+        <div class="phero__actions reveal">
+          <a class="btn btn--solid" href="#explorar">Explorar os semestres</a>
+          <a class="btn btn--ghost" href="grade.html">Monte sua grade</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== COMPOSIÇÃO ===================== -->
+    <section class="section section--tight">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker">Como as 3.210 horas se dividem</p>
+          <h2 class="section__title reveal">Do que o curso é feito.</h2>
+          <p class="section__lead reveal">Quase 80% da carga é um núcleo obrigatório pensado para a IA. O restante você escolhe: eletivas, extensão e atividades complementares.</p>
+        </header>
+        <div class="reveal">
+          <div class="hbar" id="hbar" role="img" aria-label="Composição da carga horária do curso"></div>
+          <div class="hlegend" id="hlegend"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FASES ===================== -->
+    <section class="section section--tight section--alt">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker">A lógica da jornada</p>
+          <h2 class="section__title reveal">Quatro fases, uma progressão.</h2>
+          <p class="section__lead reveal">Os componentes se articulam verticalmente: cada fase se apoia na anterior. E, durante seis semestres, a trilha de Resolução de Problemas costura tudo em projetos reais.</p>
+        </header>
+        <div class="phases">
+          <article class="phase reveal"><span class="phase__sem">1º e 2º semestres</span><h3>Fundamentos</h3><p>Matemática, programação e engenharia de dados, todos orientados à IA. Já no primeiro semestre você estuda Introdução à IA e resolve um problema real em equipe.</p></article>
+          <article class="phase reveal"><span class="phase__sem">3º e 4º semestres</span><h3>Técnicas essenciais</h3><p>Álgebra linear, estatística e os primeiros modelos de aprendizado de máquina. Linguagem natural e sistemas multiagentes entram em cena.</p></article>
+          <article class="phase reveal"><span class="phase__sem">5º e 6º semestres</span><h3>Aplicações avançadas</h3><p>Visão computacional, aprendizado profundo e IA generativa. Fechando, IA responsável, cibersegurança e dados em larga escala.</p></article>
+          <article class="phase reveal"><span class="phase__sem">7º e 8º semestres</span><h3>Projeto autoral</h3><p>O TCC vira o seu grande projeto e as trilhas eletivas definem a sua especialização: saúde, agro, robótica, governo e mais.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== EXPLORADOR ===================== -->
+    <section class="section" id="explorar">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker">Explorador interativo</p>
+          <h2 class="section__title reveal">O que você vive em cada semestre.</h2>
+          <p class="section__lead reveal">Navegue por semestre para ver todos os componentes, ou escolha um eixo para acompanhar como ele evolui ao longo do curso.</p>
+        </header>
+
+        <div class="chips" role="tablist" aria-label="Modo de visualização" style="margin-bottom:26px">
+          <button class="chip" role="tab" aria-selected="true" data-view="sem">Por semestre</button>
+          <button class="chip" role="tab" aria-selected="false" data-view="axis">Por eixo</button>
+        </div>
+
+        <div id="viewSem">
+          <div class="explorer">
+            <div class="semnav" role="tablist" aria-label="Semestres" id="semnav"></div>
+            <div class="sempanel" role="tabpanel" id="sempanel" aria-live="polite"></div>
+          </div>
+        </div>
+
+        <div id="viewAxis" hidden>
+          <div class="chips" id="axisChips" aria-label="Eixos"></div>
+          <div class="axisview" id="axisview"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== ELETIVAS ===================== -->
+    <section class="section section--tight section--alt">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker">Componentes complementares (CCCGs) · 240 h</p>
+          <h2 class="section__title reveal">Eletivas: a parte que você desenha.</h2>
+          <p class="section__lead reveal">Você precisa cumprir 240 horas em eletivas, ou seja, quatro componentes de 60 h. Algumas podem ser cursadas desde o 1º semestre; as trilhas de IA aplicada abrem a partir do 4º. A Comissão de Curso renova a lista continuamente, sem precisar reformar o currículo.</p>
+        </header>
+        <div class="grid grid--3" id="elecGrid"></div>
+      </div>
+    </section>
+
+    <!-- ===================== GLOSSÁRIO ===================== -->
+    <section class="section section--tight">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker">Sem siglas misteriosas</p>
+          <h2 class="section__title reveal">Glossário da matriz.</h2>
+        </header>
+        <dl class="glossary reveal">
+          <div><dt>CCOG · Componente Curricular Obrigatório</dt><dd>As disciplinas que todo estudante cursa. São 2.550 h, incluindo a trilha de Resolução de Problemas e o TCC.</dd></div>
+          <div><dt>CCCG · Componente Curricular Complementar</dt><dd>As eletivas. Você escolhe quais cursar até completar 240 h.</dd></div>
+          <div><dt>RP · Resolução de Problemas</dt><dd>Trilha de seis componentes (RP I a VI, 120 h cada) em que equipes resolvem problemas reais com IA, no modelo de Aprendizagem Baseada em Problemas (ABP).</dd></div>
+          <div><dt>TCC · Trabalho de Conclusão de Curso</dt><dd>Projeto técnico-científico autoral em dois tempos: TCC I (150 h, 7º semestre) e TCC II (180 h, 8º semestre).</dd></div>
+          <div><dt>ACEV · Extensão vinculada</dt><dd>270 h de extensão que acontecem dentro dos componentes de RP: as soluções voltam para a comunidade.</dd></div>
+          <div><dt>ACEE · Extensão específica</dt><dd>60 h de ações de extensão que você realiza em projetos e programas de extensão. Somadas à ACEV, são 330 h (10,28% do curso).</dd></div>
+          <div><dt>ACG · Atividade Complementar de Graduação</dt><dd>360 h de atividades fora da matriz: monitoria, pesquisa, eventos, cultura, gestão. Mínimo de 36 h em cada um dos três grupos (ensino, pesquisa e cultura/sociedade/gestão).</dd></div>
+          <div><dt>Crédito</dt><dd>Unidade de carga horária: 1 crédito equivale a 15 horas. Um componente de 4 créditos tem 60 h.</dd></div>
+          <div><dt>Integralização</dt><dd>Concluir todos os requisitos do curso. O tempo previsto é de 8 semestres; o máximo, 16.</dd></div>
+          <div><dt>Eixo de conhecimento</dt><dd>Cada componente pertence a um dos seis eixos (as cores da matriz): Projeto Integrador, Matemática, IA, Computação, Contexto Profissional e Complementares.</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ===================== FAQ ===================== -->
+    <section class="section section--tight section--alt">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker">Perguntas frequentes</p>
+          <h2 class="section__title reveal">Dúvidas comuns sobre o currículo.</h2>
+        </header>
+        <div class="faq reveal">
+          <details><summary>Preciso saber programar para entrar?</summary><p>Não. O 1º semestre começa do início, com Algoritmos e Programação para IA I e Matemática Básica para IA. O que conta é curiosidade e vontade de resolver problemas.</p></details>
+          <details><summary>A matemática é muito pesada?</summary><p>Ela é essencial, mas toda orientada à IA: Cálculo para IA, Álgebra Linear, Probabilidade e Estatística para IA. Você aprende a matemática já vendo onde ela aparece nos modelos, e a usa nos projetos de RP.</p></details>
+          <details><summary>Qual é o turno e quantas vagas há?</summary><p>O curso é presencial, em período integral, com 50 vagas anuais. Até 30% da carga horária pode ser oferecida a distância, conforme a legislação.</p></details>
+          <details><summary>Como entro no curso?</summary><p>O ingresso principal é pelo SiSU (com a nota do ENEM), complementado por editais internos da UNIPAMPA, como o Processo Seletivo Complementar para vagas ociosas.</p></details>
+          <details><summary>Posso cursar eletivas antes do 7º semestre?</summary><p>Sim. Pesquisa e Inovação, Inglês e o Laboratório de Escrita de Artigos estão disponíveis desde o 1º semestre; Linguagem de Programação para Ciência de Dados, desde o 2º; as trilhas de IA aplicada, a partir do 4º.</p></details>
+          <details><summary>Posso aproveitar disciplinas de outros cursos?</summary><p>Sim. Componentes de outros cursos que não tenham equivalente na matriz podem ser aproveitados como eletivas, mediante análise da Comissão de Curso.</p></details>
+          <details><summary>Existe mobilidade acadêmica?</summary><p>Sim. A UNIPAMPA participa de programas de mobilidade nacional e internacional, como BRACOL, BRAMEX e Andifes/Santander, com aproveitamento das disciplinas cursadas.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="wrap">
+        <div class="callout reveal">
+          <h2>Pronto para simular o seu percurso?</h2>
+          <p>Marque o que já cursou, escolha suas eletivas, registre atividades complementares e acompanhe quanto falta para se formar.</p>
+          <div class="cta-actions"><a class="btn btn--solid" href="grade.html">Montar minha grade</a><a class="btn btn--ghost" href="por-que-bia.html">Por que o BIA é diferente</a></div>
+        </div>
+        <p class="note">Fonte: Projeto Pedagógico do Curso (PPC v1.4, 2026), Tabelas 2, 3, 7 e 8. Em caso de divergência, vale o PPC vigente.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <div class="wrap footer__grid">
+      <div class="footer__brand">
+        <span class="brand__text">BIA</span>
+        <p>Bacharelado em Inteligência Artificial · Universidade Federal do Pampa · Campus Alegrete</p>
+      </div>
+      <nav class="footer__col" aria-label="Explore">
+        <h4>Explore</h4>
+        <a href="matriz.html">Matriz</a>
+        <a href="grade.html">Monte sua grade</a>
+        <a href="mercado.html">Mercado</a>
+        <a href="inovacao.html">Inovação</a>
+        <a href="por-que-bia.html">Por que o BIA</a>
+        <a href="alegrete.html">Por que Alegrete</a>
+      </nav>
+      <nav class="footer__col" aria-label="Links">
+        <h4>Links</h4>
+        <a href="https://ai-horizon-labs.github.io" target="_blank" rel="noopener">AI Horizon Labs</a>
+        <a href="https://alegrete-rs.github.io" target="_blank" rel="noopener">Alegrete-RS</a>
+        <a href="https://www.unipampa.edu.br" target="_blank" rel="noopener">UNIPAMPA</a>
+      </nav>
+      <div class="footer__col">
+        <h4>Contato</h4>
+        <a href="mailto:bia@unipampa.edu.br">bia@unipampa.edu.br</a>
+        <a href="https://www.instagram.com/bia.unipampa/" target="_blank" rel="noopener">@bia.unipampa</a>
+        <span>Campus Alegrete-RS</span>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2026 AI Horizon Labs · UNIPAMPA. Todos os direitos reservados.</p>
+      <p class="footer__made">Coordenado pelo AI Horizon Labs</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/curriculum.js"></script>
+  <script src="assets/js/neural.js"></script>
+  <script src="assets/js/site.js"></script>
+  <script src="assets/js/matriz-guia.js"></script>
+
+</body>
+</html>

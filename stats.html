@@ -69,13 +69,26 @@
       <span class="brand__text">BIA</span>
     </a>
 
+    <nav class="nav__links" aria-label="Navegação principal">
+      <a href="index.html" data-i18n="nav.home"></a>
+      <a href="matriz.html" data-i18n="nav.matrix"></a>
+      <a href="grade.html" data-i18n="nav.grade"></a>
+      <a href="mercado.html" data-i18n="nav.market"></a>
+      <a href="inovacao.html" data-i18n="nav.innovation"></a>
+      <a href="por-que-bia.html" data-i18n="nav.why"></a>
+      <a href="alegrete.html" data-i18n="nav.alegrete"></a>
+    </nav>
+
     <div class="nav__right">
       <div class="langswitch" role="group" aria-label="Idioma / Language">
         <button data-lang="pt" class="is-active">PT</button>
         <button data-lang="es">ES</button>
         <button data-lang="en">EN</button>
       </div>
-      <a class="btn btn--ghost" href="index.html" data-i18n="stats.back"></a>
+      <a class="btn btn--ghost nav__cta" href="index.html" data-i18n="stats.back"></a>
+      <button class="nav__burger" id="burger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
 
@@ -163,6 +176,13 @@
       document.querySelectorAll(".langswitch button").forEach(function (b) {
         b.addEventListener("click", function () { setLang(b.dataset.lang); });
         b.classList.toggle("is-active", b.dataset.lang === lang);
+      });
+
+      var nav = document.getElementById("nav");
+      var burger = document.getElementById("burger");
+      burger.addEventListener("click", function () {
+        var open = nav.classList.toggle("is-open");
+        burger.setAttribute("aria-expanded", String(open));
       });
 
       applyI18n();

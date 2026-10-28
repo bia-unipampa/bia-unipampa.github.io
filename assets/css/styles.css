@@ -144,6 +144,9 @@ main, .nav, .footer { position: relative; z-index: 2; }
 }
 .nav__links a::after { content: ""; position: absolute; left: 0; bottom: -2px; width: 0; height: 1.5px; background: var(--cyan); box-shadow: 0 0 8px var(--glow-cyan); transition: width 0.35s var(--ease); }
 .nav__links a:hover { color: #fff; } .nav__links a:hover::after { width: 100%; }
+.nav__links a[aria-current="page"] { color: #fff; }
+.nav__links a[aria-current="page"]::after { width: 100%; }
+@media (min-width: 1181px) and (max-width: 1320px) { .nav__links { gap: 18px; } .nav__links a { font-size: 0.86rem; } }
 .nav__right { display: flex; align-items: center; gap: 16px; }
 .langswitch { display: inline-flex; border: 1px solid var(--line-strong); border-radius: 100px; overflow: hidden; }
 .langswitch button {
@@ -516,6 +519,22 @@ main, .nav, .footer { position: relative; z-index: 2; }
 .team__labs-cta { margin-top: 10px; font-family: var(--font-mono); font-size: 0.82rem; color: var(--cyan); letter-spacing: 0.04em; }
 .team__labs-cta::after { content: " →"; }
 
+/* ===================== EXPLORE (páginas internas) ===================== */
+.explore { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.explore__card {
+  display: flex; flex-direction: column; padding: 28px 26px; border-radius: var(--radius-lg);
+  background: linear-gradient(165deg, rgba(255,255,255,0.04), rgba(255,255,255,0.012));
+  border: 1px solid var(--line);
+  transition: transform 0.5s var(--ease), border-color 0.4s, box-shadow 0.5s;
+}
+.explore__card:hover, .explore__card:focus-visible { transform: translateY(-6px); border-color: var(--cyan); box-shadow: 0 0 40px -16px var(--glow-cyan); outline: none; }
+.explore__card--accent { border-color: rgba(217,70,239,0.35); background: linear-gradient(165deg, rgba(217,70,239,0.10), rgba(34,211,238,0.04)); }
+.explore__ico { font-size: 1.7rem; line-height: 1; }
+.explore__card h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; margin: 16px 0 8px; letter-spacing: -0.01em; }
+.explore__card p { color: var(--ink-soft); font-size: 0.96rem; }
+.explore__go { margin-top: auto; padding-top: 16px; font-family: var(--font-mono); font-size: 0.8rem; color: var(--cyan); letter-spacing: 0.04em; }
+.explore__lang:not(:empty) { margin-top: 22px; color: var(--ink-dim); font-family: var(--font-mono); font-size: 0.8rem; }
+
 /* ===================== INGRESSO ===================== */
 .info { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
 .info__item { padding: 28px 26px; border-radius: var(--radius-lg); background: rgba(255,255,255,0.025); border: 1px solid var(--line); }
@@ -525,7 +544,7 @@ main, .nav, .footer { position: relative; z-index: 2; }
 
 /* ===================== FOOTER ===================== */
 .footer { border-top: 1px solid var(--line); padding: clamp(48px, 7vw, 76px) 0 30px; background: var(--bg-2); }
-.footer__grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 36px; }
+.footer__grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 36px; }
 .footer__brand .brand__text { font-size: 2rem; }
 .footer__brand p { color: var(--ink-dim); font-size: 0.92rem; margin-top: 12px; max-width: 40ch; }
 .footer__col { display: flex; flex-direction: column; gap: 10px; }
@@ -563,13 +582,13 @@ main, .nav, .footer { position: relative; z-index: 2; }
 
 /* ===================== RESPONSIVE ===================== */
 @media (max-width: 980px) {
-  .cards, .axes, .careers, .info, .shift__points, .impact-stats, .impact-pillars { grid-template-columns: repeat(2, 1fr); }
+  .cards, .axes, .careers, .info, .shift__points, .impact-stats, .impact-pillars, .explore { grid-template-columns: repeat(2, 1fr); }
   .rp, .team, .shift { grid-template-columns: 1fr; }
   .hero__stats { grid-template-columns: repeat(2, 1fr); gap: 28px 20px; }
   .footer__grid { grid-template-columns: 1fr 1fr; }
 }
 /* nav collapses to the burger menu early so the link row never cramps */
-@media (max-width: 1024px) {
+@media (max-width: 1180px) {
   .nav__links, .nav__cta { display: none; }
   .nav__burger { display: flex; }
   .nav.is-open .nav__links {
@@ -580,7 +599,7 @@ main, .nav, .footer { position: relative; z-index: 2; }
   .nav.is-open .nav__links a { padding: 12px 0; font-size: 1.05rem; border-bottom: 1px solid var(--line); }
 }
 @media (max-width: 720px) {
-  .cards, .axes, .careers, .info, .rp__cycles, .shift__points, .impact-stats, .impact-pillars, .xprojects, .achievements { grid-template-columns: 1fr; }
+  .cards, .axes, .careers, .info, .rp__cycles, .shift__points, .impact-stats, .impact-pillars, .xprojects, .achievements, .explore { grid-template-columns: 1fr; }
   .footer__grid { grid-template-columns: 1fr; }
   .footer__bottom { flex-direction: column; }
   body { font-size: 16px; }

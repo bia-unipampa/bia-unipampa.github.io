@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IA Desce a Parábola</title>
+<meta name="description" content="Clip animado do BIA nas Escolas para o 3º ano do ensino médio: a robô Bia mostra como uma inteligência artificial aprende usando função afim, parábola, vértice e gradiente descendente.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400..700&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fffaf2;--ink:#1b1035;--soft:#5b4f75;--line:#eadff0;
+  --pink:#fb3b5c;--purple:#8b3dff;--mint:#12c48b;--lime:#7cc417;--cyan:#13b5d6;--sun:#ffc21a;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#140c33;--ink:#f4efff;--soft:#c3b8e0;--line:#2e2357;--purple:#b58bff}
+}
+:root[data-theme="dark"]{--bg:#140c33;--ink:#f4efff;--soft:#c3b8e0;--line:#2e2357;--purple:#b58bff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Nunito",system-ui,sans-serif;font-size:1.06rem;line-height:1.6}
+a{color:var(--purple)}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+@media (max-width:600px){.wrap{padding:0 16px}}
+h1,h2{font-family:"Fredoka",system-ui,sans-serif;line-height:1.05;margin:0}
+.hd{padding:44px 0 22px}
+.hd .back{font-weight:700;text-decoration:none;color:var(--soft);font-size:.95rem}
+.hd h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:700;margin-top:10px}
+.hd p{color:var(--soft);max-width:66ch;margin:10px 0 0}
+.player video{display:block;width:100%;height:auto;aspect-ratio:16/9;border-radius:18px;background:#140c33;box-shadow:0 10px 40px rgba(27,16,53,.25)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.btn{display:inline-flex;font-weight:800;font-size:.98rem;padding:10px 20px;border-radius:999px;text-decoration:none;border:3px solid var(--purple);color:var(--purple)}
+.btn.solid{background:var(--purple);color:#fff}
+.blk{margin:44px 0}
+.blk h2{font-size:1.8rem;margin-bottom:10px}
+.tbl{overflow-x:auto}
+.blk table{width:100%;border-collapse:collapse;font-size:.98rem;min-width:720px}
+.blk td,.blk th{text-align:left;vertical-align:top;padding:10px 12px 10px 0;border-bottom:1px solid var(--line)}
+.blk th{color:var(--soft);font-size:.88rem}
+.blk td:first-child{font-weight:800;color:var(--purple);white-space:nowrap}
+.blk td.nar{font-style:italic}
+.qs{padding-left:22px}
+.qs li{margin-bottom:8px}
+.math{font-family:"Fredoka",sans-serif;font-weight:500;white-space:nowrap}
+footer{border-top:1px solid var(--line);padding:28px 0 56px;color:var(--soft);font-size:.95rem}
+
+/* ===== palco 1920 x 1080, usado só para gerar os quadros (#render) ===== */
+#stage{display:none;width:1920px;height:1080px;background:#140c33;overflow:hidden;font-family:"Fredoka",system-ui,sans-serif;color:#fff;position:relative}
+body.render{margin:0;background:#140c33}
+body.render #stage{display:block}
+#bgc,#art,#confetti{position:absolute;inset:0}
+#confetti{pointer-events:none}
+.sc{position:absolute;inset:0;opacity:0}
+.el{position:absolute;opacity:0;will-change:transform,opacity}
+.t-big{font-weight:700;font-size:120px;line-height:1;letter-spacing:-.01em}
+.t-mid{font-weight:600;font-size:80px;line-height:1.05;white-space:nowrap}
+.t-sm{font-family:"Nunito",sans-serif;font-weight:800;font-size:44px;line-height:1.2;color:#d9ccff}
+.grad{background:linear-gradient(90deg,#ff5e7a,#b366ff 45%,#2ee6a6);-webkit-background-clip:text;background-clip:text;color:transparent}
+.bubble{background:#fff;color:#1b1035;border-radius:40px;padding:22px 36px;font-size:50px;font-weight:600;white-space:nowrap}
+.bubble::after{content:"";position:absolute;left:60px;bottom:-26px;border:16px solid transparent;border-top:26px solid #fff;border-left:26px solid #fff}
+.chip{border-radius:999px;padding:14px 30px;font-weight:600;font-size:42px;color:#1b1035;white-space:nowrap}
+.panel{background:rgba(255,255,255,.08);border:3px solid rgba(217,204,255,.35);border-radius:32px;padding:20px 28px;width:460px}
+.panel small{display:block;font-family:"Nunito",sans-serif;font-weight:800;font-size:32px;color:#d9ccff}
+.panel b{display:block;font-weight:700;font-size:64px;line-height:1.15;font-variant-numeric:tabular-nums;white-space:nowrap}
+.formula{background:#fff;color:#1b1035;border-radius:28px;padding:16px 30px;font-weight:600;font-size:50px;white-space:nowrap;box-shadow:0 10px 0 rgba(0,0,0,.25)}
+.formula em{font-style:normal;color:#8b3dff}
+.card{background:#fff;color:#1b1035;border-radius:32px;padding:24px 30px;box-shadow:0 12px 0 rgba(0,0,0,.25);font-weight:600;font-size:52px;line-height:1.3;white-space:nowrap}
+.card small{display:block;font-family:"Nunito",sans-serif;font-weight:800;font-size:30px;color:#5b4f75}
+#bot{position:absolute;left:0;top:0;width:380px;height:470px;transform-origin:50% 100%}
+</style>
+</head>
+<body>
+<div id="page">
+<header class="hd">
+  <div class="wrap">
+    <a class="back" href="escolas-bia-v2.html">← BIA para o 3º ano</a>
+    <h1>Como a IA aprende descendo a parábola</h1>
+    <p>Clip animado de cerca de 75 segundos para o 3º ano do ensino médio. A robô Bia mostra que o erro de uma inteligência artificial pode ser desenhado como uma função: a reta da função afim se ajusta aos pontos, o erro vira uma parábola, o melhor peso está no vértice (<span class="math">x<sub>v</sub> = −b / 2a</span>) e a IA chega lá descendo a curva, passo a passo, com o gradiente descendente.</p>
+  </div>
+</header>
+<div class="wrap player">
+  <video controls preload="metadata" poster="clip-mat-parabola-v1/poster.jpg">
+    <source src="clip-mat-parabola-v1/clip-mat-parabola-v1.mp4" type="video/mp4">
+    <track kind="captions" src="clip-mat-parabola-v1/legendas.vtt" srclang="pt-BR" label="Português">
+  </video>
+  <div class="actions">
+    <a class="btn solid" href="clip-mat-parabola-v1/clip-mat-parabola-v1.mp4" download>Baixar MP4 (1920 × 1080)</a>
+    <a class="btn" href="clip-mat-parabola-v1/legendas.vtt" download>Baixar legendas (VTT)</a>
+  </div>
+</div>
+
+<section class="wrap blk" id="roteiro">
+  <h2>Roteiro</h2>
+  <div class="tbl"><table><thead><tr><th>Tempo</th><th>Cena</th><th>Na tela</th><th>Narração da Bia</th></tr></thead><tbody id="rot"></tbody></table></div>
+  <p style="color:var(--soft)">A voz é sintética e serve para marcar o ritmo; a versão final pode ser dublada por estudantes do BIA. Os pontos da reta (horas de estudo e nota) são ilustrativos, mas todas as contas do vídeo são reais: a reta final é a de mínimos quadrados para esses pontos, e cada passo da bolinha segue a regra <span class="math">w<sub>novo</sub> = w − taxa × inclinação</span>, com inclinação <span class="math">2(w − 3)</span>.</p>
+</section>
+
+<section class="wrap blk" id="conversa">
+  <h2>Para resolver com a turma depois do vídeo</h2>
+  <ol class="qs">
+    <li>Na parábola <span class="math">erro(w) = w² − 6w + 10</span>, confira com a fórmula do vértice que o mínimo está em <span class="math">w = 3</span> e que o erro mínimo é 1.</li>
+    <li>Começando em <span class="math">w = 0</span> com taxa 0,3, a bolinha vai para <span class="math">w = 1,8</span>. Calcule o próximo passo. (Resposta: 2,52.)</li>
+    <li>Com taxa 0,95, a bolinha vai de 0 para 5,7 e depois volta para 0,57. O que aconteceria com uma taxa maior que 1?</li>
+  </ol>
+</section>
+
+<footer>
+  <div class="wrap">BIA nas Escolas, clip "Como a IA aprende descendo a parábola", versão 1, outubro de 2026. Bacharelado em Inteligência Artificial, UNIPAMPA, Campus Alegrete-RS. <a href="escolas-bia-v2.html">Mais vídeos e jogos para o 3º ano</a>.</div>
+</footer>
+</div>
+
+<div id="stage">
+  <canvas id="bgc" width="1920" height="1080"></canvas>
+  <canvas id="art" width="1920" height="1080"></canvas>
+
+  <section class="sc" data-s="0">
+    <div class="el t-mid" data-in="0.3" data-fx="up" style="left:560px;top:70px">Toda IA começa <span class="grad">errando</span> 😅</div>
+    <div class="el card" data-in="1.6" data-fx="pop" style="left:620px;top:250px"><small>a IA previu</small>nota 5,2</div>
+    <div class="el card" data-in="2.4" data-fx="pop" style="left:1040px;top:250px"><small>a nota certa era</small>8,0</div>
+    <div class="el card" data-in="3.2" data-fx="pop" style="left:1380px;top:250px;background:#ff5e7a;color:#fff"><small style="color:#ffe0e6">erro</small>2,8 ❌</div>
+    <div class="el chip" data-in="4.6" data-fx="up" style="left:620px;top:900px;background:#ffc21a">📈 E se o erro virasse um gráfico?</div>
+  </section>
+
+  <section class="sc" data-s="1">
+    <div class="el t-mid" data-in="0.3" data-fx="up" style="left:560px;top:70px">A reta que <span class="grad">aprende</span> 📏</div>
+    <div class="el formula" data-in="0.9" data-fx="pop" style="left:60px;top:220px">y = <em>a</em>x + <em>b</em></div>
+    <div class="el panel" data-in="1.6" data-fx="left" style="left:60px;top:360px"><small>ajustando</small><b id="ab">a = −0,30</b><b id="bb">b = 7,50</b><small style="margin-top:8px">erro total</small><b id="se" style="color:#ff5e7a">0</b></div>
+  </section>
+
+  <section class="sc" data-s="2">
+    <div class="el t-mid" data-in="0.3" data-fx="up" style="left:560px;top:70px">A <span class="grad">parábola</span> do erro</div>
+    <div class="el formula" data-in="1.0" data-fx="pop" style="left:60px;top:205px;font-size:44px">erro(w) = (w − 3)² + 1</div>
+    <div class="el formula" data-in="2.6" data-fx="pop" style="left:60px;top:300px;font-size:44px">= <em>1</em>w² <em>− 6</em>w + 10</div>
+    <div class="el chip" data-in="3.4" data-fx="left" style="left:60px;top:398px;background:#d9ccff;font-size:34px">a = 1 · b = −6 · c = 10</div>
+    <div class="el panel" data-in="5.0" data-fx="pop" style="left:60px;top:478px;width:470px;padding:14px 26px;background:#ffc21a;border-color:#ffc21a;color:#1b1035"><small style="color:#5b4f75">vértice</small><b style="font-size:52px">x<sub style="font-size:.55em">v</sub> = −b / 2a</b><b id="xv" style="font-size:52px">= 6 / 2 = 3</b></div>
+  </section>
+
+  <section class="sc" data-s="3">
+    <div class="el t-mid" data-in="0.3" data-fx="up" style="left:560px;top:70px">Descendo a <span class="grad">parábola</span> ⛷️</div>
+    <div class="el formula" data-in="0.9" data-fx="pop" style="left:60px;top:220px;font-size:38px">w<sub style="font-size:.6em">novo</sub> = w − <em>taxa</em> × <em>inclinação</em></div>
+    <div class="el panel" data-in="1.8" data-fx="left" style="left:60px;top:340px"><small id="gstep">passo 0 · taxa 0,3</small><b id="gw">w = 0,00</b><b id="ge" style="color:#2ee6a6">erro = 10,00</b></div>
+    <div class="el chip" data-in="8.0" data-fx="up" style="left:60px;top:620px;background:#2ee6a6;font-size:36px">✅ gradiente descendente</div>
+  </section>
+
+  <section class="sc" data-s="4">
+    <div class="el t-mid" data-in="0.3" data-fx="up" style="left:560px;top:70px">Taxa de <span class="grad">aprendizado</span> 🎚️</div>
+    <div class="el chip" data-in="1.4" data-fx="pop" style="left:640px;top:870px;background:#13b5d6;font-size:38px">🐢 taxa 0,05: chega, mas demora</div>
+    <div class="el chip" data-in="3.6" data-fx="pop" style="left:1300px;top:870px;background:#ff5e7a;color:#fff;font-size:38px">🦘 taxa 0,95: pula demais</div>
+  </section>
+
+  <section class="sc" data-s="5">
+    <div class="el t-mid" data-in="0.3" data-fx="up" style="left:560px;top:70px">Mesma ideia, <span class="grad">escala gigante</span> 🧠</div>
+    <div class="el panel" data-in="1.2" data-fx="left" style="left:60px;top:220px"><small>pesos ajustados</small><b id="np" style="font-size:72px">1</b></div>
+    <div class="el t-sm" data-in="5.0" data-fx="up" style="left:60px;top:470px;width:470px;color:#fff">Cada peso desce o próprio “vale” ao mesmo tempo.</div>
+  </section>
+
+  <section class="sc" data-s="6">
+    <div class="el t-mid" data-in="0.3" data-fx="up" style="left:120px;top:100px">A matemática do <span class="grad">3º ano</span> é a base da IA</div>
+    <div class="el chip" data-in="1.2" data-fx="pop" style="left:126px;top:250px;background:#2ee6a6">✔ função afim</div>
+    <div class="el chip" data-in="1.8" data-fx="pop" style="left:530px;top:250px;background:#ffc21a">✔ parábola</div>
+    <div class="el chip" data-in="2.4" data-fx="pop" style="left:870px;top:250px;background:#d9ccff">✔ vértice</div>
+    <div class="el t-sm" data-in="4.6" data-fx="up" style="left:126px;top:390px;color:#fff;font-size:52px">BIA · Bacharelado em Inteligência Artificial</div>
+    <div class="el t-sm" data-in="6.4" data-fx="up" style="left:126px;top:470px;font-size:52px">UNIPAMPA · Alegrete-RS</div>
+    <div class="el t-big grad" data-in="10.6" data-fx="zoom" style="left:120px;top:600px;font-size:200px">Vem pro BIA!</div>
+    <div class="el t-sm" data-in="11.2" data-fx="up" style="left:126px;top:870px;color:#fff;font-size:56px">bia-unipampa.github.io</div>
+  </section>
+
+  <canvas id="confetti" width="1920" height="1080"></canvas>
+
+  <svg id="bot" viewBox="0 0 380 470" aria-hidden="true">
+    <defs>
+      <linearGradient id="gb" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e3dcff"/></linearGradient>
+    </defs>
+    <g id="ant"><line x1="190" y1="70" x2="190" y2="22" stroke="#d9ccff" stroke-width="10" stroke-linecap="round"/><circle id="antball" cx="190" cy="20" r="18" fill="#2ee6a6"/></g>
+    <g id="armL" style="transform-origin:78px 300px"><rect x="18" y="285" width="70" height="32" rx="16" fill="#b366ff"/><circle cx="22" cy="301" r="24" fill="#fff"/></g>
+    <g id="armR" style="transform-origin:302px 300px"><rect x="292" y="285" width="70" height="32" rx="16" fill="#b366ff"/><circle cx="358" cy="301" r="24" fill="#fff"/></g>
+    <rect x="88" y="250" width="204" height="190" rx="54" fill="url(#gb)"/>
+    <text x="190" y="372" text-anchor="middle" font-family="Fredoka" font-weight="700" font-size="62" fill="#8b3dff">BIA</text>
+    <rect x="140" y="440" width="36" height="26" rx="10" fill="#d9ccff"/><rect x="204" y="440" width="36" height="26" rx="10" fill="#d9ccff"/>
+    <rect x="40" y="62" width="300" height="200" rx="70" fill="url(#gb)"/>
+    <rect x="70" y="92" width="240" height="140" rx="50" fill="#1b1035"/>
+    <g id="eyes" style="transform-origin:190px 150px"><ellipse cx="145" cy="148" rx="22" ry="26" fill="#2ee6a6"/><ellipse cx="235" cy="148" rx="22" ry="26" fill="#2ee6a6"/></g>
+    <path id="mouth" d="M160 192 Q190 214 220 192" stroke="#2ee6a6" stroke-width="9" fill="none" stroke-linecap="round"/>
+    <circle cx="100" cy="196" r="13" fill="#ff5e7a" opacity=".55"/><circle cx="280" cy="196" r="13" fill="#ff5e7a" opacity=".55"/>
+  </svg>
+</div>
+
+<script>
+// cenas: duração (s), início da narração, duração da fala, texto falado e o que aparece na tela
+const S=[
+ {d:8.4, n:0.4,f:7.685, nome:"A IA começa errando", tela:"A IA prevê nota 5,2, a nota certa era 8,0: erro de 2,8. Uma parábola se desenha ao fundo.", txt:"Toda IA começa errando. E esse erro vira um gráfico, igual aos gráficos de função do ensino médio."},
+ {d:10.4,n:0.4,f:9.405, nome:"A reta que aprende", tela:"Oito pontos (horas de estudo e nota); a reta y = ax + b gira até se ajustar, os segmentos de erro encolhem e o erro total cai. Reta final: y = 0,8x + 2,3.", txt:"O modelo mais simples é uma função afim: y igual a ax mais b. Aprender é ajustar a e b até a reta chegar perto dos pontos."},
+ {d:11.6,n:0.4,f:10.607,nome:"A parábola do erro", tela:"Gráfico de erro(w) = (w − 3)² + 1 = w² − 6w + 10; cálculo do vértice: −b / 2a = 6 / 2 = 3, com erro mínimo 1.", txt:"Com um só peso, o w, o erro forma uma parábola. O melhor peso está no vértice: menos b sobre dois a. Aqui, seis sobre dois, igual a três."},
+ {d:11.0,n:0.4,f:10.03, nome:"Descendo a parábola", tela:"A bolinha começa em w = 0 e desce em passos com taxa 0,3 (w = 1,8; 2,52; 2,81...), com a reta tangente mostrando a inclinação.", txt:"Mas a IA não tem fórmula pronta. Ela desce a curva passo a passo, sempre para o lado em que o erro diminui. É o gradiente descendente."},
+ {d:10.0,n:0.4,f:8.521, nome:"Taxa de aprendizado", tela:"Duas parábolas lado a lado: com taxa 0,05 a bolinha anda devagar; com taxa 0,95 ela pula de um lado para o outro (0; 5,7; 0,57; 5,19...).", txt:"O tamanho do passo é a taxa de aprendizado. Pequena demais, demora. Grande demais, a IA pula de um lado para o outro do vale."},
+ {d:9.6, n:0.4,f:8.767, nome:"Escala gigante", tela:"Uma rede neural com ligações que mudam de cor e espessura; o contador de pesos ajustados vai de 1 a bilhões.", txt:"As redes neurais de assistentes como o ChatGPT são treinadas com essa mesma ideia, só que ajustando bilhões de pesos ao mesmo tempo."},
+ {d:13.8,n:0.4,f:12.779,nome:"Vem pro BIA", tela:"Função afim, parábola e vértice; convite ao BIA, UNIPAMPA, Alegrete-RS, com confete.", txt:"Função afim, parábola, vértice: é a matemática do ensino médio por trás da IA. No BIA, na UNIPAMPA, em Alegrete, você transforma isso em tecnologia. Vem pro BIA!"}
+];
+let acc=0;S.forEach(s=>{s.t0=+acc.toFixed(2);acc+=s.d;});
+const TOTAL=+acc.toFixed(2);
+
+const LAST=S.length-1;
+// posição da robô: [tempo, x, y (base), escala]
+const BOT=[[0,70,1500,1],[0.8,70,1010,1],[7.9,70,1010,1],[8.7,110,1050,.7],[S[LAST].t0,110,1050,.7],[S[LAST].t0+.9,1430,1010,1.05],[TOTAL,1430,1010,1.05]];
+
+const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const ease=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const back=x=>{const c1=1.70158,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2);};
+const lerp=(a,b,p)=>a+(b-a)*p;
+function lerpKF(kf,t){
+  if(t<=kf[0][0])return kf[0].slice(1);
+  for(let i=1;i<kf.length;i++){
+    if(t<=kf[i][0]){const a=kf[i-1],b=kf[i],p=ease((t-a[0])/(b[0]-a[0]||1));return a.slice(1).map((v,j)=>v+(b[j+1]-v)*p);}
+  }
+  return kf[kf.length-1].slice(1);
+}
+function sceneAt(t){for(let i=S.length-1;i>=0;i--)if(t>=S[i].t0)return i;return 0;}
+const loc=(s,t)=>t-S[s].t0;
+const win=(t,a,b)=>t<a||t>=b?0:Math.min(clamp((t-a)/.35),clamp((b-t)/.35));
+const br=(v,d=2)=>{let r=v.toFixed(d);if(/^-0[.,]?0*$/.test(r))r=r.slice(1);return r.replace(".",",").replace("-","−");};
+
+const art=document.getElementById("art").getContext("2d");
+function rr(c,x,y,w,h,r){c.beginPath();c.roundRect(x,y,w,h,r);}
+
+// ===== gráficos =====
+// cria um sistema de eixos: retângulo em pixels e intervalo de valores
+function G(x0,y0,x1,y1,u0,u1,v0,v1){return {x0,y0,x1,y1,u0,u1,v0,v1,X:u=>x0+(u-u0)/(u1-u0)*(x1-x0),Y:v=>y1-(v-v0)/(v1-v0)*(y1-y0)};}
+function axes(c,g,xl,yl,ticksX,ticksY,a){
+  c.save();c.globalAlpha=a;
+  c.strokeStyle="rgba(217,204,255,.14)";c.lineWidth=2;
+  ticksX.forEach(u=>{c.beginPath();c.moveTo(g.X(u),g.y0);c.lineTo(g.X(u),g.y1);c.stroke();});
+  ticksY.forEach(v=>{c.beginPath();c.moveTo(g.x0,g.Y(v));c.lineTo(g.x1,g.Y(v));c.stroke();});
+  c.strokeStyle="#d9ccff";c.lineWidth=5;c.lineCap="round";
+  const ox=g.X(Math.max(g.u0,0)),oy=g.Y(Math.max(g.v0,0));
+  c.beginPath();c.moveTo(g.x0,oy);c.lineTo(g.x1+20,oy);c.moveTo(ox,g.y1);c.lineTo(ox,g.y0-20);c.stroke();
+  c.fillStyle="#d9ccff";c.beginPath();c.moveTo(g.x1+40,oy);c.lineTo(g.x1+16,oy-12);c.lineTo(g.x1+16,oy+12);c.fill();
+  c.beginPath();c.moveTo(ox,g.y0-40);c.lineTo(ox-12,g.y0-16);c.lineTo(ox+12,g.y0-16);c.fill();
+  c.font="800 28px Nunito";c.textAlign="center";c.textBaseline="top";
+  ticksX.forEach(u=>{if(u!==0||g.u0<0)c.fillText(br(u,0),g.X(u),oy+12);});
+  c.textAlign="right";c.textBaseline="middle";
+  ticksY.forEach(v=>{if(v!==0)c.fillText(br(v,0),ox-14,g.Y(v));});
+  c.font="800 32px Nunito";c.fillStyle="#fff";c.textAlign="right";c.textBaseline="bottom";c.fillText(xl,g.x1+30,oy-16);
+  c.textAlign="left";c.textBaseline="middle";c.fillText(yl,ox+22,g.y0-30);
+  c.restore();
+}
+function curve(c,g,f,u0,u1,p,col,w,a){
+  if(p<=0)return;c.save();c.globalAlpha=a;c.strokeStyle=col;c.lineWidth=w;c.lineCap="round";c.lineJoin="round";
+  c.shadowColor=col;c.shadowBlur=18;c.beginPath();
+  const n=160,ue=lerp(u0,u1,p);
+  for(let i=0;i<=n;i++){const u=lerp(u0,ue,i/n);const x=g.X(u),y=g.Y(f(u));i?c.lineTo(x,y):c.moveTo(x,y);}
+  c.stroke();c.restore();
+}
+function dot(c,x,y,r,col,a=1,ring=false){c.save();c.globalAlpha=a;c.fillStyle=col;c.shadowColor=col;c.shadowBlur=24;c.beginPath();c.arc(x,y,r,0,7);c.fill();if(ring){c.shadowBlur=0;c.lineWidth=5;c.strokeStyle="#fff";c.stroke();}c.restore();}
+function label(c,x,y,txt,bg,fg="#140c33",a=1,size=30){c.save();c.globalAlpha=a;c.font=`800 ${size}px Nunito`;const w=c.measureText(txt).width+28;rr(c,x-w/2,y-size*.75,w,size*1.5,size*.75);c.fillStyle=bg;c.fill();c.fillStyle=fg;c.textAlign="center";c.textBaseline="middle";c.fillText(txt,x,y+1);c.restore();}
+
+// erro do peso w: (w − 3)² + 1 = w² − 6w + 10, inclinação 2(w − 3)
+const E=w=>(w-3)*(w-3)+1,dE=w=>2*(w-3);
+function gdPath(w0,eta,n){const p=[w0];for(let i=0;i<n;i++)p.push(p[i]-eta*dE(p[i]));return p;}
+
+// cena 1: o erro vira gráfico (prévia)
+function drawIntro(t,a){
+  const l=loc(0,t);if(l<4.4)return;
+  const g=G(640,430,1820,860,-1,7,0,18),p=ease(clamp((l-4.6)/2.2));
+  curve(art,g,E,-1,7,p,"rgba(179,102,255,.85)",8,a*.9);
+}
+
+// cena 2: regressão linear
+const PTS=[[1,3.1],[2,3.9],[3,4.6],[4,5.8],[5,6.1],[6,7.2],[7,7.6],[8,8.9]];
+const LS=(()=>{const n=PTS.length,mx=PTS.reduce((s,p)=>s+p[0],0)/n,my=PTS.reduce((s,p)=>s+p[1],0)/n;let sxy=0,sxx=0;PTS.forEach(([x,y])=>{sxy+=(x-mx)*(y-my);sxx+=(x-mx)**2;});const a=sxy/sxx;return {a,b:my-a*mx};})();
+const GR=G(660,240,1780,960,0,9,0,10);
+function drawRegression(t,al){
+  const l=loc(1,t),c=art;
+  axes(c,GR,"horas de estudo","nota",[0,1,2,3,4,5,6,7,8,9],[2,4,6,8,10],al);
+  PTS.forEach(([x,y],i)=>{const a=clamp((l-.6-i*.1)/.3);if(a)dot(c,GR.X(x),GR.Y(y),14,"#ffc21a",al*a,true);});
+  const la=clamp((l-1.6)/.4);if(!la)return {a:-.3,b:7.5};
+  const p=ease(clamp((l-2.4)/5.4)),A=lerp(-.3,LS.a,p),B=lerp(7.5,LS.b,p);
+  c.save();c.globalAlpha=al*la;
+  // erros: segmentos verticais entre cada ponto e a reta
+  c.strokeStyle="#ff5e7a";c.lineWidth=5;c.setLineDash([10,8]);
+  PTS.forEach(([x,y])=>{c.beginPath();c.moveTo(GR.X(x),GR.Y(y));c.lineTo(GR.X(x),GR.Y(A*x+B));c.stroke();});
+  c.setLineDash([]);c.restore();
+  curve(c,GR,x=>A*x+B,0,9,1,"#2ee6a6",8,al*la);
+  if(l>8){label(c,GR.X(7.2),GR.Y(A*7.2+B)-70,`y = ${br(LS.a,1)}x + ${br(LS.b,1)}`,"#2ee6a6","#140c33",al*clamp((l-8)/.4),34);}
+  return {a:A,b:B};
+}
+
+// cenas 3 e 4: a parábola grande
+const GP=G(700,230,1800,960,-1,7,0,18);
+function drawParabola(t,al){
+  const c=art,in3=t<S[3].t0,l=loc(2,t);
+  axes(c,GP,"peso w","erro",[-1,0,1,2,3,4,5,6,7],[5,10,15],al);
+  const p=in3?ease(clamp((l-.8)/2)):1;
+  curve(c,GP,E,-1,7,p,"#b366ff",9,al);
+  // vértice
+  const va=in3?clamp((l-5.2)/.5):.45;
+  if(va){
+    const vx=GP.X(3),vy=GP.Y(1);
+    c.save();c.globalAlpha=al*va;c.strokeStyle="#ffc21a";c.lineWidth=4;c.setLineDash([12,10]);
+    c.beginPath();c.moveTo(vx,vy);c.lineTo(vx,GP.Y(0));c.moveTo(vx,vy);c.lineTo(GP.X(0),vy);c.stroke();c.restore();
+    const pulse=in3?1+.18*Math.sin(t*6):1;
+    dot(c,vx,vy,16*pulse,"#ffc21a",al*va,true);
+    if(in3)label(c,vx+210,vy-70,"mínimo: (3, 1)","#ffc21a","#140c33",al*clamp((l-6)/.4),32);
+  }
+  if(!in3)drawDescent(t,al);
+}
+const GD=gdPath(0,.3,7),T_STEP=1.05,T_GD0=2.2;
+function drawDescent(t,al){
+  const c=art,l=loc(3,t);
+  const k=clamp(Math.floor((l-T_GD0)/T_STEP),-1,GD.length-2);
+  const ph=k<0?0:clamp(((l-T_GD0)-k*T_STEP)/.6);
+  let w,lift=0,i;
+  if(k<0){w=GD[0];i=0;}else{w=lerp(GD[k],GD[k+1],ease(ph));lift=Math.sin(Math.PI*ph)*60;i=ph>=1?k+1:k;}
+  // rastro dos passos anteriores
+  for(let j=0;j<=i;j++){if(j===i&&ph<1&&k>=0)continue;dot(c,GP.X(GD[j]),GP.Y(E(GD[j])),7,"rgba(255,255,255,.55)",al);}
+  // reta tangente (inclinação) no ponto atual
+  if(ph>=1||k<0){
+    const s=dE(w),x0=w-.9,x1=w+.9;c.save();c.globalAlpha=al*.95;c.strokeStyle="#13b5d6";c.lineWidth=5;
+    c.beginPath();c.moveTo(GP.X(x0),GP.Y(E(w)+s*(x0-w)));c.lineTo(GP.X(x1),GP.Y(E(w)+s*(x1-w)));c.stroke();c.restore();
+    if(l>1.2&&l<T_GD0+T_STEP*2.2)label(c,GP.X(w)+190,GP.Y(E(w))-10,`inclinação ${br(s,1)}`,"#13b5d6","#140c33",al,28);
+  }
+  dot(c,GP.X(w),GP.Y(E(w))-lift-20,20,"#2ee6a6",al,true);
+  return {i,w};
+}
+
+// cena 5: taxa pequena e taxa grande
+const GS=G(660,280,1200,800,-1,7,0,18),GB=G(1320,280,1860,800,-1,7,0,18);
+const SLOW=gdPath(0,.05,14),FAST=gdPath(0,.95,14);
+function drawRates(t,al){
+  const c=art,l=loc(4,t);
+  [[GS,SLOW,"#13b5d6",1.4],[GB,FAST,"#ff5e7a",3.6]].forEach(([g,path,col,tin])=>{
+    const a=al*clamp((l-tin+.6)/.5);if(!a)return;
+    axes(c,g,"w","erro",[0,3,6],[5,10,15],a);
+    curve(c,g,E,-1,7,1,"#b366ff",7,a);
+    dot(c,g.X(3),g.Y(1),11,"#ffc21a",a*.8,true);
+    const ts=.5,lt=l-tin;
+    const k=clamp(Math.floor(lt/ts),-1,path.length-2),ph=k<0?0:clamp((lt-k*ts)/.38);
+    c.save();c.globalAlpha=a;c.strokeStyle=col;c.lineWidth=3;c.beginPath();
+    for(let j=0;j<=Math.max(0,k);j++){const x=g.X(path[j]),y=g.Y(E(path[j]));j?c.lineTo(x,y):c.moveTo(x,y);}
+    if(k>=0){const w=lerp(path[k],path[k+1],ease(ph));c.lineTo(g.X(w),g.Y(E(w)));}
+    c.stroke();c.restore();
+    let w=k<0?path[0]:lerp(path[k],path[k+1],ease(ph));const lift=k<0?0:Math.sin(Math.PI*ph)*(col==="#ff5e7a"?90:24);
+    dot(c,g.X(w),g.Y(E(w))-lift-14,15,col,a,true);
+    label(c,(g.x0+g.x1)/2+40,g.y0-92,`passo ${Math.max(0,k+(ph>=1?1:0))} · w = ${br(w,2)}`,"rgba(255,255,255,.92)","#140c33",a,28);
+  });
+}
+
+// cena 6: rede neural
+const LAY=[4,7,7,5,3],NX=i=>700+i*270,NY=(i,j)=>660+(j-(LAY[i]-1)/2)*100;
+function drawNet(t,al){
+  const c=art,l=loc(5,t);
+  for(let i=0;i<LAY.length-1;i++)for(let j=0;j<LAY[i];j++)for(let k=0;k<LAY[i+1];k++){
+    const a=clamp((l-.6-i*.3)/.5);if(!a)continue;
+    const ph=Math.sin(t*(1.3+((i*7+j*3+k)%5)*.35)+i+j*1.7+k*2.3),w=1.5+3.5*Math.abs(ph);
+    c.strokeStyle=ph>0?`rgba(46,230,166,${.25+.5*Math.abs(ph)})`:`rgba(255,94,122,${.25+.5*Math.abs(ph)})`;
+    c.globalAlpha=al*a;c.lineWidth=w;c.beginPath();c.moveTo(NX(i),NY(i,j));c.lineTo(NX(i+1),NY(i+1,k));c.stroke();
+  }
+  c.globalAlpha=1;
+  LAY.forEach((n,i)=>{for(let j=0;j<n;j++){const a=clamp((l-.4-i*.3)/.4);if(a)dot(c,NX(i),NY(i,j),20,"#b366ff",al*a,true);}});
+  // mini parábolas: cada peso no seu vale
+  const ma=clamp((l-5)/.5);
+  if(ma)for(let q=0;q<5;q++){const g=G(640+q*250,230,640+q*250+150,320,-1,7,0,18);const w=3-3*Math.pow(.75,(l-5)*3+q)*Math.cos(q);
+    curve(c,g,E,-1,7,1,"rgba(217,204,255,.7)",4,al*ma);dot(c,g.X(w),g.Y(E(w))-6,8,"#2ee6a6",al*ma);}
+}
+const COUNT=[[1.2,"1"],[2.2,"10"],[3.0,"1.000"],[3.8,"1 milhão"],[4.8,"bilhões!"]];
+
+// fundo: papel quadriculado com pontos de rede neural
+const bg=document.getElementById("bgc").getContext("2d");
+const P=[...Array(40)].map((_,i)=>({x:(i*397)%1920,y:(i*211+90)%1080,a:i*1.7,r:3+(i%4)}));
+function drawBg(t){
+  bg.clearRect(0,0,1920,1080);
+  bg.strokeStyle="rgba(179,102,255,.07)";bg.lineWidth=2;bg.beginPath();
+  for(let x=0;x<=1920;x+=60){bg.moveTo(x,0);bg.lineTo(x,1080);}for(let y=0;y<=1080;y+=60){bg.moveTo(0,y);bg.lineTo(1920,y);}bg.stroke();
+  const pts=P.map(p=>({x:p.x+Math.sin(t*.35+p.a)*40,y:p.y+Math.cos(t*.3+p.a)*30,r:p.r}));
+  bg.lineWidth=2;
+  for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){
+    const d=Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y);
+    if(d<240){bg.strokeStyle=`rgba(179,102,255,${.16*(1-d/240)})`;bg.beginPath();bg.moveTo(pts[i].x,pts[i].y);bg.lineTo(pts[j].x,pts[j].y);bg.stroke();}
+  }
+  pts.forEach((p,i)=>{bg.fillStyle=i%3?"rgba(46,230,166,.4)":"rgba(255,94,122,.38)";bg.beginPath();bg.arc(p.x,p.y,p.r,0,7);bg.fill();});
+}
+
+// confete (cena final)
+const cf=document.getElementById("confetti").getContext("2d");
+const COLORS=["#ff5e7a","#b366ff","#2ee6a6","#ffc21a","#13b5d6","#a3e635"];
+function drawConfetti(t){
+  cf.clearRect(0,0,1920,1080);
+  const t0=S[LAST].t0+10.6;if(t<t0)return;
+  const k=t-t0;
+  for(let i=0;i<160;i++){
+    const x0=(i*523)%1920,vy=280+(i*37)%260,sway=Math.sin(k*3+i)*40;
+    const y=-60+(k-(i%20)*.12)*vy;if(y<-60||y>1120)continue;
+    cf.save();cf.translate(x0+sway,y);cf.rotate(k*4+i);cf.fillStyle=COLORS[i%6];cf.fillRect(-10,-6,20,12);cf.restore();
+  }
+}
+
+const $=id=>document.getElementById(id);
+const bot=$("bot"),armL=$("armL"),armR=$("armR"),eyes=$("eyes"),mouth=$("mouth"),antball=$("antball");
+const els=[...document.querySelectorAll(".sc")].map(sc=>({sc,s:+sc.dataset.s,items:[...sc.querySelectorAll(".el")]}));
+
+function renderAt(t){
+  drawBg(t);
+  const si=sceneAt(t);
+  els.forEach(({sc,s,items})=>{
+    const sd=S[s],lc=t-sd.t0;
+    let o=0;
+    if(lc>=0&&lc<sd.d){o=Math.min(clamp(lc/.35),s===LAST?1:clamp((sd.d-lc)/.35));}
+    sc.style.opacity=o;
+    if(!o)return;
+    items.forEach(el=>{
+      const p=clamp((lc-(+el.dataset.in||0))/.55);
+      const fx=el.dataset.fx;let tr="",op=p>0?1:0;
+      if(fx==="pop"){const b=back(p);tr=`scale(${.2+.8*b})`;op=clamp(p*3);}
+      else if(fx==="zoom"){const b=back(p);tr=`scale(${1.6-.6*b})`;op=clamp(p*2.5);}
+      else if(fx==="up"){tr=`translateY(${(1-ease(p))*60}px)`;op=ease(p);}
+      else if(fx==="left"){tr=`translateX(${(1-ease(p))*-140}px)`;op=ease(p);}
+      else {op=ease(p);}
+      el.style.opacity=op;el.style.transform=tr;
+    });
+  });
+  art.clearRect(0,0,1920,1080);
+  const a0=win(t,0,S[1].t0);if(a0)drawIntro(t,a0);
+  const a1=win(t,S[1].t0,S[2].t0);
+  if(a1){const {a,b}=drawRegression(t,a1);$("ab").textContent="a = "+br(a);$("bb").textContent="b = "+br(b);
+    const se=PTS.reduce((s,[x,y])=>s+(y-(a*x+b))**2,0);$("se").textContent=br(se,1);}
+  const a2=Math.max(win(t,S[2].t0,S[4].t0));if(a2)drawParabola(t,a2);
+  if(t>=S[3].t0&&t<S[4].t0){const l=loc(3,t);const k=clamp(Math.floor((l-T_GD0)/T_STEP),-1,GD.length-2);const ph=k<0?0:clamp(((l-T_GD0)-k*T_STEP)/.6);const n=k<0?0:(ph>=1?k+1:k);
+    $("gstep").textContent=`passo ${n} · taxa 0,3`;$("gw").textContent="w = "+br(GD[n]);$("ge").textContent="erro = "+br(E(GD[n]));}
+  const a4=win(t,S[4].t0,S[5].t0);if(a4)drawRates(t,a4);
+  const a5=win(t,S[5].t0,S[6].t0);if(a5){drawNet(t,a5);const l=loc(5,t);let v="1";COUNT.forEach(([tt,s])=>{if(l>=tt)v=s;});$("np").textContent=v;}
+  // robô
+  const [x,y,sc]=lerpKF(BOT,t);
+  const fin=si===LAST&&loc(LAST,t)>10.6;
+  const bob=Math.sin(t*3.2)*10,jump=fin?-Math.abs(Math.sin(t*5))*60:0;
+  bot.style.transform=`translate(${x}px,${y-470+bob+jump}px) scale(${sc})`;
+  const wave=(t>.8&&t<3.4)||fin||(si===3&&loc(3,t)>8&&loc(3,t)<10);
+  armR.style.transform=`rotate(${wave?-35+Math.sin(t*10)*28:Math.sin(t*2)*6}deg)`;
+  const oops=(si===0&&loc(0,t)>3.2&&loc(0,t)<4.8)||(si===4&&loc(4,t)>5.5&&loc(4,t)<7.5);
+  armL.style.transform=`rotate(${oops?24:Math.sin(t*2+1)*6}deg)`;
+  const blink=(t%3.1)<.12;eyes.style.transform=`scaleY(${blink?.1:1})`;
+  const sp=S[si],lt=t-sp.t0,talk=lt>sp.n&&lt<sp.n+sp.f&&Math.floor(t*8)%2===0;
+  mouth.setAttribute("d",oops?"M172 200 Q190 180 208 200 Q190 220 172 200":talk?"M162 190 Q190 226 218 190 Q190 200 162 190":"M160 192 Q190 214 220 192");
+  antball.setAttribute("fill",(Math.floor(t*2)%2)?"#2ee6a6":"#ffc21a");
+  drawConfetti(t);
+}
+window.renderAt=renderAt;window.TOTAL=TOTAL;window.S=S;
+
+// roteiro em tabela
+const fmt=s=>{s=Math.round(s);return Math.floor(s/60)+":"+String(s%60).padStart(2,"0");};
+S.forEach((s,i)=>{const tr=document.createElement("tr");tr.innerHTML=`<td>${fmt(s.t0)} a ${fmt(s.t0+s.d)}</td><td>${i+1}. ${s.nome}</td><td>${s.tela}</td><td class="nar">${s.txt}</td>`;$("rot").appendChild(tr);});
+
+// modo de exportação: #render deixa só o palco, em tamanho real
+if(location.hash==="#render"){
+  document.body.className="render";
+  document.body.replaceChildren($("stage"));
+}
+document.fonts.ready.then(()=>renderAt(0));
+</script>
+</body>
+</html>

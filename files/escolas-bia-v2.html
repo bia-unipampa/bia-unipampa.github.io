@@ -1,0 +1,666 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BIA para o 3º ano</title>
+<meta name="description" content="Para quem está no 3º ano do ensino médio: conheça o Bacharelado em Inteligência Artificial (BIA) da UNIPAMPA, em Alegrete. Seja da primeira turma, jogue, assista aos vídeos e veja como entrar pelo SiSU.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400..700&family=Nunito:ital,wght@0,500;0,700;0,800;1,500&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fffaf2;--panel:#ffffff;--ink:#1b1035;--soft:#5b4f75;--line:#eadff0;
+  --pink:#fb3b5c;--purple:#8b3dff;--mint:#12b981;--lime:#7cc417;--cyan:#13b5d6;--sun:#ffc21a;
+  --night:#140c33;--night2:#1f1550;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#140c33;--panel:#1f1550;--ink:#f4efff;--soft:#c3b8e0;--line:#34286a;--purple:#b58bff}
+}
+:root[data-theme="dark"]{--bg:#140c33;--panel:#1f1550;--ink:#f4efff;--soft:#c3b8e0;--line:#34286a;--purple:#b58bff}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Nunito",system-ui,sans-serif;font-size:1.07rem;line-height:1.6;overflow-x:hidden}
+a{color:var(--purple);text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:4px solid var(--sun);outline-offset:3px;border-radius:6px}
+button{font-family:inherit;cursor:pointer}
+.wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+@media (max-width:600px){.wrap{padding:0 16px}}
+h1,h2,h3{font-family:"Fredoka",system-ui,sans-serif;line-height:1.05;margin:0}
+h2{font-size:clamp(2rem,5vw,3.1rem);font-weight:700}
+h3{font-size:1.4rem;font-weight:600}
+.kicker{display:inline-block;font-weight:800;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;color:var(--pink)}
+.lead{font-size:1.18rem;color:var(--soft);max-width:62ch;margin:0}
+section{padding:84px 0}
+@media (max-width:700px){section{padding:60px 0}}
+.sec-head{display:grid;gap:12px;margin-bottom:36px}
+.dark{background:var(--night);color:#f4efff}
+.dark h2,.dark h3{color:#fff}
+.dark .lead{color:#c9bdf0}
+.dark a{color:#ffd86b}
+
+/* topo */
+.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--night) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,.1)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:62px}
+.brand{font-family:"Fredoka",sans-serif;font-weight:700;font-size:1.3rem;text-decoration:none;color:#fff;white-space:nowrap}
+.brand span{color:#ffd86b}
+.top nav{display:flex;gap:18px;font-weight:700;font-size:.95rem}
+.top nav a{color:#c9bdf0;text-decoration:none}
+.top nav a:hover{color:#fff}
+@media (max-width:980px){.top nav{display:none}}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:"Fredoka",sans-serif;font-weight:600;font-size:1.12rem;padding:13px 28px;border-radius:999px;text-decoration:none;border:0}
+.btn-p{background:var(--purple);color:#fff;box-shadow:0 5px 0 #5a1fc0}
+.btn-y{background:var(--sun);color:#1b1035!important;box-shadow:0 5px 0 #c08f00}
+.btn-g{background:var(--mint);color:#fff!important;box-shadow:0 5px 0 #0a7a55}
+.btn-w{background:transparent;color:#fff!important;border:3px solid rgba(255,255,255,.5)}
+.btn:active{transform:translateY(3px);box-shadow:none}
+.top .btn{padding:7px 16px;font-size:.95rem}
+
+/* hero */
+.hero{padding:64px 0 80px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(600px 400px at 85% 20%,rgba(139,61,255,.45),transparent 70%),radial-gradient(500px 360px at 5% 90%,rgba(18,185,129,.25),transparent 70%);pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center;position:relative}
+@media (max-width:920px){.hero-grid{grid-template-columns:1fr}}
+.hero h1{font-size:clamp(2.6rem,6.6vw,5rem);font-weight:700;letter-spacing:-.01em;color:#fff}
+.hero h1 .g{background:linear-gradient(90deg,#ff7a93,#c9a2ff 50%,#4ff0bd);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .lead{margin:20px 0 28px}
+.ctas{display:flex;flex-wrap:wrap;gap:14px}
+.badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:32px}
+.badges span{border-radius:999px;padding:7px 16px;font-weight:800;font-size:.95rem;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:#fff}
+/* terminal */
+.term{background:#0b0720;border:1px solid rgba(255,255,255,.14);border-radius:22px;box-shadow:0 30px 80px -30px rgba(139,61,255,.6);overflow:hidden;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.95rem}
+.term .bar{display:flex;gap:7px;align-items:center;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.08);color:#8d82b5;font-size:.8rem}
+.term .bar i{width:11px;height:11px;border-radius:50%;display:block}
+.term .body{padding:18px 20px;min-height:300px;line-height:1.55}
+.term .q{color:#ffd86b}
+.term .a{color:#4ff0bd}
+.term .c{color:#8d82b5}
+.cursor{display:inline-block;width:9px;height:1.1em;background:#4ff0bd;vertical-align:-3px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* primeira turma */
+.first{display:grid;grid-template-columns:.85fr 1.15fr;gap:40px;align-items:center}
+@media (max-width:860px){.first{grid-template-columns:1fr}}
+.big50{font-family:"Fredoka",sans-serif;font-weight:700;font-size:clamp(7rem,22vw,13rem);line-height:.85;background:linear-gradient(160deg,var(--pink),var(--purple));-webkit-background-clip:text;background-clip:text;color:transparent}
+.big50 small{display:block;font-size:1.4rem;line-height:1.3;color:var(--soft);-webkit-text-fill-color:var(--soft);margin-top:10px}
+.perks{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:600px){.perks{grid-template-columns:1fr}}
+.perk{background:var(--panel);border:3px solid var(--line);border-radius:22px;padding:18px}
+.perk b{font-family:"Fredoka",sans-serif;font-weight:600;font-size:1.2rem;display:block;margin:6px 0 4px}
+.perk p{margin:0;color:var(--soft)}
+.perk .ic{font-size:2rem;line-height:1}
+
+/* quiz */
+.quiz{background:var(--panel);border:3px solid var(--line);border-radius:30px;padding:30px;max-width:760px;margin:0 auto;text-align:center}
+.qbar{height:10px;background:var(--line);border-radius:999px;overflow:hidden;margin-bottom:24px}
+.qbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--purple));transition:width .35s}
+.qtext{font-family:"Fredoka",sans-serif;font-weight:600;font-size:clamp(1.4rem,4vw,2rem);line-height:1.2;min-height:2.6em;display:flex;align-items:center;justify-content:center}
+.qem{font-size:3.4rem;line-height:1;margin-bottom:10px}
+.qbtns{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:22px}
+.qbtns .btn{min-width:150px;justify-content:center}
+.qres h3{font-size:clamp(1.8rem,5vw,2.6rem);margin:6px 0 10px}
+.qres p{color:var(--soft);max-width:54ch;margin:0 auto 18px}
+.hidden{display:none!important}
+
+/* jogos */
+.games{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+@media (max-width:860px){.games{grid-template-columns:1fr}}
+.game{border-radius:30px;padding:28px;color:#fff;position:relative;overflow:hidden;min-height:320px;display:flex;flex-direction:column}
+.game.g1{background:linear-gradient(140deg,#8b3dff,#5a1fc0)}
+.game.g2{background:linear-gradient(140deg,#12b981,#0b7f97)}
+.game.g3{background:linear-gradient(140deg,#fb3b5c,#8b1fa8)}
+.game.g4{background:linear-gradient(140deg,#13b5d6,#1d4fb8)}
+.game .new{position:absolute;top:22px;right:22px;background:var(--sun);color:#1b1035;font-weight:800;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:4px 12px;transform:rotate(4deg)}
+.game .em{font-size:3.8rem;line-height:1}
+.game h3{font-size:1.9rem;margin:12px 0 8px;color:#fff}
+.game p{margin:0 0 8px;color:rgba(255,255,255,.93)}
+.game .tags{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 18px}
+.game .tags span{background:rgba(255,255,255,.2);border-radius:999px;padding:3px 12px;font-weight:800;font-size:.85rem}
+.game .btn{margin-top:auto;align-self:flex-start;background:#fff;color:#1b1035;box-shadow:0 5px 0 rgba(0,0,0,.25)}
+
+/* vídeos */
+.vids{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+@media (max-width:860px){.vids{grid-template-columns:1fr!important}}
+.vid video{width:100%;aspect-ratio:16/9;height:auto;border-radius:18px;display:block;background:#000}
+.vid h3{margin:14px 0 4px;font-size:1.35rem}
+.vid p{margin:0;color:#c9bdf0}
+.vid .links{margin-top:8px;font-weight:700;font-size:.95rem}
+
+/* 4 anos */
+.years{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+@media (max-width:980px){.years{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.years{grid-template-columns:1fr}}
+.year{background:var(--panel);border:3px solid var(--line);border-radius:24px;padding:20px;position:relative}
+.year .n{font-family:"Fredoka",sans-serif;font-weight:700;font-size:2.6rem;line-height:1;color:var(--purple)}
+.year h3{font-size:1.2rem;margin:6px 0 10px}
+.year ul{margin:0;padding-left:18px;color:var(--soft);font-size:.98rem}
+.year li{margin-bottom:4px}
+.year .rp{display:inline-block;margin-top:10px;background:color-mix(in srgb,var(--pink) 14%,var(--panel));color:var(--pink);font-weight:800;font-size:.85rem;border-radius:999px;padding:3px 12px}
+.note{color:var(--soft);margin-top:18px}
+
+/* problemas e carreiras */
+.probs{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media (max-width:860px){.probs{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.probs{grid-template-columns:1fr}}
+.prob{border-radius:24px;padding:22px;border:3px solid var(--line);background:var(--panel)}
+.prob .ic{font-size:2.3rem;line-height:1}
+.prob h3{font-size:1.25rem;margin:10px 0 6px}
+.prob p{margin:0;color:var(--soft)}
+.stat{display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:center;margin-top:34px;background:var(--panel);border:3px dashed var(--purple);border-radius:26px;padding:24px 28px}
+@media (max-width:640px){.stat{grid-template-columns:1fr;gap:8px}}
+.stat b{font-family:"Fredoka",sans-serif;font-weight:700;font-size:clamp(2.6rem,8vw,4rem);line-height:1;color:var(--purple)}
+.stat p{margin:0}
+.stat small{color:var(--soft)}
+.jobs{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.jobs span{border-radius:999px;padding:8px 16px;font-weight:800;background:color-mix(in srgb,var(--mint) 14%,var(--panel));border:2px solid color-mix(in srgb,var(--mint) 40%,transparent)}
+
+/* como entrar */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:18px;counter-reset:s}
+@media (max-width:900px){.steps{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.steps{grid-template-columns:1fr}}
+.steps li{counter-increment:s;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-radius:24px;padding:22px}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--sun);color:#1b1035;font-family:"Fredoka",sans-serif;font-weight:700;font-size:1.4rem;margin-bottom:12px}
+.steps h3{font-size:1.25rem;margin-bottom:6px}
+.steps p{margin:0;color:#d9ccff}
+.todo{margin-top:34px;display:grid;grid-template-columns:1fr 1fr;gap:28px}
+@media (max-width:860px){.todo{grid-template-columns:1fr}}
+.todo h3{margin-bottom:10px}
+.check{list-style:none;margin:0;padding:0}
+.check li{padding:9px 0 9px 34px;border-bottom:1px dashed rgba(255,255,255,.2);position:relative}
+.check li::before{content:"✔";position:absolute;left:4px;top:8px;color:#4ff0bd;font-weight:800}
+
+/* mitos */
+.myths{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media (max-width:860px){.myths{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.myths{grid-template-columns:1fr}}
+.myth{perspective:1000px;min-height:220px;background:none;border:0;padding:0;text-align:left;color:inherit}
+.myth .in{position:relative;width:100%;height:100%;min-height:220px;transition:transform .55s;transform-style:preserve-3d}
+.myth.flip .in{transform:rotateY(180deg)}
+.myth .f,.myth .b{position:absolute;inset:0;border-radius:24px;padding:22px;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column}
+.myth .f{background:var(--panel);border:3px solid var(--line)}
+.myth .f b{font-family:"Fredoka",sans-serif;font-weight:600;font-size:1.35rem;line-height:1.2;margin-top:8px}
+.myth .f small{margin-top:auto;color:var(--soft);font-weight:700}
+.myth .b{transform:rotateY(180deg);color:#fff}
+.myth .b.m{background:linear-gradient(140deg,#fb3b5c,#b0205a)}
+.myth .b.v{background:linear-gradient(140deg,#12b981,#0b7f97)}
+.myth .b strong{font-family:"Fredoka",sans-serif;font-size:1.5rem}
+.myth .b span{margin-top:6px;font-size:1rem;line-height:1.45}
+@media (prefers-reduced-motion: reduce){.myth .in{transition:none}}
+
+/* Alegrete */
+.city{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:start}
+@media (max-width:860px){.city{grid-template-columns:1fr}}
+
+/* FAQ */
+.faq details{background:var(--panel);border:3px solid var(--line);border-radius:20px;padding:14px 20px;margin-bottom:12px}
+.faq summary{cursor:pointer;font-family:"Fredoka",sans-serif;font-weight:600;font-size:1.2rem}
+.faq p{margin:10px 0 0;color:var(--soft)}
+
+/* final */
+.final{text-align:center}
+.final h2{font-size:clamp(2.4rem,7vw,4.4rem)}
+.final .lead{margin:16px auto 28px}
+.final .ctas{justify-content:center}
+footer{border-top:2px solid var(--line);padding:40px 0 64px;color:var(--soft);font-size:.97rem}
+footer .wrap{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:24px}
+@media (max-width:760px){footer .wrap{grid-template-columns:1fr}}
+footer h4{font-family:"Fredoka",sans-serif;font-weight:600;font-size:1.05rem;margin:0 0 8px;color:var(--ink)}
+footer ul{list-style:none;margin:0;padding:0}
+footer li{margin-bottom:5px}
+#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 20px;border-radius:999px;font-weight:800;z-index:30;opacity:0;transition:opacity .3s;pointer-events:none}
+#toast.on{opacity:1}
+#fx{position:fixed;inset:0;pointer-events:none;z-index:25}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#inicio">BIA <span>3º ano</span></a>
+    <nav aria-label="Seções">
+      <a href="#primeira">Primeira turma</a>
+      <a href="#quiz">Combina comigo?</a>
+      <a href="#jogos">Jogos</a>
+      <a href="#videos">Vídeos</a>
+      <a href="#enem">ENEM + IA</a>
+      <a href="#curso">4 anos</a>
+      <a href="#entrar">Como entrar</a>
+      <a href="#duvidas">Dúvidas</a>
+    </nav>
+    <button class="btn btn-y share" type="button">📲 Manda pra turma</button>
+  </div>
+</header>
+
+<main id="inicio">
+<section class="hero dark">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="kicker" style="color:#ffd86b">Pra quem está no 3º ano do ensino médio</span>
+      <h1 style="margin-top:12px">Ano que vem você escolhe um curso. <span class="g">Que tal criar IA?</span></h1>
+      <p class="lead">O BIA é o Bacharelado em Inteligência Artificial da UNIPAMPA, em Alegrete: público, gratuito e 100% focado em IA do primeiro ao último semestre. As aulas devem começar em meados de 2027, ou seja, a turma que entra é a <b style="color:#fff">sua</b>.</p>
+      <div class="ctas">
+        <a class="btn btn-y" href="#quiz">⚡ Faça o teste: combina comigo?</a>
+        <a class="btn btn-w" href="#jogos">🎮 Jogar</a>
+      </div>
+      <div class="badges">
+        <span>🎓 Federal e gratuita</span>
+        <span>🪑 50 vagas por ano</span>
+        <span>📝 Entrada pelo SiSU, com o ENEM</span>
+        <span>📍 Alegrete-RS</span>
+      </div>
+    </div>
+    <div class="term" aria-label="Animação: uma conversa com uma IA sobre que curso fazer">
+      <div class="bar"><i style="background:#fb3b5c"></i><i style="background:#ffc21a"></i><i style="background:#12b981"></i><span style="margin-left:8px">bia@unipampa: ~</span></div>
+      <div class="body" id="term" aria-live="off"></div>
+    </div>
+  </div>
+</section>
+
+<section id="primeira">
+  <div class="wrap first">
+    <div class="big50">1ª<small>turma do primeiro curso de graduação em IA da UNIPAMPA. Quem entrar em 2027 vai abrir o caminho.</small></div>
+    <div>
+      <span class="kicker">Por que ser da primeira turma</span>
+      <h2 style="margin:10px 0 22px">Você não entra num curso pronto. Você ajuda a fazer história.</h2>
+      <div class="perks">
+        <div class="perk"><div class="ic">🏗️</div><b>Você cria a cultura</b><p>Centro acadêmico, grupos de estudo, hackathons, as tradições do curso: tudo começa com a primeira turma.</p></div>
+        <div class="perk"><div class="ic">🧑‍🏫</div><b>Professores perto</b><p>Um corpo docente jovem, de um curso novo, olhando de perto para cada estudante.</p></div>
+        <div class="perk"><div class="ic">🧩</div><b>Problemas de verdade</b><p>Seis semestres de Resolução de Problemas, em equipe, com desafios reais da região.</p></div>
+        <div class="perk"><div class="ic">🚀</div><b>Startup ao lado</b><p>O campus é vizinho do PampaTec, parque tecnológico onde ideias viram empresas.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="quiz" style="background:color-mix(in srgb,var(--purple) 7%,var(--bg))">
+  <div class="wrap">
+    <div class="sec-head" style="text-align:center;justify-items:center">
+      <span class="kicker">Teste rápido · 30 segundos</span>
+      <h2>O BIA combina com você?</h2>
+      <p class="lead">Sete perguntas, sem resposta certa. Responda com sinceridade.</p>
+    </div>
+    <div class="quiz" id="qbox">
+      <div class="qbar"><i id="qprog"></i></div>
+      <div id="qask">
+        <div class="qem" id="qem">🤔</div>
+        <div class="qtext" id="qtext"></div>
+        <div class="qbtns">
+          <button class="btn btn-g" type="button" data-a="2">Sou eu! 🙋</button>
+          <button class="btn btn-p" type="button" data-a="1">Às vezes</button>
+          <button class="btn btn-w" type="button" data-a="0" style="color:var(--ink)!important;border-color:var(--line)">Nem tanto</button>
+        </div>
+      </div>
+      <div id="qres" class="qres hidden">
+        <div class="qem" id="rem"></div>
+        <h3 id="rtitle"></h3>
+        <p id="rtext"></p>
+        <div class="qbtns">
+          <button class="btn btn-y share" type="button">📲 Desafie a turma</button>
+          <button class="btn btn-p" type="button" id="qagain">Refazer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="jogos">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker">Jogos no navegador</span>
+      <h2>Jogue e veja a IA por dentro</h2>
+      <p class="lead">Todos rodam no celular e no computador, sem instalar nada. Cada jogo usa de verdade uma técnica de IA que você estuda no BIA.</p>
+    </div>
+    <div class="games">
+      <article class="game g3">
+        <span class="new">Novo · 3D</span>
+        <div class="em">🏎️🧠</div>
+        <h3>Corrida Neural</h3>
+        <p>Corra pela pista neon e depois assista a 24 robôs Bia aprenderem a correr sozinhos, por tentativa e erro, com redes neurais que evoluem a cada geração. Será que eles batem o seu tempo?</p>
+        <div class="tags"><span>3D</span><span>redes neurais</span><span>algoritmo genético</span></div>
+        <a class="btn" href="jogo-3d-corrida-neural-v1.html">Jogar Corrida Neural</a>
+      </article>
+      <article class="game g4">
+        <span class="new">Novo · 3D</span>
+        <div class="em">🚤♻️</div>
+        <h3>Rio Limpo: IA contra IA</h3>
+        <p>Você só aperta o play. Três barcos controlados por IA, cada um com uma estratégia, disputam quem tira mais lixo do rio. Torça pelo seu e veja a IA reconhecer garrafas, sacolas e latas. A natureza agradece.</p>
+        <div class="tags"><span>3D</span><span>detecção de objetos</span><span>planejamento de rota</span></div>
+        <a class="btn" href="jogo-3d-barcos-ia-v1.html">Assistir à disputa</a>
+      </article>
+      <article class="game g1">
+        <div class="em">🤖♻️</div>
+        <h3>Treine a Bia</h3>
+        <p>Ensine a robô a separar o lixo com 8 exemplos e veja se ela acerta coisas que nunca viu. Depois, ensine errado de propósito e descubra o que é viés nos dados.</p>
+        <div class="tags"><span>5 minutos</span><span>vizinho mais próximo</span><span>viés</span></div>
+        <a class="btn" href="jogo-treine-a-bia-v1.html">Jogar Treine a Bia</a>
+      </article>
+      <article class="game g2">
+        <div class="em">⏱️🤔</div>
+        <h3>Tem IA ou não tem?</h3>
+        <p>Um minuto contra o relógio: filtro de rosto, calculadora, mapa, despertador. Quais usam inteligência artificial? Desafie a turma e compare os recordes.</p>
+        <div class="tags"><span>1 minuto</span><span>IA no dia a dia</span><span>competição</span></div>
+        <a class="btn" href="jogo-tem-ia-v1.html">Jogar Tem IA ou não tem?</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="videos" class="dark">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker" style="color:#ffd86b">Vídeos curtos</span>
+      <h2>IA resolvendo problemas de verdade</h2>
+      <p class="lead">A robô Bia mostra, em pouco mais de um minuto cada, como a IA já ajuda a cidade e o campo. Tudo isso entra nas aulas do BIA.</p>
+    </div>
+    <div class="vids">
+      <div class="vid">
+        <video controls preload="none" poster="clip-drones-ia-v1/poster.jpg"><source src="clip-drones-ia-v1/clip-drones-ia-v1.mp4" type="video/mp4"><track kind="captions" src="clip-drones-ia-v1/legendas.vtt" srclang="pt-BR" label="Português"></video>
+        <h3>🚁🌾 Drones de olho na lavoura</h3>
+        <p>Um drone sobrevoa o arroz e a soja, e a IA aponta onde há praga, doença ou falta de água.</p>
+        <div class="links"><a href="clip-drones-ia-v1.html">Roteiro e download</a></div>
+      </div>
+      <div class="vid">
+        <video controls preload="none" poster="clip-animais-ia-v1/poster.jpg"><source src="clip-animais-ia-v1/clip-animais-ia-v1.mp4" type="video/mp4"><track kind="captions" src="clip-animais-ia-v1/legendas.vtt" srclang="pt-BR" label="Português"></video>
+        <h3>🚁🐕 Bichos perdidos, achados</h3>
+        <p>Drones e IA localizam animais soltos na cidade e ajudam a levá-los de volta para casa.</p>
+        <div class="links"><a href="clip-animais-ia-v1.html">Roteiro e download</a></div>
+      </div>
+      <div class="vid">
+        <video controls preload="none" poster="clip-vagas-ia-v1/poster.jpg"><source src="clip-vagas-ia-v1/clip-vagas-ia-v1.mp4" type="video/mp4"><track kind="captions" src="clip-vagas-ia-v1/legendas.vtt" srclang="pt-BR" label="Português"></video>
+        <h3>🚗🅿️ Achar vaga com visão computacional</h3>
+        <p>Uma câmera e uma IA classificam cada vaga do estacionamento como livre ou ocupada, em tempo real.</p>
+        <div class="links"><a href="clip-vagas-ia-v1.html">Roteiro e download</a></div>
+      </div>
+      <div class="vid">
+        <video controls preload="none" poster="escolas-bia-v1/poster.jpg"><source src="escolas-bia-v1/video-bia-escolas-v1.mp4" type="video/mp4"><track kind="captions" src="escolas-bia-v1/legendas.vtt" srclang="pt-BR" label="Português"></video>
+        <h3>🤖 Conheça a Bia</h3>
+        <p>Como uma IA aprende com exemplos, o que acontece quando alguém ensina errado e como entrar no BIA.</p>
+        <div class="links"><a href="video-bia-escolas-v1.html">Roteiro e download</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="enem" style="background:color-mix(in srgb,var(--sun) 9%,var(--bg))">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker">Revisão para o ENEM, versão IA</span>
+      <h2>O conteúdo do 3º ano que vira inteligência artificial</h2>
+      <p class="lead">Matriz, função quadrática e probabilidade caem no ENEM e também estão no coração da IA. Assista, entenda o porquê e depois encare o desafio.</p>
+    </div>
+    <div class="vids" style="grid-template-columns:repeat(3,1fr)">
+      <div class="vid">
+        <video controls preload="none" poster="clip-mat-matrizes-v1/poster.jpg"><source src="clip-mat-matrizes-v1/clip-mat-matrizes-v1.mp4" type="video/mp4"><track kind="captions" src="clip-mat-matrizes-v1/legendas.vtt" srclang="pt-BR" label="Português"></video>
+        <h3>🟦 Matrizes</h3>
+        <p style="color:var(--soft)">Uma foto é uma matriz de números. Um filtro 3 × 3 multiplica e soma, e a IA passa a enxergar bordas e rostos.</p>
+        <div class="links"><a href="clip-mat-matrizes-v1.html">Roteiro e download</a></div>
+      </div>
+      <div class="vid">
+        <video controls preload="none" poster="clip-mat-parabola-v1/poster.jpg"><source src="clip-mat-parabola-v1/clip-mat-parabola-v1.mp4" type="video/mp4"><track kind="captions" src="clip-mat-parabola-v1/legendas.vtt" srclang="pt-BR" label="Português"></video>
+        <h3>📉 Funções</h3>
+        <p style="color:var(--soft)">O erro da IA vira uma parábola, e aprender é descer até o vértice. A reta y = ax + b é o modelo mais simples de todos.</p>
+        <div class="links"><a href="clip-mat-parabola-v1.html">Roteiro e download</a></div>
+      </div>
+      <div class="vid">
+        <video controls preload="none" poster="clip-mat-probabilidade-v1/poster.jpg"><source src="clip-mat-probabilidade-v1/clip-mat-probabilidade-v1.mp4" type="video/mp4"><track kind="captions" src="clip-mat-probabilidade-v1/legendas.vtt" srclang="pt-BR" label="Português"></video>
+        <h3>🎲 Probabilidade</h3>
+        <p style="color:var(--soft)">Como o chatbot escolhe a próxima palavra, e por que às vezes ele inventa coisas.</p>
+        <div class="links"><a href="clip-mat-probabilidade-v1.html">Roteiro e download</a></div>
+      </div>
+    </div>
+    <article class="game g3" style="margin-top:30px;min-height:0;background:linear-gradient(140deg,#ffc21a,#fb3b5c)">
+      <span class="new" style="background:#fff">Desafio</span>
+      <div class="em">🧠📐</div>
+      <h3>Desafio ENEM + IA</h3>
+      <p>Três fases: ajuste a reta aos dados como uma IA, desça a parábola até o vértice escolhendo o tamanho do passo e encare o quiz relâmpago com questões no estilo ENEM. Bata o recorde da turma!</p>
+      <div class="tags"><span>função afim</span><span>função quadrática</span><span>probabilidade</span><span>matrizes</span><span>estatística</span></div>
+      <a class="btn" href="jogo-enem-ia-v1.html">Encarar o desafio</a>
+    </article>
+  </div>
+</section>
+
+<section id="curso">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker">8 semestres · presencial · integral</span>
+      <h2>Seus 4 anos no BIA</h2>
+      <p class="lead">Você programa desde o primeiro semestre e, em seis deles, resolve um problema real em equipe. Algumas das disciplinas de cada ano:</p>
+    </div>
+    <div class="years">
+      <div class="year"><div class="n">1º</div><h3>Primeiros passos</h3><ul><li>Introdução à Inteligência Artificial</li><li>Algoritmos e Programação para IA</li><li>Ciência de Dados</li><li>Matemática e Cálculo para IA</li></ul><span class="rp">RP I e II</span></div>
+      <div class="year"><div class="n">2º</div><h3>A máquina aprende</h3><ul><li>Aprendizado de Máquina I e II</li><li>Processamento de Linguagem Natural (a base dos chatbots)</li><li>Sistemas Multiagentes</li><li>Visualização de Dados</li></ul><span class="rp">RP III e IV</span></div>
+      <div class="year"><div class="n">3º</div><h3>IA de ponta</h3><ul><li>Visão Computacional</li><li>Aprendizado Profundo</li><li>Cibersegurança em IA</li><li>IA, Equidade e Direitos</li></ul><span class="rp">RP V e VI</span></div>
+      <div class="year"><div class="n">4º</div><h3>Sua especialidade</h3><ul><li>TCC</li><li>Eletivas como IA para Jogos Digitais, Robótica, Saúde, Agronegócio e Computação Quântica</li></ul><span class="rp">TCC I e II</span></div>
+    </div>
+    <p class="note">RP é a trilha de Resolução de Problemas. Quer ver tudo? <a href="../matriz.html">Explore a matriz completa</a> ou <a href="../grade.html">monte a sua grade</a>.</p>
+  </div>
+</section>
+
+<section id="problemas" style="background:color-mix(in srgb,var(--mint) 7%,var(--bg))">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker">O que dá pra fazer com IA</span>
+      <h2>Problemas de verdade, perto de você</h2>
+    </div>
+    <div class="probs">
+      <div class="prob"><div class="ic">🌾</div><h3>Campo</h3><p>Drones que encontram pragas, previsão de safra, cuidado com o gado da Fronteira Oeste.</p></div>
+      <div class="prob"><div class="ic">🏥</div><h3>Saúde</h3><p>Apoio ao diagnóstico por imagem e organização de filas e atendimentos.</p></div>
+      <div class="prob"><div class="ic">🏙️</div><h3>Cidade</h3><p>Trânsito, vagas, animais soltos, buracos nas ruas e serviços públicos mais rápidos.</p></div>
+      <div class="prob"><div class="ic">🎮</div><h3>Jogos</h3><p>Personagens que aprendem, mundos gerados por IA, adversários que se adaptam ao jogador.</p></div>
+      <div class="prob"><div class="ic">🌊</div><h3>Meio ambiente</h3><p>Monitorar rios, queimadas e enchentes com satélites, sensores e câmeras.</p></div>
+      <div class="prob"><div class="ic">💡</div><h3>Sua startup</h3><p>Uma ideia sua, um problema que ninguém resolveu, e o PampaTec ao lado para ajudar.</p></div>
+    </div>
+    <div class="stat">
+      <b>106 mil</b>
+      <p>é o déficit anual de profissionais de tecnologia no Brasil: as empresas procuram cerca de 159 mil por ano e só cerca de 53 mil se formam. <small>Fonte: Brasscom. Veja mais em <a href="../mercado.html">Mercado de IA</a>.</small></p>
+    </div>
+    <div class="jobs" aria-label="Exemplos de carreiras">
+      <span>Engenheira(o) de aprendizado de máquina</span><span>Cientista de dados</span><span>Especialista em visão computacional</span><span>Desenvolvedor(a) de IA para jogos</span><span>Pesquisador(a)</span><span>Fundador(a) de startup</span><span>IA no agro e na saúde</span><span>IA no setor público</span>
+    </div>
+  </div>
+</section>
+
+<section id="mitos">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker">Toque nas cartas</span>
+      <h2>Mito ou verdade?</h2>
+    </div>
+    <div class="myths">
+      <button class="myth" type="button"><div class="in"><div class="f"><span style="font-size:2rem">🧮</span><b>"Preciso ser gênio em matemática."</b><small>Toque para virar ↻</small></div><div class="b m"><strong>Mito</strong><span>O curso ensina a matemática de que você vai precisar, desde a Matemática Básica para IA, sempre aplicada. Curiosidade e persistência contam muito.</span></div></div></button>
+      <button class="myth" type="button"><div class="in"><div class="f"><span style="font-size:2rem">⌨️</span><b>"Vou programar já no primeiro semestre."</b><small>Toque para virar ↻</small></div><div class="b v"><strong>Verdade</strong><span>Algoritmos e Programação para IA I e Introdução à IA estão logo no 1º semestre. Ninguém precisa chegar sabendo programar.</span></div></div></button>
+      <button class="myth" type="button"><div class="in"><div class="f"><span style="font-size:2rem">🤖</span><b>"A IA vai fazer tudo sozinha, então nem vale estudar isso."</b><small>Toque para virar ↻</small></div><div class="b m"><strong>Mito</strong><span>Alguém precisa decidir o problema, escolher os dados, conferir os erros e responder pelo resultado. Esse alguém pode ser você.</span></div></div></button>
+      <button class="myth" type="button"><div class="in"><div class="f"><span style="font-size:2rem">💸</span><b>"Universidade federal é cara de manter."</b><small>Toque para virar ↻</small></div><div class="b m"><strong>Mito, em parte</strong><span>O curso é gratuito, e a UNIPAMPA tem auxílios de alimentação, moradia e transporte, conforme editais, além de bolsas.</span></div></div></button>
+      <button class="myth" type="button"><div class="in"><div class="f"><span style="font-size:2rem">🌍</span><b>"IA é só para quem quer trabalhar com computador."</b><small>Toque para virar ↻</small></div><div class="b m"><strong>Mito</strong><span>IA está no agro, na saúde, no direito, na educação, nos jogos e no governo. No BIA, você aplica IA nessas áreas.</span></div></div></button>
+      <button class="myth" type="button"><div class="in"><div class="f"><span style="font-size:2rem">⚖️</span><b>"No curso também se discute ética."</b><small>Toque para virar ↻</small></div><div class="b v"><strong>Verdade</strong><span>Há disciplinas como Inteligência Artificial, Equidade e Direitos, porque uma IA mal treinada pode ser injusta.</span></div></div></button>
+    </div>
+  </div>
+</section>
+
+<section id="entrar" class="dark">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker" style="color:#ffd86b">Passo a passo</span>
+      <h2>Como entrar no BIA</h2>
+      <p class="lead">Sem vestibular próprio: você usa a nota do ENEM.</p>
+    </div>
+    <ol class="steps">
+      <li><h3>Faça o ENEM</h3><p>Todas as áreas contam. A redação e a matemática pesam bastante na nota final.</p></li>
+      <li><h3>Inscreva-se no SiSU</h3><p>Escolha "Inteligência Artificial, UNIPAMPA, Campus Alegrete" entre as suas opções.</p></li>
+      <li><h3>Acompanhe as chamadas</h3><p>Fique de olho na lista de aprovados e na lista de espera, nos sites do SiSU e da UNIPAMPA.</p></li>
+      <li><h3>Matrícula e aulas</h3><p>Faça a matrícula e prepare a mudança: início previsto para meados de 2027.</p></li>
+    </ol>
+    <div class="todo">
+      <div>
+        <h3>📌 O que fazer agora, no 3º ano</h3>
+        <ul class="check">
+          <li>Treinar redação toda semana: ela pode decidir a sua vaga.</li>
+          <li>Revisar a matemática do ensino médio: funções, estatística e probabilidade aparecem logo no curso.</li>
+          <li>Testar se você gosta: jogue os jogos desta página e brinque com uma linguagem de programação gratuita.</li>
+          <li>Salvar as datas oficiais do ENEM e do SiSU nos sites do INEP e do MEC.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>ℹ️ Bom saber</h3>
+        <ul class="check">
+          <li>50 vagas por ano, curso presencial em período integral.</li>
+          <li>Como em toda universidade federal, há reserva de vagas pela Lei de Cotas.</li>
+          <li>Curso autorizado pelo Conselho Universitário da UNIPAMPA em 23/04/2026.</li>
+          <li>Datas, documentos e regras valem conforme os editais oficiais do SiSU e da UNIPAMPA.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="alegrete">
+  <div class="wrap city">
+    <div>
+      <span class="kicker">Morar fora pela primeira vez</span>
+      <h2 style="margin:10px 0 16px">Por que Alegrete?</h2>
+      <p class="lead">Cidade do interior gaúcho, na Fronteira Oeste, com custo de vida menor que o das capitais e a universidade como centro da vida jovem. Problemas reais do campo e da cidade estão por toda parte, ótimos para quem quer aplicar IA.</p>
+      <p style="margin-top:18px"><a class="btn btn-p" href="../alegrete.html">Conheça Alegrete</a></p>
+    </div>
+    <div class="perks">
+      <div class="perk"><div class="ic">🏠</div><b>Apoio à permanência</b><p>Auxílios de alimentação, moradia e transporte, conforme editais da UNIPAMPA.</p></div>
+      <div class="perk"><div class="ic">🔬</div><b>Bolsas</b><p>Bolsas de ensino, pesquisa e extensão para estudantes.</p></div>
+      <div class="perk"><div class="ic">🚀</div><b>PampaTec</b><p>Parque científico e tecnológico vizinho do campus.</p></div>
+      <div class="perk"><div class="ic">👥</div><b>Galera de tecnologia</b><p>O campus já tem cursos de Ciência da Computação e Engenharia de Software.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="duvidas" style="padding-top:20px">
+  <div class="wrap faq" style="max-width:860px">
+    <span class="kicker">Perguntas que todo mundo faz</span>
+    <h2 style="margin:10px 0 22px">Respostas rápidas</h2>
+    <details><summary>Qual a diferença entre o BIA e Ciência da Computação?</summary><p>A Ciência da Computação cobre a computação de forma ampla. O BIA é desenhado do zero para a inteligência artificial: aprendizado de máquina, visão computacional, linguagem natural e aplicações de IA aparecem desde o início, e a trilha de Resolução de Problemas usa IA em todos os semestres.</p></details>
+    <details><summary>Nunca programei. Consigo acompanhar?</summary><p>Sim. A programação começa do básico no 1º semestre. O que mais ajuda é praticar com frequência e pedir ajuda cedo.</p></details>
+    <details><summary>Quanto custa?</summary><p>Nada de mensalidade. A UNIPAMPA é uma universidade federal, pública e gratuita.</p></details>
+    <details><summary>Quanto tempo dura e qual o turno?</summary><p>8 semestres (4 anos), presencial, em período integral.</p></details>
+    <details><summary>Dá para trabalhar ou empreender durante o curso?</summary><p>O curso é integral, mas há bolsas de pesquisa e extensão, projetos com empresas e o PampaTec ao lado para quem quer empreender.</p></details>
+    <details><summary>E depois de formado?</summary><p>Você pode desenvolver soluções de IA em empresas e órgãos públicos, fazer mestrado e pesquisa, ou criar a sua própria empresa. Veja os dados em <a href="../mercado.html">Mercado de IA</a> e os motivos em <a href="../por-que-bia.html">Por que o BIA</a>.</p></details>
+  </div>
+</section>
+
+<section class="final dark">
+  <div class="wrap">
+    <span class="kicker" style="color:#ffd86b">Bora?</span>
+    <h2 style="margin-top:10px">A primeira turma de IA <br>pode ter o seu nome.</h2>
+    <p class="lead">Mande esta página para o grupo da turma, siga o BIA no Instagram e tire suas dúvidas com a gente.</p>
+    <div class="ctas">
+      <button class="btn btn-y share" type="button">📲 Manda pro grupo da turma</button>
+      <a class="btn btn-g" href="https://www.instagram.com/bia.unipampa/" target="_blank" rel="noopener">📷 @bia.unipampa</a>
+      <a class="btn btn-w" href="mailto:bia@unipampa.edu.br">✉️ bia@unipampa.edu.br</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><b style="color:var(--ink)">BIA para o 3º ano</b>, versão 2, outubro de 2026.<br>Bacharelado em Inteligência Artificial, UNIPAMPA, Campus Alegrete-RS.<br><a href="../index.html">Site do BIA</a> · <a href="escolas-bia-v1.html">Para professores: proposta da oficina (v1)</a></div>
+    <div><h4>Jogos</h4><ul>
+      <li><a href="jogo-3d-corrida-neural-v1.html">Corrida Neural (3D)</a></li>
+      <li><a href="jogo-3d-barcos-ia-v1.html">Rio Limpo: IA contra IA (3D)</a></li>
+      <li><a href="jogo-treine-a-bia-v1.html">Treine a Bia</a></li>
+      <li><a href="jogo-tem-ia-v1.html">Tem IA ou não tem?</a></li>
+      <li><a href="jogo-enem-ia-v1.html">Desafio ENEM + IA</a></li>
+    </ul></div>
+    <div><h4>Vídeos</h4><ul>
+      <li><a href="clip-drones-ia-v1.html">Drones de olho na lavoura</a></li>
+      <li><a href="clip-animais-ia-v1.html">Bichos perdidos, achados</a></li>
+      <li><a href="clip-vagas-ia-v1.html">Achar vaga com visão computacional</a></li>
+      <li><a href="video-bia-escolas-v1.html">Conheça a Bia</a></li>
+      <li><a href="clip-mat-matrizes-v1.html">Matrizes e IA</a></li>
+      <li><a href="clip-mat-parabola-v1.html">Funções e IA</a></li>
+      <li><a href="clip-mat-probabilidade-v1.html">Probabilidade e IA</a></li>
+    </ul></div>
+  </div>
+</footer>
+<div id="toast" role="status"></div>
+<canvas id="fx"></canvas>
+
+<script>
+const $=id=>document.getElementById(id);
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// terminal: conversa com uma IA, digitada em loop
+const LINES=[
+ ["c","# 3º ano, outubro. Bateu a dúvida."],
+ ["q","> que curso eu faço?"],
+ ["a","Me conta: você gosta de games, de resolver enigmas ou de entender como as coisas funcionam?"],
+ ["q","> de tudo isso kkk"],
+ ["a","Então conheça o BIA: um curso inteiro sobre criar inteligência artificial, como eu."],
+ ["q","> é pago?"],
+ ["a","Não. É na UNIPAMPA, federal e gratuita, em Alegrete. Entra pelo SiSU, com o ENEM."],
+ ["q","> e quando começa?"],
+ ["a","Meados de 2027. A primeira turma pode ser a sua. 🚀"]
+];
+const term=$("term");
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;");}
+if(reduce){term.innerHTML=LINES.map(([k,t])=>`<div class="${k}">${esc(t)}</div>`).join("");}
+else{
+  let li=0,ci=0,done="";
+  (function type(){
+    if(li>=LINES.length){setTimeout(()=>{li=0;ci=0;done="";type();},5000);return;}
+    const [k,t]=LINES[li];ci++;
+    term.innerHTML=done+`<div class="${k}">${esc(t.slice(0,ci))}<span class="cursor"></span></div>`;
+    if(ci>=t.length){done+=`<div class="${k}">${esc(t)}</div>`;li++;ci=0;setTimeout(type,k==="q"?500:900);}
+    else setTimeout(type,k==="a"?22:55);
+  })();
+}
+
+// teste: combina comigo?
+const Q=[
+ ["🎮","Você já ficou pensando em como um jogo decide o que os inimigos fazem."],
+ ["🧩","Você curte um desafio difícil e não larga até resolver."],
+ ["📱","Você quer saber como o celular reconhece o seu rosto ou escolhe o próximo vídeo."],
+ ["🌾","Você gostaria de usar tecnologia para resolver um problema da sua cidade ou do campo."],
+ ["💡","Você já teve uma ideia de aplicativo ou de negócio."],
+ ["🤖","Você usa IA (como chatbots) e tem curiosidade de saber como ela funciona por dentro."],
+ ["👥","Você gosta de trabalhar em equipe num projeto que é de verdade."]
+];
+let qi=0,pts=0;
+function showQ(){$("qprog").style.width=(qi/Q.length*100)+"%";$("qem").textContent=Q[qi][0];$("qtext").textContent=Q[qi][1];}
+document.querySelectorAll("#qask [data-a]").forEach(b=>b.addEventListener("click",()=>{
+  pts+=+b.dataset.a;qi++;beep(b.dataset.a==="2"?[660,880]:[520]);
+  if(qi<Q.length)showQ();else result();
+}));
+function result(){
+  $("qprog").style.width="100%";$("qask").classList.add("hidden");$("qres").classList.remove("hidden");
+  const p=Math.round(pts/(Q.length*2)*100);
+  let em,t,x;
+  if(p>=70){em="🔥";t=`${p}% de match com o BIA!`;x="Curiosidade, desafio e vontade de criar: é exatamente o perfil de quem vai inventar a próxima IA. Dá uma olhada em como entrar e chama a turma.";burst(150);beep([523,659,784,1046],.12);}
+  else if(p>=40){em="✨";t=`${p}% de match: tem futuro aí!`;x="Você tem várias das curiosidades que movem quem estuda IA. Jogue os jogos desta página: eles mostram como é o dia a dia do curso.";beep([523,659,784]);}
+  else{em="🌱";t=`${p}% de match, por enquanto`;x="Tudo bem! Muita gente descobre o gosto por IA quando vê um problema real sendo resolvido. Assista aos vídeos abaixo e veja se algum te pega.";beep([440,523]);}
+  $("rem").textContent=em;$("rtitle").textContent=t;$("rtext").textContent=x;
+}
+$("qagain").onclick=()=>{qi=0;pts=0;$("qres").classList.add("hidden");$("qask").classList.remove("hidden");showQ();};
+showQ();
+
+// cartas de mito ou verdade
+document.querySelectorAll(".myth").forEach(m=>m.addEventListener("click",()=>{m.classList.toggle("flip");beep([600,800],.06,"sine",.08);}));
+
+// compartilhar
+function toast(t){const e=$("toast");e.textContent=t;e.classList.add("on");setTimeout(()=>e.classList.remove("on"),2400);}
+document.querySelectorAll(".share").forEach(b=>b.addEventListener("click",async()=>{
+  const url=location.href.split("#")[0],text="Olha esse curso de Inteligência Artificial, público e gratuito, na UNIPAMPA em Alegrete. Tem até jogo 3D 👀";
+  if(navigator.share){try{await navigator.share({title:"BIA para o 3º ano",text,url});}catch(e){}return;}
+  window.open("https://wa.me/?text="+encodeURIComponent(text+" "+url),"_blank","noopener");
+  toast("Abrindo o WhatsApp...");
+}));
+
+// sons
+let ac=null;
+function beep(fs,d=.09,type="triangle",v=.12){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();fs.forEach((f,k)=>{const o=ac.createOscillator(),g=ac.createGain();o.type=type;o.frequency.value=f;const t=ac.currentTime+k*d;g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.001,t+d*1.6);o.connect(g).connect(ac.destination);o.start(t);o.stop(t+d*1.7);});}catch(e){}}
+
+// confete
+const cv=$("fx"),cx=cv.getContext("2d");let parts=[];
+function size(){cv.width=innerWidth;cv.height=innerHeight;}addEventListener("resize",size);size();
+function burst(n){if(reduce)return;const C=["#fb3b5c","#8b3dff","#12b981","#ffc21a","#13b5d6"];for(let k=0;k<n;k++)parts.push({x:innerWidth/2,y:innerHeight*.4,vx:(Math.random()-.5)*16,vy:-Math.random()*13-4,r:Math.random()*6,c:C[k%5],life:110});if(parts.length===n)requestAnimationFrame(tick);}
+function tick(){cx.clearRect(0,0,cv.width,cv.height);parts.forEach(p=>{p.vy+=.35;p.x+=p.vx;p.y+=p.vy;p.life--;p.r+=.2;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-6,-4,12,8);cx.restore();});parts=parts.filter(p=>p.life>0&&p.y<cv.height+20);if(parts.length)requestAnimationFrame(tick);else cx.clearRect(0,0,cv.width,cv.height);}
+</script>
+</body>
+</html>

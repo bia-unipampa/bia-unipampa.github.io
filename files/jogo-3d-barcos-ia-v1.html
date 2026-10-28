@@ -1,0 +1,658 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rio Limpo: IA contra IA</title>
+<meta name="description" content="Jogo 3D do BIA nas Escolas: três barcos guiados por inteligências artificiais diferentes disputam quem recolhe mais lixo do rio. Você dá o play e descobre como funcionam a detecção de objetos e o planejamento de rota.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400..700&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fffaf2;--panel:#ffffff;--ink:#1b1035;--soft:#5b4f75;--line:#eadff0;
+  --purple:#8b3dff;--pink:#fb3b5c;--mint:#12b981;--sun:#ffc21a;--cyan:#13b5d6;
+  --glass:rgba(255,255,255,.9);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#140c33;--panel:#1f1550;--ink:#f4efff;--soft:#c3b8e0;--line:#34286a;--glass:rgba(31,21,80,.92)}
+}
+:root[data-theme="dark"]{--bg:#140c33;--panel:#1f1550;--ink:#f4efff;--soft:#c3b8e0;--line:#34286a;--glass:rgba(31,21,80,.92)}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;overflow:hidden;background:#bfe6ff;color:var(--ink);font-family:"Nunito",system-ui,sans-serif;line-height:1.5}
+button{font-family:inherit;cursor:pointer}
+button:focus-visible,a:focus-visible{outline:4px solid var(--sun);outline-offset:3px}
+a{color:var(--purple)}
+.hidden{display:none!important}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+#scene{position:fixed;inset:0;width:100%;height:100%;display:block}
+#labels{position:fixed;inset:0;pointer-events:none;z-index:2;overflow:hidden}
+#fx{position:fixed;inset:0;pointer-events:none;z-index:9}
+
+.top{position:fixed;top:0;left:0;right:0;z-index:5;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 14px;pointer-events:none}
+.top>*{pointer-events:auto}
+.pill{background:var(--glass);color:var(--ink);border:2px solid var(--line);border-radius:999px;padding:6px 14px;font-weight:800;font-size:.95rem;text-decoration:none}
+.top a.pill{color:var(--soft)}
+
+/* rótulos de detecção sobre os objetos */
+.det{position:absolute;left:0;top:0;border:2px solid var(--c);border-radius:6px;will-change:transform;background:color-mix(in srgb,var(--c) 12%,transparent)}
+.det span{position:absolute;bottom:100%;left:-2px;margin-bottom:2px;white-space:nowrap;font-weight:800;font-size:11px;line-height:1.3;color:#fff;background:var(--c);padding:0 5px;border-radius:5px}
+.det.fake{border-style:dashed}
+.det.nat{--c:#6b7c8f!important}
+.bn{position:absolute;left:0;top:0;font-family:"Fredoka",sans-serif;font-weight:600;font-size:14px;color:#fff;background:var(--c);padding:1px 10px;border-radius:999px;white-space:nowrap;box-shadow:0 2px 0 rgba(0,0,0,.25);will-change:transform}
+.plus{position:absolute;font-family:"Fredoka",sans-serif;font-weight:700;font-size:22px;color:var(--c);text-shadow:0 2px 0 #fff,0 0 6px #fff;animation:up .9s ease-out forwards;pointer-events:none}
+@keyframes up{to{transform:translate(-50%,-46px);opacity:0}}
+
+/* painéis */
+.over{position:fixed;inset:0;z-index:6;display:flex;align-items:center;justify-content:center;padding:64px 14px 18px;pointer-events:none}
+.card{pointer-events:auto;background:var(--glass);border:3px solid var(--line);border-radius:28px;padding:22px 24px;max-width:820px;width:100%;max-height:100%;overflow:auto;box-shadow:0 20px 60px -20px rgba(20,12,51,.5);backdrop-filter:blur(6px)}
+h1{font-family:"Fredoka",sans-serif;font-weight:700;font-size:clamp(2rem,6vw,3.3rem);line-height:1;margin:2px 0 10px}
+h2{font-family:"Fredoka",sans-serif;font-weight:700;font-size:clamp(1.6rem,4.6vw,2.4rem);line-height:1.05;margin:0 0 8px}
+h3{font-family:"Fredoka",sans-serif;font-weight:600;font-size:1.15rem;margin:0 0 4px}
+.sub{color:var(--soft);font-size:1.08rem;margin:0 0 14px}
+.kick{font-weight:800;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;color:var(--purple)}
+.boats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+@media (max-width:700px){.boats{grid-template-columns:1fr}}
+.boat{border:3px solid var(--c);border-radius:20px;padding:12px 14px;background:color-mix(in srgb,var(--c) 8%,var(--panel))}
+.boat h3{color:var(--c);display:flex;align-items:center;gap:8px}
+.boat p{margin:0;font-size:.95rem}
+.boat .res{font-family:"Fredoka",sans-serif;font-weight:700;font-size:1.6rem;color:var(--c);line-height:1;margin:4px 0 6px}
+.steps{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 16px}
+.steps span{background:var(--panel);border:2px solid var(--line);border-radius:14px;padding:5px 12px;font-weight:700;font-size:.95rem}
+.big{font-family:"Fredoka",sans-serif;font-weight:600;font-size:1.35rem;border:0;border-radius:999px;padding:14px 34px;background:var(--purple);color:#fff;box-shadow:0 6px 0 #5a1fc0}
+.big:active{transform:translateY(4px);box-shadow:0 2px 0 #5a1fc0}
+.ghost{display:inline-block;font-weight:800;font-size:1rem;background:transparent;border:3px solid var(--purple);color:var(--purple);border-radius:999px;padding:10px 22px;text-decoration:none}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:16px}
+.lesson{background:var(--panel);border-left:8px solid var(--purple);border-radius:14px;padding:12px 16px;margin:12px 0;font-size:1.02rem}
+.nature{text-align:center;background:color-mix(in srgb,var(--mint) 14%,var(--panel));border:3px solid var(--mint);border-radius:22px;padding:14px;margin:12px 0}
+.nature b{display:block;font-family:"Fredoka",sans-serif;font-size:clamp(1.5rem,4.6vw,2.1rem);font-weight:700;color:var(--mint);line-height:1.1}
+.cta{color:var(--soft);margin-top:16px}
+
+/* placar e HUD */
+#hud{position:fixed;top:54px;right:14px;z-index:4;display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.clock{font-family:"Fredoka",sans-serif;font-weight:700;font-size:2.2rem;line-height:1;background:var(--glass);border:3px solid var(--line);border-radius:18px;padding:6px 16px;min-width:110px;text-align:center}
+.clock.low{color:var(--pink);border-color:var(--pink)}
+.stat{background:var(--glass);border:2px solid var(--line);border-radius:999px;padding:3px 12px;font-weight:800;font-size:.92rem}
+.ctl{display:flex;gap:8px}
+.ctl button{background:var(--glass);color:var(--ink);border:2px solid var(--line);border-radius:999px;padding:5px 12px;font-weight:800;font-size:.95rem}
+#board{position:fixed;left:14px;bottom:14px;z-index:4;display:grid;gap:8px;width:min(330px,calc(100% - 28px))}
+.sb{background:var(--glass);border:3px solid var(--c);border-radius:18px;padding:6px 12px 8px;display:grid;grid-template-columns:auto 1fr auto;gap:0 10px;align-items:center}
+.sb .nm{font-family:"Fredoka",sans-serif;font-weight:600;font-size:1.15rem;color:var(--c)}
+.sb .dot{width:14px;height:14px;border-radius:50%;background:var(--c)}
+.sb .sc{font-family:"Fredoka",sans-serif;font-weight:700;font-size:1.6rem;line-height:1}
+.sb .bar{grid-column:1 / -1;height:7px;border-radius:9px;background:var(--line);overflow:hidden;margin-top:3px}
+.sb .bar i{display:block;height:100%;width:0;background:var(--c);transition:width .3s}
+.sb .st{grid-column:1 / -1;font-size:.82rem;font-weight:700;color:var(--soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#feed{position:fixed;top:54px;left:14px;z-index:4;display:flex;flex-direction:column;gap:6px;max-width:min(360px,calc(100% - 170px))}
+.toast{background:var(--glass);border:2px solid var(--line);border-left:6px solid var(--c,var(--purple));border-radius:12px;padding:5px 12px;font-weight:700;font-size:.92rem;animation:tin .3s ease-out}
+.toast.out{opacity:0;transition:opacity .5s}
+@keyframes tin{from{transform:translateX(-20px);opacity:0}}
+#count{position:fixed;inset:0;z-index:7;display:flex;align-items:center;justify-content:center;pointer-events:none;font-family:"Fredoka",sans-serif;font-weight:700;font-size:clamp(4rem,18vw,10rem);color:#fff;text-shadow:0 6px 0 #5a1fc0,0 0 30px rgba(139,61,255,.6)}
+#count.pop{animation:pop .8s ease-out}
+@keyframes pop{from{transform:scale(1.8);opacity:0}30%{opacity:1}}
+@media (max-width:700px){
+  #board{grid-template-columns:repeat(3,minmax(0,1fr));width:auto;right:8px;left:8px;bottom:8px;gap:6px}
+  .sb{padding:4px 8px 6px;grid-template-columns:minmax(0,1fr) auto}
+  .sb .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  #phase{display:none}
+  .sb .dot{display:none}
+  .sb .nm{font-size:.98rem}.sb .sc{font-size:1.3rem}
+  .sb .st{font-size:.72rem}
+  #hud{top:50px;right:8px}
+  .clock{font-size:1.6rem;min-width:84px;padding:4px 10px}
+  .stat{font-size:.8rem}
+  #feed{left:8px;top:50px;max-width:calc(100% - 120px)}
+  .toast{font-size:.8rem}
+  .det span{font-size:9px}
+  .bn{font-size:12px}
+}
+@media (prefers-reduced-motion: reduce){.toast,#count.pop,.plus{animation:none}}
+</style>
+</head>
+<body>
+<canvas id="scene" aria-hidden="true"></canvas>
+<p class="sr">Simulação 3D: um rio sinuoso com lixo boiando e três barcos autônomos, cada um guiado por uma inteligência artificial diferente, recolhendo o lixo. O placar e os acontecimentos aparecem em texto na tela.</p>
+<div id="labels" aria-hidden="true"></div>
+<canvas id="fx" aria-hidden="true"></canvas>
+
+<header class="top">
+  <a class="pill" href="escolas-bia-v1.html">← BIA nas Escolas</a>
+  <span class="pill" id="phase">Rio Limpo: IA contra IA</span>
+</header>
+
+<div id="hud" class="hidden">
+  <div class="clock" id="clock" role="timer" aria-label="Tempo restante">1:30</div>
+  <div class="stat">🗑️ No rio: <b id="nRio">0</b></div>
+  <div class="stat">♻️ Retirado: <b id="nOut">0</b></div>
+  <div class="ctl"><button id="spd" type="button" aria-label="Mudar a velocidade da simulação">⏩ 1x</button><button id="snd" type="button" aria-label="Ligar ou desligar o som">🔊</button></div>
+</div>
+<div id="board" class="hidden" aria-live="off"></div>
+<div id="feed" aria-live="polite"></div>
+<div id="count" aria-live="assertive"></div>
+
+<!-- abertura -->
+<section class="over" id="sIntro">
+  <div class="card">
+    <span class="kick">Jogo 3D · BIA nas Escolas</span>
+    <h1>Rio Limpo: IA contra IA</h1>
+    <p class="sub">No rio Ibirapuitã, em Alegrete, três barcos autônomos vão disputar quem recolhe mais lixo. Ninguém pilota: cada barco é guiado por uma <b>inteligência artificial</b> diferente. Você só dá o play e torce.</p>
+    <div class="steps"><span>1. Dê o play</span><span>2. Assista à disputa de 90 segundos</span><span>3. Descubra qual estratégia funcionou melhor</span></div>
+    <div class="row" style="margin-top:0">
+      <button class="big" id="go" type="button">▶ Dar o play</button>
+      <span class="sub" style="margin:0"><b>Palpite:</b> qual barco vai ganhar?</span>
+    </div>
+    <div class="boats" id="introBoats"></div>
+    <p class="sub hidden" id="noGL" style="margin-top:14px;color:var(--pink)">Este navegador não conseguiu abrir o modo 3D (WebGL). Tente outro navegador ou outro aparelho.</p>
+  </div>
+</section>
+
+<!-- resultado -->
+<section class="over hidden" id="sEnd">
+  <div class="card" id="endCard" aria-live="polite">
+    <span class="kick">Fim da disputa</span>
+    <h2 id="winner"></h2>
+    <p class="sub" id="summary"></p>
+    <div class="nature"><b>🐟 A natureza agradece! 🐦</b>Com a água mais limpa, os peixes e as garças voltam ao rio.</div>
+    <h3 style="margin-top:16px">Como cada IA pensou</h3>
+    <div class="boats" id="endBoats"></div>
+    <div class="lesson"><b>Detecção de objetos:</b> a câmera de cada barco usa um modelo treinado com milhares de fotos de lixo na água. Para cada objeto, o modelo diz o que acha que é e com que confiança: é a porcentagem que aparece nas caixinhas.</div>
+    <div class="lesson" style="border-color:var(--mint)"><b>Planejamento de rota:</b> saber onde está o lixo não basta, a IA precisa decidir a ordem da coleta. É um problema clássico da computação, parecido com o do entregador que quer visitar vários endereços andando o mínimo possível.</div>
+    <div class="lesson" style="border-color:var(--pink)"><b>Falso positivo:</b> quando a IA vê lixo onde não tem (uma folha, um galho, um peixe), ela perde tempo. Para errar menos, quem treina o modelo precisa mostrar também muitos exemplos do que <b>não</b> é lixo.</div>
+    <div class="lesson" style="border-color:var(--sun)"><b>No mundo real:</b> já existem barcos e barreiras que recolhem lixo de rios em vários países, e pesquisadores testam barcos autônomos guiados por câmeras. Cada partida aqui é diferente: jogue de novo e veja se o vencedor muda.</div>
+    <div class="row">
+      <button class="big" id="again" type="button">Jogar de novo</button>
+      <a class="ghost" href="escolas-bia-v1.html#jogos">Outros jogos</a>
+    </div>
+    <p class="cta">No <b>BIA</b>, o Bacharelado em Inteligência Artificial da UNIPAMPA, em Alegrete, você aprende a criar IAs como essas, que enxergam, decidem e ajudam a cuidar do lugar onde a gente vive. <a href="../index.html">Conheça o curso</a>.</p>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+const $=id=>document.getElementById(id);
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const HASH=location.hash;
+const AUTO=/auto/.test(HASH);
+const TURBO=+((HASH.match(/x(\d+)/)||[])[1]||0);
+const rand=(a,b)=>a+Math.random()*(b-a);
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const clamp=(v,a,b)=>v<a?a:v>b?b:v;
+const smooth=(a,b,x)=>{const t=clamp((x-a)/(b-a),0,1);return t*t*(3-2*t);};
+const wrapA=a=>{while(a>Math.PI)a-=2*Math.PI;while(a<-Math.PI)a+=2*Math.PI;return a;};
+const d2=(a,b)=>(a.x-b.x)**2+(a.z-b.z)**2;
+
+// rio: meia largura, trecho jogável, duração e correnteza
+const HW=11,XMIN=-60,XMAX=60,MATCH=90,CURRENT=0.4;
+const zc=x=>9*Math.sin(x*0.045)+4*Math.sin(x*0.11+1);
+function terrainH(x,z){
+  const d=Math.abs(z-zc(x)),bank=smooth(HW-2.5,HW+2.5,d);
+  const hills=(Math.sin(x*0.09)*Math.cos(z*0.11)*0.5+0.5)*2.4+(Math.sin(x*0.23+z*0.19)*0.5+0.5)*0.6;
+  return -1.8+2.3*bank+hills*smooth(HW+2,HW+16,d);
+}
+
+// sons
+let ac=null,soundOn=true;
+function beep(fs,d=.09,type="triangle",v=.12){if(!soundOn)return;try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();fs.forEach((f,k)=>{const o=ac.createOscillator(),g=ac.createGain();o.type=type;o.frequency.value=f;const t=ac.currentTime+k*d;g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.001,t+d*1.6);o.connect(g).connect(ac.destination);o.start(t);o.stop(t+d*1.7);});}catch(e){}}
+
+// ===== cena =====
+const canvas=$("scene");
+let renderer=null;
+try{renderer=new THREE.WebGLRenderer({canvas,antialias:true});}catch(e){renderer=null;}
+if(!renderer){$("noGL").classList.remove("hidden");$("go").disabled=true;}
+const scene=new THREE.Scene();
+scene.background=new THREE.Color(0xbfe6ff);
+scene.fog=new THREE.Fog(0xbfe6ff,150,290);
+const camera=new THREE.PerspectiveCamera(50,1,0.5,700);
+scene.add(new THREE.HemisphereLight(0xeaf6ff,0x5a7a3a,0.9));
+const sunL=new THREE.DirectionalLight(0xffffff,0.75);sunL.position.set(40,80,30);scene.add(sunL);
+
+// terreno com margens de areia e coxilhas
+{
+  const g=new THREE.PlaneGeometry(340,260,170,130);g.rotateX(-Math.PI/2);
+  const p=g.attributes.position,col=new Float32Array(p.count*3),c=new THREE.Color();
+  for(let i=0;i<p.count;i++){
+    const x=p.getX(i),z=p.getZ(i),d=Math.abs(z-zc(x)),h=terrainH(x,z);
+    p.setY(i,h);
+    if(h<-0.25)c.set(0x8f7d55);
+    else if(d<HW+1.4)c.set(0xcdb784);
+    else if(d<HW+3.2)c.set(0x9fbf5e);
+    else c.setHSL(0.26+0.03*Math.sin(x*0.3+z*0.2),0.52,0.36+0.05*Math.sin(x*0.17-z*0.13));
+    col[i*3]=c.r;col[i*3+1]=c.g;col[i*3+2]=c.b;
+  }
+  g.setAttribute("color",new THREE.BufferAttribute(col,3));g.computeVertexNormals();
+  scene.add(new THREE.Mesh(g,new THREE.MeshLambertMaterial({vertexColors:true})));
+}
+
+// água: fica mais azul e limpa conforme o lixo sai
+const waterU={uT:{value:0},uClean:{value:0.12}};
+{
+  const g=new THREE.PlaneGeometry(340,90,170,45);g.rotateX(-Math.PI/2);
+  const m=new THREE.ShaderMaterial({uniforms:waterU,transparent:true,
+    vertexShader:`uniform float uT;varying vec2 vP;varying float vW;
+    void main(){vec3 p=position;float w=sin(p.x*.35+uT*1.6)*.06+sin(p.z*.5-uT*1.2)*.05+sin((p.x+p.z)*.9+uT*2.3)*.025;p.y+=w;vW=w;vP=p.xz;gl_Position=projectionMatrix*modelViewMatrix*vec4(p,1.);}`,
+    fragmentShader:`uniform float uT;uniform float uClean;varying vec2 vP;varying float vW;
+    void main(){vec3 murky=vec3(.36,.47,.30),clean=vec3(.10,.58,.86);vec3 c=mix(murky,clean,uClean);
+    c+=smoothstep(.05,.12,vW)*.16;float s=sin(vP.x*.6+uT*.8+sin(vP.y*.3)*2.)*.5+.5;c+=pow(s,10.)*.08;
+    gl_FragColor=vec4(c,.96);}`});
+  scene.add(new THREE.Mesh(g,m));
+}
+
+// árvores e aguapés nas margens
+{
+  const N=170,trunk=new THREE.CylinderGeometry(0.25,0.38,2.2,6);trunk.translate(0,1.1,0);
+  const crown=new THREE.IcosahedronGeometry(1.7,0);crown.translate(0,3.2,0);
+  const tm=new THREE.InstancedMesh(trunk,new THREE.MeshLambertMaterial({color:0x7a5230}),N);
+  const cm=new THREE.InstancedMesh(crown,new THREE.MeshPhongMaterial({flatShading:true,shininess:0}),N);
+  const o=new THREE.Object3D(),c=new THREE.Color();
+  for(let i=0;i<N;i++){
+    let x=rand(-160,160),side=Math.random()<.5?-1:1,d=i<110?rand(HW+3.5,HW+14):rand(HW+14,HW+70);
+    // do lado da câmera, só árvores longe do rio, para não tapar a vista
+    if(side>0&&Math.abs(x)<75&&d<HW+34)side=-1;
+    if(x>58&&d<HW+34)x=rand(-160,58); // idem para a câmera do celular, que olha rio acima
+    const z=zc(x)+side*d;
+    o.position.set(x,terrainH(x,z)-0.2,z);o.rotation.y=rand(0,6);const s=rand(.8,1.6);o.scale.set(s,s*rand(.9,1.3),s);o.updateMatrix();
+    tm.setMatrixAt(i,o.matrix);cm.setMatrixAt(i,o.matrix);c.setHSL(rand(.22,.33),rand(.45,.65),rand(.28,.42));cm.setColorAt(i,c);
+  }
+  scene.add(tm,cm);
+}
+
+// ===== objetos no rio =====
+const M=(c,o={})=>new THREE.MeshPhongMaterial(Object.assign({color:c,shininess:40},o));
+const G={
+  garrafa:new THREE.CylinderGeometry(0.22,0.22,0.9,10).rotateZ(Math.PI/2),
+  tampa:new THREE.CylinderGeometry(0.1,0.1,0.16,8).rotateZ(Math.PI/2).translate(0.53,0,0),
+  lata:new THREE.CylinderGeometry(0.21,0.21,0.48,12).rotateZ(Math.PI/2),
+  sacola:new THREE.SphereGeometry(0.5,10,8).scale(1,0.28,0.8),
+  pneu:new THREE.TorusGeometry(0.42,0.17,8,16).rotateX(Math.PI/2),
+  isopor:new THREE.BoxGeometry(0.8,0.3,0.6),
+  caixa:new THREE.BoxGeometry(0.6,0.36,0.42),
+  folha:new THREE.SphereGeometry(0.48,8,6).scale(1,0.08,0.45),
+  galho:new THREE.CylinderGeometry(0.08,0.12,1.7,6).rotateZ(Math.PI/2),
+  aguape:new THREE.IcosahedronGeometry(0.45,0).scale(1,0.4,1),
+  flor:new THREE.SphereGeometry(0.14,6,5).translate(0.1,0.22,0),
+  peixe:new THREE.SphereGeometry(0.35,10,8).scale(1.6,0.7,0.6),
+  cauda:new THREE.ConeGeometry(0.25,0.45,6).rotateZ(Math.PI/2).translate(-0.72,0,0)
+};
+const TRASH=[
+  {k:"garrafa",fem:true,parts:[["garrafa",M(0x9fe3d0,{transparent:true,opacity:.85,shininess:90})],["tampa",M(0x2e6fdc)]]},
+  {k:"lata",fem:true,parts:[["lata",M(0xe23b3b,{shininess:90})]]},
+  {k:"sacola",fem:true,parts:[["sacola",M(0xf4f4f4)]]},
+  {k:"pneu",fem:false,parts:[["pneu",M(0x262626,{shininess:5})]]},
+  {k:"isopor",fem:false,parts:[["isopor",M(0xfdfdfd,{shininess:5})]]},
+  {k:"embalagem",fem:true,parts:[["caixa",M(0xff9f1c)]]}
+];
+const NATURE=[
+  {k:"folha",fem:true,parts:[["folha",M(0x3f9b3a)]]},
+  {k:"galho",fem:false,parts:[["galho",M(0x7a5230,{shininess:5})]]},
+  {k:"aguapé",fem:false,parts:[["aguape",M(0x4caf50,{flatShading:true})],["flor",M(0xb28dff)]]}
+];
+const fishMat=M(0xff8c42,{shininess:70});
+let items=[],fish=[],dying=[];
+function addItem(trash,x,off,type){
+  const t=type||pick(trash?TRASH:NATURE),g=new THREE.Group();
+  t.parts.forEach(([geo,mat])=>g.add(new THREE.Mesh(G[geo],mat)));
+  g.scale.setScalar(1.6);g.rotation.y=rand(0,6.3);
+  const it={mesh:g,trash,label:t.k,fem:t.fem,x,off,alive:true,ph:rand(0,6.3),drift:rand(.7,1.3),conf:{},seenB:null};
+  g.position.set(x,0.1,zc(x)+off);scene.add(g);items.push(it);return it;
+}
+function clearWorld(){
+  items.forEach(i=>scene.remove(i.mesh));fish.forEach(f=>scene.remove(f.mesh));dying.forEach(d=>scene.remove(d.mesh));
+  items=[];fish=[];dying=[];
+}
+function populate(){
+  clearWorld();
+  for(let k=0;k<6;k++){
+    const cx=rand(XMIN+8,XMAX-8),co=rand(-HW+4,HW-4),n=4+Math.floor(rand(0,3.99));
+    for(let j=0;j<n;j++)addItem(true,cx+rand(-3.5,3.5),clamp(co+rand(-3,3),-HW+2,HW-2));
+  }
+  for(let k=0;k<14;k++)addItem(true,rand(XMIN+3,XMAX-3),rand(-HW+2,HW-2));
+  for(let k=0;k<16;k++)addItem(false,rand(XMIN+3,XMAX-3),rand(-HW+2,HW-2));
+}
+function addFish(){
+  const g=new THREE.Group();g.add(new THREE.Mesh(G.peixe,fishMat),new THREE.Mesh(G.cauda,fishMat));g.scale.setScalar(1.4);
+  const x=rand(XMIN+4,XMAX-4),off=rand(-HW+2.5,HW-2.5),dir=rand(0,6.3);
+  const f={mesh:g,isFish:true,trash:false,label:"peixe",fem:false,alive:true,t:0,dur:rand(2,2.8),x,off,dir,conf:{},seenB:null};
+  g.rotation.y=-dir;scene.add(g);fish.push(f);
+}
+
+// ===== garças (aparecem com a água limpa) =====
+const birds=[];
+const wingG=new THREE.BufferGeometry();wingG.setAttribute("position",new THREE.Float32BufferAttribute([0,0,-0.35,0,0,0.35,0,0,0,  0,0,-0.35,1.3,0,0,0,0,0.35],3));wingG.computeVertexNormals();
+const birdMat=new THREE.MeshLambertMaterial({color:0xffffff,side:THREE.DoubleSide});
+function addBird(){
+  const g=new THREE.Group(),body=new THREE.Mesh(new THREE.ConeGeometry(0.18,1,6).rotateZ(-Math.PI/2),birdMat);
+  const wl=new THREE.Mesh(wingG,birdMat),wr=new THREE.Mesh(wingG,birdMat);wl.rotation.y=Math.PI/2;wr.rotation.y=-Math.PI/2;
+  g.add(body,wl,wr);g.scale.setScalar(1.6);scene.add(g);
+  const cx=rand(-40,40);
+  birds.push({g,wl,wr,cx,cz:zc(cx)+rand(-6,6),r:rand(8,20),h:rand(9,16),a:rand(0,6.3),w:rand(.35,.6)*(Math.random()<.5?-1:1),ph:rand(0,6)});
+}
+function clearBirds(){birds.forEach(b=>scene.remove(b.g));birds.length=0;}
+
+// ===== barcos =====
+const hullShape=new THREE.Shape();
+hullShape.moveTo(-1.6,-0.8);hullShape.lineTo(1.0,-0.8);hullShape.lineTo(1.9,0);hullShape.lineTo(1.0,0.8);hullShape.lineTo(-1.6,0.8);hullShape.lineTo(-1.6,-0.8);
+const hullG=new THREE.ExtrudeGeometry(hullShape,{depth:0.7,bevelEnabled:false});hullG.rotateX(-Math.PI/2);hullG.translate(0,-0.3,0);
+function makeBoat(color){
+  const g=new THREE.Group();
+  g.add(new THREE.Mesh(hullG,M(color,{shininess:60})));
+  const cab=new THREE.Mesh(new THREE.BoxGeometry(1,0.65,1.05),M(0xffffff));cab.position.set(-0.5,0.72,0);g.add(cab);
+  const win=new THREE.Mesh(new THREE.BoxGeometry(0.06,0.3,0.9),M(0x1b1035));win.position.set(0.01,0.82,0);g.add(win);
+  const mast=new THREE.Mesh(new THREE.CylinderGeometry(0.05,0.05,0.9,6),M(0x555555));mast.position.set(-0.6,1.45,0);g.add(mast);
+  const cam=new THREE.Mesh(new THREE.SphereGeometry(0.2,10,8),M(color,{emissive:color,emissiveIntensity:.5}));cam.position.set(-0.6,1.95,0);g.add(cam);
+  const net=new THREE.Mesh(new THREE.TorusGeometry(0.55,0.07,6,14,Math.PI),M(0x333333));net.rotation.set(Math.PI/2,0,Math.PI/2);net.position.set(1.75,0.3,0);g.add(net);
+  g.scale.setScalar(1.35);scene.add(g);return g;
+}
+const flat=(geo,color,op)=>{const m=new THREE.Mesh(geo,new THREE.MeshBasicMaterial({color,transparent:true,opacity:op,depthWrite:false,side:THREE.DoubleSide}));m.rotation.x=-Math.PI/2;return m;};
+
+const BOATS=[
+  {id:0,name:"Guará",color:0x8b3dff,css:"#8b3dff",speed:4.5,turn:2.4,every:.2,
+   who:"Câmera 360° de curto alcance.",how:"Vai sempre ao lixo mais próximo.",ico:"🟣"},
+  {id:1,name:"Capivara",color:0x12b981,css:"#12b981",speed:5.0,turn:2.2,every:.25,
+   who:"Recebe o mapa de um drone que vê longe.",how:"Planeja uma rota pelo lugar com mais lixo junto, mas para para pensar.",ico:"🟢"},
+  {id:2,name:"Biguá",color:0xfb3b5c,css:"#fb3b5c",speed:5.7,turn:2.5,every:.25,
+   who:"Câmera frontal de longo alcance e o barco mais rápido.",how:"Às vezes confunde folhas, galhos e peixes com lixo.",ico:"🔴"}
+];
+const boats=BOATS.map(B=>{
+  const b=Object.assign({},B,{mesh:makeBoat(B.color),rig:new THREE.Group(),pos:new THREE.Vector3(),heading:0,score:0,target:null,wp:null,wpT:0,thinkT:0,
+    status:"",sees:[],route:[],plan:0,planning:false,pause:0,mistakes:0,wakeT:0,v:0});
+  scene.add(b.rig);
+  if(b.id===0){b.rig.add(flat(new THREE.RingGeometry(10.6,11,64),b.color,.55));b.rig.add(flat(new THREE.CircleGeometry(10.6,48),b.color,.07));}
+  if(b.id===1){
+    b.rig.add(flat(new THREE.RingGeometry(33.6,34,96),b.color,.35));
+    const dr=new THREE.Group(),dm=M(0x2b2b3a);
+    dr.add(new THREE.Mesh(new THREE.BoxGeometry(1,0.25,1),dm));
+    b.rotors=[];[[.75,.75],[-.75,.75],[.75,-.75],[-.75,-.75]].forEach(([x,z])=>{const arm=new THREE.Mesh(new THREE.BoxGeometry(.9,.08,.12),dm);arm.position.set(x/2,0,z/2);arm.rotation.y=Math.atan2(-z,x);dr.add(arm);const r=new THREE.Mesh(new THREE.CylinderGeometry(.42,.42,.03,14),new THREE.MeshBasicMaterial({color:0x12b981,transparent:true,opacity:.6}));r.position.set(x,.1,z);dr.add(r);b.rotors.push(r);});
+    const eye=new THREE.Mesh(new THREE.SphereGeometry(.16,8,6),M(0x12b981,{emissive:0x12b981,emissiveIntensity:.8}));eye.position.y=-.2;dr.add(eye);
+    dr.scale.setScalar(1.5);scene.add(dr);b.drone=dr;
+    b.routeLine=new THREE.Line(new THREE.BufferGeometry().setAttribute("position",new THREE.Float32BufferAttribute(new Float32Array(3*8),3)),new THREE.LineBasicMaterial({color:0x0a8f63}));
+    b.routeLine.frustumCulled=false;scene.add(b.routeLine);
+  }
+  if(b.id===2){const cone=flat(new THREE.CircleGeometry(20,24,-0.6,1.2),b.color,.16);b.rig.add(cone);const edge=flat(new THREE.RingGeometry(19.6,20,24,1,-0.6,1.2),b.color,.5);b.rig.add(edge);}
+  return b;
+});
+
+// espuma do rastro
+const foamG=new THREE.CircleGeometry(0.5,10),foam=[];
+for(let i=0;i<90;i++){const m=flat(foamG,0xffffff,0);m.visible=false;scene.add(m);foam.push({m,life:0});}
+let foamI=0;
+function spawnFoam(x,z){const f=foam[foamI++%foam.length];f.life=1.4;f.m.position.set(x,0.12,z);f.m.visible=true;}
+
+// ===== inteligências =====
+function within(b,r,onlyTrash=true){const r2=r*r;return items.filter(it=>it.alive&&(!onlyTrash||it.trash)&&d2(b.pos,it.mesh.position)<r2);}
+const byDist=b=>(a,c)=>d2(b.pos,a.mesh.position)-d2(b.pos,c.mesh.position);
+const ao=it=>it.fem?"à":"ao", um=it=>it.fem?"uma":"um";
+function conf(it,b){return it.conf[b.id]||(it.conf[b.id]=Math.floor(rand(84,99.9)));}
+
+function thinkGuara(b){
+  const c=within(b,11).sort(byDist(b));
+  b.sees=c.slice(0,4);
+  if(c.length){b.target=c[0];b.status=`indo ${ao(c[0])} ${c[0].label} mais ${c[0].fem?"próxima":"próximo"}`;}
+  else{b.target=null;b.status="procurando lixo por perto";}
+}
+function thinkCapivara(b){
+  b.route=b.route.filter(i=>i.alive);
+  if(b.route.length){b.target=b.route[0];b.sees=b.route;b.status=`seguindo a rota: ${b.route.length} ${b.route.length>1?"itens":"item"} pela frente`;return;}
+  if(!b.planning){b.planning=true;b.plan=0.6;b.target=null;b.sees=[];b.status="o drone está mapeando o rio...";}
+}
+function planCapivara(b){
+  b.planning=false;
+  const c=within(b,34);
+  if(!c.length){b.status="o drone não vê lixo aqui: explorando";b.wp=null;return;}
+  let best=null,bs=-1;
+  c.forEach(it=>{const n=c.filter(o=>d2(o.mesh.position,it.mesh.position)<49).length;const s=n/(1+Math.sqrt(d2(b.pos,it.mesh.position))/12);if(s>bs){bs=s;best=it;}});
+  let pool=c.filter(o=>d2(o.mesh.position,best.mesh.position)<81),route=[],cur=b.pos;
+  while(pool.length&&route.length<6){pool.sort((a,e)=>d2(cur,a.mesh.position)-d2(cur,e.mesh.position));const nx=pool.shift();route.push(nx);cur=nx.mesh.position;}
+  b.route=route;b.target=route[0];b.sees=route;
+  b.status=`rota com ${route.length} ${route.length>1?"itens":"item"} no aglomerado`;
+}
+function inCone(b,p){const dx=p.x-b.pos.x,dz=p.z-b.pos.z;if(dx*dx+dz*dz>400)return false;return Math.abs(wrapA(Math.atan2(dz,dx)-b.heading))<0.6;}
+const TRASH_NAMES=TRASH.map(t=>t.k);
+function thinkBigua(b){
+  if(b.target&&!b.target.alive&&b.target.isFish&&b.target.seenB&&b.target.seenB.fake){
+    b.mistakes++;toast("Biguá perseguiu um peixe achando que era lixo! 🐟",b.css);beep([260,200],.12,"square",.05);b.target=null;
+  }
+  const vis=[];
+  items.forEach(it=>{if(it.alive&&inCone(b,it.mesh.position))vis.push(it);});
+  fish.forEach(f=>{if(f.alive&&f.t>0.3&&inCone(b,f.mesh.position))vis.push(f);});
+  vis.forEach(v=>{
+    if(v.seenB)return;
+    if(v.trash)v.seenB={t:true,conf:Math.floor(rand(78,98)),label:v.label};
+    else if(Math.random()<(v.isFish?0.3:0.15))v.seenB={t:true,fake:true,conf:Math.floor(rand(55,75)),label:pick(TRASH_NAMES)};
+    else v.seenB={t:false,conf:Math.floor(rand(70,96)),label:v.label};
+  });
+  vis.sort(byDist(b));b.sees=vis.slice(0,6);
+  if(!(b.target&&b.target.alive)){
+    const c=vis.filter(v=>v.seenB.t);
+    b.target=c[0]||null;
+  }
+  if(b.target)b.status=`a câmera vê ${vis.length} ${vis.length===1?"objeto":"objetos"} e vai atrás ${b.target.seenB.fake?"de algo que parece lixo":(b.target.fem?"da ":"do ")+b.target.label}`;
+  else b.status="varrendo o rio com a câmera";
+}
+const THINK=[thinkGuara,thinkCapivara,thinkBigua];
+
+function pickWander(b){
+  const reach=b.id===2?rand(18,34):rand(12,28);
+  let x=clamp(b.pos.x+(Math.random()<.5?-1:1)*reach,XMIN+5,XMAX-5);
+  return new THREE.Vector3(x,0,zc(x)+rand(-HW+3,HW-3));
+}
+
+function updateBoat(b,dt){
+  if(b.pause>0){b.pause-=dt;b.v=0;return;}
+  if(b.planning){b.plan-=dt;if(b.plan<=0)planCapivara(b);}
+  b.thinkT-=dt;
+  if(b.thinkT<=0||(b.target&&!b.target.alive)){b.thinkT=b.every;THINK[b.id](b);}
+  let goal;
+  if(b.target)goal=b.target.mesh.position;
+  else{b.wpT-=dt;if(!b.wp||d2(b.pos,b.wp)<9||b.wpT<0){b.wp=pickWander(b);b.wpT=7;}goal=b.wp;}
+  const dx=goal.x-b.pos.x,dz=goal.z-b.pos.z,diff=wrapA(Math.atan2(dz,dx)-b.heading);
+  b.heading=wrapA(b.heading+clamp(diff,-b.turn*dt,b.turn*dt));
+  let sp=b.speed*(1-0.55*Math.min(1,Math.abs(diff)/1.4));
+  if(b.planning)sp*=0.5;
+  b.pos.x+=Math.cos(b.heading)*sp*dt;b.pos.z+=Math.sin(b.heading)*sp*dt;
+  b.pos.x=clamp(b.pos.x,XMIN,XMAX);const c=zc(b.pos.x),m=HW-2;b.pos.z=clamp(b.pos.z,c-m,c+m);
+  b.v=sp;
+  // chegou a um alvo que não era lixo (falso positivo)
+  if(b.target&&!b.target.trash&&!b.target.isFish&&d2(b.pos,b.target.mesh.position)<5){
+    const t=b.target;b.mistakes++;t.seenB={t:false,conf:Math.floor(rand(85,97)),label:t.label};
+    toast(`Biguá confundiu ${um(t)} ${t.label} com lixo! ${t.label==="folha"?"🍃":"🌿"}`,b.css);beep([260,200],.12,"square",.05);
+    b.status=`ops! era ${um(t)} ${t.label}`;b.target=null;b.pause=0.7;b.thinkT=0.7;
+  }
+}
+
+// ===== partida =====
+let state="intro",simT=0,spawnT=0,natT=0,fishT=0,escaped=0,leader=-1,speedMul=TURBO||1,warned={},totalTrash=0,removed=0,autoT=null;
+function startMatch(){
+  if(!renderer)return;
+  clearTimeout(autoT);
+  populate();clearBirds();
+  totalTrash=items.filter(i=>i.trash).length;removed=0;escaped=0;leader=-1;warned={};simT=0;spawnT=2;natT=3;fishT=1;
+  waterU.uClean.value=0.12;
+  const xs=[-14,0,14].sort(()=>Math.random()-.5);
+  boats.forEach((b,k)=>{b.pos.set(xs[k],0,zc(xs[k])+rand(-3,3));b.heading=rand(-3.1,3.1);b.score=0;b.target=null;b.wp=null;b.route=[];b.sees=[];b.planning=false;b.pause=0;b.mistakes=0;b.status="ligando os motores...";b.thinkT=0;});
+  $("sIntro").classList.add("hidden");$("sEnd").classList.add("hidden");
+  $("hud").classList.remove("hidden");$("board").classList.remove("hidden");$("feed").innerHTML="";
+  buildBoard();updateHud(true);
+  state="count";let n=3;
+  const tick=()=>{
+    const el=$("count");el.classList.remove("pop");void el.offsetWidth;
+    if(n>0){el.textContent=n;el.classList.add("pop");beep([440],.15);n--;setTimeout(tick,800);}
+    else{el.textContent="Valendo!";el.classList.add("pop");beep([660,880],.12);state="play";$("phase").textContent="IA contra IA: ao vivo";setTimeout(()=>{el.textContent="";},800);}
+  };
+  tick();
+}
+function collect(b,it){
+  it.alive=false;b.score++;removed++;
+  dying.push({mesh:it.mesh,t:0,b});
+  beep(b.id===0?[660,880]:b.id===1?[587,784]:[740,988],.07,"triangle",.07);
+  const s=project(b.mesh.position,2);if(s){const p=document.createElement("div");p.className="plus";p.style.setProperty("--c",b.css);p.textContent="+1";p.style.left=s.x+"px";p.style.top=s.y+"px";p.style.transform="translate(-50%,0)";$("labels").appendChild(p);setTimeout(()=>p.remove(),950);}
+}
+function step(dt){
+  simT+=dt;
+  items.forEach(it=>{
+    if(!it.alive)return;
+    it.x+=CURRENT*dt*it.drift;
+    if(it.x>XMAX+3){it.alive=false;scene.remove(it.mesh);if(it.trash)escaped++;}
+  });
+  spawnT-=dt;if(spawnT<=0){spawnT=rand(0.9,1.6);addItem(true,Math.random()<.4?XMIN-3:rand(XMIN+5,XMAX-8),rand(-HW+2,HW-2));totalTrash++;}
+  natT-=dt;if(natT<=0){natT=rand(3,5);addItem(false,XMIN-3,rand(-HW+2,HW-2));}
+  fishT-=dt;if(fishT<=0){fishT=rand(1.2,2.6)/(0.5+waterU.uClean.value);addFish();}
+  fish.forEach(f=>{f.t+=dt;if(f.t>=f.dur)f.alive=false;});
+  boats.forEach(b=>updateBoat(b,dt));
+  // barcos não se atravessam
+  for(let i=0;i<3;i++)for(let j=i+1;j<3;j++){const a=boats[i].pos,c=boats[j].pos,dd=Math.sqrt(d2(a,c));if(dd<3.2&&dd>0.01){const k=(3.2-dd)/2/dd,ox=(a.x-c.x)*k,oz=(a.z-c.z)*k;a.x+=ox;a.z+=oz;c.x-=ox;c.z-=oz;}}
+  boats.forEach(b=>items.forEach(it=>{if(it.alive&&it.trash&&d2(b.pos,it.mesh.position)<4.8)collect(b,it);}));
+  if(items.length>160)items=items.filter(i=>i.alive||boats.some(b=>b.target===i));
+  if(simT>3){
+    const mx=Math.max(...boats.map(b=>b.score)),top=boats.filter(b=>b.score===mx);
+    if(top.length===1&&top[0].id!==leader){leader=top[0].id;if(simT>6)toast(`${top[0].name} assumiu a liderança!`,top[0].css);}
+  }
+  const left=MATCH-simT;
+  if(left<=30&&!warned[30]){warned[30]=1;toast("Faltam 30 segundos!","#ffc21a");}
+  if(left<=10&&!warned[10]){warned[10]=1;toast("Reta final: 10 segundos!","#ffc21a");}
+  if(left<=0)endMatch();
+}
+function endMatch(){
+  state="end";simT=MATCH;updateHud(true);
+  boats.forEach(b=>{b.target=null;b.sees=[];b.route=[];b.status="missão cumprida";});
+  for(let i=0;i<9;i++)addBird();
+  beep([523,659,784,1046],.13,"triangle",.12);
+  $("phase").textContent="Resultado";
+  setTimeout(showEnd,1600);
+}
+function showEnd(){
+  const sorted=[...boats].sort((a,b)=>b.score-a.score),mx=sorted[0].score,top=sorted.filter(b=>b.score===mx);
+  $("winner").innerHTML=top.length>1?`🤝 Empate entre ${top.map(b=>`<span style="color:${b.css}">${b.name}</span>`).join(" e ")}!`:`🏆 <span style="color:${top[0].css}">${top[0].name}</span> venceu!`;
+  $("summary").innerHTML=`Juntos, os três barcos tiraram <b>${removed} objetos de lixo</b> do rio em 90 segundos. ${escaped?`${escaped} ${escaped>1?"escaparam":"escapou"} rio abaixo antes de ser ${escaped>1?"recolhidos":"recolhido"}.`:"Nenhum lixo escapou rio abaixo."}`;
+  const notes=[
+    b=>`Ir sempre ao mais próximo é simples e rápido de calcular. Mas, sem olhar o todo, o barco às vezes vai e volta pelo rio.`,
+    b=>`Planejar a rota custou algumas paradas para pensar, mas evitou viagens perdidas: o barco limpa um aglomerado de cada vez.`,
+    b=>b.mistakes?`Enxergar longe ajuda, mas o Biguá teve <b>${b.mistakes} ${b.mistakes>1?"falsos positivos":"falso positivo"}</b>: confundiu folha, galho ou peixe com lixo e perdeu tempo.`:`Enxergar longe ajudou, e desta vez o Biguá não confundiu nada com lixo. Nas outras partidas, ele pode se enganar!`
+  ];
+  $("endBoats").innerHTML=sorted.map((b,k)=>`<div class="boat" style="--c:${b.css}"><h3>${k+1}º ${b.name}${k===0&&top.length===1?" 👑":""}</h3><div class="res">${b.score} ${b.score===1?"item":"itens"}</div><p><b>${b.how}</b> ${notes[b.id](b)}</p></div>`).join("");
+  $("hud").classList.add("hidden");$("board").classList.add("hidden");
+  $("sEnd").classList.remove("hidden");$("endCard").scrollTop=0;
+  burst(160);
+  if(AUTO)autoT=setTimeout(startMatch,25000);
+}
+
+// ===== interface =====
+function buildBoard(){
+  $("board").innerHTML=boats.map(b=>`<div class="sb" style="--c:${b.css}"><span class="dot"></span><span class="nm" id="nm${b.id}">${b.name}</span><span class="sc" id="sc${b.id}">0</span><div class="bar"><i id="br${b.id}"></i></div><small class="st" id="st${b.id}"></small></div>`).join("");
+}
+const last={};
+function setText(id,v){if(last[id]!==v){last[id]=v;$(id).innerHTML=v;}}
+function updateHud(force){
+  const left=Math.max(0,Math.ceil(MATCH-simT));
+  setText("clock",`${Math.floor(left/60)}:${String(left%60).padStart(2,"0")}`);
+  $("clock").classList.toggle("low",left<=10&&state==="play");
+  setText("nRio",String(items.filter(i=>i.alive&&i.trash).length));
+  setText("nOut",String(removed));
+  const mx=Math.max(1,...boats.map(b=>b.score)),best=Math.max(...boats.map(b=>b.score)),lead=boats.filter(b=>b.score===best).length===1&&best>0;
+  boats.forEach(b=>{
+    setText("sc"+b.id,String(b.score));setText("st"+b.id,b.status);
+    setText("nm"+b.id,b.name+(lead&&b.score===best?" 👑":""));
+    $("br"+b.id).style.width=(b.score/mx*100)+"%";
+  });
+}
+function toast(t,c){
+  const f=$("feed"),d=document.createElement("div");d.className="toast";d.style.setProperty("--c",c||"#8b3dff");d.textContent=t;f.prepend(d);
+  while(f.children.length>3)f.lastChild.remove();
+  setTimeout(()=>{d.classList.add("out");setTimeout(()=>d.remove(),500);},3500);
+}
+$("introBoats").innerHTML=boats.map(b=>`<div class="boat" style="--c:${b.css}"><h3>🚤 ${b.name}</h3><p>${b.who} <b>${b.how}</b></p></div>`).join("");
+$("go").onclick=()=>{beep([520,780]);startMatch();};
+$("again").onclick=()=>{beep([520,780]);startMatch();};
+$("spd").onclick=()=>{speedMul=speedMul===1?2:1;$("spd").textContent=`⏩ ${speedMul}x`;};
+$("snd").onclick=()=>{soundOn=!soundOn;$("snd").textContent=soundOn?"🔊":"🔇";};
+if(TURBO)$("spd").textContent=`⏩ ${TURBO}x`;
+
+// ===== rótulos 2D sobre a cena =====
+const labelEls=[],vtmp=new THREE.Vector3();
+let W=innerWidth,H=innerHeight;
+function project(p,yUp=0){vtmp.set(p.x,p.y+yUp,p.z).project(camera);if(vtmp.z>1)return null;return {x:(vtmp.x*.5+.5)*W,y:(-vtmp.y*.5+.5)*H};}
+function pxPerUnit(p){const d=camera.position.distanceTo(p);return (H/2)/(Math.tan(camera.fov*Math.PI/360)*d);}
+function drawLabels(){
+  const L=[],seen=new Set();
+  boats.forEach(b=>{
+    if(b.target&&b.target.alive&&!seen.has(b.target)){seen.add(b.target);L.push(detLabel(b,b.target));}
+  });
+  boats.forEach(b=>b.sees.forEach(it=>{if(it.alive&&!seen.has(it)&&L.length<30){seen.add(it);L.push(detLabel(b,it));}}));
+  boats.forEach(b=>L.push({p:b.mesh.position,bn:true,text:b.name,c:b.css}));
+  let i=0;
+  for(const l of L){
+    const s=project(l.p,l.bn?3.6:0);if(!s)continue;
+    let el=labelEls[i];
+    if(!el){el=document.createElement("div");el.innerHTML="<span></span>";$("labels").appendChild(el);labelEls.push(el);el._k="";}
+    const k=(l.bn?"bn":"det")+l.cls+l.text;
+    if(el._k!==k){el._k=k;el.className=l.bn?"bn":"det"+(l.cls||"");if(l.bn){el.textContent=l.text;}else{el.innerHTML=`<span>${l.text}</span>`;}el.style.setProperty("--c",l.c);}
+    if(l.bn){el.style.width=el.style.height="";el.style.transform=`translate(${s.x}px,${s.y}px) translate(-50%,-100%)`;}
+    else{const sz=Math.max(14,pxPerUnit(l.p)*1.9);el.style.width=el.style.height=sz+"px";el.style.transform=`translate(${s.x-sz/2}px,${s.y-sz/2}px)`;}
+    el.style.display="";i++;
+  }
+  for(;i<labelEls.length;i++)labelEls[i].style.display="none";
+}
+function detLabel(b,it){
+  if(b.id===2&&it.seenB){
+    const s=it.seenB;
+    if(s.fake)return {p:it.mesh.position,text:`${s.label}? ${s.conf}%`,c:b.css,cls:" fake"};
+    if(!s.t)return {p:it.mesh.position,text:`${s.label} ${s.conf}%`,c:b.css,cls:" nat"};
+    return {p:it.mesh.position,text:`${s.label} ${s.conf}%`,c:b.css,cls:""};
+  }
+  return {p:it.mesh.position,text:`${it.label} ${conf(it,b)}%`,c:b.css,cls:""};
+}
+
+// ===== laço principal =====
+function resize(){W=innerWidth;H=innerHeight;if(renderer){renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setSize(W,H,false);}camera.aspect=W/H;camera.updateProjectionMatrix();sizeFx();}
+addEventListener("resize",resize);
+let prev=performance.now(),clockT=0,hudT=0;
+function frame(){
+  requestAnimationFrame(frame);
+  const now=performance.now(),dt=clamp((now-prev)/1000,0,0.05);prev=now;clockT+=dt;
+  if(state==="play"){let s=dt*speedMul;while(s>0){const h=Math.min(0.05,s);step(h);s-=h;if(state!=="play")break;}}
+  else if(state==="end"){fishT-=dt;if(fishT<=0){fishT=rand(.4,.9);addFish();}fish.forEach(f=>{f.t+=dt;if(f.t>=f.dur)f.alive=false;});}
+  // limpeza da água acompanha o lixo retirado
+  const target=state==="intro"?0.12:0.12+0.88*removed/Math.max(1,totalTrash);
+  waterU.uClean.value+=(target-waterU.uClean.value)*Math.min(1,dt*1.5);
+  waterU.uT.value+=dt*(reduce?0.25:1);
+  // objetos boiando
+  items.forEach(it=>{if(!it.alive)return;const p=it.mesh.position;p.x=it.x;p.z=zc(it.x)+it.off;p.y=0.08+Math.sin(clockT*2+it.ph)*0.06;it.mesh.rotation.y+=dt*0.15;});
+  for(let i=dying.length-1;i>=0;i--){const d=dying[i];d.t+=dt*2.5;const p=d.mesh.position;p.lerp(d.b.mesh.position,Math.min(1,dt*6));p.y+=dt*2;d.mesh.scale.setScalar(1.6*Math.max(0,1-d.t));if(d.t>=1){scene.remove(d.mesh);dying.splice(i,1);}}
+  fish.forEach(f=>{const k=f.t/f.dur;const x=f.x+Math.cos(f.dir)*k*3,z=zc(f.x)+f.off+Math.sin(f.dir)*k*3;f.mesh.position.set(x,-0.4+Math.sin(Math.PI*k)*1.8,z);f.mesh.rotation.z=(0.5-k)*1.6;f.mesh.visible=f.alive;});
+  if(fish.length>30){fish.filter(f=>!f.alive).forEach(f=>scene.remove(f.mesh));fish=fish.filter(f=>f.alive);}
+  // barcos, sensores e drone
+  boats.forEach(b=>{
+    if(state==="intro"&&!b.pos.x&&!b.pos.z){const x=[-14,0,14][b.id];b.pos.set(x,0,zc(x));b.heading=0;}
+    const g=b.mesh;g.position.set(b.pos.x,Math.sin(clockT*2.2+b.id)*0.08,b.pos.z);g.rotation.set(Math.sin(clockT*1.7+b.id)*0.04,-b.heading,0);
+    b.rig.position.set(b.pos.x,0.15,b.pos.z);b.rig.rotation.y=-b.heading;
+    b.rig.visible=state!=="end";
+    if(b.drone){b.drone.position.set(b.pos.x-Math.cos(b.heading)*1.5,7+Math.sin(clockT*1.3)*0.4,b.pos.z-Math.sin(b.heading)*1.5);b.drone.rotation.y=-b.heading;b.rotors.forEach((r,k)=>r.rotation.y+=dt*(30+k));
+      const pts=[b.pos,...b.route.filter(i=>i.alive).map(i=>i.mesh.position)].slice(0,8),arr=b.routeLine.geometry.attributes.position;
+      for(let k=0;k<8;k++){const q=pts[Math.min(k,pts.length-1)];arr.setXYZ(k,q.x,0.25,q.z);}arr.needsUpdate=true;b.routeLine.visible=pts.length>1&&state==="play";}
+    if(state==="play"&&b.v>1){b.wakeT-=dt;if(b.wakeT<=0){b.wakeT=0.09;spawnFoam(b.pos.x-Math.cos(b.heading)*2.2+rand(-.3,.3),b.pos.z-Math.sin(b.heading)*2.2+rand(-.3,.3));}}
+  });
+  foam.forEach(f=>{if(f.life>0){f.life-=dt;const k=1-f.life/1.4;f.m.scale.setScalar(1+k*2.4);f.m.material.opacity=0.55*(1-k);if(f.life<=0)f.m.visible=false;}});
+  birds.forEach(b=>{b.a+=dt*b.w;b.g.position.set(b.cx+Math.cos(b.a)*b.r,b.h+Math.sin(clockT+b.ph)*0.6,b.cz+Math.sin(b.a)*b.r);b.g.rotation.y=-(b.a+(b.w>0?Math.PI/2:-Math.PI/2));const fl=Math.sin(clockT*7+b.ph)*0.6;b.wl.rotation.x=fl;b.wr.rotation.x=-fl;});
+  // câmera orbitando devagar
+  const portrait=W<H,base=portrait?Math.PI/2:0,amp=reduce?0:(portrait?0.25:0.3);
+  const a=base+amp*Math.sin(clockT*0.07),R=portrait?92:60,Hc=portrait?60:32;
+  camera.position.set(Math.sin(a)*R,Hc,Math.cos(a)*R);camera.lookAt(0,0,portrait?0:-3);
+  if(renderer)renderer.render(scene,camera);
+  drawLabels();
+  hudT-=dt;if(hudT<=0&&state!=="intro"){hudT=0.15;updateHud();}
+  if(state==="end")tickFx();
+}
+
+// confete
+const cv=$("fx"),cx=cv.getContext("2d");let parts=[];
+function sizeFx(){cv.width=innerWidth;cv.height=innerHeight;}
+function burst(n){if(reduce)return;const C=["#fb3b5c","#8b3dff","#12b981","#ffc21a","#13b5d6"];for(let k=0;k<n;k++)parts.push({x:innerWidth/2,y:innerHeight*.3,vx:(Math.random()-.5)*16,vy:-Math.random()*13-4,r:Math.random()*6,c:C[k%5],life:120});}
+function tickFx(){if(!parts.length)return;cx.clearRect(0,0,cv.width,cv.height);parts.forEach(p=>{p.vy+=.35;p.x+=p.vx;p.y+=p.vy;p.life--;p.r+=.2;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-6,-4,12,8);cx.restore();});parts=parts.filter(p=>p.life>0&&p.y<cv.height+20);if(!parts.length)cx.clearRect(0,0,cv.width,cv.height);}
+
+resize();
+if(renderer){populate();requestAnimationFrame(frame);}
+// modo apresentação: #auto começa sozinho e recomeça depois de cada partida
+if(AUTO&&renderer)setTimeout(startMatch,1200);
+</script>
+</body>
+</html>

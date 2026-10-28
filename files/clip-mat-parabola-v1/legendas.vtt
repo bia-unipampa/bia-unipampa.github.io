@@ -1,0 +1,69 @@
+WEBVTT
+
+1
+00:00:00.400 --> 00:00:02.222
+Toda IA começa errando.
+
+2
+00:00:02.222 --> 00:00:08.085
+E esse erro vira um gráfico, igual aos gráficos de função do ensino médio.
+
+3
+00:00:08.800 --> 00:00:13.541
+O modelo mais simples é uma função afim: y igual a ax mais b.
+
+4
+00:00:13.541 --> 00:00:18.205
+Aprender é ajustar a e b até a reta chegar perto dos pontos.
+
+5
+00:00:19.200 --> 00:00:22.893
+Com um só peso, o w, o erro forma uma parábola.
+
+6
+00:00:22.893 --> 00:00:26.978
+O melhor peso está no vértice: menos b sobre dois a.
+
+7
+00:00:26.978 --> 00:00:29.807
+Aqui, seis sobre dois, igual a três.
+
+8
+00:00:30.800 --> 00:00:33.232
+Mas a IA não tem fórmula pronta.
+
+9
+00:00:33.232 --> 00:00:38.854
+Ela desce a curva passo a passo, sempre para o lado em que o erro diminui.
+
+10
+00:00:38.854 --> 00:00:40.830
+É o gradiente descendente.
+
+11
+00:00:41.800 --> 00:00:44.779
+O tamanho do passo é a taxa de aprendizado.
+
+12
+00:00:44.779 --> 00:00:46.372
+Pequena demais, demora.
+
+13
+00:00:46.372 --> 00:00:50.321
+Grande demais, a IA pula de um lado para o outro do vale.
+
+14
+00:00:51.800 --> 00:01:00.567
+As redes neurais de assistentes como o ChatGPT são treinadas com essa mesma ideia, só que ajustando bilhões de pesos ao mesmo tempo.
+
+15
+00:01:01.400 --> 00:01:07.669
+Função afim, parábola, vértice: é a matemática do ensino médio por trás da IA.
+
+16
+00:01:07.669 --> 00:01:13.215
+No BIA, na UNIPAMPA, em Alegrete, você transforma isso em tecnologia.
+
+17
+00:01:13.215 --> 00:01:14.179
+Vem pro BIA!

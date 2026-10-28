@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IA que Acha Vaga</title>
+<meta name="description" content="Clip animado do BIA nas Escolas: a robô Bia mostra como uma inteligência artificial de visão computacional classifica vagas de estacionamento como livres ou ocupadas, como ela aprende, onde erra e por que precisa de cuidado.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400..700&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fffaf2;--ink:#1b1035;--soft:#5b4f75;--line:#eadff0;
+  --pink:#fb3b5c;--purple:#8b3dff;--mint:#12c48b;--lime:#7cc417;--cyan:#13b5d6;--sun:#ffc21a;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#140c33;--ink:#f4efff;--soft:#c3b8e0;--line:#2e2357;--purple:#b58bff}
+}
+:root[data-theme="dark"]{--bg:#140c33;--ink:#f4efff;--soft:#c3b8e0;--line:#2e2357;--purple:#b58bff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Nunito",system-ui,sans-serif;font-size:1.06rem;line-height:1.6}
+a{color:var(--purple)}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+@media (max-width:600px){.wrap{padding:0 16px}}
+h1,h2{font-family:"Fredoka",system-ui,sans-serif;line-height:1.05;margin:0}
+.hd{padding:44px 0 22px}
+.hd .back{font-weight:700;text-decoration:none;color:var(--soft);font-size:.95rem}
+.hd h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:700;margin-top:10px}
+.hd p{color:var(--soft);max-width:66ch;margin:10px 0 0}
+.player video{display:block;width:100%;height:auto;aspect-ratio:16/9;border-radius:18px;background:#140c33;box-shadow:0 10px 40px rgba(27,16,53,.25)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.btn{display:inline-flex;font-weight:800;font-size:.98rem;padding:10px 20px;border-radius:999px;text-decoration:none;border:3px solid var(--purple);color:var(--purple)}
+.btn.solid{background:var(--purple);color:#fff}
+.blk{margin:44px 0}
+.blk h2{font-size:1.8rem;margin-bottom:10px}
+.tbl{overflow-x:auto}
+.blk table{width:100%;border-collapse:collapse;font-size:.98rem;min-width:720px}
+.blk td,.blk th{text-align:left;vertical-align:top;padding:10px 12px 10px 0;border-bottom:1px solid var(--line)}
+.blk th{color:var(--soft);font-size:.88rem}
+.blk td:first-child{font-weight:800;color:var(--purple);white-space:nowrap}
+.blk td.nar{font-style:italic}
+.qs{padding-left:22px}
+.qs li{margin-bottom:8px}
+footer{border-top:1px solid var(--line);padding:28px 0 56px;color:var(--soft);font-size:.95rem}
+
+/* ===== palco 1920 x 1080, usado só para gerar os quadros (#render) ===== */
+#stage{display:none;width:1920px;height:1080px;background:#140c33;overflow:hidden;font-family:"Fredoka",system-ui,sans-serif;color:#fff;position:relative}
+body.render{margin:0;background:#140c33}
+body.render #stage{display:block}
+#bgc,#art,#confetti{position:absolute;inset:0}
+#confetti{pointer-events:none}
+.sc{position:absolute;inset:0;opacity:0}
+.el{position:absolute;opacity:0;will-change:transform,opacity}
+.t-big{font-weight:700;font-size:120px;line-height:1;letter-spacing:-.01em}
+.t-mid{font-weight:600;font-size:84px;line-height:1.05;white-space:nowrap}
+.t-sm{font-family:"Nunito",sans-serif;font-weight:800;font-size:44px;line-height:1.2;color:#d9ccff}
+.grad{background:linear-gradient(90deg,#ff5e7a,#b366ff 45%,#2ee6a6);-webkit-background-clip:text;background-clip:text;color:transparent}
+.bubble{background:#fff;color:#1b1035;border-radius:40px;padding:22px 36px;font-size:50px;font-weight:600;white-space:nowrap}
+.bubble::after{content:"";position:absolute;left:60px;bottom:-26px;border:16px solid transparent;border-top:26px solid #fff;border-left:26px solid #fff}
+.chip{border-radius:999px;padding:16px 34px;font-weight:600;font-size:46px;color:#1b1035;white-space:nowrap}
+.panel{background:rgba(255,255,255,.08);border:3px solid rgba(217,204,255,.35);border-radius:32px;padding:22px 30px;width:450px}
+.panel small{display:block;font-family:"Nunito",sans-serif;font-weight:800;font-size:34px;color:#d9ccff}
+.panel b{display:block;font-weight:700;font-size:150px;line-height:1;font-variant-numeric:tabular-nums}
+.bar{height:44px;border-radius:999px;background:rgba(255,255,255,.14);overflow:hidden;margin-top:14px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ff5e7a,#ffc21a 40%,#2ee6a6);border-radius:999px}
+.card{background:#fff;color:#1b1035;border-radius:36px;padding:28px 20px;text-align:center;box-shadow:0 14px 0 rgba(0,0,0,.25);width:380px}
+.card .em{font-size:120px;line-height:1.1;display:block}
+.card b{display:block;font-size:46px;font-weight:600;margin-top:8px}
+.led{background:#0b0820;border:6px solid #3a2f6e;border-radius:28px;padding:26px 44px;width:1240px;font-family:"Nunito",sans-serif;font-weight:800;box-shadow:0 14px 0 rgba(0,0,0,.3)}
+.led h3{margin:0 0 10px;font-family:"Fredoka",sans-serif;font-weight:600;font-size:50px;color:#ffc21a;letter-spacing:.04em}
+.led div{display:flex;justify-content:space-between;font-size:58px;border-top:3px dashed #2e2357;padding:10px 0;color:#fff}
+.led div b{font-family:"Fredoka",sans-serif;font-weight:700;color:#2ee6a6;font-variant-numeric:tabular-nums}
+.led div b.full{color:#ff5e7a}
+#bot{position:absolute;left:0;top:0;width:380px;height:470px;transform-origin:50% 100%}
+</style>
+</head>
+<body>
+<div id="page">
+<header class="hd">
+  <div class="wrap">
+    <a class="back" href="escolas-bia-v1.html">← BIA nas Escolas</a>
+    <h1>IA que acha vaga</h1>
+    <p>Clip animado de cerca de 90 segundos em que a robô Bia mostra a visão computacional funcionando: uma câmera vê o estacionamento de cima e a IA marca cada vaga como livre ou ocupada. O vídeo também conta como ela aprendeu, onde ela erra e por que quem cria uma IA precisa cuidar da privacidade das pessoas.</p>
+  </div>
+</header>
+<div class="wrap player">
+  <video controls preload="metadata" poster="clip-vagas-ia-v1/poster.jpg">
+    <source src="clip-vagas-ia-v1/clip-vagas-ia-v1.mp4" type="video/mp4">
+    <track kind="captions" src="clip-vagas-ia-v1/legendas.vtt" srclang="pt-BR" label="Português">
+  </video>
+  <div class="actions">
+    <a class="btn solid" href="clip-vagas-ia-v1/clip-vagas-ia-v1.mp4" download>Baixar MP4 (1920 × 1080)</a>
+    <a class="btn" href="clip-vagas-ia-v1/legendas.vtt" download>Baixar legendas (VTT)</a>
+  </div>
+</div>
+
+<section class="wrap blk" id="roteiro">
+  <h2>Roteiro</h2>
+  <div class="tbl"><table><thead><tr><th>Tempo</th><th>Cena</th><th>Na tela</th><th>Narração da Bia</th></tr></thead><tbody id="rot"></tbody></table></div>
+  <p style="color:var(--soft)">A voz é sintética e serve para marcar o ritmo; a versão final pode ser dublada por estudantes do BIA. O estacionamento é desenhado, não é uma câmera de verdade, e os números (fotos rotuladas, porcentagens de confiança) são ilustrativos.</p>
+</section>
+
+<section class="wrap blk" id="conversa">
+  <h2>Para conversar com a turma depois do vídeo</h2>
+  <ol class="qs">
+    <li>Que outras coisas uma câmera com IA poderia contar ou reconhecer na sua cidade ou na sua escola?</li>
+    <li>Por que a sombra da árvore enganou a IA? Que fotos você colocaria no treino para ela não errar mais?</li>
+    <li>Uma câmera que conta vagas precisa ler placas? Onde fica o limite entre ajudar e vigiar?</li>
+  </ol>
+</section>
+
+<footer>
+  <div class="wrap">BIA nas Escolas, clip "IA que acha vaga", versão 1, outubro de 2026. Bacharelado em Inteligência Artificial, UNIPAMPA, Campus Alegrete-RS. <a href="escolas-bia-v1.html">Proposta completa do BIA nas Escolas</a>.</div>
+</footer>
+</div>
+
+<div id="stage">
+  <canvas id="bgc" width="1920" height="1080"></canvas>
+  <canvas id="art" width="1920" height="1080"></canvas>
+
+  <section class="sc" data-s="0">
+    <div class="el t-mid" data-in="0.3" data-fx="up" style="left:560px;top:70px">Cadê a <span class="grad">vaga?</span> 😩</div>
+    <div class="el bubble" data-in="4.6" data-fx="pop" style="left:60px;top:360px">E se a IA ajudasse?</div>
+  </section>
+
+  <section class="sc" data-s="1">
+    <div class="el t-mid" data-in="0.3" data-fx="up" style="left:560px;top:70px">A câmera vê <span class="grad">de cima</span> 📷</div>
+    <div class="el t-sm" data-in="1.0" data-fx="up" style="left:60px;top:240px;width:460px">Para você,<br>é uma foto.</div>
+    <div class="el chip" data-in="6.0" data-fx="pop" style="left:60px;top:420px;background:#ffc21a">🔢 Para a IA,<br>são números!</div>
+  </section>
+
+  <section class="sc" data-s="2">
+    <div class="el t-mid" data-in="0.3" data-fx="up" style="left:560px;top:70px"><span style="color:#2ee6a6">Livre</span> ou <span style="color:#ff5e7a">ocupada?</span></div>
+    <div class="el panel" data-in="1.0" data-fx="pop" style="left:60px;top:220px"><small>vagas livres</small><b id="cnt">0</b></div>
+    <div class="el chip" data-in="4.4" data-fx="left" style="left:60px;top:530px;background:#2ee6a6;font-size:40px">✅ verde: livre</div>
+    <div class="el chip" data-in="5.6" data-fx="left" style="left:60px;top:630px;background:#ff5e7a;color:#fff;font-size:40px">⛔ vermelho: ocupada</div>
+  </section>
+
+  <section class="sc" data-s="3">
+    <div class="el t-mid" data-in="0.3" data-fx="up" style="left:560px;top:70px">Como ela <span class="grad">aprendeu?</span> 🧠</div>
+    <div class="el panel" data-in="1.4" data-fx="pop" style="left:60px;top:220px"><small>fotos rotuladas</small><b id="photos" style="font-size:118px">0</b></div>
+    <div class="el panel" data-in="6.8" data-fx="pop" style="left:60px;top:480px"><small>acertos no teste</small><b id="acc" style="font-size:96px">50%</b><div class="bar"><i id="accbar"></i></div></div>
+  </section>
+
+  <section class="sc" data-s="4">
+    <div class="el t-mid" data-in="0.3" data-fx="up" style="left:560px;top:70px">Ela também <span style="color:#ff5e7a">erra</span> 😬</div>
+    <div class="el chip" data-in="1.6" data-fx="left" style="left:60px;top:220px;background:#2ee6a6;font-size:40px">🌳 sombra</div>
+    <div class="el chip" data-in="4.7" data-fx="left" style="left:60px;top:320px;background:#13b5d6;font-size:40px">🌧️ chuva</div>
+    <div class="el chip" data-in="5.5" data-fx="left" style="left:60px;top:420px;background:#b366ff;color:#fff;font-size:40px">🌙 noite</div>
+    <div class="el t-sm" data-in="7.4" data-fx="up" style="left:60px;top:540px;width:470px;color:#fff">Solução: testar em todas as situações ✅</div>
+  </section>
+
+  <section class="sc" data-s="5">
+    <div class="el t-mid" data-in="0.3" data-fx="up" style="left:560px;top:70px">Privacidade <span class="grad">primeiro</span> 🔒</div>
+    <div class="el t-sm" data-in="6.2" data-fx="up" style="left:60px;top:240px;width:470px;color:#fff">A IA conta vagas.<br><span style="color:#2ee6a6">Não vigia pessoas.</span></div>
+  </section>
+
+  <section class="sc" data-s="6">
+    <div class="el t-mid" data-in="0.3" data-fx="up" style="left:560px;top:70px">No <span class="grad">mundo real</span> 🌎</div>
+    <div class="el card" data-in="2.1" data-fx="pop" style="left:560px;top:230px"><span class="em">🛍️</span><b>Shoppings</b></div>
+    <div class="el card" data-in="3.0" data-fx="pop" style="left:990px;top:230px"><span class="em">✈️</span><b>Aeroportos</b></div>
+    <div class="el card" data-in="3.9" data-fx="pop" style="left:1420px;top:230px;width:420px"><span class="em">🏙️</span><b>Cidades</b></div>
+    <div class="el led" data-in="5.2" data-fx="up" style="left:580px;top:610px"><h3>VAGAS LIVRES</h3><div>Piso 1 <b id="p1">23</b></div><div>Piso 2 <b id="p2">8</b></div><div>Piso 3 <b class="full">LOTADO</b></div></div>
+  </section>
+
+  <section class="sc" data-s="7">
+    <div class="el t-mid" data-in="0.4" data-fx="up" style="left:120px;top:110px">Quer criar IAs que <span class="grad">enxergam?</span> 👀</div>
+    <div class="el t-sm" data-in="2.8" data-fx="up" style="left:126px;top:280px;color:#fff;font-size:52px">BIA · Bacharelado em Inteligência Artificial</div>
+    <div class="el t-sm" data-in="6.0" data-fx="up" style="left:126px;top:360px;font-size:52px">UNIPAMPA · Alegrete-RS</div>
+    <div class="el t-big grad" data-in="9.5" data-fx="zoom" style="left:120px;top:520px;font-size:200px">Vem pro BIA!</div>
+    <div class="el t-sm" data-in="10.5" data-fx="up" style="left:126px;top:800px;color:#fff;font-size:56px">bia-unipampa.github.io</div>
+  </section>
+
+  <canvas id="confetti" width="1920" height="1080"></canvas>
+
+  <svg id="bot" viewBox="0 0 380 470" aria-hidden="true">
+    <defs>
+      <linearGradient id="gb" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e3dcff"/></linearGradient>
+    </defs>
+    <g id="ant"><line x1="190" y1="70" x2="190" y2="22" stroke="#d9ccff" stroke-width="10" stroke-linecap="round"/><circle id="antball" cx="190" cy="20" r="18" fill="#2ee6a6"/></g>
+    <g id="armL" style="transform-origin:78px 300px"><rect x="18" y="285" width="70" height="32" rx="16" fill="#b366ff"/><circle cx="22" cy="301" r="24" fill="#fff"/></g>
+    <g id="armR" style="transform-origin:302px 300px"><rect x="292" y="285" width="70" height="32" rx="16" fill="#b366ff"/><circle cx="358" cy="301" r="24" fill="#fff"/></g>
+    <rect x="88" y="250" width="204" height="190" rx="54" fill="url(#gb)"/>
+    <text x="190" y="372" text-anchor="middle" font-family="Fredoka" font-weight="700" font-size="62" fill="#8b3dff">BIA</text>
+    <rect x="140" y="440" width="36" height="26" rx="10" fill="#d9ccff"/><rect x="204" y="440" width="36" height="26" rx="10" fill="#d9ccff"/>
+    <rect x="40" y="62" width="300" height="200" rx="70" fill="url(#gb)"/>
+    <rect x="70" y="92" width="240" height="140" rx="50" fill="#1b1035"/>
+    <g id="eyes" style="transform-origin:190px 150px"><ellipse cx="145" cy="148" rx="22" ry="26" fill="#2ee6a6"/><ellipse cx="235" cy="148" rx="22" ry="26" fill="#2ee6a6"/></g>
+    <path id="mouth" d="M160 192 Q190 214 220 192" stroke="#2ee6a6" stroke-width="9" fill="none" stroke-linecap="round"/>
+    <circle cx="100" cy="196" r="13" fill="#ff5e7a" opacity=".55"/><circle cx="280" cy="196" r="13" fill="#ff5e7a" opacity=".55"/>
+  </svg>
+</div>
+
+<script>
+// cenas: duração (s), início da narração, duração da fala, texto falado e o que aparece na tela
+const S=[
+ {d:9.8, n:0.4,f:8.754, nome:"Cadê a vaga?", tela:"Estacionamento visto de cima; um carro passa devagar procurando lugar.", txt:"Sabe aquela volta no estacionamento procurando vaga? E se uma câmera com inteligência artificial mostrasse, na hora, onde tem lugar?"},
+ {d:11.5,n:0.4,f:10.508,nome:"A câmera vê de cima", tela:"Moldura de câmera gravando; uma lupa mostra os pixels de uma vaga como números de 0 a 255.", txt:"Uma câmera filma o estacionamento lá de cima. Para você, é uma foto. Para a IA, são milhões de pixels, números que dizem a cor de cada pontinho."},
+ {d:10.8,n:0.4,f:9.788, nome:"Livre ou ocupada", tela:"Uma linha de varredura passa e cada vaga ganha uma caixa verde ou vermelha com a confiança da IA (em %); o contador de vagas livres muda quando carros entram e saem.", txt:"A IA olha vaga por vaga e decide: livre ou ocupada. Verde é livre, vermelho é ocupada. E ela atualiza tudo enquanto os carros entram e saem."},
+ {d:12.0,n:0.4,f:10.965,nome:"Como ela aprendeu", tela:"Uma grade de recortes de vagas recebe etiquetas; o contador chega a 12 mil fotos e a barra de acertos sobe até 98%.", txt:"Como ela aprendeu? Pessoas marcaram milhares de fotos de vagas: livre, ocupada, livre. A rede neural treinou com esses exemplos até acertar quase sempre."},
+ {d:11.4,n:0.4,f:10.366,nome:"Ela também erra", tela:"A sombra de uma árvore vira uma vaga ocupada falsa, com confiança baixa (58%); depois chuva e noite deixam caixas amarelas de dúvida.", txt:"Mas ela também erra. A sombra de uma árvore pode parecer um carro. Chuva e noite confundem a câmera. Por isso a gente testa a IA em todas as situações."},
+ {d:10.5,n:0.4,f:9.53,  nome:"Privacidade", tela:"A placa de um carro e o rosto de uma pessoa ficam pixelados, com cadeados.", txt:"E um cuidado importante: para contar vagas, a IA não precisa ler placas nem guardar rostos. Quem cria a IA escolhe proteger as pessoas."},
+ {d:9.6, n:0.4,f:8.587, nome:"No mundo real", tela:"Cartões de shoppings, aeroportos e cidades; um painel luminoso mostra vagas livres por piso.", txt:"Sistemas assim já funcionam em shoppings, aeroportos e cidades inteligentes, e mostram no painel quantas vagas sobram em cada andar."},
+ {d:13.9,n:0.4,f:10.899,nome:"Vem pro BIA", tela:"Convite ao BIA, UNIPAMPA, Alegrete-RS, com confete.", txt:"Quer criar IAs que enxergam? No BIA, o Bacharelado em Inteligência Artificial da UNIPAMPA, em Alegrete, você aprende como. Vem pro BIA!"}
+];
+let acc=0;S.forEach(s=>{s.t0=+acc.toFixed(2);acc+=s.d;});
+const TOTAL=+acc.toFixed(2);
+
+// posição da robô: [tempo, x, y (base), escala]
+const BOT=[[0,70,1500,1],[0.8,70,1010,1],[9.4,70,1010,1],[10.2,110,1050,.7],[75.2,110,1050,.7],[76.1,1430,1010,1.05],[TOTAL,1430,1010,1.05]];
+
+const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const ease=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const back=x=>{const c1=1.70158,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2);};
+const lerp=(a,b,p)=>a+(b-a)*p;
+function lerpKF(kf,t){
+  if(t<=kf[0][0])return kf[0].slice(1);
+  for(let i=1;i<kf.length;i++){
+    if(t<=kf[i][0]){const a=kf[i-1],b=kf[i],p=ease((t-a[0])/(b[0]-a[0]||1));return a.slice(1).map((v,j)=>v+(b[j+1]-v)*p);}
+  }
+  return kf[kf.length-1].slice(1);
+}
+function sceneAt(t){for(let i=S.length-1;i>=0;i--)if(t>=S[i].t0)return i;return 0;}
+const loc=(s,t)=>t-S[s].t0;
+// opacidade de um intervalo com fusão de 0,35 s nas bordas
+const win=(t,a,b)=>t<a||t>=b?0:Math.min(clamp((t-a)/.35),clamp((b-t)/.35));
+
+// ===== estacionamento =====
+const PX=560,PY=200,PW=1300,PH=800,LANE=600,X0=650,SW=140;
+const spot=i=>{const top=i<8,k=i%8;return {x:X0+k*SW,y:top?250:710,w:SW,h:240,cx:X0+k*SW+70,py:top?370:830,top};};
+const COL={pink:"#ff5e7a",sun:"#ffc21a",cyan:"#13b5d6",mint:"#2ee6a6",white:"#f4efff",purple:"#b366ff",lime:"#a3e635",coral:"#ff8a3d"};
+// carros: vaga, cor, chegada (fim da manobra de entrada) e saída (início da manobra)
+const CARS=[
+ {s:0,c:"pink",a:-99,l:999},{s:1,c:"sun",a:-99,l:999},{s:3,c:"cyan",a:-99,l:999},{s:4,c:"mint",a:-99,l:13},
+ {s:6,c:"white",a:-99,l:999},{s:7,c:"purple",a:-99,l:999},{s:8,c:"lime",a:-99,l:999},{s:9,c:"coral",a:-99,l:29.2},
+ {s:10,c:"purple",a:-99,l:999},{s:12,c:"cyan",a:-99,l:999},{s:13,c:"pink",a:-99,l:999},{s:15,c:"sun",a:-99,l:999},
+ {s:11,c:"white",a:19.5,l:999},{s:2,c:"mint",a:30,l:999}
+];
+const MAN=3;// duração de cada manobra (s)
+const CONF=[97,98,96,99,97,95,98,99,96,97,98,99,95,97,96,98];
+function bez(p0,p1,p2,s){const u=1-s;return {x:u*u*p0.x+2*u*s*p1.x+s*s*p2.x,y:u*u*p0.y+2*u*s*p1.y+s*s*p2.y,dx:2*u*(p1.x-p0.x)+2*s*(p2.x-p1.x),dy:2*u*(p1.y-p0.y)+2*s*(p2.y-p1.y)};}
+function carPose(car,t){
+  const sp=spot(car.s),park={x:sp.cx,y:sp.py,a:sp.top?-Math.PI/2:Math.PI/2};
+  if(t<car.a-MAN||t>car.l+MAN)return null;
+  if(t>=car.a&&t<=car.l)return park;
+  if(t<car.a){// entrando: pela pista vindo da esquerda e virando para a vaga
+    const p=ease((t-(car.a-MAN))/MAN);
+    if(p<.55)return {x:lerp(PX-150,sp.cx-110,p/.55),y:LANE,a:0};
+    const b=bez({x:sp.cx-110,y:LANE},{x:sp.cx,y:LANE},park,(p-.55)/.45);return {x:b.x,y:b.y,a:Math.atan2(b.dy,b.dx)};
+  }
+  const p=ease((t-car.l)/MAN);// saindo: de ré até a pista e seguindo para a direita
+  if(p<.45){const b=bez(park,{x:sp.cx,y:LANE},{x:sp.cx-110,y:LANE},p/.45);return {x:b.x,y:b.y,a:Math.atan2(b.dy,b.dx)+Math.PI};}
+  return {x:lerp(sp.cx-110,PX+PW+150,(p-.45)/.55),y:LANE,a:0};
+}
+const occupied=(i,t)=>CARS.some(c=>c.s===i&&t>=c.a-.6&&t<c.l+1);
+
+const art=document.getElementById("art").getContext("2d");
+function rr(c,x,y,w,h,r){c.beginPath();c.roundRect(x,y,w,h,r);}
+function drawCar(c,x,y,a,col,k=1){
+  c.save();c.translate(x,y);c.rotate(a);c.scale(k,k);
+  c.fillStyle="rgba(0,0,0,.35)";rr(c,-92,-40,190,92,26);c.fill();
+  c.fillStyle=col;rr(c,-95,-46,190,92,26);c.fill();
+  c.fillStyle="rgba(255,255,255,.28)";rr(c,-46,-36,76,72,16);c.fill();
+  c.fillStyle="#1b1035";rr(c,32,-36,30,72,10);c.fill();rr(c,-72,-33,22,66,8);c.fill();
+  c.fillStyle="#fff7c2";rr(c,84,-38,9,18,4);c.fill();rr(c,84,20,9,18,4);c.fill();
+  c.fillStyle="#ff3355";rr(c,-94,-38,7,16,3);c.fill();rr(c,-94,22,7,16,3);c.fill();
+  c.restore();
+}
+function drawLot(t,alpha){
+  const c=art;c.save();c.globalAlpha=alpha;
+  rr(c,PX,PY,PW,PH,34);c.fillStyle="#2b2547";c.fill();c.lineWidth=4;c.strokeStyle="#4a3f7a";c.stroke();
+  c.save();rr(c,PX,PY,PW,PH,34);c.clip();
+  // faixas das vagas e linha central da pista
+  c.strokeStyle="rgba(255,255,255,.85)";c.lineWidth=6;
+  for(let k=0;k<=8;k++){const x=X0+k*SW;c.beginPath();c.moveTo(x,250);c.lineTo(x,490);c.moveTo(x,710);c.lineTo(x,950);c.stroke();}
+  c.beginPath();c.moveTo(X0,250);c.lineTo(X0+8*SW,250);c.moveTo(X0,950);c.lineTo(X0+8*SW,950);c.stroke();
+  c.setLineDash([40,34]);c.strokeStyle="rgba(255,194,26,.7)";c.beginPath();c.moveTo(PX,LANE);c.lineTo(PX+PW,LANE);c.stroke();c.setLineDash([]);
+  // carro que procura vaga (cena 1)
+  if(t>.6&&t<9.6){const p=(t-.6)/9;const x=lerp(PX-150,PX+PW+150,p*.75+.25*ease(p));drawCar(c,x,LANE,0,COL.coral);}
+  CARS.forEach(car=>{const q=carPose(car,t);if(q)drawCar(c,q.x,q.y,q.a,COL[car.c]);});
+  const s4=loc(4,t);
+  // sombra da árvore sobre a vaga 5 (cena 5)
+  const shA=t>=S[4].t0&&t<S[5].t0?clamp((s4-1.2)/1):0;
+  if(shA){c.fillStyle=`rgba(5,2,20,${.5*shA})`;c.beginPath();c.ellipse(1410,365,78,112,.2,0,7);c.fill();c.beginPath();c.ellipse(1380,300,60,60,0,0,7);c.fill();}
+  // chuva e noite (cena 5)
+  const rain=t>=S[4].t0&&t<S[5].t0?clamp((s4-4.5)/.6):0,night=t>=S[4].t0&&t<S[5].t0?clamp((s4-5.4)/.8):0;
+  if(night){c.fillStyle=`rgba(6,3,28,${.62*night})`;c.fillRect(PX,PY,PW,PH);
+    c.globalCompositeOperation="lighter";[[880,LANE],[1520,LANE]].forEach(([x,y])=>{const g=c.createRadialGradient(x,y,10,x,y,300);g.addColorStop(0,`rgba(255,214,140,${.35*night})`);g.addColorStop(1,"rgba(255,214,140,0)");c.fillStyle=g;c.fillRect(x-300,y-300,600,600);});c.globalCompositeOperation="source-over";}
+  if(rain){c.strokeStyle=`rgba(190,215,255,${.55*rain})`;c.lineWidth=3;c.beginPath();
+    for(let k=0;k<170;k++){const x=PX+((k*97.3)%PW),y=PY+((k*53+t*1500)%PH);c.moveTo(x,y);c.lineTo(x-12,y+42);}c.stroke();}
+  c.restore();
+  // árvore por cima da borda do estacionamento
+  if(shA){c.globalAlpha=alpha*shA;c.fillStyle="#1f8f5f";[[1450,212,74],[1395,190,52],[1505,190,50]].forEach(([x,y,r])=>{c.beginPath();c.arc(x,y,r,0,7);c.fill();});c.fillStyle="#2ee6a6";c.beginPath();c.arc(1440,196,30,0,7);c.fill();c.globalAlpha=alpha;}
+  // moldura de câmera gravando
+  if(t>S[1].t0+.8){const a=clamp((t-S[1].t0-.8)/.4);c.globalAlpha=alpha*a;c.strokeStyle="#fff";c.lineWidth=8;
+    const L=70,x1=PX+24,y1=PY+24,x2=PX+PW-24,y2=PY+PH-24;c.beginPath();
+    c.moveTo(x1,y1+L);c.lineTo(x1,y1);c.lineTo(x1+L,y1);c.moveTo(x2-L,y1);c.lineTo(x2,y1);c.lineTo(x2,y1+L);
+    c.moveTo(x1,y2-L);c.lineTo(x1,y2);c.lineTo(x1+L,y2);c.moveTo(x2-L,y2);c.lineTo(x2,y2);c.lineTo(x2,y2-L);c.stroke();
+    c.font="800 30px Nunito";c.textBaseline="middle";c.fillStyle=(Math.floor(t*1.6)%2)?"#ff3355":"rgba(255,51,85,.35)";c.beginPath();c.arc(x1+30,LANE-62,13,0,7);c.fill();
+    c.fillStyle="#fff";c.fillText("REC",x1+52,LANE-61);c.textAlign="right";c.fillText("CAM 01 · IA ligada",x2-6,LANE-61);c.textAlign="left";c.globalAlpha=alpha;}
+  c.restore();
+}
+// caixas da classificação: varredura na cena 3, mantidas depois
+function boxInfo(i,t){
+  const s4=loc(4,t),inS5=t>=S[4].t0&&t<S[5].t0;
+  if(inS5){
+    if(i===5&&s4>=2.6)return {col:"#ff5e7a",txt:"58%",err:true};
+    if(i===14&&s4>=5)return {col:"#ffc21a",txt:"? 52%"};
+    if((i===0||i===12)&&s4>=5.9)return {col:"#ffc21a",txt:i?"? 47%":"? 49%"};
+  }
+  return occupied(i,t)?{col:"#ff5e7a",txt:`${CONF[i]}%`}:{col:"#2ee6a6",txt:`${CONF[i]}%`};
+}
+const scanX=t=>lerp(X0-40,X0+8*SW+40,clamp((loc(2,t)-.8)/2.8));
+function drawBoxes(t,alpha){
+  const c=art;let free=0;const inS3=t>=S[2].t0&&t<S[3].t0;
+  for(let i=0;i<16;i++){
+    const sp=spot(i);let a=1;
+    if(inS3){const sx=scanX(t);if(sx<sp.cx)continue;a=clamp((sx-sp.cx)/90);}
+    const b=boxInfo(i,t);if(b.col==="#2ee6a6")free++;
+    const k=.75+.25*back(a);
+    c.save();c.globalAlpha=alpha*clamp(a*2);c.translate(sp.cx,sp.y+sp.h/2);c.scale(k,k);c.translate(-sp.cx,-(sp.y+sp.h/2));
+    rr(c,sp.x+10,sp.y+10,sp.w-20,sp.h-20,16);c.fillStyle=b.col+"24";c.fill();c.lineWidth=7;c.strokeStyle=b.col;c.stroke();
+    c.font="800 26px Nunito";const tw=c.measureText(b.txt).width+24,py=sp.top?sp.y+sp.h-62:sp.y+22;
+    rr(c,sp.cx-tw/2,py,tw,40,20);c.fillStyle=b.col;c.fill();c.fillStyle="#140c33";c.textAlign="center";c.textBaseline="middle";c.fillText(b.txt,sp.cx,py+21);
+    if(b.err){c.font="76px sans-serif";c.fillText("❌",sp.cx,sp.y+100);}
+    c.restore();
+  }
+  if(inS3){const sx=scanX(t),p=clamp((loc(2,t)-.8)/2.8);if(p>0&&p<1){const g=art.createLinearGradient(sx-60,0,sx,0);g.addColorStop(0,"rgba(46,230,166,0)");g.addColorStop(1,"rgba(46,230,166,.45)");c.fillStyle=g;c.fillRect(sx-60,PY+10,60,PH-20);c.fillStyle="#2ee6a6";c.fillRect(sx-3,PY+10,6,PH-20);}}
+  return free;
+}
+// lupa de pixels (cena 2)
+const PIX=[[62,58,64,60,57,63],[60,231,238,236,229,61],[59,44,40,42,46,58],[63,240,247,245,238,60],[58,236,243,241,233,62],[61,59,63,57,60,64]];
+function drawMagnifier(t){
+  const l=loc(1,t);if(t<S[1].t0||t>=S[2].t0)return;
+  const a=clamp((l-5.6)/.5)*win(t,S[1].t0,S[2].t0);if(!a)return;
+  const c=art,sp=spot(6),mx=1290,my=500,cs=84;
+  c.save();c.globalAlpha=a;
+  c.strokeStyle="#ffc21a";c.lineWidth=6;rr(c,sp.x+6,sp.y+6,sp.w-12,sp.h-12,10);c.stroke();
+  c.lineWidth=3;c.setLineDash([10,8]);c.beginPath();c.moveTo(sp.x+6,sp.y+sp.h-6);c.lineTo(mx,my);c.moveTo(sp.x+sp.w-6,sp.y+sp.h-6);c.lineTo(mx+6*cs,my);c.stroke();c.setLineDash([]);
+  const k=.6+.4*back(clamp((l-5.6)/.6));c.translate(mx+3*cs,my+3*cs);c.scale(k,k);c.translate(-(mx+3*cs),-(my+3*cs));
+  rr(c,mx-14,my-14,6*cs+28,6*cs+28,24);c.fillStyle="#ffc21a";c.fill();
+  c.font="800 30px Nunito";c.textAlign="center";c.textBaseline="middle";
+  PIX.forEach((row,r)=>row.forEach((v,q)=>{const shown=l>6+(r*6+q)*.05;c.fillStyle=`rgb(${v},${v},${v+10})`;c.fillRect(mx+q*cs,my+r*cs,cs-2,cs-2);if(shown){c.fillStyle=v>140?"#140c33":"#fff";c.fillText(v,mx+q*cs+cs/2,my+r*cs+cs/2+1);}}));
+  c.restore();
+}
+// recortes rotulados (cena 4)
+const TH=[1,0,1,1,0,1,0,0,1,1,0,1,0,1,1,0,0,1,1,0,1],TC=Object.values(COL);
+function drawThumbs(t,alpha){
+  const c=art,l=loc(3,t);
+  TH.forEach((o,i)=>{
+    const a=clamp((l-1.2-i*.2)/.35);if(!a)return;
+    const col=i%7,row=Math.floor(i/7),x=600+col*178,y=240+row*240,k=.4+.6*back(a);
+    c.save();c.globalAlpha=alpha*clamp(a*2);c.translate(x+80,y+110);c.scale(k,k);c.translate(-(x+80),-(y+110));
+    rr(c,x,y,160,220,18);c.fillStyle="#2b2547";c.fill();c.lineWidth=3;c.strokeStyle="#4a3f7a";c.stroke();
+    c.strokeStyle="rgba(255,255,255,.85)";c.lineWidth=5;c.beginPath();c.moveTo(x+14,y+12);c.lineTo(x+14,y+208);c.moveTo(x+146,y+12);c.lineTo(x+146,y+208);c.stroke();
+    if(o)drawCar(c,x+80,y+110,i%2?-Math.PI/2:Math.PI/2,TC[i%TC.length],.8);
+    if(i%5===3){c.fillStyle="rgba(6,3,28,.5)";rr(c,x,y,160,220,18);c.fill();}
+    if(i%6===4){c.fillStyle="rgba(5,2,20,.4)";c.beginPath();c.ellipse(x+70,y+90,52,70,.3,0,7);c.fill();}
+    const ta=clamp((l-1.55-i*.2)/.25);
+    if(ta){c.globalAlpha=alpha*ta;const txt=o?"ocupada":"livre";c.font="800 24px Nunito";const tw=c.measureText(txt).width+22;
+      rr(c,x+80-tw/2,y+176,tw,36,18);c.fillStyle=o?"#ff5e7a":"#2ee6a6";c.fill();c.fillStyle="#140c33";c.textAlign="center";c.textBaseline="middle";c.fillText(txt,x+80,y+195);}
+    c.restore();
+  });
+}
+// placa e rosto pixelados (cena 6)
+const off=document.createElement("canvas");off.width=520;off.height=640;const oc=off.getContext("2d");
+function pixelCard(x,y,draw,block,alpha){
+  oc.clearRect(0,0,520,640);draw(oc);
+  const c=art;c.save();c.globalAlpha=alpha;
+  if(block>1){const w=Math.max(1,Math.round(520/block)),h=Math.max(1,Math.round(640/block));
+    const tmp=pixelCard.tmp||(pixelCard.tmp=document.createElement("canvas"));tmp.width=w;tmp.height=h;const tc=tmp.getContext("2d");tc.imageSmoothingEnabled=true;tc.drawImage(off,0,0,w,h);
+    c.imageSmoothingEnabled=false;c.drawImage(tmp,x,y,520,640);c.imageSmoothingEnabled=true;}
+  else c.drawImage(off,x,y);
+  c.restore();
+}
+function drawPrivacy(t,alpha){
+  const l=loc(5,t),c=art;
+  [[600,250,1.0,3.3,(o)=>{// traseira do carro com a placa
+     o.fillStyle="#fff";rr(o,0,0,520,640,40);o.fill();
+     o.fillStyle="#ff5e7a";rr(o,40,150,440,330,70);o.fill();o.fillStyle="#1b1035";rr(o,90,180,340,110,30);o.fill();
+     o.fillStyle="#ffd166";rr(o,60,320,70,40,12);o.fill();rr(o,390,320,70,40,12);o.fill();
+     o.fillStyle="#fff";rr(o,110,370,300,96,12);o.fill();o.fillStyle="#1f4fbf";rr(o,110,370,300,26,[12,12,0,0]);o.fill();
+     o.fillStyle="#fff";o.font="800 18px Nunito";o.textAlign="center";o.textBaseline="middle";o.fillText("BRASIL",260,384);
+     o.fillStyle="#1b1035";o.font="700 56px Fredoka";o.fillText("BIA2A27",260,434);
+     o.fillStyle="#1b1035";o.beginPath();o.roundRect(70,480,90,60,16);o.roundRect(360,480,90,60,16);o.fill();}],
+   [1260,250,1.5,4.8,(o)=>{// pessoa
+     o.fillStyle="#fff";rr(o,0,0,520,640,40);o.fill();o.font="330px sans-serif";o.textAlign="center";o.textBaseline="middle";o.fillText("🧑‍🎓",260,330);}]
+  ].forEach(([x,y,tin,tpx,draw])=>{
+    const a=clamp((l-tin)/.4);if(!a)return;
+    const p=clamp((l-tpx)/.7),block=1+p*31;
+    const k=.5+.5*back(a);c.save();c.translate(x+260,y+320);c.scale(k,k);c.translate(-(x+260),-(y+320));
+    pixelCard(x,y,draw,block,alpha*clamp(a*2));
+    const la=clamp((l-tpx-.7)/.35);if(la){c.globalAlpha=alpha*la;const lk=.5+.5*back(la);c.translate(x+470,y+40);c.scale(lk,lk);c.font="110px sans-serif";c.textAlign="center";c.textBaseline="middle";c.fillText("🔒",0,0);}
+    c.restore();
+  });
+}
+
+// fundo: rede neural com pontos e ligações
+const bg=document.getElementById("bgc").getContext("2d");
+const P=[...Array(46)].map((_,i)=>({x:(i*397)%1920,y:(i*211+90)%1080,a:i*1.7,r:3+(i%4)}));
+function drawBg(t){
+  bg.clearRect(0,0,1920,1080);
+  const pts=P.map(p=>({x:p.x+Math.sin(t*.35+p.a)*40,y:p.y+Math.cos(t*.3+p.a)*30,r:p.r}));
+  bg.lineWidth=2;
+  for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){
+    const d=Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y);
+    if(d<260){bg.strokeStyle=`rgba(179,102,255,${.22*(1-d/260)})`;bg.beginPath();bg.moveTo(pts[i].x,pts[i].y);bg.lineTo(pts[j].x,pts[j].y);bg.stroke();}
+  }
+  pts.forEach((p,i)=>{bg.fillStyle=i%3?"rgba(46,230,166,.55)":"rgba(255,94,122,.5)";bg.beginPath();bg.arc(p.x,p.y,p.r,0,7);bg.fill();});
+}
+
+// confete (cena final)
+const cf=document.getElementById("confetti").getContext("2d");
+const COLORS=["#ff5e7a","#b366ff","#2ee6a6","#ffc21a","#13b5d6","#a3e635"];
+function drawConfetti(t){
+  cf.clearRect(0,0,1920,1080);
+  const t0=S[7].t0+9.5;if(t<t0)return;
+  const k=t-t0;
+  for(let i=0;i<160;i++){
+    const x0=(i*523)%1920,vy=280+(i*37)%260,sway=Math.sin(k*3+i)*40;
+    const y=-60+(k-(i%20)*.12)*vy;if(y<-60||y>1120)continue;
+    cf.save();cf.translate(x0+sway,y);cf.rotate(k*4+i);cf.fillStyle=COLORS[i%6];cf.fillRect(-10,-6,20,12);cf.restore();
+  }
+}
+
+const $=id=>document.getElementById(id);
+const bot=$("bot"),armL=$("armL"),armR=$("armR"),eyes=$("eyes"),mouth=$("mouth"),antball=$("antball");
+const els=[...document.querySelectorAll(".sc")].map(sc=>({sc,s:+sc.dataset.s,items:[...sc.querySelectorAll(".el")]}));
+const nf=new Intl.NumberFormat("pt-BR");
+
+function renderAt(t){
+  drawBg(t);
+  const si=sceneAt(t);
+  els.forEach(({sc,s,items})=>{
+    const sd=S[s],lc=t-sd.t0;
+    let o=0;
+    if(lc>=0&&lc<sd.d){o=Math.min(clamp(lc/.35),s===S.length-1?1:clamp((sd.d-lc)/.35));}
+    sc.style.opacity=o;
+    if(!o)return;
+    items.forEach(el=>{
+      const p=clamp((lc-(+el.dataset.in||0))/.55);
+      const fx=el.dataset.fx;let tr="",op=p>0?1:0;
+      if(fx==="pop"){const b=back(p);tr=`scale(${.2+.8*b})`;op=clamp(p*3);}
+      else if(fx==="zoom"){const b=back(p);tr=`scale(${1.6-.6*b})`;op=clamp(p*2.5);}
+      else if(fx==="up"){tr=`translateY(${(1-ease(p))*60}px)`;op=ease(p);}
+      else if(fx==="left"){tr=`translateX(${(1-ease(p))*-140}px)`;op=ease(p);}
+      else {op=ease(p);}
+      el.style.opacity=op;el.style.transform=tr;
+    });
+  });
+  // arte em canvas
+  art.clearRect(0,0,1920,1080);
+  const lotA=Math.max(win(t,0,S[3].t0),win(t,S[4].t0,S[5].t0));
+  if(lotA){drawLot(t,lotA);if(t>=S[2].t0){const free=drawBoxes(t,lotA);$("cnt").textContent=free;}}
+  drawMagnifier(t);
+  const a3=win(t,S[3].t0,S[4].t0);if(a3)drawThumbs(t,a3);
+  const a5=win(t,S[5].t0,S[6].t0);if(a5)drawPrivacy(t,a5);
+  // contadores
+  const l3=loc(3,t);$("photos").textContent=nf.format(Math.round(12000*ease(clamp((l3-1.6)/5))));
+  const ac=50+48*ease(clamp((l3-7.2)/3.4));$("acc").textContent=Math.round(ac)+"%";$("accbar").style.width=ac+"%";
+  const l6=loc(6,t);$("p1").textContent=23-Math.floor(clamp((l6-6.5)/2)*2);$("p2").textContent=8+Math.floor(clamp((l6-7)/1.5));
+  // robô
+  const [x,y,sc]=lerpKF(BOT,t);
+  const bob=Math.sin(t*3.2)*10,jump=(si===7&&loc(7,t)>9.5)?-Math.abs(Math.sin(t*5))*60:0;
+  bot.style.transform=`translate(${x}px,${y-470+bob+jump}px) scale(${sc})`;
+  const wave=(t>.8&&t<3.4)||(si===7&&loc(7,t)>9.5)||(si===2&&loc(2,t)>4.2&&loc(2,t)<6.4);
+  armR.style.transform=`rotate(${wave?-35+Math.sin(t*10)*28:Math.sin(t*2)*6}deg)`;
+  const oops=si===4&&loc(4,t)>2.4&&loc(4,t)<4.6;
+  armL.style.transform=`rotate(${oops?24:Math.sin(t*2+1)*6}deg)`;
+  const blink=(t%3.1)<.12;eyes.style.transform=`scaleY(${blink?.1:1})`;
+  const sp=S[si],lt=t-sp.t0,talk=lt>sp.n&&lt<sp.n+sp.f&&Math.floor(t*8)%2===0;
+  mouth.setAttribute("d",oops?"M172 200 Q190 180 208 200 Q190 220 172 200":talk?"M162 190 Q190 226 218 190 Q190 200 162 190":"M160 192 Q190 214 220 192");
+  antball.setAttribute("fill",(Math.floor(t*2)%2)?"#2ee6a6":"#ffc21a");
+  drawConfetti(t);
+}
+window.renderAt=renderAt;window.TOTAL=TOTAL;window.S=S;
+
+// roteiro em tabela
+const fmt=s=>{s=Math.round(s);return Math.floor(s/60)+":"+String(s%60).padStart(2,"0");};
+S.forEach((s,i)=>{const tr=document.createElement("tr");tr.innerHTML=`<td>${fmt(s.t0)} a ${fmt(s.t0+s.d)}</td><td>${i+1}. ${s.nome}</td><td>${s.tela}</td><td class="nar">${s.txt}</td>`;$("rot").appendChild(tr);});
+
+// modo de exportação: #render deixa só o palco, em tamanho real
+if(location.hash==="#render"){
+  document.body.className="render";
+  document.body.replaceChildren($("stage"));
+}
+document.fonts.ready.then(()=>renderAt(0));
+</script>
+</body>
+</html>

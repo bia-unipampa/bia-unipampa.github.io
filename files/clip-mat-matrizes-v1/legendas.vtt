@@ -1,0 +1,73 @@
+WEBVTT
+
+1
+00:00:00.400 --> 00:00:01.465
+Você vê um rosto.
+
+2
+00:00:01.465 --> 00:00:04.910
+Mas como uma inteligência artificial enxerga essa foto?
+
+3
+00:00:04.910 --> 00:00:07.102
+Com algo que cai no ENEM: matrizes!
+
+4
+00:00:08.000 --> 00:00:14.761
+Com zoom, a foto vira uma grade de pixels, e cada pixel é um número: 0 é preto, 255 é branco.
+
+5
+00:00:14.761 --> 00:00:17.378
+Foto em preto e branco é uma matriz!
+
+6
+00:00:18.300 --> 00:00:19.518
+E a foto colorida?
+
+7
+00:00:19.518 --> 00:00:22.361
+São três matrizes: vermelho, verde e azul.
+
+8
+00:00:22.361 --> 00:00:25.406
+Misturando os três números, sai qualquer cor.
+
+9
+00:00:26.300 --> 00:00:31.096
+Agora, o truque: um filtro, uma matriz de 3 por 3, desliza sobre a imagem.
+
+10
+00:00:31.096 --> 00:00:38.354
+Em cada posição, multiplica número por número e soma tudo, como linha vezes coluna na multiplicação de matrizes.
+
+11
+00:00:39.300 --> 00:00:42.575
+Onde a cor quase não muda, a soma dá perto de zero.
+
+12
+00:00:42.575 --> 00:00:45.273
+Onde ela muda de repente, a soma é enorme.
+
+13
+00:00:45.273 --> 00:00:46.429
+Achamos uma borda!
+
+14
+00:00:47.300 --> 00:00:50.543
+Na foto inteira, o filtro deixa só os contornos.
+
+15
+00:00:50.543 --> 00:00:57.772
+Uma rede neural convolucional aprende centenas de filtros assim, em camadas: bordas, formas, olhos, rostos.
+
+16
+00:00:58.700 --> 00:01:03.727
+Ou seja: a matriz que cai no ENEM é a mesma que faz o seu celular reconhecer rostos.
+
+17
+00:01:04.700 --> 00:01:06.724
+Quer criar IAs que enxergam?
+
+18
+00:01:06.724 --> 00:01:12.434
+Vem pro BIA, o Bacharelado em Inteligência Artificial da UNIPAMPA, em Alegrete!

@@ -95,6 +95,11 @@ section{padding:84px 0}
 .game{border-radius:30px;padding:28px;color:#fff;position:relative;overflow:hidden;min-height:330px;display:flex;flex-direction:column}
 .game.g1{background:linear-gradient(140deg,#8b3dff,#5a1fc0)}
 .game.g2{background:linear-gradient(140deg,#12b981,#0b7f97)}
+.game.g3{background:linear-gradient(140deg,#fb3b5c,#8b1fa8)}
+.game.g4{background:linear-gradient(140deg,#13b5d6,#1d4fb8)}
+.game.g5{background:linear-gradient(140deg,#e8a400,#fb3b5c)}
+.v2cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;margin-top:30px;background:var(--panel);border:3px dashed var(--purple);border-radius:26px;padding:20px 24px}
+.v2cta p{margin:0;max-width:62ch}
 .game .em{font-size:4.2rem;line-height:1}
 .game h3{font-size:2rem;margin:12px 0 8px;color:#fff}
 .game p{margin:0 0 8px;color:rgba(255,255,255,.92)}
@@ -219,6 +224,7 @@ footer li{margin-bottom:5px}
           <track kind="captions" src="escolas-bia-v1/legendas.vtt" srclang="pt-BR" label="Português">
         </video>
         <p style="margin-top:12px"><a href="escolas-bia-v1/video-bia-escolas-v1.mp4" download>Baixar MP4</a> · <a href="video-bia-escolas-v1.html">versão animada no navegador e roteiro</a></p>
+        <p style="margin-top:12px"><b style="color:#fff">Mais vídeos curtos:</b> <a href="clip-drones-ia-v1.html">drones na lavoura</a> · <a href="clip-animais-ia-v1.html">drones e animais soltos</a> · <a href="clip-vagas-ia-v1.html">vagas de estacionamento</a> · <a href="clip-mat-matrizes-v1.html">matrizes</a> · <a href="clip-mat-parabola-v1.html">funções</a> · <a href="clip-mat-probabilidade-v1.html">probabilidade</a></p>
       </div>
       <ol class="scenes">
         <li><span><b>Oi, eu sou a Bia!</b> A mascote se apresenta.</span></li>
@@ -239,7 +245,7 @@ footer li{margin-bottom:5px}
     <div class="sec-head">
       <span class="kicker">Jogos no navegador</span>
       <h2>Jogue e aprenda</h2>
-      <p class="lead">Os dois jogos funcionam no celular, no computador e no projetor da sala, sem instalar nada e sem cadastro. Têm som, confete e explicação de cada resposta.</p>
+      <p class="lead">Os jogos funcionam no celular, no computador e no projetor da sala, sem instalar nada e sem cadastro. Têm som, confete e explicação de cada resposta.</p>
     </div>
     <div class="games">
       <article class="game g1">
@@ -256,7 +262,29 @@ footer li{margin-bottom:5px}
         <div class="tags"><span>1 minuto por rodada</span><span>todas as idades</span><span>IA no dia a dia</span></div>
         <a class="btn" href="jogo-tem-ia-v1.html">Jogar Tem IA ou não tem?</a>
       </article>
+      <article class="game g3">
+        <div class="em">🏎️🧠</div>
+        <h3>Corrida Neural (3D)</h3>
+        <p>A turma corre por uma pista neon e depois assiste a 24 robôs Bia aprenderem a correr sozinhos, por tentativa e erro, com redes neurais que evoluem a cada geração.</p>
+        <div class="tags"><span>5 minutos</span><span>ensino médio</span><span>redes neurais</span></div>
+        <a class="btn" href="jogo-3d-corrida-neural-v1.html">Jogar Corrida Neural</a>
+      </article>
+      <article class="game g4">
+        <div class="em">🚤♻️</div>
+        <h3>Rio Limpo: IA contra IA (3D)</h3>
+        <p>Ninguém joga: a turma aperta o play e torce. Três barcos com estratégias de IA diferentes disputam quem tira mais lixo do rio Ibirapuitã. Ótimo para o projetor.</p>
+        <div class="tags"><span>90 segundos</span><span>todas as idades</span><span>detecção de objetos</span></div>
+        <a class="btn" href="jogo-3d-barcos-ia-v1.html">Assistir à disputa</a>
+      </article>
+      <article class="game g5" style="grid-column:1 / -1;min-height:0">
+        <div class="em">🧠📐</div>
+        <h3>Desafio ENEM + IA</h3>
+        <p>Para o 3º ano: ajustar uma reta aos dados, descer a parábola até o vértice e um quiz relâmpago com questões no estilo ENEM, sempre mostrando onde essa matemática aparece na IA.</p>
+        <div class="tags"><span>10 minutos</span><span>3º ano do ensino médio</span><span>funções, probabilidade, matrizes</span></div>
+        <a class="btn" href="jogo-enem-ia-v1.html">Encarar o desafio</a>
+      </article>
     </div>
+    <div class="v2cta"><p><b>Turmas de 3º ano?</b> Há uma página só para elas, com teste "combina comigo?", vídeos de matrizes, funções e probabilidade ligados à IA, mito ou verdade e o passo a passo do SiSU.</p><a class="btn btn-p" href="escolas-bia-v2.html">BIA para o 3º ano</a></div>
     <p class="learn"><b>O que se aprende:</b> o "Treine a Bia" usa de verdade o algoritmo do vizinho mais próximo, um dos métodos clássicos de aprendizado de máquina, e mostra que exemplos errados produzem uma IA errada. O "Tem IA ou não tem?" separa sistemas que aprendem com dados de aparelhos que só seguem regras fixas.</p>
   </div>
 </section>
@@ -398,6 +426,10 @@ footer li{margin-bottom:5px}
       <li><a href="video-bia-escolas-v1.html">Vídeo animado e roteiro</a></li>
       <li><a href="jogo-treine-a-bia-v1.html">Jogo: Treine a Bia</a></li>
       <li><a href="jogo-tem-ia-v1.html">Jogo: Tem IA ou não tem?</a></li>
+      <li><a href="jogo-3d-corrida-neural-v1.html">Jogo 3D: Corrida Neural</a></li>
+      <li><a href="jogo-3d-barcos-ia-v1.html">Jogo 3D: Rio Limpo, IA contra IA</a></li>
+      <li><a href="jogo-enem-ia-v1.html">Jogo: Desafio ENEM + IA</a></li>
+      <li><a href="escolas-bia-v2.html">BIA para o 3º ano (v2)</a></li>
     </ul>
   </div>
 </footer>

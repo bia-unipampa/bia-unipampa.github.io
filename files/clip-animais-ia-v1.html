@@ -1,0 +1,614 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Drones que Encontram Animais</title>
+<meta name="description" content="Clip animado do BIA nas Escolas: a robô Bia mostra como drones com inteligência artificial podem localizar animais soltos na cidade e nas estradas de Alegrete e ajudar a levá-los de volta aos donos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400..700&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fffaf2;--ink:#1b1035;--soft:#5b4f75;--line:#eadff0;
+  --pink:#fb3b5c;--purple:#8b3dff;--mint:#12c48b;--lime:#7cc417;--cyan:#13b5d6;--sun:#ffc21a;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#140c33;--ink:#f4efff;--soft:#c3b8e0;--line:#2e2357;--purple:#b58bff}
+}
+:root[data-theme="dark"]{--bg:#140c33;--ink:#f4efff;--soft:#c3b8e0;--line:#2e2357;--purple:#b58bff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Nunito",system-ui,sans-serif;font-size:1.06rem;line-height:1.6}
+a{color:var(--purple);text-underline-offset:3px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+@media (max-width:600px){.wrap{padding:0 16px}}
+h1,h2{font-family:"Fredoka",system-ui,sans-serif;line-height:1.05;margin:0}
+.hd{padding:44px 0 22px}
+.hd .kick{font-weight:800;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;color:var(--pink)}
+.hd h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:700;margin-top:6px}
+.hd p{color:var(--soft);max-width:66ch;margin:10px 0 0}
+.viewer{position:relative;width:100%;aspect-ratio:16/9;border-radius:18px;overflow:hidden;background:#140c33;box-shadow:0 10px 40px rgba(27,16,53,.25)}
+.viewer #stage{position:absolute;left:0;top:0;transform-origin:top left}
+.cap{min-height:3.4em;margin-top:12px;font-weight:700;font-size:1.05rem;color:var(--ink);background:color-mix(in srgb,var(--purple) 8%,var(--bg));border-radius:14px;padding:10px 16px}
+.cap:empty::before{content:"As legendas aparecem aqui durante o vídeo.";color:var(--soft);font-weight:500}
+.ctrl{display:flex;align-items:center;gap:14px;margin-top:14px;flex-wrap:wrap}
+.ctrl button{font:700 1rem "Nunito",sans-serif;background:var(--purple);color:#fff;border:0;border-radius:999px;padding:10px 22px;cursor:pointer}
+.ctrl button:focus-visible,.ctrl a:focus-visible{outline:3px solid var(--sun);outline-offset:3px}
+.ctrl input{flex:1;min-width:160px;accent-color:var(--purple)}
+.ctrl span{font-variant-numeric:tabular-nums;color:var(--soft);font-size:.95rem}
+.ctrl a{font-weight:700}
+.rot{margin:40px 0 24px}
+.rot h2,.notes h2{font-size:1.8rem;margin-bottom:10px}
+.rot table{width:100%;border-collapse:collapse;font-size:.98rem;min-width:640px}
+.rot td,.rot th{text-align:left;vertical-align:top;padding:10px 12px 10px 0;border-bottom:1px solid var(--line)}
+.rot th{color:var(--soft);font-size:.88rem}
+.rot td:first-child{font-weight:800;color:var(--purple);white-space:nowrap}
+.tbl{overflow-x:auto}
+.notes{margin:36px 0 64px}
+.notes ul{padding-left:22px;margin:8px 0 0}
+.notes li{margin-bottom:8px}
+.notes p{color:var(--soft)}
+
+/* ===== palco 1920 x 1080 ===== */
+#stage{width:1920px;height:1080px;background:#140c33;overflow:hidden;font-family:"Fredoka",system-ui,sans-serif;color:#fff;position:relative}
+#bgc{position:absolute;inset:0}
+.sc{position:absolute;inset:0;opacity:0}
+.el{position:absolute;opacity:0;will-change:transform,opacity}
+.t-big{font-weight:700;font-size:120px;line-height:1;letter-spacing:-.01em}
+.t-mid{font-weight:600;font-size:80px;line-height:1.05;text-shadow:0 4px 18px rgba(20,12,51,.6)}
+.t-sm{font-family:"Nunito",sans-serif;font-weight:800;font-size:44px;line-height:1.2;color:#d9ccff;text-shadow:0 3px 12px rgba(20,12,51,.7)}
+.grad{background:linear-gradient(90deg,#ff5e7a,#b366ff 45%,#2ee6a6);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none}
+.chip{border-radius:999px;padding:18px 40px;font-weight:600;font-size:54px;color:#1b1035;white-space:nowrap}
+.bubble{background:#fff;color:#1b1035;border-radius:40px;padding:22px 38px;font-size:58px;font-weight:600;white-space:nowrap;box-shadow:0 10px 0 rgba(0,0,0,.25)}
+.bubble::after{content:"";position:absolute;left:60px;bottom:-26px;border:16px solid transparent;border-top:26px solid #fff;border-left:26px solid #fff}
+.poster{background:#fff;color:#1b1035;border-radius:18px;padding:22px 24px 26px;width:400px;text-align:center;box-shadow:0 18px 0 rgba(0,0,0,.3);transform-origin:top left}
+.poster .pin{position:absolute;left:50%;top:-14px;width:30px;height:30px;margin-left:-15px;border-radius:50%;background:#fb3b5c;box-shadow:0 4px 0 #a3142f}
+.poster .h{font-weight:700;font-size:56px;color:#fb3b5c;letter-spacing:.02em;line-height:1}
+.poster .ph{margin:16px 0 12px;background:#d6fff0;border-radius:14px;font-size:170px;line-height:1.25}
+.poster .nm{font-weight:700;font-size:60px;line-height:1}
+.poster .ds{font-family:"Nunito",sans-serif;font-weight:800;font-size:26px;color:#5b4f75;margin-top:8px;line-height:1.25}
+.card{background:#fff;color:#1b1035;border-radius:36px;padding:28px 22px 30px;text-align:center;box-shadow:0 14px 0 rgba(0,0,0,.25);width:350px}
+.card .em{font-size:120px;line-height:1.1;display:block}
+.card b{display:block;font-size:40px;font-weight:600;margin-top:10px;line-height:1.1}
+#bot{position:absolute;left:0;top:0;width:380px;height:470px;transform-origin:50% 100%}
+#confetti{position:absolute;inset:0;pointer-events:none}
+body.render{margin:0;background:#140c33}
+</style>
+</head>
+<body>
+<div id="page">
+<header class="hd">
+  <div class="wrap">
+    <span class="kick">BIA nas Escolas · clip animado · versão 1</span>
+    <h1>Drones que encontram animais</h1>
+    <p>Clip de cerca de 85 segundos em que a robô Bia mostra como um drone com inteligência artificial pode localizar cães, gatos, cavalos e bois soltos na cidade e nas estradas de Alegrete e ajudar a levá-los de volta para casa. A história é ilustrativa: mostra como a tecnologia funciona, sem descrever um serviço que já exista na cidade.</p>
+  </div>
+</header>
+<div class="wrap wrap-stage">
+  <div class="viewer" id="viewer">
+    <div id="stage">
+      <canvas id="bgc" width="1920" height="1080"></canvas>
+
+      <section class="sc" data-s="0">
+        <div class="el t-mid" data-in="0.3" data-fx="up" style="left:120px;top:80px">Cadê o <span class="grad">Pipoca</span>?</div>
+        <div class="el" data-in="1.2" data-fx="pop" style="left:770px;top:200px"><div class="poster" style="transform:rotate(-4deg);position:relative"><span class="pin"></span><div class="h">PROCURA-SE</div><div class="ph">🐕</div><div class="nm">Pipoca</div><div class="ds">caramelo, porte médio<br>Viu? Avise a família!</div></div></div>
+        <div class="el" data-in="2.2" data-fx="pop" style="left:1480px;top:330px"><div class="poster" style="transform:rotate(5deg) scale(.62);position:relative"><span class="pin"></span><div class="h">PROCURA-SE</div><div class="ph">🐕</div><div class="nm">Pipoca</div><div class="ds">caramelo, porte médio<br>Viu? Avise a família!</div></div></div>
+        <div class="el t-sm" data-in="3.8" data-fx="up" style="left:126px;top:210px;width:560px">Como achar um cachorro numa cidade inteira? 🤔</div>
+      </section>
+
+      <section class="sc" data-s="1">
+        <div class="el t-mid" data-in="0.3" data-fx="up" style="left:120px;top:70px">Bichos soltos <span class="grad">na estrada</span></div>
+        <div class="el chip" data-in="4.6" data-fx="pop" style="left:126px;top:200px;background:#ffc21a">⚠️ perigo de acidente</div>
+      </section>
+
+      <section class="sc" data-s="2">
+        <div class="el t-mid" data-in="0.3" data-fx="up" style="left:120px;top:200px;width:470px">Drone<br>no <span class="grad">ar!</span> 🚁</div>
+        <div class="el t-sm" data-in="2.2" data-fx="up" style="left:126px;top:420px;width:440px">rota planejada, quadra por quadra</div>
+      </section>
+
+      <section class="sc" data-s="3">
+        <div class="el t-mid" data-in="0.3" data-fx="up" style="left:120px;top:180px;width:420px">Câmera <span class="grad">térmica</span></div>
+        <div class="el t-sm" data-in="1.6" data-fx="up" style="left:126px;top:400px;width:400px">enxerga o calor dos corpos 🌡️</div>
+      </section>
+
+      <section class="sc" data-s="4">
+        <div class="el t-mid" data-in="0.3" data-fx="up" style="left:120px;top:70px">Quem é esse <span class="grad">cachorro?</span></div>
+        <div class="el bubble" data-in="5.7" data-fx="pop" style="left:1330px;top:104px">Parece o Pipoca! 🎯</div>
+      </section>
+
+      <section class="sc" data-s="5">
+        <div class="el t-mid" data-in="0.3" data-fx="up" style="left:120px;top:70px">Como a IA <span class="grad">aprendeu?</span> 🧠</div>
+        <div class="el t-sm" data-in="5.6" data-fx="up" style="left:380px;top:950px">exemplo por exemplo, marcado por pessoas ✔</div>
+      </section>
+
+      <section class="sc" data-s="6">
+        <div class="el t-mid" data-in="0.3" data-fx="up" style="left:380px;top:56px;font-size:68px">O alerta chega no <span class="grad">celular</span> 📲</div>
+        <div class="el chip" data-in="5.4" data-fx="pop" style="left:930px;top:250px;background:#ffc21a;font-size:36px;padding:12px 28px">🐎 cavalo na estrada: equipe avisada</div>
+      </section>
+
+      <section class="sc" data-s="7">
+        <div class="el t-mid" data-in="0.4" data-fx="pop" style="left:0;width:1920px;text-align:center;top:80px;font-size:100px;color:#1b1035;text-shadow:none">De volta pra <span style="color:#fb3b5c">casa!</span> 🏠</div>
+      </section>
+
+      <section class="sc" data-s="8">
+        <div class="el t-mid" data-in="0.3" data-fx="up" style="left:120px;top:70px">Tudo com <span class="grad">cuidado</span> 🛡️</div>
+        <div class="el card" data-in="1.3" data-fx="pop" style="left:360px;top:360px"><span class="em">🙈</span><b>Rostos e placas borrados</b></div>
+        <div class="el card" data-in="2.9" data-fx="pop" style="left:750px;top:360px"><span class="em">🐾</span><b>Voar alto, sem assustar</b></div>
+        <div class="el card" data-in="4.9" data-fx="pop" style="left:1140px;top:360px"><span class="em">📋</span><b>Seguir as regras da ANAC</b></div>
+        <div class="el card" data-in="6.4" data-fx="pop" style="left:1530px;top:360px"><span class="em">✅</span><b>Uma pessoa sempre confirma</b></div>
+      </section>
+
+      <section class="sc" data-s="9">
+        <div class="el t-big" data-in="0.6" data-fx="zoom" style="left:0;width:1920px;text-align:center;top:70px;font-size:200px">Vem pro <span class="grad">BIA!</span></div>
+        <div class="el t-sm" data-in="1.8" data-fx="up" style="left:0;width:1920px;text-align:center;top:310px;color:#fff">Bacharelado em Inteligência Artificial · UNIPAMPA · Alegrete-RS</div>
+        <div class="el t-sm" data-in="2.6" data-fx="up" style="left:0;width:1920px;text-align:center;top:385px;color:#2ee6a6;font-size:52px">bia-unipampa.github.io</div>
+      </section>
+
+      <canvas id="confetti" width="1920" height="1080"></canvas>
+
+      <svg id="bot" viewBox="0 0 380 470" aria-hidden="true">
+        <defs>
+          <linearGradient id="gb" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e3dcff"/></linearGradient>
+        </defs>
+        <g id="ant"><line x1="190" y1="70" x2="190" y2="22" stroke="#d9ccff" stroke-width="10" stroke-linecap="round"/><circle id="antball" cx="190" cy="20" r="18" fill="#2ee6a6"/></g>
+        <g id="armL" style="transform-origin:78px 300px"><rect x="18" y="285" width="70" height="32" rx="16" fill="#b366ff"/><circle cx="22" cy="301" r="24" fill="#fff"/></g>
+        <g id="armR" style="transform-origin:302px 300px"><rect x="292" y="285" width="70" height="32" rx="16" fill="#b366ff"/><circle cx="358" cy="301" r="24" fill="#fff"/></g>
+        <rect x="88" y="250" width="204" height="190" rx="54" fill="url(#gb)"/>
+        <text x="190" y="372" text-anchor="middle" font-family="Fredoka" font-weight="700" font-size="62" fill="#8b3dff">BIA</text>
+        <rect x="140" y="440" width="36" height="26" rx="10" fill="#d9ccff"/><rect x="204" y="440" width="36" height="26" rx="10" fill="#d9ccff"/>
+        <rect x="40" y="62" width="300" height="200" rx="70" fill="url(#gb)"/>
+        <rect x="70" y="92" width="240" height="140" rx="50" fill="#1b1035"/>
+        <g id="eyes" style="transform-origin:190px 150px"><ellipse cx="145" cy="148" rx="22" ry="26" fill="#2ee6a6"/><ellipse cx="235" cy="148" rx="22" ry="26" fill="#2ee6a6"/></g>
+        <path id="mouth" d="M160 192 Q190 214 220 192" stroke="#2ee6a6" stroke-width="9" fill="#2ee6a6" fill-opacity="0" stroke-linecap="round"/>
+        <circle cx="100" cy="196" r="13" fill="#ff5e7a" opacity=".55"/><circle cx="280" cy="196" r="13" fill="#ff5e7a" opacity=".55"/>
+      </svg>
+    </div>
+  </div>
+  <div class="cap" id="cap" aria-live="off"></div>
+  <div class="ctrl">
+    <button type="button" id="play">▶ Assistir</button>
+    <input type="range" id="seek" min="0" max="1000" value="0" aria-label="Posição do vídeo">
+    <span id="clock">0:00</span>
+    <a href="clip-animais-ia-v1/clip-animais-ia-v1.mp4" download>Baixar MP4 (1920 × 1080)</a>
+    <a href="clip-animais-ia-v1/legendas.vtt" download>Baixar legendas (VTT)</a>
+  </div>
+</div>
+
+<div class="wrap rot">
+  <h2>Roteiro</h2>
+  <div class="tbl"><table><thead><tr><th>Tempo</th><th>Cena</th><th>Narração da Bia</th></tr></thead><tbody id="rot"></tbody></table></div>
+</div>
+
+<div class="wrap notes">
+  <h2>Para usar na oficina</h2>
+  <ul>
+    <li><b>Pergunta para a turma:</b> por que a câmera térmica ajuda à noite, mas não mostra a cor do pelo? (Resposta: ela enxerga o calor, não a luz; para comparar a pelagem, o drone precisa da câmera comum.)</li>
+    <li><b>Debate:</b> quem deve ver as imagens do drone? O que precisa ser apagado antes de guardar? Quando a IA erra, quem responde?</li>
+    <li><b>Ligação com os jogos:</b> o "Treine a Bia" mostra, na prática, como uma IA aprende com exemplos marcados por pessoas, a mesma ideia da cena 6.</li>
+  </ul>
+  <p>A voz é sintética e serve para marcar o ritmo; a versão final pode ser dublada por estudantes do BIA. A história do Pipoca é inventada, e o uso de drones em áreas urbanas depende das regras da ANAC e do DECEA. Veja a <a href="escolas-bia-v1.html">proposta completa do BIA nas Escolas</a>.</p>
+</div>
+</div>
+
+<audio id="aud" src="clip-animais-ia-v1/trilha-clip-animais.m4a" preload="auto"></audio>
+
+<script>
+// cenas: duração (s), início da narração, duração da fala e texto falado
+const S=[
+ {d:8.3, n:0.6,nd:6.72,nome:"Cadê o Pipoca?", txt:"O Pipoca fugiu de casa! A família espalhou cartazes, mas como achar um cachorro numa cidade inteira?"},
+ {d:8.3, n:0.6,nd:6.69,nome:"Bichos na estrada", txt:"E em Alegrete não são só cães e gatos: cavalos e bois soltos nas estradas podem causar acidentes."},
+ {d:8.4, n:0.6,nd:6.78,nome:"Drone no ar", txt:"Aí entra a inteligência artificial. Um drone sobrevoa os bairros numa rota planejada, quadra por quadra."},
+ {d:8.6, n:0.6,nd:6.99,nome:"Câmera térmica", txt:"À noite, a câmera térmica enxerga o calor dos corpos. E a IA separa: pessoa, carro... cachorro!"},
+ {d:8.3, n:0.6,nd:6.70,nome:"Comparar com as fotos", txt:"Ela compara com as fotos cadastradas pelos donos: pelagem, manchas, tamanho. Parece o Pipoca!"},
+ {d:9.1, n:0.6,nd:7.50,nome:"Como a IA aprendeu", txt:"Ela aprendeu vendo muitas fotos marcadas por pessoas: cachorro, gato, cavalo, boi. Exemplo por exemplo."},
+ {d:8.7, n:0.6,nd:7.05,nome:"Alerta no celular", txt:"O alerta chega no celular da família e do resgate, com o local no mapa. Mas quem confirma é sempre uma pessoa."},
+ {d:7.4, n:0.6,nd:5.79,nome:"Reencontro", txt:"E o Pipoca volta para casa! O cavalo também volta para o campo, longe da estrada."},
+ {d:8.6, n:0.6,nd:6.96,nome:"Cuidados", txt:"Tudo com cuidado: borrar rostos e placas, voar alto para não assustar os bichos e seguir as regras da ANAC."},
+ {d:9.6, n:0.6,nd:6.91,nome:"Vem pro BIA", txt:"Quer usar a IA para ajudar a sua cidade? Vem pro BIA, Inteligência Artificial na UNIPAMPA, em Alegrete!"}
+];
+let acc=0;S.forEach(s=>{s.t0=acc;acc+=s.d;});
+const TOTAL=acc;
+
+// posição da robô: [tempo, x, y, escala]
+const T9=S[9].t0;
+const BOT=[[0,-25,1500,.55],[0.8,-25,1062,.55],[T9,-25,1062,.55],[T9+0.9,770,1062,.85],[TOTAL,770,1062,.85]];
+
+const W=1920,H=1080;
+const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const ease=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const back=x=>{const c1=1.70158,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2);};
+const seg=(l,a,b)=>clamp((l-a)/(b-a));
+const rnd=i=>{const x=Math.sin(i*12.9898+4.1)*43758.5453;return x-Math.floor(x);};
+function lerpKF(kf,t){
+  if(t<=kf[0][0])return kf[0].slice(1);
+  for(let i=1;i<kf.length;i++){
+    if(t<=kf[i][0]){const a=kf[i-1],b=kf[i],p=ease((t-a[0])/(b[0]-a[0]||1));return a.slice(1).map((v,j)=>v+(b[j+1]-v)*p);}
+  }
+  return kf[kf.length-1].slice(1);
+}
+function sceneAt(t){for(let i=S.length-1;i>=0;i--)if(t>=S[i].t0)return i;return 0;}
+
+// ===== desenho no canvas =====
+let g=document.getElementById("bgc").getContext("2d");
+const EMO='"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif';
+function E(e,x,y,s,o={}){g.save();g.globalAlpha*=o.alpha??1;g.translate(x,y);g.rotate(o.rot||0);if(o.flip)g.scale(-1,1);if(o.sc)g.scale(o.sc,o.sc);g.font=`${s}px ${EMO}`;g.textAlign="center";g.textBaseline="middle";g.fillText(e,0,0);g.restore();}
+function rr(x,y,w,h,r){g.beginPath();g.roundRect(x,y,w,h,r);}
+function T(s,x,y,size,color,o={}){g.font=`${o.w||600} ${size}px ${o.f==="n"?'"Nunito"':'"Fredoka"'},sans-serif`;g.fillStyle=color;g.textAlign=o.a||"left";g.textBaseline="middle";g.fillText(s,x,y);}
+function circle(x,y,r,c){g.fillStyle=c;g.beginPath();g.arc(x,y,r,0,Math.PI*2);g.fill();}
+function glow(x,y,r,c,a){const gr=g.createRadialGradient(x,y,0,x,y,r);gr.addColorStop(0,`rgba(${c},${a})`);gr.addColorStop(1,`rgba(${c},0)`);g.fillStyle=gr;g.fillRect(x-r,y-r,2*r,2*r);}
+function sky(top,bot){const gr=g.createLinearGradient(0,0,0,H);gr.addColorStop(0,top);gr.addColorStop(1,bot);g.fillStyle=gr;g.fillRect(0,0,W,H);}
+function stars(t,n=70,maxY=560){for(let i=0;i<n;i++){const a=.35+.45*Math.abs(Math.sin(t*1.3+i*2.1));circle(rnd(i)*W,rnd(i+99)*maxY,1.5+rnd(i+7)*2.2,`rgba(255,255,255,${a})`);}}
+
+// drone visto de cima/frente, com hélices girando
+function drone(x,y,s,t,tilt=0){
+  g.save();g.translate(x,y);g.rotate(tilt);g.scale(s,s);
+  const A=[[-74,-46],[74,-46],[-74,46],[74,46]];
+  g.strokeStyle="#d9ccff";g.lineWidth=12;g.lineCap="round";
+  A.forEach(([ax,ay])=>{g.beginPath();g.moveTo(0,0);g.lineTo(ax,ay);g.stroke();});
+  A.forEach(([ax,ay],i)=>{
+    g.fillStyle="rgba(217,204,255,.22)";g.beginPath();g.ellipse(ax,ay,50,50,0,0,7);g.fill();
+    const a=t*38+i*1.3;g.strokeStyle="rgba(255,255,255,.9)";g.lineWidth=7;
+    g.beginPath();g.moveTo(ax-Math.cos(a)*46,ay-Math.sin(a)*46);g.lineTo(ax+Math.cos(a)*46,ay+Math.sin(a)*46);g.stroke();
+    circle(ax,ay,8,"#fff");
+  });
+  const gr=g.createLinearGradient(0,-36,0,36);gr.addColorStop(0,"#d3adff");gr.addColorStop(1,"#8b3dff");
+  g.fillStyle=gr;rr(-52,-34,104,68,30);g.fill();
+  g.fillStyle="#1b1035";rr(-34,-18,68,30,14);g.fill();
+  circle(-13,-3,6,"#2ee6a6");circle(13,-3,6,"#2ee6a6");
+  circle(0,40,13,"#1b1035");circle(0,40,6,"#13b5d6");
+  circle(0,-34,7,(Math.floor(t*3)%2)?"#ff5e7a":"#2ee6a6");
+  g.restore();
+}
+
+// caixa de detecção que "encaixa" no objeto, com etiqueta
+function dbox(x,y,w,h,col,label,p,thick=6){
+  if(p<=0)return;
+  const k=ease(clamp(p*1.6)),ex=(1-k)*60,X=x-ex,Y=y-ex,Wd=w+2*ex,Ht=h+2*ex,c=Math.min(Wd,Ht)*.28;
+  g.save();g.globalAlpha*=clamp(p*4);g.strokeStyle=col;g.lineWidth=thick;g.lineCap="round";
+  g.setLineDash([]);
+  [[X,Y,1,1],[X+Wd,Y,-1,1],[X,Y+Ht,1,-1],[X+Wd,Y+Ht,-1,-1]].forEach(([a,b,sx,sy])=>{g.beginPath();g.moveTo(a,b+sy*c);g.lineTo(a,b);g.lineTo(a+sx*c,b);g.stroke();});
+  g.lineWidth=2;g.globalAlpha*=.6;g.strokeRect(X,Y,Wd,Ht);g.globalAlpha/=.6;
+  if(k>.6){g.font='600 34px "Fredoka",sans-serif';const tw=g.measureText(label).width+30;g.fillStyle=col;rr(X,Y-52,tw,46,12);g.fill();T(label,X+15,Y-29,34,"#1b1035");}
+  g.restore();
+}
+
+// sprites térmicos: o emoji vira silhueta colorida pelo calor
+const heat={};
+function heatSprite(e,s){
+  const key=e+s;if(heat[key])return heat[key];
+  const c=document.createElement("canvas");c.width=c.height=Math.round(s*1.5);const x=c.getContext("2d");
+  x.font=`${s}px ${EMO}`;x.textAlign="center";x.textBaseline="middle";x.fillText(e,c.width/2,c.height/2);
+  x.globalCompositeOperation="source-in";
+  const gr=x.createRadialGradient(c.width/2,c.height/2,s*.05,c.width/2,c.height/2,s*.62);
+  gr.addColorStop(0,"#fffbd0");gr.addColorStop(.3,"#ffc21a");gr.addColorStop(.62,"#fb3b5c");gr.addColorStop(1,"#8b3dff");
+  x.fillStyle=gr;x.fillRect(0,0,c.width,c.height);
+  return heat[key]=c;
+}
+function HS(e,x,y,s,flip=false){const c=heatSprite(e,s);g.save();g.translate(x,y);if(flip)g.scale(-1,1);g.shadowColor="rgba(255,94,122,.9)";g.shadowBlur=40;g.drawImage(c,-c.width/2,-c.height/2);g.restore();}
+
+// mapa de quadras visto de cima
+function cityMap(MX,MY,cols,rows,bw,bh,st,seed){
+  g.fillStyle="#3a2f78";rr(MX-st,MY-st,cols*bw+(cols+1)*st,rows*bh+(rows+1)*st,28);g.fill();
+  for(let r=0;r<rows;r++)for(let c=0;c<cols;c++){
+    const x=MX+c*(bw+st),y=MY+r*(bh+st),k=seed+r*11+c;
+    const park=(r===1&&c===Math.floor(cols/2));
+    g.fillStyle=park?"#1f6b55":"#241a5a";rr(x,y,bw,bh,16);g.fill();
+    if(park){for(let i=0;i<7;i++)circle(x+24+rnd(k+i)*(bw-48),y+24+rnd(k+i+40)*(bh-48),14+rnd(i)*8,"#2ea877");T("praça",x+bw/2,y+bh/2,28,"#c8ffe9",{a:"center",w:700});continue;}
+    for(let i=0;i<4;i++){const hx=x+12+(i%2)*(bw/2-6),hy=y+12+Math.floor(i/2)*(bh/2-6);g.fillStyle=["#4b3c99","#5b3f8f","#3f4f99","#6a4a9a"][Math.floor(rnd(k+i)*4)];rr(hx,hy,bw/2-18,bh/2-18,8);g.fill();}
+    if(rnd(k)>.5)circle(x+bw-20,y+bh-20,12,"#2ea877");
+  }
+}
+
+// ===== cenas =====
+const DRAW=[];
+
+// 1. cartaz do Pipoca na rua à noite
+DRAW[0]=(l,D,t)=>{
+  sky("#0d0730","#2a1466");stars(t);
+  glow(1720,150,190,"255,236,170",.25);circle(1720,150,62,"#fff3c4");circle(1745,135,56,"#2a1466");
+  for(let i=0;i<10;i++){
+    const x=i*215-60,w=195,h=170+rnd(i)*150,y=860-h;
+    g.fillStyle=i%2?"#21175a":"#2a1f6b";g.fillRect(x,y,w,h);
+    g.beginPath();g.moveTo(x-12,y);g.lineTo(x+w/2,y-70);g.lineTo(x+w+12,y);g.closePath();g.fillStyle="#1a1148";g.fill();
+    for(let j=0;j<4;j++){const on=rnd(i*4+j)>.35;g.fillStyle=on?"#ffd86b":"#151040";g.fillRect(x+25+(j%2)*95,y+35+Math.floor(j/2)*75,55,45);}
+  }
+  g.fillStyle="#191045";g.fillRect(0,860,W,220);g.fillStyle="#3a2f78";g.fillRect(0,860,W,10);
+  [380,1300].forEach(x=>{g.fillStyle="#3b2d7a";g.fillRect(x-7,520,14,345);g.fillRect(x-7,520,60,12);glow(x+50,540,240,"255,216,107",.28);circle(x+52,536,14,"#ffe9a8");});
+  g.fillStyle="#4a3b8f";g.fillRect(962,170,16,700);g.fillRect(1592,320,14,550);
+  const p=seg(l,0.15,3.2);
+  if(p>0&&p<1)E("🐕",-140+p*2240,950-Math.abs(Math.sin(l*15))*34,160,{flip:true});
+};
+
+// 2. cavalo e boi atravessando a estrada à noite
+DRAW[1]=(l,D,t)=>{
+  sky("#0d0730","#25155f");stars(t,60,420);
+  g.fillStyle="#123a33";g.fillRect(0,470,W,610);
+  const hz=470,vx=960;
+  g.fillStyle="#2b2450";g.beginPath();g.moveTo(vx-40,hz);g.lineTo(vx+40,hz);g.lineTo(1780,H);g.lineTo(140,H);g.closePath();g.fill();
+  for(let i=0;i<14;i++){
+    const u=((i/14)+l*.18)%1,u2=Math.min(1,u+.03),y1=hz+u*u*610,y2=hz+u2*u2*610,w1=2+u*u*16,w2=2+u2*u2*16;
+    g.fillStyle="#ffd86b";g.beginPath();g.moveTo(vx-w1,y1);g.lineTo(vx+w1,y1);g.lineTo(vx+w2,y2);g.lineTo(vx-w2,y2);g.closePath();g.fill();
+  }
+  for(let i=0;i<9;i++){const u=((i/9)+l*.18)%1,y=hz+u*u*610,hh=10+u*u*90,off=60+u*u*940;[vx-off-30,vx+off+30].forEach(x=>{g.fillStyle="#5a4a2e";g.fillRect(x-3-u*5,y-hh,6+u*10,hh);});}
+  const p=ease(seg(l,1.2,7.6)),hy=hz+8+p*120,sp=24+p*120,r=14+p*70;
+  g.fillStyle=`rgba(255,240,180,${.05+p*.12})`;g.beginPath();g.moveTo(vx-sp,hy);g.lineTo(vx+sp,hy);g.lineTo(vx+sp*5,H);g.lineTo(vx-sp*5,H);g.closePath();g.fill();
+  [-1,1].forEach(s=>{glow(vx+s*sp,hy,r*3,"255,240,180",.55);circle(vx+s*sp,hy,r*.35,"#fffbe6");});
+  const hx=1560-seg(l,0.3,8.3)*760,cx=1900-seg(l,1.0,8.3)*700;
+  E("🐄",cx,790-Math.abs(Math.sin(l*5))*8,210,{flip:true});
+  E("🐎",hx,700-Math.abs(Math.sin(l*6))*10,240,{flip:true});
+};
+
+// 3. drone varrendo o mapa do bairro
+const M3={MX:660,MY:180,cols:6,rows:4,bw:162,bh:158,st:30};
+const P3=(()=>{const{MX,MY,cols,rows,bw,bh,st}=M3,x0=MX-40,x1=MX+cols*(bw+st)+10,pts=[];for(let r=0;r<rows;r++){const y=MY+bh/2+r*(bh+st);if(r%2===0){pts.push([x0,y],[x1,y]);}else{pts.push([x1,y],[x0,y]);}}return pts;})();
+const L3=(()=>{let s=0;for(let i=1;i<P3.length;i++)s+=Math.hypot(P3[i][0]-P3[i-1][0],P3[i][1]-P3[i-1][1]);return s;})();
+function along(pts,d){for(let i=1;i<pts.length;i++){const a=pts[i-1],b=pts[i],s=Math.hypot(b[0]-a[0],b[1]-a[1]);if(d<=s){const q=d/s;return{x:a[0]+(b[0]-a[0])*q,y:a[1]+(b[1]-a[1])*q,i};}d-=s;}const z=pts[pts.length-1];return{x:z[0],y:z[1],i:pts.length-1};}
+const HID=[["🐈",880,358,.18],["🐕",1640,545,.58],["🐄",1010,735,.72],["🐕",1300,920,.93]];
+DRAW[2]=(l,D,t)=>{
+  sky("#120a3c","#1d1250");
+  const{MX,MY,cols,rows,bw,bh,st}=M3;cityMap(MX,MY,cols,rows,bw,bh,st,3);
+  const p=ease(seg(l,0.8,D-0.3)),pos=along(P3,p*L3);
+  g.save();g.beginPath();g.roundRect(MX-st,MY-st,cols*(bw+st)+st,rows*(bh+st)+st,28);g.clip();
+  const band=bh+st;
+  for(let r=0;r<rows;r++){
+    const y=MY-st/2+r*band;let cov=0,xa=0,xb=0;
+    const rowOf=Math.floor((pos.i-1)/2);
+    if(r<rowOf){xa=0;xb=W;cov=1;}else if(r===rowOf){const a=P3[r*2][0];xa=Math.min(a,pos.x);xb=Math.max(a,pos.x);cov=1;}
+    if(cov){g.fillStyle="rgba(46,230,166,.16)";g.fillRect(xa,y,xb-xa,band);}
+  }
+  g.restore();
+  g.save();g.strokeStyle="#2ee6a6";g.lineWidth=5;g.setLineDash([16,14]);g.beginPath();g.moveTo(P3[0][0],P3[0][1]);
+  for(let i=1;i<=pos.i&&i<P3.length;i++){if(i<pos.i)g.lineTo(P3[i][0],P3[i][1]);}g.lineTo(pos.x,pos.y);g.stroke();g.restore();
+  HID.forEach(([e,x,y,at],i)=>{const q=seg(p,at,at+.04);if(q>0){E(e,x,y,70,{sc:back(q)});const k=seg(p,at,at+.12);g.strokeStyle=`rgba(255,94,122,${1-k})`;g.lineWidth=5;g.beginPath();g.arc(x,y,40+k*70,0,7);g.stroke();}});
+  glow(pos.x,pos.y,150,"46,230,166",.28);
+  g.fillStyle="rgba(10,5,30,.35)";g.beginPath();g.ellipse(pos.x+30,pos.y+60,95,40,0,0,7);g.fill();
+  drone(pos.x,pos.y,.95,t,Math.sin(t*2)*.05);
+};
+
+// 4. visão da câmera térmica, com detecções
+const V4={x:560,y:120,w:1290,h:830};
+DRAW[3]=(l,D,t)=>{
+  sky("#120a3c","#1d1250");
+  const{x:VX,y:VY,w:VW,h:VH}=V4;
+  g.save();rr(VX,VY,VW,VH,26);g.clip();
+  const bg=g.createLinearGradient(0,VY,0,VY+VH);bg.addColorStop(0,"#070325");bg.addColorStop(1,"#1a0c4a");g.fillStyle=bg;g.fillRect(VX,VY,VW,VH);
+  const ox=-l*20;
+  g.fillStyle="#16104a";g.beginPath();g.moveTo(VX,VY+520);g.lineTo(VX+VW,VY+440);g.lineTo(VX+VW,VY+760);g.lineTo(VX,VY+VH);g.closePath();g.fill();
+  for(let i=0;i<6;i++){const hx=VX+ox+i*260-40;g.fillStyle="#1f1760";g.fillRect(hx,VY+150+rnd(i)*60,200,260);g.fillStyle="#2a1f74";g.fillRect(hx+30,VY+200+rnd(i)*60,50,60);}
+  glow(VX+ox+1180,VY+170,90,"255,194,26",.45);
+  const px=VX+ox+340+l*14,py=VY+470,cx=VX+ox+780,cy=VY+590,dx=VX+ox+1090,dy=VY+650;
+  HS("🚗",cx,cy,300);HS("🚶",px,py,270,true);HS("🐕",dx,dy,165);
+  for(let y=VY;y<VY+VH;y+=6){g.fillStyle="rgba(255,255,255,.025)";g.fillRect(VX,y,VW,2);}
+  dbox(px-100,py-150,200,300,"#ffffff","pessoa",seg(l,4.8,5.4));
+  dbox(cx-160,cy-110,320,210,"#13b5d6","carro",seg(l,5.6,6.2));
+  const pd=seg(l,6.9,7.4);dbox(dx-95,dy-85,190,165,"#ff5e7a","cachorro!",pd,8+Math.sin(l*12)*2*pd);
+  g.restore();
+  g.strokeStyle="rgba(255,255,255,.85)";g.lineWidth=6;const c=60;
+  [[VX+24,VY+24,1,1],[VX+VW-24,VY+24,-1,1],[VX+24,VY+VH-24,1,-1],[VX+VW-24,VY+VH-24,-1,-1]].forEach(([a,b,sx,sy])=>{g.beginPath();g.moveTo(a,b+sy*c);g.lineTo(a,b);g.lineTo(a+sx*c,b);g.stroke();});
+  g.lineWidth=3;g.beginPath();g.moveTo(VX+VW/2-26,VY+VH/2);g.lineTo(VX+VW/2+26,VY+VH/2);g.moveTo(VX+VW/2,VY+VH/2-26);g.lineTo(VX+VW/2,VY+VH/2+26);g.stroke();
+  if(Math.floor(t*2)%2)circle(VX+70,VY+76,13,"#ff5e7a");T("REC",VX+94,VY+77,32,"#fff",{w:700});
+  T("TÉRMICA · 22:47",VX+VW-60,VY+77,32,"#fff",{w:700,a:"right"});
+  const sx=VX+VW-70,gr=g.createLinearGradient(0,VY+180,0,VY+600);gr.addColorStop(0,"#fffbd0");gr.addColorStop(.3,"#ffc21a");gr.addColorStop(.6,"#fb3b5c");gr.addColorStop(1,"#2a1f74");
+  g.fillStyle=gr;rr(sx,VY+180,26,420,13);g.fill();T("quente",sx-14,VY+170,26,"#fff",{a:"right",w:700,f:"n"});T("frio",sx-14,VY+612,26,"#fff",{a:"right",w:700,f:"n"});
+};
+
+// 5. comparação com as fotos cadastradas
+const C5=[{e:"🐩",n:"Floquinho",v:.28,w:"pouco parecido"},{e:"🦮",n:"Mel",v:.55,w:"mais ou menos"},{e:"🐕",n:"Pipoca",v:.94,w:"muito parecido"}];
+DRAW[4]=(l,D,t)=>{
+  sky("#140c3d","#22145a");
+  const z=ease(seg(l,0.3,1.4)),win=seg(l,5.7,6.1);
+  g.save();if(win>0){g.shadowColor="#2ee6a6";g.shadowBlur=50*win;}
+  g.fillStyle="#fff";rr(150,230,470,500,34);g.fill();g.restore();
+  const lb=g.createRadialGradient(385,420,10,385,470,300);lb.addColorStop(0,"#ffe6a8");lb.addColorStop(1,"#4a3b8f");
+  g.fillStyle=lb;rr(172,252,426,400,24);g.fill();
+  E("🐕",385,465,150+z*110);
+  T("câmera comum + zoom 🔍",385,690,32,"#1b1035",{a:"center",w:600});
+  g.strokeStyle="#2ee6a6";g.lineWidth=5;const k=42;[[182,262,1,1],[588,262,-1,1],[182,642,1,-1],[588,642,-1,-1]].forEach(([a,b,sx,sy])=>{g.beginPath();g.moveTo(a,b+sy*k);g.lineTo(a,b);g.lineTo(a+sx*k,b);g.stroke();});
+  T("fotos cadastradas pelos donos",830,222,34,"#d9ccff",{w:800,f:"n"});
+  C5.forEach((c,i)=>{
+    const x=830+i*345,y=260,cw=300,ch=330,a0=1.0+i*1.4,sc=seg(l,a0,a0+1.2),best=i===2&&win>0;
+    const app=back(seg(l,.4+i*.2,1.0+i*.2));if(app<=0)return;
+    g.save();g.translate(x+cw/2,y+ch/2);g.scale(app,app);g.translate(-(x+cw/2),-(y+ch/2));
+    if(best){g.shadowColor="#2ee6a6";g.shadowBlur=60*win;}
+    g.fillStyle="#fff";rr(x,y,cw,ch,30);g.fill();g.shadowBlur=0;
+    if(best){g.strokeStyle="#2ee6a6";g.lineWidth=10;rr(x,y,cw,ch,30);g.stroke();}
+    E(c.e,x+cw/2,y+140,170);T(c.n,x+cw/2,y+285,44,"#1b1035",{a:"center"});
+    if(sc>0&&sc<1){const sy=y+sc*ch;g.fillStyle="rgba(46,230,166,.35)";g.fillRect(x,y,cw,sy-y);g.fillStyle="#2ee6a6";g.fillRect(x,sy-4,cw,8);}
+    g.restore();
+    const bw=cw,by=y+ch+40;g.fillStyle="rgba(255,255,255,.18)";rr(x,by,bw,28,14);g.fill();
+    const v=c.v*ease(sc);if(v>0){g.fillStyle=i===2?"#2ee6a6":i===1?"#ffc21a":"#ff5e7a";rr(x,by,bw*v,28,14);g.fill();}
+    if(sc>=1)T(c.w,x+bw/2,by+62,32,"#fff",{a:"center",w:800,f:"n"});
+  });
+  [["🎨 pelagem",3.2],["🔵 manchas",3.9],["📏 tamanho",4.6]].forEach(([s,a],i)=>{
+    const q=back(seg(l,a,a+.5));if(q<=0)return;const x=830+i*345+150,y=860;
+    g.save();g.translate(x,y);g.scale(q,q);g.fillStyle="#b366ff";rr(-150,-40,300,80,40);g.fill();T(s+" ✓",0,2,38,"#fff",{a:"center"});g.restore();
+  });
+};
+
+// 6. fotos sendo marcadas por pessoas
+const C6=[["🐕","cachorro","#ffc21a"],["🐈","gato","#2ee6a6"],["🐎","cavalo","#13b5d6"],["🐄","boi","#ff5e7a"],["🐩","cachorro","#ffc21a"],["🐈‍⬛","gato","#2ee6a6"],["🐂","boi","#ff5e7a"],["🐴","cavalo","#13b5d6"],["🦮","cachorro","#ffc21a"],["🐱","gato","#2ee6a6"],["🐮","boi","#ff5e7a"],["🐕","cachorro","#ffc21a"]];
+const LX=1120;
+DRAW[5]=(l,D,t)=>{
+  sky("#140c3d","#24155c");
+  g.save();g.beginPath();g.rect(330,640,W-330,300);g.clip();
+  C6.forEach((c,i)=>{const x=-260+i*200+l*190,y=790;if(x<200||x>2100)return;g.globalAlpha=.55;g.fillStyle="#fff";rr(x-75,y-90,150,180,22);g.fill();E(c[0],x,y-18,86);g.fillStyle=c[2];rr(x-60,y+42,120,34,17);g.fill();T(c[1],x,y+60,24,"#1b1035",{a:"center",w:700});g.globalAlpha=1;});
+  g.restore();
+  g.save();g.strokeStyle="rgba(255,255,255,.5)";g.lineWidth=4;g.setLineDash([14,12]);g.beginPath();g.moveTo(LX,300);g.lineTo(LX,640);g.stroke();g.restore();
+  E("🧑‍💻",LX,235,110);
+  C6.forEach((c,i)=>{
+    const x=1560+i*270-l*300,y=470;if(x<-150||x>2100)return;
+    const done=x<LX,q=back(clamp((LX-x)/90));
+    g.fillStyle="#fff";rr(x-105,y-125,210,250,28);g.fill();
+    E(c[0],x,y-25,130);
+    if(done){g.save();g.translate(x,y+82);g.scale(q,q);g.fillStyle=c[2];rr(-88,-24,176,48,24);g.fill();T(c[1]+" ✔",0,1,30,"#1b1035",{a:"center",w:700});g.restore();}
+    else{g.fillStyle="#d9ccff";rr(-50+x,y+58,100,48,24);g.fill();T("?",x,y+83,34,"#1b1035",{a:"center",w:700});}
+  });
+};
+
+// 7. alerta no celular e rota do resgate
+const M7={MX:920,MY:330,cols:4,rows:3,bw:205,bh:186,st:28};
+const gx=i=>M7.MX-M7.st/2+i*(M7.bw+M7.st),gy=i=>M7.MY-M7.st/2+i*(M7.bh+M7.st);
+const R7=[[gx(1),gy(3)],[gx(1),gy(2)],[gx(1),gy(1)],[gx(2),gy(1)],[gx(3),gy(1)]];
+const L7=(()=>{let s=0;for(let i=1;i<R7.length;i++)s+=Math.hypot(R7[i][0]-R7[i-1][0],R7[i][1]-R7[i-1][1]);return s;})();
+DRAW[6]=(l,D,t)=>{
+  sky("#140c3d","#22145a");
+  const{MX,MY,cols,rows,bw,bh,st}=M7;cityMap(MX,MY,cols,rows,bw,bh,st,21);
+  const dogX=gx(3),dogY=gy(1);
+  E("🏠",gx(4)-70,gy(0)+70,70);T("casa do Pipoca",gx(4)-70,gy(0)+125,24,"#fff",{a:"center",w:800,f:"n"});
+  const rp=ease(seg(l,1.8,6.6)),pos=along(R7,rp*L7);
+  if(rp>0){g.save();g.strokeStyle="#ff5e7a";g.lineWidth=10;g.lineCap="round";g.setLineDash([2,20]);g.beginPath();g.moveTo(R7[0][0],R7[0][1]);for(let i=1;i<=pos.i&&i<R7.length;i++){if(i<pos.i)g.lineTo(R7[i][0],R7[i][1]);}g.lineTo(pos.x,pos.y);g.stroke();g.restore();}
+  for(let k=0;k<3;k++){const ph=((l*.9+k/3)%1);g.strokeStyle=`rgba(255,94,122,${1-ph})`;g.lineWidth=6;g.beginPath();g.arc(dogX,dogY,20+ph*90,0,7);g.stroke();}
+  circle(dogX,dogY,40,"#ff5e7a");E("🐕",dogX,dogY,50);
+  E("🚐",pos.x,pos.y-8,74,{flip:pos.i>=3});
+  T("resgate",R7[0][0],R7[0][1]+50,24,"#fff",{a:"center",w:800,f:"n"});
+  // celular
+  const PX=380,PY=170,PW=420,PH=840;
+  g.fillStyle="#0b0720";rr(PX,PY,PW,PH,60);g.fill();
+  const sc=g.createLinearGradient(0,PY,0,PY+PH);sc.addColorStop(0,"#8b3dff");sc.addColorStop(1,"#fb3b5c");g.fillStyle=sc;rr(PX+16,PY+16,PW-32,PH-32,46);g.fill();
+  g.fillStyle="#0b0720";rr(PX+PW/2-60,PY+30,120,30,15);g.fill();
+  T("22:51",PX+PW/2,PY+150,96,"#fff",{a:"center",w:600});
+  const nq=ease(seg(l,0.8,1.4)),ny=PY+250-(1-nq)*200;
+  if(nq>0){g.save();g.globalAlpha=nq;g.fillStyle="#fff";rr(PX+34,ny,PW-68,250,30);g.fill();
+    T("🚁 Drone de resgate · agora",PX+60,ny+40,22,"#5b4f75",{w:800,f:"n"});
+    T("🐕 Será o Pipoca?",PX+60,ny+95,38,"#1b1035",{w:700});
+    T("Visto perto da praça.",PX+60,ny+145,26,"#5b4f75",{w:700,f:"n"});
+    T("Confira a foto e confirme.",PX+60,ny+182,26,"#5b4f75",{w:700,f:"n"});
+    g.restore();}
+  const bq=back(seg(l,4.4,4.9));
+  if(bq>0){const by=PY+540,tap=seg(l,6.0,6.3);
+    g.save();g.translate(PX+PW/2,by+40);g.scale(bq,bq);g.translate(-(PX+PW/2),-(by+40));
+    g.fillStyle=tap>0?"#2ee6a6":"#fff";rr(PX+40,by,165,80,40);g.fill();T(tap>0?"✔ É ele!":"É ele!",PX+122,by+42,32,"#1b1035",{a:"center",w:700});
+    g.fillStyle="rgba(255,255,255,.35)";rr(PX+215,by,165,80,40);g.fill();T("Não é",PX+297,by+42,32,"#fff",{a:"center",w:700});g.restore();
+    const fx=PX+150+(1-ease(seg(l,5.2,6.0)))*220,fy=by+110+(1-ease(seg(l,5.2,6.0)))*160;if(l>5.1&&l<7.4)E("👆",fx,fy,90);
+    if(tap>=1){const q=back(seg(l,6.4,6.9));g.save();g.translate(PX+PW/2,PY+740);g.scale(q,q);T("Confirmado por uma pessoa",0,0,27,"#fff",{a:"center",w:800,f:"n"});g.restore();}
+  }
+};
+
+// 8. reencontro ao amanhecer e cavalo de volta ao campo
+DRAW[7]=(l,D,t)=>{
+  const gr=g.createLinearGradient(0,0,0,H);gr.addColorStop(0,"#ffe3f1");gr.addColorStop(.55,"#ffd0a8");gr.addColorStop(1,"#ffc21a");g.fillStyle=gr;g.fillRect(0,0,W,H);
+  const su=ease(seg(l,0,3));glow(1500,640-su*120,420,"255,255,255",.65);circle(1500,640-su*120,120,"#fff4c2");
+  g.fillStyle="#7cc417";g.beginPath();g.moveTo(0,800);g.quadraticCurveTo(700,700,1300,790);g.quadraticCurveTo(1650,840,W,760);g.lineTo(W,H);g.lineTo(0,H);g.closePath();g.fill();
+  g.fillStyle="#5aa30f";g.fillRect(0,890,W,190);
+  g.fillStyle="#ffffff";rr(260,560,300,260,10);g.fill();g.fillStyle="#fb3b5c";g.beginPath();g.moveTo(230,570);g.lineTo(410,440);g.lineTo(590,570);g.closePath();g.fill();g.fillStyle="#8b3dff";rr(370,680,80,140,10);g.fill();
+  for(let x=1380;x<W;x+=90){g.fillStyle="#8a5a2b";g.fillRect(x,700,16,110);}g.fillRect(1380,720,W-1380,12);g.fillRect(1380,765,W-1380,12);
+  const m=ease(seg(l,0.2,2.6)),girlX=640+m*260,dogX=1300-m*230,met=l>2.6;
+  const j=met?Math.abs(Math.sin(l*7))*40:0;
+  E("👧",girlX-20,850-j,200);
+  E("🐕",dogX,880-(met?Math.abs(Math.sin(l*7+1))*50:Math.abs(Math.sin(l*16))*26),160,{flip:false});
+  if(met){for(let i=0;i<14;i++){const k=((l-2.6)*.6+i/14)%1;E("❤️",950+Math.sin(i*2.3+l*2)*180,780-k*520,40+rnd(i)*30,{alpha:1-k});}}
+  const hp=ease(seg(l,3.2,6.6));E("🐎",2080-hp*380,640-Math.abs(Math.sin(l*7))*12,170,{flip:true});
+  if(l>5.0){const q=back(seg(l,5.0,5.5));g.save();g.translate(1700,560);g.scale(q,q);g.fillStyle="#fff";rr(-150,-36,300,72,36);g.fill();T("de volta ao campo",0,2,30,"#1b1035",{a:"center",w:700});g.restore();}
+};
+
+// 9. cuidados: drone passa voando alto sobre a cidade
+DRAW[8]=(l,D,t)=>{
+  sky("#0d0730","#2a1466");stars(t,50,420);
+  for(let i=0;i<14;i++){const x=i*150-30,h=110+rnd(i+30)*170;g.fillStyle="#1d1350";g.fillRect(x,H-h,140,h);for(let j=0;j<3;j++)if(rnd(i*3+j)>.4){g.fillStyle="#ffd86b";g.fillRect(x+20+j*40,H-h+30,22,26);}}
+  const p=seg(l,0,D);drone(2050-p*2300,245+Math.sin(l*2)*12,.7,t,-.06);
+};
+
+// 10. convite: drone dá voltas em torno da Bia levando um coração
+DRAW[9]=(l,D,t)=>{
+  sky("#140c33","#2a1466");stars(t,80,1080);
+  if(Math.sin(l*1.6)<=0)orbitDrone(l,t);
+};
+// drone em órbita; na metade "da frente" ele é desenhado no canvas de cima, sobre a robô
+function orbitDrone(l,t){const a=l*1.6,x=960+Math.cos(a)*560,y=590+Math.sin(a)*70;drone(x,y,.6,t,Math.cos(a)*.1);E("❤️",x,y+62,54);}
+function withCtx(ctx,fn){const old=g;g=ctx;try{fn();}finally{g=old;}}
+
+// confete (cena final)
+const cf=document.getElementById("confetti").getContext("2d");
+const COLORS=["#ff5e7a","#b366ff","#2ee6a6","#ffc21a","#13b5d6","#a3e635"];
+function drawConfetti(t){
+  cf.clearRect(0,0,W,H);
+  const t0=S[9].t0+0.6;if(t<t0)return;
+  const k=t-t0;
+  for(let i=0;i<160;i++){
+    const x0=(i*523)%W,vy=280+(i*37)%260,sway=Math.sin(k*3+i)*40;
+    const y=-60+(k-(i%20)*0.12)*vy;if(y<-60||y>1120)continue;
+    cf.save();cf.translate(x0+sway,y);cf.rotate(k*4+i);cf.fillStyle=COLORS[i%6];cf.fillRect(-10,-6,20,12);cf.restore();
+  }
+}
+
+const bot=document.getElementById("bot"),armL=document.getElementById("armL"),armR=document.getElementById("armR"),eyes=document.getElementById("eyes"),mouth=document.getElementById("mouth"),antball=document.getElementById("antball");
+const els=[...document.querySelectorAll(".sc")].map(sc=>({sc,s:+sc.dataset.s,items:[...sc.querySelectorAll(".el")]}));
+const cap=document.getElementById("cap");
+
+function renderAt(t){
+  t=clamp(t,0,TOTAL-1e-3);
+  const si=sceneAt(t),sd=S[si],l=t-sd.t0;
+  g.setTransform(1,0,0,1,0,0);g.globalAlpha=1;g.setLineDash([]);
+  DRAW[si](l,sd.d,t);
+  const o=si===S.length-1?clamp(l/0.35):Math.min(clamp(l/0.35),clamp((sd.d-l)/0.35));
+  if(o<1){g.globalAlpha=1-o;g.fillStyle="#140c33";g.fillRect(0,0,W,H);g.globalAlpha=1;}
+  els.forEach(({sc,s,items})=>{
+    const d=S[s],loc=t-d.t0;
+    let op=0;if(loc>=0&&loc<d.d)op=Math.min(clamp(loc/0.35),s===S.length-1?1:clamp((d.d-loc)/0.35));
+    sc.style.opacity=op;if(!op)return;
+    items.forEach(el=>{
+      const p=clamp((loc-(+el.dataset.in||0))/0.55),fx=el.dataset.fx;let tr="",a=p>0?1:0;
+      if(fx==="pop"){tr=`scale(${0.2+0.8*back(p)})`;a=clamp(p*3);}
+      else if(fx==="zoom"){tr=`scale(${1.6-0.6*back(p)})`;a=clamp(p*2.5);}
+      else if(fx==="up"){tr=`translateY(${(1-ease(p))*60}px)`;a=ease(p);}
+      else a=ease(p);
+      el.style.opacity=a;el.style.transform=tr;
+    });
+  });
+  // robô Bia, narradora
+  const [x,y,s]=lerpKF(BOT,t);
+  const bob=Math.sin(t*3.2)*10,jump=si===9&&l>0.9?-Math.abs(Math.sin(t*5))*50:0;
+  bot.style.transform=`translate(${x}px,${y-470+bob+jump}px) scale(${s})`;
+  const wave=(t>0.9&&t<3.2)||si===9||(si===7&&l>2.6);
+  armR.style.transform=`rotate(${wave?-35+Math.sin(t*10)*28:Math.sin(t*2)*6}deg)`;
+  armL.style.transform=`rotate(${Math.sin(t*2+1)*6}deg)`;
+  eyes.style.transform=`scaleY(${(t%3.1)<0.12?0.1:1})`;
+  const talking=l>sd.n&&l<sd.n+sd.nd&&Math.sin(t*22)>-.2;
+  mouth.setAttribute("d",talking?"M165 188 Q190 226 215 188 Z":"M160 192 Q190 214 220 192");
+  mouth.setAttribute("fill-opacity",talking?"1":"0");
+  antball.setAttribute("fill",(Math.floor(t*2)%2)?"#2ee6a6":"#ffc21a");
+  drawConfetti(t);
+  if(si===9&&Math.sin(l*1.6)>0)withCtx(cf,()=>orbitDrone(l,t));
+  cap.textContent=(l>sd.n-0.1&&l<sd.n+sd.nd+0.4)?sd.txt:"";
+}
+window.renderAt=renderAt;window.TOTAL=TOTAL;
+
+// roteiro em tabela
+const fmt=s=>{s=Math.round(s);return Math.floor(s/60)+":"+String(s%60).padStart(2,"0");};
+const rot=document.getElementById("rot");
+S.forEach((s,i)=>{const tr=document.createElement("tr");tr.innerHTML=`<td>${fmt(s.t0)} a ${fmt(s.t0+s.d)}</td><td>${i+1}. ${s.nome}</td><td>${s.txt}</td>`;rot.appendChild(tr);});
+
+// reprodução no navegador, sincronizada com o áudio quando ele existir
+const stage=document.getElementById("stage"),viewer=document.getElementById("viewer"),aud=document.getElementById("aud");
+const playB=document.getElementById("play"),seek=document.getElementById("seek"),clock=document.getElementById("clock");
+function fit(){stage.style.transform=`scale(${viewer.clientWidth/1920})`;}
+let playing=false,base=0,tStart=0,useAudio=true;
+aud.addEventListener("error",()=>{useAudio=false;});
+function now(){return useAudio&&!aud.paused?aud.currentTime:base+(performance.now()-tStart)/1000;}
+function loop(){
+  if(!playing)return;
+  let t=now();if(t>=TOTAL){t=TOTAL;stop();}
+  renderAt(t);seek.value=t/TOTAL*1000;clock.textContent=fmt(t);
+  requestAnimationFrame(loop);
+}
+function start(){
+  if(base>=TOTAL-0.05)base=0;
+  playing=true;playB.textContent="❚❚ Pausar";tStart=performance.now();
+  if(useAudio){aud.currentTime=base;aud.play().catch(()=>{useAudio=false;});}
+  loop();
+}
+function stop(){playing=false;base=Math.min(now(),TOTAL);aud.pause();playB.textContent="▶ Assistir";}
+playB.addEventListener("click",()=>playing?stop():start());
+seek.addEventListener("input",()=>{base=seek.value/1000*TOTAL;if(playing){aud.currentTime=base;tStart=performance.now();}renderAt(base);clock.textContent=fmt(base);});
+
+// modo de exportação: #render deixa só o palco, em tamanho real
+if(location.hash==="#render"){
+  document.body.className="render";
+  document.body.replaceChildren(stage);
+}else{
+  addEventListener("resize",fit);fit();
+}
+document.fonts.ready.then(()=>renderAt(location.hash==="#render"?0:2.4));
+</script>
+</body>
+</html>

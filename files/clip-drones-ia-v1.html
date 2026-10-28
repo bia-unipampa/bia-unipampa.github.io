@@ -1,0 +1,553 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Drones e IA no Campo</title>
+<meta name="description" content="Clip animado do BIA nas Escolas: a robô Bia mostra como drones e inteligência artificial encontram pragas, doenças, falta de água e falhas de plantio nas lavouras da Fronteira Oeste.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400..700&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fffaf2;--panel:#ffffff;--ink:#1b1035;--soft:#5b4f75;--line:#eadff0;
+  --pink:#fb3b5c;--purple:#8b3dff;--mint:#12c48b;--lime:#7cc417;--cyan:#13b5d6;--sun:#ffc21a;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#140c33;--panel:#1f1550;--ink:#f4efff;--soft:#c3b8e0;--line:#2e2357;--purple:#b58bff}
+}
+:root[data-theme="dark"]{--bg:#140c33;--panel:#1f1550;--ink:#f4efff;--soft:#c3b8e0;--line:#2e2357;--purple:#b58bff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Nunito",system-ui,sans-serif;font-size:1.06rem;line-height:1.6}
+a{color:var(--purple);text-underline-offset:3px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+@media (max-width:600px){.wrap{padding:0 16px}}
+h1,h2,h3{font-family:"Fredoka",system-ui,sans-serif;line-height:1.05;margin:0}
+.top{padding:14px 0 0}
+.top a{color:var(--soft);font-weight:700;text-decoration:none;font-size:.95rem}
+.hd{padding:26px 0 22px}
+.hd h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:700}
+.hd p{color:var(--soft);max-width:66ch;margin:10px 0 0}
+.player video{display:block;width:100%;height:auto;border-radius:18px;background:#140c33;box-shadow:0 10px 40px rgba(27,16,53,.25)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.btn{display:inline-flex;font-weight:800;font-size:.98rem;padding:10px 20px;border-radius:999px;text-decoration:none;border:3px solid var(--purple)}
+.btn.solid{background:var(--purple);color:#fff}
+.btn.line{color:var(--purple)}
+.blk{margin:44px 0 0}
+.blk h2{font-size:1.8rem;margin-bottom:10px}
+.blk .sub{color:var(--soft);max-width:68ch;margin:0 0 16px}
+.tbl{overflow-x:auto}
+.rot{width:100%;border-collapse:collapse;font-size:.98rem;min-width:620px}
+.rot td,.rot th{text-align:left;vertical-align:top;padding:10px 12px 10px 0;border-bottom:1px solid var(--line)}
+.rot th{color:var(--soft);font-size:.88rem}
+.rot td:first-child{font-weight:800;color:var(--purple);white-space:nowrap}
+.learn{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;padding:0;list-style:none;margin:0}
+.learn li{background:var(--panel);border:2px solid var(--line);border-radius:20px;padding:14px 16px}
+.learn b{font-family:"Fredoka",sans-serif;font-weight:600;font-size:1.12rem;display:block;margin-bottom:2px}
+.note{color:var(--soft);font-size:.95rem;margin-top:18px}
+footer{border-top:1px solid var(--line);margin-top:52px;padding:28px 0 56px;color:var(--soft);font-size:.95rem}
+
+/* ===== palco 1920 x 1080, usado só para gerar os quadros (modo #render) ===== */
+#stage{display:none;width:1920px;height:1080px;background:#140c33;overflow:hidden;font-family:"Fredoka",system-ui,sans-serif;color:#fff;position:relative}
+body.render{margin:0;background:#140c33}
+body.render #stage{display:block}
+#bgc,#fld,#confetti{position:absolute;inset:0}
+#confetti{pointer-events:none}
+.sc{position:absolute;inset:0;opacity:0}
+.el{position:absolute;opacity:0;will-change:transform,opacity}
+.t-big{font-weight:700;font-size:120px;line-height:1;letter-spacing:-.01em;text-shadow:0 6px 30px rgba(20,12,51,.6)}
+.t-mid{font-weight:600;font-size:76px;line-height:1.05;white-space:nowrap}
+.t-sm{font-family:"Nunito",sans-serif;font-weight:800;font-size:44px;line-height:1.2;color:#e6ddff;text-shadow:0 3px 18px rgba(20,12,51,.7)}
+.grad{background:linear-gradient(90deg,#ff5e7a,#b366ff 45%,#2ee6a6);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none}
+.chip{border-radius:999px;padding:14px 32px;font-weight:600;font-size:44px;color:#1b1035;white-space:nowrap;box-shadow:0 8px 0 rgba(0,0,0,.25)}
+.chip.s{font-size:40px;padding:12px 28px}
+.card{background:#fff;color:#1b1035;border-radius:36px;padding:26px 30px;text-align:center;box-shadow:0 14px 0 rgba(0,0,0,.25)}
+.card .em{font-size:100px;line-height:1.1;display:block}
+.card b{display:block;font-size:42px;font-weight:600;margin-top:6px}
+.mini{background:#fff;color:#1b1035;border-radius:28px;width:190px;padding:14px 8px 16px;text-align:center;box-shadow:0 10px 0 rgba(0,0,0,.25)}
+.mini .em{font-size:96px;line-height:1.1;display:block}
+.mini b{display:inline-block;font-size:30px;font-weight:600;border-radius:999px;padding:2px 14px;margin-top:6px;color:#fff}
+#bot{position:absolute;left:0;top:0;width:380px;height:470px;transform-origin:50% 100%}
+</style>
+</head>
+<body>
+<div id="page">
+<div class="wrap top"><a href="escolas-bia-v1.html">← BIA nas Escolas</a></div>
+<header class="hd">
+  <div class="wrap">
+    <h1>Drones e IA no campo</h1>
+    <p>Clip animado para estudantes do ensino fundamental e médio. A robô Bia sobrevoa uma lavoura da Fronteira Oeste com um drone e mostra como a inteligência artificial encontra pragas, doenças, falta de água e falhas de plantio, como ela aprendeu a fazer isso e por que a decisão final continua sendo de gente.</p>
+  </div>
+</header>
+<div class="wrap player">
+  <video controls preload="metadata" poster="clip-drones-ia-v1/poster.jpg">
+    <source src="clip-drones-ia-v1/clip-drones-ia-v1.mp4" type="video/mp4">
+    <track kind="captions" src="clip-drones-ia-v1/legendas.vtt" srclang="pt-BR" label="Português" default>
+  </video>
+  <div class="actions">
+    <a class="btn solid" href="clip-drones-ia-v1/clip-drones-ia-v1.mp4" download>Baixar MP4 (1920 × 1080)</a>
+    <a class="btn line" href="clip-drones-ia-v1/legendas.vtt" download>Baixar legendas (VTT)</a>
+  </div>
+</div>
+
+<section class="wrap blk">
+  <h2>Roteiro</h2>
+  <p class="sub">Dez cenas: o tamanho do problema, o voo de varredura, o mapa de saúde das plantas, as marcações da IA, como ela aprendeu, o uso do mapa na lavoura, o papel do agrônomo e o convite para o BIA.</p>
+  <div class="tbl"><table class="rot"><thead><tr><th>Tempo</th><th>Cena</th><th>Narração da Bia</th></tr></thead><tbody id="rot"></tbody></table></div>
+</section>
+
+<section class="wrap blk">
+  <h2>O que a turma leva para casa</h2>
+  <ul class="learn">
+    <li><b>📸 Dados</b>O drone fotografa a lavoura inteira, em linhas, como quem corta grama.</li>
+    <li><b>🌈 Ver o invisível</b>Câmeras especiais medem cores que o olho humano não enxerga e mostram a saúde das plantas.</li>
+    <li><b>🧠 Exemplos</b>A IA aprende com imagens marcadas por agrônomos. Exemplo ruim, aprendizado ruim.</li>
+    <li><b>💧 Cuidado</b>Com o mapa, o produtor aplica defensivo e água só onde precisa.</li>
+    <li><b>👩‍🌾 Gente decide</b>A IA aponta suspeitas e pode errar (uma sombra parece doença). Quem confirma é o agrônomo.</li>
+  </ul>
+  <p class="note">A lavoura, as manchas e o mapa de cores são ilustrativos, desenhados para explicar a ideia; não são imagens nem dados de uma propriedade real. A voz é sintética e serve para marcar o ritmo; a versão final pode ser dublada por estudantes do BIA.</p>
+</section>
+
+<footer>
+  <div class="wrap">BIA nas Escolas · Bacharelado em Inteligência Artificial, UNIPAMPA, Campus Alegrete-RS. Clip "Drones e IA no campo", versão 1, outubro de 2026. <a href="escolas-bia-v1.html">Proposta completa do BIA nas Escolas</a>.</div>
+</footer>
+</div>
+
+<!-- palco: cada cena tem elementos (data-in) que entram em sequência; "p2+0.4" significa 0,4 s depois do início da fala 2 da cena -->
+<div id="stage">
+  <canvas id="bgc" width="1920" height="1080"></canvas>
+  <canvas id="fld" width="1920" height="1080"></canvas>
+
+  <section class="sc" data-s="0">
+    <div class="el t-big" data-in="0.5" data-fx="pop" style="left:120px;top:110px;font-size:130px">Missão no<br><span class="grad">campo!</span></div>
+    <div class="el t-sm" data-in="p1" data-fx="up" style="left:126px;top:400px">drones + inteligência artificial</div>
+    <div class="el chip" data-in="p1+1.4" data-fx="left" style="left:126px;top:490px;background:#ffc21a">📍 Fronteira Oeste · Alegrete-RS</div>
+  </section>
+
+  <section class="sc" data-s="1">
+    <div class="el t-mid" data-in="0.3" data-fx="up" style="left:640px;top:100px">Uma lavoura é <span class="grad">enorme</span></div>
+    <div class="el chip" data-in="p0+0.9" data-fx="left" style="left:120px;top:300px;background:#2ee6a6">🌾 arroz</div>
+    <div class="el chip" data-in="p0+1.7" data-fx="left" style="left:120px;top:420px;background:#a3e635">🫘 soja</div>
+    <div class="el chip" data-in="p1+0.6" data-fx="left" style="left:120px;top:540px;background:#ff5e7a;color:#fff">🚶 a pé: dias!</div>
+  </section>
+
+  <section class="sc" data-s="2">
+    <div class="el t-mid" data-in="0.3" data-fx="up" style="left:640px;top:100px">O drone faz a <span class="grad">varredura</span></div>
+    <div class="el chip" data-in="p0+1.6" data-fx="left" style="left:120px;top:300px;background:#2ee6a6">🧭 voo em linhas</div>
+    <div class="el chip" data-in="p1" data-fx="left" style="left:120px;top:420px;background:#ffc21a">📸 foto de tudo</div>
+  </section>
+
+  <section class="sc" data-s="3">
+    <div class="el t-mid" data-in="0.3" data-fx="up" style="left:640px;top:100px">Enxergando o <span class="grad">invisível</span></div>
+    <div class="el chip" data-in="p1+0.3" data-fx="left" style="left:120px;top:300px;background:#1fae55;color:#fff">🟩 saudável</div>
+    <div class="el chip" data-in="p1+2.0" data-fx="left" style="left:120px;top:420px;background:#e8323c;color:#fff">🟥 problema</div>
+  </section>
+
+  <section class="sc" data-s="4">
+    <div class="el t-mid" data-in="0.3" data-fx="up" style="left:640px;top:100px">A IA <span class="grad">marca</span> o que viu</div>
+    <div class="el chip" data-in="p0+0.6" data-fx="left" style="left:120px;top:300px;background:#b366ff;color:#fff">🤖 analisando</div>
+    <div class="el chip" data-in="p4+0.6" data-fx="left" style="left:120px;top:420px;background:#ff5e7a;color:#fff">4 problemas</div>
+    <div class="el chip" data-in="p5+1.6" data-fx="left" style="left:120px;top:540px;background:#ffc21a">⚠️ 1 suspeita</div>
+  </section>
+
+  <section class="sc" data-s="5">
+    <div class="el t-mid" data-in="0.3" data-fx="up" style="left:640px;top:100px">Eu aprendi com <span class="grad">exemplos</span></div>
+    <div class="el card" data-in="p0+2.0" data-fx="pop" style="left:620px;top:300px;width:330px"><span class="em">👩‍🌾👨‍🌾</span><b>Agrônomos</b></div>
+    <div class="el mini" data-in="p1" data-fx="pop" style="left:1010px;top:300px"><span class="em">🌿</span><b style="background:#1fae55">saudável</b></div>
+    <div class="el mini" data-in="p2" data-fx="pop" style="left:1220px;top:300px"><span class="em">🍂</span><b style="background:#a8692e">fungo</b></div>
+    <div class="el mini" data-in="p3" data-fx="pop" style="left:1430px;top:300px"><span class="em">🐛</span><b style="background:#ff5e7a">lagarta</b></div>
+    <div class="el mini" data-in="p4" data-fx="pop" style="left:1640px;top:300px"><span class="em">🥀</span><b style="background:#13b5d6">com sede</b></div>
+    <div class="el t-sm" data-in="p4+1.0" data-fx="up" style="left:626px;top:640px;width:1200px">Quanto mais exemplos bons,<br>melhor a IA aprende. 🧠</div>
+  </section>
+
+  <section class="sc" data-s="6">
+    <div class="el t-mid" data-in="0.3" data-fx="up" style="left:640px;top:100px">Defensivo <span class="grad">só onde precisa</span></div>
+    <div class="el chip s" data-in="p0+1.2" data-fx="left" style="left:120px;top:300px;background:#3b2f6b;color:#fff;text-decoration:line-through">lavoura inteira</div>
+    <div class="el chip s" data-in="p0+2.6" data-fx="left" style="left:120px;top:420px;background:#2ee6a6">✅ só nas manchas</div>
+    <div class="el chip s" data-in="p1" data-fx="left" style="left:120px;top:540px;background:#13b5d6;color:#fff">💧 menos veneno</div>
+  </section>
+
+  <section class="sc" data-s="7">
+    <div class="el t-mid" data-in="0.3" data-fx="up" style="left:640px;top:100px">Eu aponto. <span class="grad">Gente decide.</span></div>
+    <div class="el chip s" data-in="p0+1.4" data-fx="left" style="left:120px;top:300px;background:#ffc21a">👩‍🌾 o agrônomo confere</div>
+    <div class="el chip s" data-in="p1" data-fx="left" style="left:120px;top:420px;background:#2ee6a6">✅ era lagarta</div>
+    <div class="el chip s" data-in="p2+0.5" data-fx="left" style="left:120px;top:540px;background:#ff5e7a;color:#fff">❌ era só sombra</div>
+    <div class="el t-sm" data-in="p3" data-fx="up" style="left:646px;top:962px">A decisão final é de gente. 🧠</div>
+  </section>
+
+  <section class="sc" data-s="8">
+    <div class="el t-mid" data-in="0.4" data-fx="up" style="left:120px;top:140px;white-space:normal">Quem ensina a IA a<br>cuidar do campo?</div>
+    <div class="el t-sm" data-in="p0+2.2" data-fx="up" style="left:126px;top:340px">🌾 arroz · 🫘 soja · 🐄 pecuária</div>
+    <div class="el t-big grad" data-in="p1" data-fx="zoom" style="left:120px;top:440px;font-size:170px">Pode ser você!</div>
+    <div class="el t-sm" data-in="p2" data-fx="up" style="left:126px;top:680px;color:#fff">BIA · Bacharelado em Inteligência Artificial</div>
+    <div class="el t-sm" data-in="p2+1.2" data-fx="up" style="left:126px;top:750px">UNIPAMPA · Alegrete-RS</div>
+  </section>
+
+  <section class="sc" data-s="9">
+    <div class="el t-mid" data-in="0.2" data-fx="up" style="left:0;width:1920px;text-align:center;top:70px">Bora decolar? 🚀</div>
+    <div class="el t-big" data-in="p1" data-fx="zoom" style="left:0;width:1920px;text-align:center;top:190px;font-size:210px">Vem pro <span class="grad">BIA!</span></div>
+    <div class="el t-sm" data-in="p1+0.8" data-fx="up" style="left:0;width:1920px;text-align:center;top:440px;color:#fff;font-size:56px">bia-unipampa.github.io</div>
+  </section>
+
+  <canvas id="confetti" width="1920" height="1080"></canvas>
+
+  <svg id="bot" viewBox="0 0 380 470" aria-hidden="true">
+    <defs>
+      <linearGradient id="gb" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e3dcff"/></linearGradient>
+    </defs>
+    <g id="ant"><line x1="190" y1="70" x2="190" y2="22" stroke="#d9ccff" stroke-width="10" stroke-linecap="round"/><circle id="antball" cx="190" cy="20" r="18" fill="#2ee6a6"/></g>
+    <g id="armL" style="transform-origin:78px 300px"><rect x="18" y="285" width="70" height="32" rx="16" fill="#b366ff"/><circle cx="22" cy="301" r="24" fill="#fff"/></g>
+    <g id="armR" style="transform-origin:302px 300px"><rect x="292" y="285" width="70" height="32" rx="16" fill="#b366ff"/><circle cx="358" cy="301" r="24" fill="#fff"/></g>
+    <rect x="88" y="250" width="204" height="190" rx="54" fill="url(#gb)"/>
+    <text x="190" y="372" text-anchor="middle" font-family="Fredoka" font-weight="700" font-size="62" fill="#8b3dff">BIA</text>
+    <rect x="140" y="440" width="36" height="26" rx="10" fill="#d9ccff"/><rect x="204" y="440" width="36" height="26" rx="10" fill="#d9ccff"/>
+    <rect x="40" y="62" width="300" height="200" rx="70" fill="url(#gb)"/>
+    <rect x="70" y="92" width="240" height="140" rx="50" fill="#1b1035"/>
+    <g id="eyes" style="transform-origin:190px 150px"><ellipse cx="145" cy="148" rx="22" ry="26" fill="#2ee6a6"/><ellipse cx="235" cy="148" rx="22" ry="26" fill="#2ee6a6"/></g>
+    <path id="mouth" d="M160 192 Q190 214 220 192" stroke="#2ee6a6" stroke-width="9" fill="none" stroke-linecap="round"/>
+    <circle cx="100" cy="196" r="13" fill="#ff5e7a" opacity=".55"/><circle cx="280" cy="196" r="13" fill="#ff5e7a" opacity=".55"/>
+  </svg>
+</div>
+
+<script>
+// cenas: duração (s) e falas da Bia, com início (t) e duração (d) relativos ao começo da cena; gerado a partir do áudio
+const S=[{"nome": "Missão no campo", "d": 6.745, "parts": [{"t": 0.8, "d": 1.277, "txt": "Oi, eu sou a Bia!"}, {"t": 2.457, "d": 3.389, "txt": "Hoje eu vou voar sobre as lavouras aqui da Fronteira Oeste."}]}, {"nome": "Lavoura gigante", "d": 6.132, "parts": [{"t": 0.45, "d": 2.243, "txt": "Uma lavoura de arroz ou soja é enorme."}, {"t": 2.993, "d": 2.239, "txt": "Procurar problemas a pé levaria dias!"}]}, {"nome": "Varredura", "d": 8.0, "parts": [{"t": 0.5, "d": 2.821, "txt": "O drone voa em linhas, como quem corta grama,"}, {"t": 3.621, "d": 1.788, "txt": "e fotografa a lavoura inteira."}]}, {"nome": "Ver o invisível", "d": 7.561, "parts": [{"t": 0.45, "d": 2.82, "txt": "A câmera dele vê cores que o nosso olho não vê."}, {"t": 3.57, "d": 3.091, "txt": "Verde é planta saudável. Vermelho é problema."}]}, {"nome": "A IA marca", "d": 11.715, "parts": [{"t": 0.45, "d": 2.726, "txt": "Aí entro eu: marco cada mancha suspeita."}, {"t": 3.476, "d": 0.418, "txt": "Praga!"}, {"t": 4.275, "d": 0.594, "txt": "Doença!"}, {"t": 5.249, "d": 1.039, "txt": "Falta de água!"}, {"t": 6.668, "d": 1.085, "txt": "Falha no plantio!"}, {"t": 8.133, "d": 2.682, "txt": "E esta, perto da árvore, parece doença."}]}, {"nome": "Como eu aprendi", "d": 8.576, "parts": [{"t": 0.45, "d": 3.197, "txt": "Aprendi com muitas imagens marcadas por agrônomos."}, {"t": 3.947, "d": 0.791, "txt": "Saudável."}, {"t": 5.119, "d": 0.466, "txt": "Fungo."}, {"t": 5.965, "d": 0.664, "txt": "Lagarta."}, {"t": 7.009, "d": 0.587, "txt": "Com sede."}]}, {"nome": "Só onde precisa", "d": 9.336, "parts": [{"t": 0.5, "d": 3.618, "txt": "Com o mapa, o produtor aplica defensivo só onde precisa."}, {"t": 4.418, "d": 4.018, "txt": "Menos veneno, menos desperdício, mais cuidado com os rios."}]}, {"nome": "Quem decide", "d": 10.688, "parts": [{"t": 0.45, "d": 2.89, "txt": "Mas eu só aponto. Quem confirma é o agrônomo."}, {"t": 3.64, "d": 1.625, "txt": "A lagarta era de verdade!"}, {"t": 5.565, "d": 2.14, "txt": "Já a mancha da árvore era só sombra."}, {"t": 8.005, "d": 1.783, "txt": "A decisão final é de gente."}]}, {"nome": "Pode ser você", "d": 8.763, "parts": [{"t": 0.5, "d": 1.974, "txt": "Quem ensina a IA a cuidar do campo?"}, {"t": 2.774, "d": 0.982, "txt": "Pode ser você!"}, {"t": 4.136, "d": 3.726, "txt": "No BIA, Inteligência Artificial na UNIPAMPA, em Alegrete."}]}, {"nome": "Vem pro BIA", "d": 5.5, "parts": [{"t": 0.4, "d": 0.898, "txt": "Bora decolar?"}, {"t": 1.678, "d": 0.79, "txt": "Vem pro BIA!"}]}];//TIMING
+let acc=0;S.forEach(s=>{s.t0=acc;acc+=s.d;});
+const TOTAL=acc;
+const fmt=s=>{s=Math.round(s);return Math.floor(s/60)+":"+String(s%60).padStart(2,"0");};
+
+// roteiro em tabela
+const rot=document.getElementById("rot");
+S.forEach((s,i)=>{const tr=document.createElement("tr");tr.innerHTML=`<td>${fmt(s.t0)} a ${fmt(s.t0+s.d)}</td><td>${i+1}. ${s.nome}</td><td>${s.parts.map(p=>p.txt).join(" ")}</td>`;rot.appendChild(tr);});
+
+if(location.hash==="#render"){
+document.body.className="render";
+document.body.replaceChildren(document.getElementById("stage"));
+
+const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const ease=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const back=x=>{const c1=1.70158,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2);};
+const lerp=(a,b,p)=>a+(b-a)*p;
+function sceneAt(t){for(let i=S.length-1;i>=0;i--)if(t>=S[i].t0)return i;return 0;}
+const P=(s,k,off=0)=>S[s].parts[k].t+off;           // início da fala k da cena s (relativo à cena)
+const A=(s,k,off=0)=>S[s].t0+P(s,k,off);            // o mesmo, em tempo absoluto
+function inT(s,v){const m=/^p(\d+)([+-][\d.]+)?$/.exec(v);return m?P(s,+m[1],+(m[2]||0)):+v;}
+function rng(seed){return()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+
+// ===== a lavoura (2400 x 1440), desenhada uma vez =====
+const W=2400,H=1440;
+const FIELD=document.createElement("canvas");FIELD.width=W;FIELD.height=H;
+const roadX=y=>1080+40*Math.sin(y/300);
+const POND={x:300,y:210,rx:220,ry:135};
+const PAST={x:1800,y:0,w:600,h:330};
+const TREE={x:1150,y:640};
+const SPOT={
+  A:{x:1720,y:430,r:120,box:[1590,300,260,260],lab:"🐛 Praga"},
+  B:{x:520,y:980,r:130,box:[380,840,280,280],lab:"🍂 Doença"},
+  C:{x:1985,y:1080,r:165,box:[1810,905,350,350],lab:"💧 Falta de água"},
+  D:{x:1460,y:1180,r:120,box:[1300,1105,320,150],lab:"🌱 Falha no plantio"},
+  E:{x:1225,y:712,r:70,box:[1140,640,170,145],lab:"Doença?"}
+};
+function inPond(x,y){return ((x-POND.x)/POND.rx)**2+((y-POND.y)/POND.ry)**2<1;}
+function inPast(x,y){return x>PAST.x&&y<PAST.h-60*Math.sin((x-PAST.x)/200);}
+function inGap(x,y){return Math.abs(x-1460)<150&&Math.abs(y-1180)<55+8*Math.sin(x/30);}
+(function drawField(){
+  const c=FIELD.getContext("2d"),R=rng(7);
+  c.fillStyle="#7a5a36";c.fillRect(0,0,W,H);
+  // arroz: quadras alagadas, à esquerda da estrada
+  c.save();c.beginPath();c.moveTo(0,0);for(let y=0;y<=H;y+=20)c.lineTo(roadX(y)-45,y);c.lineTo(0,H);c.closePath();c.clip();
+  c.fillStyle="#5b9a45";c.fillRect(0,0,W,H);
+  for(let i=0;i<9000;i++){const x=R()*1150,y=R()*H;c.fillStyle=R()<.5?"rgba(120,180,80,.35)":"rgba(40,100,50,.3)";c.fillRect(x,y,3+R()*6,2);}
+  for(let i=0;i<60;i++){const x=R()*1100,y=R()*H;const g=c.createRadialGradient(x,y,0,x,y,120);g.addColorStop(0,"rgba(110,170,190,.18)");g.addColorStop(1,"rgba(110,170,190,0)");c.fillStyle=g;c.fillRect(x-120,y-120,240,240);}
+  c.lineCap="round";
+  [240,530,820,1120].forEach((y0,k)=>{c.beginPath();for(let x=-20;x<=1150;x+=10){const y=y0+55*Math.sin(x/260+k*1.3)+18*Math.sin(x/90+k);x===-20?c.moveTo(x,y):c.lineTo(x,y);}c.strokeStyle="#b9a36a";c.lineWidth=14;c.stroke();c.strokeStyle="rgba(255,240,190,.35)";c.lineWidth=4;c.stroke();});
+  c.restore();
+  // soja: linhas de plantio à direita da estrada
+  c.save();c.beginPath();c.moveTo(W,0);for(let y=0;y<=H;y+=20)c.lineTo(roadX(y)+45,y);c.lineTo(W,H);c.closePath();c.clip();
+  c.fillStyle="#8a6a40";c.fillRect(0,0,W,H);
+  for(let i=0;i<5000;i++){c.fillStyle=R()<.5?"rgba(60,40,20,.25)":"rgba(160,130,90,.2)";c.fillRect(R()*W,R()*H,3,3);}
+  for(let x0=1100;x0<W+30;x0+=24){
+    for(let y=0;y<H;y+=13){const x=x0+12*Math.sin(y/210);if(inPast(x,y)||inGap(x,y))continue;
+      c.fillStyle=R()<.5?"#2f7d32":"#3c9440";c.beginPath();c.arc(x+(R()-.5)*3,y,6.5+R()*2.5,0,7);c.fill();
+      if(R()<.4){c.fillStyle="rgba(150,210,90,.5)";c.beginPath();c.arc(x-2,y-2,2.5,0,7);c.fill();}}
+  }
+  c.restore();
+  // campo nativo com gado (pecuária), no canto de cima
+  c.save();c.beginPath();c.moveTo(PAST.x,0);for(let x=PAST.x;x<=W;x+=20)c.lineTo(x,PAST.h-60*Math.sin((x-PAST.x)/200));c.lineTo(W,0);c.closePath();c.clip();
+  c.fillStyle="#93bf5c";c.fillRect(PAST.x,0,PAST.w,PAST.h+80);
+  for(let i=0;i<3000;i++){c.fillStyle=R()<.5?"rgba(70,120,40,.3)":"rgba(200,220,120,.3)";c.fillRect(PAST.x+R()*PAST.w,R()*(PAST.h+60),4,2);}
+  c.restore();
+  c.setLineDash([14,10]);c.strokeStyle="#6b4a2b";c.lineWidth=5;c.beginPath();for(let x=PAST.x;x<=W;x+=20){const y=PAST.h-60*Math.sin((x-PAST.x)/200)+6;x===PAST.x?c.moveTo(x,y):c.lineTo(x,y);}c.stroke();c.setLineDash([]);
+  [[1900,90,.2],[1980,150,-.4],[2080,80,.9],[2160,190,.1],[2250,110,-.8],[2040,250,.5],[2320,230,1.4],[1890,220,-1.1],[2200,40,.3]].forEach(([x,y,a],k)=>{
+    c.save();c.translate(x,y);c.rotate(a);c.fillStyle="rgba(0,0,0,.22)";c.beginPath();c.ellipse(8,8,30,17,0,0,7);c.fill();
+    c.fillStyle=k%3===0?"#4a3424":k%3===1?"#f2efe8":"#9a5b32";c.beginPath();c.ellipse(0,0,30,17,0,0,7);c.fill();
+    if(k%3===1){c.fillStyle="#2b2b2b";c.beginPath();c.arc(-6,-4,6,0,7);c.arc(10,5,5,0,7);c.fill();}
+    c.fillStyle=k%3===1?"#e6e0d6":"#3a281c";c.beginPath();c.arc(32,0,10,0,7);c.fill();c.restore();});
+  // estrada de chão
+  c.beginPath();for(let y=-10;y<=H+10;y+=10){const x=roadX(y);y===-10?c.moveTo(x,y):c.lineTo(x,y);}
+  c.strokeStyle="#d8c39a";c.lineWidth=76;c.stroke();c.strokeStyle="rgba(140,110,70,.45)";c.lineWidth=4;
+  [-16,16].forEach(o=>{c.beginPath();for(let y=-10;y<=H+10;y+=10){const x=roadX(y)+o;y===-10?c.moveTo(x,y):c.lineTo(x,y);}c.stroke();});
+  // açude
+  c.fillStyle="#7d9a52";c.beginPath();c.ellipse(POND.x,POND.y,POND.rx+18,POND.ry+16,0,0,7);c.fill();
+  const pg=c.createRadialGradient(POND.x-60,POND.y-40,10,POND.x,POND.y,POND.rx);pg.addColorStop(0,"#6fb6d8");pg.addColorStop(1,"#2f6f99");
+  c.fillStyle=pg;c.beginPath();c.ellipse(POND.x,POND.y,POND.rx,POND.ry,0,0,7);c.fill();
+  c.strokeStyle="rgba(255,255,255,.35)";c.lineWidth=3;for(let k=0;k<4;k++){c.beginPath();c.ellipse(POND.x-30+k*25,POND.y-20+k*22,60,10,0,0,7);c.stroke();}
+  // manchas de problema (sutis na foto comum)
+  const blot=(s,col,n,sz)=>{for(let i=0;i<n;i++){const a=R()*7,d=Math.sqrt(R())*s.r;const x=s.x+Math.cos(a)*d,y=s.y+Math.sin(a)*d;c.fillStyle=col;c.beginPath();c.arc(x,y,sz*(0.4+R()),0,7);c.fill();}};
+  blot(SPOT.A,"rgba(190,160,60,.45)",260,9);blot(SPOT.A,"rgba(100,70,40,.55)",120,4);
+  blot(SPOT.B,"rgba(170,105,45,.5)",320,8);blot(SPOT.B,"rgba(120,70,30,.45)",120,5);
+  const cg=c.createRadialGradient(SPOT.C.x,SPOT.C.y,0,SPOT.C.x,SPOT.C.y,SPOT.C.r);cg.addColorStop(0,"rgba(220,200,110,.55)");cg.addColorStop(1,"rgba(220,200,110,0)");c.fillStyle=cg;c.fillRect(SPOT.C.x-SPOT.C.r,SPOT.C.y-SPOT.C.r,SPOT.C.r*2,SPOT.C.r*2);
+  // árvores (com a sombra que engana a IA)
+  const tree=(x,y,r,sh)=>{c.fillStyle="rgba(10,20,10,.42)";c.beginPath();c.ellipse(x+sh*.9,y+sh*.8,r*1.15,r*.75,.6,0,7);c.fill();
+    for(let k=0;k<6;k++){c.fillStyle=k<3?"#24511f":"#3a7a2c";c.beginPath();c.arc(x+(R()-.5)*r*.8,y+(R()-.5)*r*.8,r*(.55+R()*.25),0,7);c.fill();}
+    c.fillStyle="rgba(170,220,110,.45)";c.beginPath();c.arc(x-r*.25,y-r*.3,r*.3,0,7);c.fill();};
+  tree(TREE.x,TREE.y,52,95);
+  [[560,90],[110,330],[520,330],[1030,180],[1040,980],[1130,1330]].forEach(([x,y])=>tree(x,y,30+R()*14,40));
+})();
+
+// ===== mapa de saúde das plantas (240 x 144) =====
+const HEAT=document.createElement("canvas");HEAT.width=240;HEAT.height=144;
+(function drawHeat(){
+  const c=HEAT.getContext("2d"),img=c.createImageData(240,144),R=rng(3);
+  const stops=[[0,[232,50,60]],[.45,[255,176,32]],[.7,[184,224,74]],[1,[31,174,85]]];
+  const col=h=>{for(let i=1;i<stops.length;i++)if(h<=stops[i][0]){const[a,ca]=stops[i-1],[b,cb]=stops[i],p=(h-a)/(b-a);return ca.map((v,j)=>v+(cb[j]-v)*p);}return stops[3][1];};
+  const fall=(x,y,s,k)=>{const d=Math.hypot(x-s.x,y-s.y)/s.r;return k*clamp(1-d*d);};
+  for(let j=0;j<144;j++)for(let i=0;i<240;i++){
+    const x=i*10+5,y=j*10+5,o=(j*240+i)*4;
+    if(inPond(x,y)||inPast(x,y)||Math.abs(x-roadX(y))<48){img.data[o]=90;img.data[o+1]=80;img.data[o+2]=120;img.data[o+3]=150;continue;}
+    let h=.82+.08*Math.sin(x/170)*Math.cos(y/130)+(R()-.5)*.06;
+    h-=fall(x,y,SPOT.A,.85)+fall(x,y,SPOT.B,.8)+fall(x,y,{...SPOT.C,r:190},.65)+fall(x,y,{...SPOT.E,r:85},.55);
+    if(inGap(x,y))h-=.75;
+    const [r,g,b]=col(clamp(h));img.data[o]=r;img.data[o+1]=g;img.data[o+2]=b;img.data[o+3]=255;
+  }
+  c.putImageData(img,0,0);
+})();
+
+// ===== câmera: qual pedaço da lavoura aparece e onde =====
+const FULL={sx:0,sy:45,sw:2400,sh:1350,dx:0,dy:0,dw:1920,dh:1080,r:0};
+const PAN={sx:0,sy:0,sw:2400,sh:1440,dx:640,dy:250,dw:1160,dh:696,r:30};
+const mixR=(a,b,p)=>{const o={};for(const k in a)o[k]=a[k]+(b[k]-a[k])*p;return o;};
+const S0a={...FULL,sx:760,sy:250,sw:1600,sh:900},S0b={...FULL,sx:160,sy:300,sw:1600,sh:900};
+const F8a={...FULL,sx:200,sy:150,sw:2000,sh:1125},F8b={...FULL,sx:380,sy:250,sw:2000,sh:1125};
+function cam(t){
+  const s=sceneAt(t),l=t-S[s].t0,d=S[s].d;let c=PAN,alpha=1,dim=0;
+  if(s===0)c=mixR(S0a,S0b,l/d);
+  else if(s===1)c=mixR(S0b,PAN,ease(clamp(l/1.3)));
+  else if(s===5)alpha=1-clamp(l/.5);
+  else if(s===6)alpha=clamp(l/.5);
+  else if(s===7){
+    const ZA={...PAN,sx:1320,sy:190,sw:800,sh:480},ZE={...PAN,sx:825,sy:470,sw:800,sh:480};
+    const a=P(7,0,.3),b=P(7,2,-.3);
+    if(l<b)c=mixR(PAN,ZA,ease(clamp((l-a)/1.2)));
+    else if(l<d-1.1)c=mixR(ZA,ZE,ease(clamp((l-b)/1.1)));
+    else c=mixR(ZE,PAN,ease(clamp((l-(d-1.1))/1.0)));
+  }
+  else if(s===8){const f=mixR(F8a,F8b,l/d);c=mixR(PAN,f,ease(clamp(l/1.3)));dim=.62*ease(clamp(l/1.3));}
+  else if(s===9){c=F8b;dim=.62;alpha=1-clamp(l/.6);}
+  return {...c,alpha,dim};
+}
+
+// ===== desenho no canvas da lavoura =====
+const fc=document.getElementById("fld").getContext("2d");
+function rrect(c,x,y,w,h,r){c.beginPath();c.roundRect?c.roundRect(x,y,w,h,r):c.rect(x,y,w,h);}
+function drone(x,y,s,ang,t,col){
+  const c=fc;
+  const shape=(shadow)=>{
+    c.lineCap="round";c.strokeStyle=shadow?"rgba(0,0,0,.3)":"#2a1f4d";c.lineWidth=14;
+    c.beginPath();c.moveTo(-52,-52);c.lineTo(52,52);c.moveTo(52,-52);c.lineTo(-52,52);c.stroke();
+    [[-52,-52],[52,-52],[52,52],[-52,52]].forEach(([px,py],i)=>{
+      c.fillStyle=shadow?"rgba(0,0,0,.18)":"rgba(255,255,255,.2)";c.beginPath();c.arc(px,py,36,0,7);c.fill();
+      if(shadow)return;
+      c.strokeStyle="rgba(255,255,255,.55)";c.lineWidth=2;c.stroke();
+      const a=t*38*(i%2?1:-1)+i;c.strokeStyle="rgba(245,240,255,.9)";c.lineWidth=6;
+      c.beginPath();c.moveTo(px+Math.cos(a)*32,py+Math.sin(a)*32);c.lineTo(px-Math.cos(a)*32,py-Math.sin(a)*32);c.stroke();
+      c.fillStyle="#1b1035";c.beginPath();c.arc(px,py,7,0,7);c.fill();});
+    c.fillStyle=shadow?"rgba(0,0,0,.3)":col;rrect(c,-36,-28,72,56,18);c.fill();
+    if(shadow)return;
+    c.fillStyle="rgba(255,255,255,.35)";rrect(c,-25,-20,50,22,10);c.fill();
+    c.fillStyle="#1b1035";c.beginPath();c.arc(0,17,10,0,7);c.fill();c.fillStyle="#2ee6a6";c.beginPath();c.arc(0,17,4.5,0,7);c.fill();
+    c.fillStyle=(Math.floor(t*3)%2)?"#2ee6a6":"#ff5e7a";c.beginPath();c.arc(0,-22,5,0,7);c.fill();
+  };
+  c.save();c.translate(x+34*s,y+44*s);c.rotate(ang);c.scale(s,s);shape(true);c.restore();
+  c.save();c.translate(x,y);c.rotate(ang);c.scale(s,s);shape(false);c.restore();
+}
+function pill(x,y,txt,bg,fg,size=34){
+  const c=fc;c.font=`600 ${size}px Fredoka`;const w=c.measureText(txt).width+size*1.1,h=size*1.5;
+  c.fillStyle="rgba(0,0,0,.25)";rrect(c,x,y+5,w,h,h/2);c.fill();
+  c.fillStyle=bg;rrect(c,x,y,w,h,h/2);c.fill();c.fillStyle=fg;c.textBaseline="middle";c.fillText(txt,x+size*.55,y+h/2+1);
+}
+// caminho em ziguezague da varredura (cena 3)
+const LANES=[180,540,900,1260],SCAN=[];
+LANES.forEach((y,i)=>{const a=i%2?2300:100,b=i%2?100:2300;SCAN.push([a,y],[b,y]);});
+const segLen=[];let scanLen=0;for(let i=1;i<SCAN.length;i++){const d=Math.hypot(SCAN[i][0]-SCAN[i-1][0],SCAN[i][1]-SCAN[i-1][1]);segLen.push(d);scanLen+=d;}
+function scanPos(p){let d=p*scanLen;for(let i=0;i<segLen.length;i++){if(d<=segLen[i]){const q=d/segLen[i];return {x:lerp(SCAN[i][0],SCAN[i+1][0],q),y:lerp(SCAN[i][1],SCAN[i+1][1],q),seg:i,q};}d-=segLen[i];}return {x:SCAN.at(-1)[0],y:SCAN.at(-1)[1],seg:segLen.length-1,q:1};}
+// rota do drone pulverizador (cena 7): vai a cada mancha, para e aplica
+const SPRAY=["A","D","C","B"];
+function sprayPlan(){const st=.6,trav=.8,hov=1.0;return SPRAY.map((k,i)=>({k,a:st+i*(trav+hov)+trav,b:st+i*(trav+hov)+trav+hov,from:i?SPOT[SPRAY[i-1]]:{x:2350,y:80},to:SPOT[k]}));}
+const PLAN=sprayPlan();
+function boxAt(k){return {A:A(4,1),B:A(4,2),C:A(4,3),D:A(4,4),E:A(4,5,1.0)}[k];}
+
+function drawField(t){
+  const c=fc;c.clearRect(0,0,1920,1080);
+  const s=sceneAt(t),l=t-S[s].t0,d=S[s].d,v=cam(t);
+  const k=v.dw/v.sw,M=(x,y)=>[v.dx+(x-v.sx)*k,v.dy+(y-v.sy)*k];
+  if(v.alpha>0){
+    c.save();c.globalAlpha=v.alpha;
+    if(v.r>1){c.fillStyle="rgba(0,0,0,.35)";rrect(c,v.dx+8,v.dy+16,v.dw,v.dh,v.r);c.fill();}
+    rrect(c,v.dx,v.dy,v.dw,v.dh,v.r);c.clip();
+    c.drawImage(FIELD,v.sx,v.sy,v.sw,v.sh,v.dx,v.dy,v.dw,v.dh);
+    // mapa de saúde
+    let ha=0,wipe=W;
+    if(s===3){wipe=W*clamp((l-P(3,0,.3))/3.0);ha=.85;}
+    else if(s===4)ha=lerp(.85,.55,clamp(l/.8));
+    else if(s===5)ha=.55;
+    else if(s===6)ha=.4;else if(s===7)ha=.3;else if(s===8)ha=.3*(1-clamp(l/1));
+    if(ha>0&&wipe>0){
+      c.save();c.globalAlpha=v.alpha*ha;c.imageSmoothingEnabled=true;
+      const [x1]=M(wipe,0);c.beginPath();c.rect(v.dx,v.dy,Math.max(0,x1-v.dx),v.dh);c.clip();
+      c.drawImage(HEAT,v.sx/10,v.sy/10,v.sw/10,v.sh/10,v.dx,v.dy,v.dw,v.dh);c.restore();
+      if(s===3&&wipe<W){const [x1]=M(wipe,0);const g=c.createLinearGradient(x1-60,0,x1+10,0);g.addColorStop(0,"rgba(46,230,166,0)");g.addColorStop(1,"rgba(46,230,166,.9)");c.fillStyle=g;c.fillRect(x1-60,v.dy,70,v.dh);c.fillStyle="#fff";c.fillRect(x1-2,v.dy,4,v.dh);}
+    }
+    // varredura
+    if(s===2){
+      const p=clamp((l-1.4)/(d-2.1));const pos=scanPos(p);
+      LANES.forEach((y,i)=>{
+        const top=y-180,full=i<Math.floor(pos.seg/2)||(p>=1);
+        let x0=0,x1=0;
+        if(full){x0=0;x1=W;}
+        else if(i===Math.floor(pos.seg/2)&&pos.seg%2===0){if(i%2){x0=pos.x;x1=W;}else{x0=0;x1=pos.x;}}
+        else if(i===Math.floor(pos.seg/2)){x0=0;x1=W;}
+        const [ax,ay]=M(0,top),[bx,by]=M(W,top+360);
+        c.fillStyle="rgba(20,12,51,.42)";c.fillRect(ax,ay,bx-ax,by-ay);
+        if(x1>x0){const [cx0,cy0]=M(x0,top),[cx1,cy1]=M(x1,top+360);
+          c.save();c.beginPath();c.rect(cx0,cy0,cx1-cx0,cy1-cy0);c.clip();c.drawImage(FIELD,v.sx,v.sy,v.sw,v.sh,v.dx,v.dy,v.dw,v.dh);
+          c.strokeStyle="rgba(46,230,166,.35)";c.lineWidth=2;for(let gx=0;gx<=W;gx+=240){const [px]=M(gx,0);c.beginPath();c.moveTo(px,cy0);c.lineTo(px,cy1);c.stroke();}
+          c.beginPath();c.moveTo(cx0,cy0);c.lineTo(cx1,cy0);c.moveTo(cx0,cy1);c.lineTo(cx1,cy1);c.stroke();c.restore();}
+      });
+    }
+    // reticulado da IA procurando (cena 5, fala 0)
+    if(s===4&&l>P(4,0,.4)&&l<P(4,1)){const q=l*1.3;const [rx,ry]=M(1200+900*Math.sin(q*1.7),720+520*Math.sin(q*2.3+1));c.strokeStyle="#2ee6a6";c.lineWidth=4;c.beginPath();c.arc(rx,ry,46,0,7);c.moveTo(rx-70,ry);c.lineTo(rx-30,ry);c.moveTo(rx+30,ry);c.lineTo(rx+70,ry);c.moveTo(rx,ry-70);c.lineTo(rx,ry-30);c.moveTo(rx,ry+30);c.lineTo(rx,ry+70);c.stroke();}
+    // marcações da IA
+    if(s>=4&&s<=8){
+      const fadeOut=s===8?1-clamp(l/1):1;
+      ["A","B","C","D","E"].forEach(key=>{
+        const t0=boxAt(key);if(t<t0)return;
+        const pp=clamp((t-t0)/.45),sc=.3+.7*back(pp);const sp=SPOT[key],[bx,by,bw,bh]=sp.box;
+        const [x0,y0]=M(bx,by),[x1,y1]=M(bx+bw,by+bh),cx=(x0+x1)/2,cy=(y0+y1)/2,w=(x1-x0)*sc,h=(y1-y0)*sc;
+        const rejected=key==="E"&&s>=7&&(s>7||l>P(7,2,.5)),ok=key==="A"&&s>=7&&(s>7||l>P(7,1));
+        c.save();c.globalAlpha=v.alpha*fadeOut*clamp(pp*3);
+        const col=key==="E"?(rejected?"#9b93b8":"#ffc21a"):"#ff5e7a";
+        c.strokeStyle=col;c.lineWidth=6;
+        if(key==="E"){c.setLineDash([16,10]);c.strokeRect(cx-w/2,cy-h/2,w,h);c.setLineDash([]);}
+        else{const L=Math.min(w,h)*.28;[[-1,-1],[1,-1],[1,1],[-1,1]].forEach(([sx,sy])=>{const px=cx+sx*w/2,py=cy+sy*h/2;c.beginPath();c.moveTo(px,py-sy*L);c.lineTo(px,py);c.lineTo(px-sx*L,py);c.stroke();});}
+        // ondas de tratamento (cena 7)
+        if(s>=6&&key!=="E"){const pl=PLAN.find(p=>p.k===key);const tt=s===6?l:99;if(pl&&tt>pl.b){const [ccx,ccy]=M(sp.x,sp.y);c.strokeStyle="rgba(46,230,166,.85)";c.lineWidth=5;c.beginPath();c.arc(ccx,ccy,sp.r*k*1.05,0,7);c.stroke();}}
+        const lab=rejected?"❌ sombra":ok?"✅ lagarta":sp.lab;
+        pill(cx-w/2,cy-h/2-62,lab,rejected?"#5b4f75":key==="E"?"#ffc21a":ok?"#2ee6a6":"#ff5e7a",rejected||(key!=="E"&&!ok)?"#fff":"#1b1035",34);
+        if(rejected){c.strokeStyle="#ff5e7a";c.lineWidth=8;c.beginPath();c.moveTo(cx-w/2,cy-h/2);c.lineTo(cx+w/2,cy+h/2);c.moveTo(cx+w/2,cy-h/2);c.lineTo(cx-w/2,cy+h/2);c.stroke();}
+        c.restore();
+      });
+    }
+    // agricultor andando, minúsculo (cena 2)
+    if(s===1){const [px,py]=M(roadX(1260-l*12),1260-l*12);c.font="44px sans-serif";c.textAlign="center";c.textBaseline="middle";c.fillText("🧑‍🌾",px,py);c.textAlign="left";
+      c.strokeStyle="#ffc21a";c.lineWidth=4;c.setLineDash([10,8]);c.beginPath();c.arc(px,py,44+Math.sin(l*5)*4,0,7);c.stroke();c.setLineDash([]);}
+    // pulverização (cena 7)
+    if(s===6){
+      PLAN.forEach((pl,i)=>{if(l<pl.a||l>pl.b+.3)return;const sp=SPOT[pl.k],[cx,cy]=M(sp.x,sp.y),R=rng(i+11);const g=clamp((l-pl.a)/(pl.b-pl.a));
+        for(let n=0;n<120;n++){const a=R()*7,dd=Math.sqrt(R())*sp.r*k*g*1.05,ph=(l*2.4+R())%1;c.fillStyle=`rgba(${n%2?"46,230,166":"120,220,255"},${.7*(1-ph)*(l>pl.b?1-(l-pl.b)/.3:1)})`;c.beginPath();c.arc(cx+Math.cos(a)*dd,cy+Math.sin(a)*dd,3+ph*7,0,7);c.fill();}});
+    }
+    if(s===0){const g=c.createLinearGradient(0,0,1100,0);g.addColorStop(0,"rgba(20,12,51,.82)");g.addColorStop(1,"rgba(20,12,51,0)");c.fillStyle=g;c.fillRect(0,0,1100,1080);}
+    if(v.dim>0){c.fillStyle=`rgba(20,12,51,${v.dim})`;c.fillRect(0,0,1920,1080);}
+    c.restore();
+    if(v.r>1){c.save();c.globalAlpha=v.alpha;c.strokeStyle="rgba(255,255,255,.22)";c.lineWidth=4;rrect(c,v.dx,v.dy,v.dw,v.dh,v.r);c.stroke();c.restore();}
+    // HUD da varredura
+    if(s===2&&l>1.2){const p=clamp((l-1.4)/(d-2.1));pill(v.dx+24,v.dy+22,`${Math.floor(l*2)%2?"●":"○"} REC · varredura ${Math.round(p*100)}%`,"rgba(20,12,51,.8)","#fff",28);}
+    if(s===3&&l>P(3,0,.3)){pill(v.dx+24,v.dy+22,"🌈 câmera multiespectral","rgba(20,12,51,.8)","#fff",28);}
+  }
+  // drones
+  if(s===0){const p=ease(clamp(l/2.6));const x=lerp(2150,1330,p)+Math.sin(l*1.3)*30,y=560+Math.sin(l*2.1)*22;drone(x,y,2.1,-.08+Math.sin(l*1.1)*.05,t,"#b366ff");}
+  if(s===1&&l<1.3){const p=ease(clamp(l/1.3));drone(lerp(1330,2200,p),lerp(560,300,p),lerp(2.1,1.2,p),-.08,t,"#b366ff");}
+  if(s===2){
+    const k2=v.dw/v.sw,M2=(x,y)=>[v.dx+(x-v.sx)*k2,v.dy+(y-v.sy)*k2];
+    let fx,fy,sc=.62,ang=0;
+    if(l<1.4){const p=ease(clamp((l-.4)/1.0));fx=lerp(roadX(1400),100,p);fy=lerp(1400,180,p);sc=lerp(.25,.62,p);ang=-.6*(1-p);}
+    else{const p=clamp((l-1.4)/(d-2.1));const pos=scanPos(p);fx=pos.x;fy=pos.y;ang=pos.seg%2===0?((pos.seg/2)%2?Math.PI:0):Math.PI/2;
+      if(p>=1){const q=ease(clamp((l-(d-.7))/.7));fx=lerp(pos.x,2500,q);fy=lerp(pos.y,-200,q);}
+      // flashes de foto
+      const fl=(l*7)%1;if(p<1&&fl<.35){const [px,py]=M2(fx,fy);c.strokeStyle=`rgba(255,255,255,${.8*(1-fl/.35)})`;c.lineWidth=3;c.strokeRect(px-90,py-90,180,180);}}
+    const [px,py]=M2(fx,fy);drone(px,py,sc,ang,t,"#b366ff");
+  }
+  if(s===6){
+    let pos=null;const st=.6,trav=.8;
+    for(const pl of PLAN){if(l<pl.a){const q=ease(clamp((l-(pl.a-trav))/trav));pos={x:lerp(pl.from.x,pl.to.x,q),y:lerp(pl.from.y,pl.to.y,q)};break;}if(l<=pl.b){pos={x:pl.to.x+Math.sin(l*3)*8,y:pl.to.y+Math.cos(l*3)*8};break;}}
+    if(!pos){const last=PLAN.at(-1),q=ease(clamp((l-last.b)/.9));pos={x:lerp(last.to.x,-150,q),y:lerp(last.to.y,1550,q)};}
+    if(l>st-.3){const [px,py]=M(pos.x,pos.y);drone(px,py,.75,.2,t,"#ffc21a");}
+  }
+  if(s===8){const q=l/d;drone(lerp(2100,-250,q),940+Math.sin(l*1.5)*25,1.0,-.1,t,"#b366ff");}
+  if(s===9){const a=l*1.6;drone(960+Math.cos(a)*560,760+Math.sin(a)*120,.95+.15*Math.sin(a),a+Math.PI/2,t,"#b366ff");}
+}
+
+// fundo: rede neural com pontos e ligações
+const bg=document.getElementById("bgc").getContext("2d");
+const PTS=[...Array(46)].map((_,i)=>({x:(i*397)%1920,y:(i*211+90)%1080,a:i*1.7,r:3+(i%4)}));
+function drawBg(t){
+  bg.fillStyle="#140c33";bg.fillRect(0,0,1920,1080);
+  const pts=PTS.map(p=>({x:p.x+Math.sin(t*.35+p.a)*40,y:p.y+Math.cos(t*.3+p.a)*30,r:p.r}));
+  bg.lineWidth=2;
+  for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){const d=Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y);if(d<260){bg.strokeStyle=`rgba(179,102,255,${.22*(1-d/260)})`;bg.beginPath();bg.moveTo(pts[i].x,pts[i].y);bg.lineTo(pts[j].x,pts[j].y);bg.stroke();}}
+  pts.forEach((p,i)=>{bg.fillStyle=i%3?"rgba(46,230,166,.55)":"rgba(255,94,122,.5)";bg.beginPath();bg.arc(p.x,p.y,p.r,0,7);bg.fill();});
+}
+
+// confete (cena final)
+const cf=document.getElementById("confetti").getContext("2d");
+const COLORS=["#ff5e7a","#b366ff","#2ee6a6","#ffc21a","#13b5d6","#a3e635"];
+function drawConfetti(t){
+  cf.clearRect(0,0,1920,1080);
+  const s=sceneAt(t);
+  const t0=A(9,1);if(t<t0)return;const k=t-t0;
+  for(let i=0;i<160;i++){const x0=(i*523)%1920,vy=280+(i*37)%260,sway=Math.sin(k*3+i)*40;const y=-60+(k-(i%20)*.12)*vy;if(y<-60||y>1120)continue;
+    cf.save();cf.translate(x0+sway,y);cf.rotate(k*4+i);cf.fillStyle=COLORS[i%6];cf.fillRect(-10,-6,20,12);cf.restore();}
+}
+
+// robô Bia
+const bot=document.getElementById("bot"),armL=document.getElementById("armL"),armR=document.getElementById("armR"),eyes=document.getElementById("eyes"),mouth=document.getElementById("mouth"),antball=document.getElementById("antball");
+const BOT=[[0,120,1520,.9],[.9,120,1062,.9],[S[1].t0,120,1062,.9],[S[1].t0+.8,60,1072,.85],[S[8].t0,60,1072,.85],[S[8].t0+.8,1500,1010,1.05],[S[9].t0,1500,1010,1.05],[S[9].t0+.8,770,1075,.85],[TOTAL,770,1075,.85]];
+function lerpKF(kf,t){if(t<=kf[0][0])return kf[0].slice(1);for(let i=1;i<kf.length;i++)if(t<=kf[i][0]){const a=kf[i-1],b=kf[i],p=ease((t-a[0])/(b[0]-a[0]||1));return a.slice(1).map((v,j)=>v+(b[j+1]-v)*p);}return kf.at(-1).slice(1);}
+const SPEAK=S.flatMap(s=>s.parts.map(p=>[s.t0+p.t,s.t0+p.t+p.d]));
+const els=[...document.querySelectorAll(".sc")].map(sc=>({sc,s:+sc.dataset.s,items:[...sc.querySelectorAll(".el")].map(el=>({el,at:inT(+sc.dataset.s,el.dataset.in||"0"),fx:el.dataset.fx}))}));
+
+function renderAt(t){
+  drawBg(t);drawField(t);
+  const si=sceneAt(t);
+  els.forEach(({sc,s,items})=>{
+    const sd=S[s],loc=t-sd.t0;let o=0;
+    if(loc>=0&&loc<sd.d)o=Math.min(clamp(loc/.35),s===S.length-1?1:clamp((sd.d-loc)/.35));
+    sc.style.opacity=o;if(!o)return;
+    items.forEach(({el,at,fx})=>{
+      const p=clamp((loc-at)/.55);let tr="",op=p>0?1:0;
+      if(fx==="pop"){tr=`scale(${.2+.8*back(p)})`;op=clamp(p*3);}
+      else if(fx==="zoom"){tr=`scale(${1.6-.6*back(p)})`;op=clamp(p*2.5);}
+      else if(fx==="up"){tr=`translateY(${(1-ease(p))*60}px)`;op=ease(p);}
+      else if(fx==="left"){tr=`translateX(${(1-ease(p))*-140}px)`;op=ease(p);}
+      else op=ease(p);
+      el.style.opacity=op;el.style.transform=tr;
+    });
+  });
+  const [x,y,sc]=lerpKF(BOT,t);
+  const bob=Math.sin(t*3.2)*10,jump=si===9&&t>A(9,1)?-Math.abs(Math.sin(t*5))*60:0;
+  bot.style.transform=`translate(${x}px,${y-470+bob+jump}px) scale(${sc})`;
+  const wave=(t>.9&&t<3.2)||(si===9&&t>A(9,1))||(si===8&&t>A(8,1)&&t<A(8,1,2.2));
+  armR.style.transform=`rotate(${wave?-35+Math.sin(t*10)*28:Math.sin(t*2)*6}deg)`;
+  armL.style.transform=`rotate(${si===7&&t>A(7,2)&&t<A(7,3)?24:Math.sin(t*2+1)*6}deg)`;
+  eyes.style.transform=`scaleY(${(t%3.1)<.12?.1:1})`;
+  const talking=SPEAK.some(([a,b])=>t>=a&&t<=b)&&(Math.floor(t*8)%2===0);
+  mouth.setAttribute("d",talking?"M164 188 Q190 232 216 188 Q190 198 164 188":"M160 192 Q190 214 220 192");
+  antball.setAttribute("fill",(Math.floor(t*2)%2)?"#2ee6a6":"#ffc21a");
+  drawConfetti(t);
+}
+window.renderAt=renderAt;window.TOTAL=TOTAL;
+document.fonts.ready.then(()=>{renderAt(0);window.READY=true;});
+}
+</script>
+</body>
+</html>

@@ -70,7 +70,7 @@ h2{font-family:"Fredoka",sans-serif;font-weight:700;font-size:clamp(1.7rem,5vw,2
 #brainBox{position:fixed;right:16px;bottom:16px;z-index:3;background:rgba(20,12,51,.78);border:2px solid rgba(201,184,255,.35);border-radius:20px;padding:8px 10px 6px;color:#f4efff;backdrop-filter:blur(6px)}
 #brainBox h3{margin:0 0 2px;font-family:"Fredoka",sans-serif;font-weight:600;font-size:.95rem}
 #brain{display:block;width:300px;height:190px}
-@media (max-width:640px){#brain{width:200px;height:128px}#brainBox h3{font-size:.8rem}#aiBar{bottom:170px}#pad button{width:72px;height:72px}}
+@media (max-width:640px){#brain{width:200px;height:128px}#brainBox h3{font-size:.8rem}#aiBar{bottom:190px}#pad button{width:72px;height:72px}}
 @media (prefers-reduced-motion: reduce){#toast{transition:none}.big:active{transform:none}}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -110,7 +110,7 @@ h2{font-family:"Fredoka",sans-serif;font-weight:700;font-size:clamp(1.7rem,5vw,2
     <span class="kick">Agora é a vez da IA</span>
     <h2 id="midT"></h2>
     <p class="sub">São 24 Bias com um cérebro artificial, uma pequena <b>rede neural</b>, cheio de números sorteados ao acaso. Ninguém vai dizer a elas o que fazer. A única regra é: <b>ir mais longe é melhor</b>.</p>
-    <div class="lesson s">A cada rodada, as Bias que foram mais longe viram a base da próxima <b>geração</b>, com pequenas mudanças aleatórias (<b>mutações</b>). No canto da tela você vê o cérebro da líder pensando.</div>
+    <div class="lesson s">A cada rodada, as Bias que foram mais longe viram a base da próxima <b>geração</b>, com pequenas mudanças aleatórias (<b>mutações</b>). No canto da tela você vê o cérebro da líder: os sensores que veem os blocos, os neurônios e a faixa escolhida. Ligações verdes reforçam, rosas inibem.</div>
     <div class="row"><button class="big" id="goAi">Soltar as Bias</button></div>
   </div>
 </section>
@@ -125,7 +125,7 @@ h2{font-family:"Fredoka",sans-serif;font-weight:700;font-size:clamp(1.7rem,5vw,2
     <p class="hint" style="margin-top:6px">Barras: a melhor Bia de cada geração. Linha amarela: a sua marca.</p>
     <div class="lesson"><b>O que aconteceu?</b> Na primeira geração, as Bias batiam quase de cara: os cérebros eram aleatórios. Ninguém programou a regra "se tem bloco na frente, desvie". Elas descobriram sozinhas, porque as que desviavam iam mais longe e passavam os seus números adiante.</div>
     <div class="lesson s"><b>Isso tem nome.</b> Aprender por tentativa, erro e recompensa é a ideia do <b>aprendizado por reforço</b>. O jeito usado aqui, com uma população que evolui, chama-se <b>neuroevolução</b>: uma rede neural melhorada por seleção e mutação, como na evolução das espécies.</div>
-    <div class="lesson m"><b>O cérebro da Bia</b> tem 11 sensores (se há bloco à esquerda, à frente ou à direita, a que distância e onde ficam as bordas da pista), 6 neurônios no meio e 3 saídas: esquerda, ficar ou direita. São só 93 números! As IAs grandes de hoje têm bilhões.</div>
+    <div class="lesson m"><b>O cérebro da Bia</b> tem 3 sensores (se há bloco na faixa da esquerda, do meio ou da direita), 5 neurônios no meio e 3 saídas, uma para cada faixa. Tudo o que ela aprende fica guardado em só 38 números, os <b>pesos</b> das ligações. As IAs grandes de hoje têm bilhões de pesos.</div>
     <div class="lesson p"><b>Onde isso aparece de verdade?</b> Ideias parecidas treinam robôs para andar em simulação, IAs que jogam videogame, xadrez e Go melhor que campeões e sistemas que economizam energia em grandes centros de dados.</div>
     <p class="sub" style="margin-top:14px">No <b>BIA</b>, o Bacharelado em Inteligência Artificial da UNIPAMPA, em Alegrete, você aprende a criar, treinar e testar IAs como esta, e muito maiores.</p>
     <div class="row"><button class="big" id="again">Correr de novo</button><button class="ghost" id="againAi">Ver a IA aprender de novo</button></div>
@@ -154,10 +154,11 @@ function collide(o,rows){
   return false;
 }
 
-// ---------- rede neural: 11 sensores + viés, 6 neurônios, 3 saídas ----------
-const NI=12,NH=6,NO=3,NG=NH*NI+NO*(NH+1);
+// ---------- rede neural: 3 sensores + viés, 5 neurônios, 3 saídas ----------
+// a cada nova fila de blocos, a Bia olha as 3 faixas e escolhe para qual ir
+const NI=4,NH=5,NO=3,NG=NH*NI+NO*(NH+1);
 function gauss(){let u=0;while(!u)u=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*Math.random());}
-const randGenome=()=>Float32Array.from({length:NG},()=>gauss()*0.9);
+const randGenome=()=>Float32Array.from({length:NG},()=>gauss());
 const H=new Float32Array(NH),O=new Float32Array(NO),IN=new Float32Array(NI);
 function think(g,inp){
   for(let j=0;j<NH;j++){let s=0;for(let i=0;i<NI;i++)s+=g[j*NI+i]*inp[i];H[j]=Math.tanh(s);}
@@ -165,21 +166,18 @@ function think(g,inp){
   for(let k=0;k<NO;k++){const b=NH*NI+k*(NH+1);let s=g[b+NH];for(let j=0;j<NH;j++)s+=g[b+j]*H[j];O[k]=s;if(s>O[best])best=k;}
   return best;
 }
-// sensores relativos à Bia: esquerda, frente e direita (fora da pista conta como bloqueado)
-function sense(o,rows,inp){
-  const r1=rows[o.ptr],r2=rows[o.ptr+1];
-  for(let d=-1;d<=1;d++){const k=o.lane+d,out=k<0||k>2;inp[d+1]=out?1:r1?r1.b[k]:0;inp[d+5]=out?1:r2?r2.b[k]:0;}
-  inp[3]=r1?Math.min(1,Math.max(0,(r1.z-o.z)/25)):1;
-  inp[7]=r2?Math.min(1,(r2.z-o.z)/40):1;
-  inp[8]=o.lane===0?1:0;inp[9]=o.lane===2?1:0;inp[10]=o.lane-1;
-  inp[11]=1;
+function sense(o,rows,inp){const r=rows[o.ptr];for(let k=0;k<3;k++)inp[k]=r?r.b[k]:0;inp[3]=1;}
+// avança para a próxima fila e, se ela mudou, a rede decide a faixa
+function decide(o,rows){
+  const p=o.ptr;while(o.ptr<rows.length&&rows[o.ptr].z<o.z-0.9)o.ptr++;
+  if(o.ptr===p&&o.seen)return false;
+  o.seen=true;sense(o,rows,IN);o.lane=think(o.g,IN);return true;
 }
 function evolve(pop){
-  const s=[...pop].sort((a,b)=>b.fit-a.fit),next=[];
-  for(let i=0;i<4;i++)next.push(s[i].g.slice());
+  const s=[...pop].sort((a,b)=>b.fit-a.fit),next=[s[0].g.slice(),s[1].g.slice()];
   while(next.length<POP-2){
-    const a=s[Math.floor(Math.random()*8)].g,b=s[Math.floor(Math.random()*8)].g,c=new Float32Array(NG);
-    for(let i=0;i<NG;i++)c[i]=(Math.random()<.5?a[i]:b[i])+(Math.random()<.12?gauss()*.6:0);
+    const a=s[Math.floor(Math.random()*4)].g,b=s[Math.floor(Math.random()*4)].g,c=new Float32Array(NG);
+    for(let i=0;i<NG;i++)c[i]=(Math.random()<.5?a[i]:b[i])+gauss()*.3;
     next.push(c);
   }
   next.push(randGenome(),randGenome());
@@ -197,7 +195,7 @@ if(TEST){
   let genomes=Array.from({length:POP},randGenome),log=[];
   for(let gen=1;gen<=40;gen++){
     const rows=makeTrack(gen*7919+13),pop=genomes.map(g=>({g,x:0,lane:1,z:0,ptr:0,alive:true,fit:0}));let Z=0,alive=POP;
-    while(alive&&Z<FIN){Z+=speedAt(Z)*STEP;for(const o of pop){if(!o.alive)continue;o.z=Z;if(Math.abs(o.x-LX[o.lane])<.25){sense(o,rows,IN);const a=think(o.g,IN);o.lane=Math.max(0,Math.min(2,o.lane+a-1));}moveX(o);if(collide(o,rows)){o.alive=false;o.fit=Z;alive--;}}}
+    while(alive&&Z<FIN){Z+=speedAt(Z)*STEP;for(const o of pop){if(!o.alive)continue;o.z=Z;decide(o,rows);moveX(o);if(collide(o,rows)){o.alive=false;o.fit=Z;alive--;}}}
     pop.forEach(o=>{if(o.alive)o.fit=Z;});
     log.push(Math.round(Math.max(...pop.map(o=>o.fit))));
     if(Z>=FIN)break;genomes=evolve(pop);
@@ -264,7 +262,7 @@ function buildObs(rows){
 
 // robô Bia
 const SOLID={body:new THREE.MeshStandardMaterial({color:0xefeaff,roughness:.45}),pur:new THREE.MeshStandardMaterial({color:0x8b3dff,roughness:.4}),dark:new THREE.MeshStandardMaterial({color:0x1b1035,roughness:.3}),mint:new THREE.MeshBasicMaterial({color:0x2ee6a6}),sun:new THREE.MeshBasicMaterial({color:0xffc21a}),pink:new THREE.MeshBasicMaterial({color:0xff5e7a})};
-const GHOST={};Object.keys(SOLID).forEach(k=>{GHOST[k]=SOLID[k].clone();GHOST[k].transparent=true;GHOST[k].opacity=k==="mint"?.55:.28;GHOST[k].depthWrite=false;});
+const GHOST={};Object.keys(SOLID).forEach(k=>{GHOST[k]=SOLID[k].clone();GHOST[k].transparent=true;GHOST[k].opacity=k==="mint"?.5:.18;GHOST[k].depthWrite=false;});
 function makeBot(){
   const g=new THREE.Group(),parts=[];
   const add=(geo,role,x,y,z,parent=g)=>{const m=new THREE.Mesh(geo,SOLID[role]);m.userData.role=role;m.position.set(x,y,z);parent.add(m);parts.push(m);return m;};
@@ -348,7 +346,7 @@ function startAi(fresh){
 }
 function startGen(){
   gen++;rows=makeTrack(gen*7919+13);buildObs(rows);Z=0;alive=POP;passed=false;
-  pop=genomes.map((g,i)=>({g,i,x:0,lane:1,z:0,ptr:0,alive:true,fit:0,ox:i?((i%5)-2)*.16:0,oz:i?-(i%4)*.45:0}));
+  pop=genomes.map((g,i)=>({g,i,x:0,lane:1,z:0,ptr:0,alive:true,fit:0,ox:i?((i%5)-2)*.32:0,oz:i?-(i%4)*.5:0}));
   bots.forEach(b=>{b.g.visible=true;b.g.position.set(0,0,0);});
   $("phase").textContent="Geração "+gen;
   mode="ai";sGen();
@@ -360,7 +358,7 @@ function stepAi(){
   Z+=speedAt(Z)*STEP;const L=leader();
   for(const o of pop){
     if(!o.alive)continue;o.z=Z;
-    if(Math.abs(o.x-LX[o.lane])<.25){sense(o,rows,IN);const a=think(o.g,IN);o.lane=Math.max(0,Math.min(2,o.lane+a-1));if(o===L){brainIn.set(IN);brainH.set(H);brainO.set(O);}}
+    if(decide(o,rows)){o.bi=IN.slice();o.bh=H.slice();o.bo=O.slice();}
     moveX(o);
     if(collide(o,rows)){o.alive=false;o.fit=Z;alive--;if(mult<10||o===L)burst(o.x+o.ox,1.2,Z+.6,o===L?22:8,.8);if(o===L){sHit();shake=.3;}}
   }
@@ -381,36 +379,35 @@ function finish(){
   const ai=Math.max(...history,0);
   $("vsYou").textContent=best>0?(best>=FIN?"1000 m 🏁":Math.floor(best)+" m"):"não correu";
   $("vsAi").textContent=aiDone?`1000 m 🏁`:Math.floor(ai)+" m";
-  $("endT").textContent=aiDone?`A IA aprendeu a correr em ${aiDone} gerações!`:`A IA chegou a ${Math.floor(ai)} m em ${gen} gerações`;
-  show("sEnd");drawChart();$("again").focus();
+  $("endT").textContent=aiDone?`A IA aprendeu a correr em ${aiDone} ${aiDone===1?"geração":"gerações"}!`:`A IA chegou a ${Math.floor(ai)} m em ${gen} ${gen===1?"geração":"gerações"}`;
+  show("sEnd");drawChart();$("sEnd").querySelector(".panel").scrollTop=0;$("again").focus({preventScroll:true});
 }
 
 // ---------- desenhos 2D: cérebro e gráfico ----------
-const brainIn=new Float32Array(NI),brainH=new Float32Array(NH),brainO=new Float32Array(NO);
 function drawBrain(){
   const cv=$("brain"),r=Math.min(devicePixelRatio,2),w=cv.clientWidth,h=cv.clientHeight;
-  if(cv.width!==w*r){cv.width=w*r;cv.height=h*r;}
+  if(cv.width!==w*r||cv.height!==h*r){cv.width=w*r;cv.height=h*r;}
   const x=cv.getContext("2d");x.setTransform(r,0,0,r,0,0);x.clearRect(0,0,w,h);
-  const L=leader();if(!L)return;const g=L.g;
-  const col=(n,i,cx)=>({x:cx,y:h*.08+(h*.84)*(n===1?.5:i/(n-1))});
-  const xs=[w*.16,w*.55,w*.86],ni=11,inP=[...Array(ni)].map((_,i)=>col(ni,i,xs[0])),hP=[...Array(NH)].map((_,i)=>col(NH,i,xs[1])),oP=[...Array(NO)].map((_,i)=>({x:xs[2],y:h*.25+i*h*.25}));
-  x.lineWidth=1;
-  for(let j=0;j<NH;j++)for(let i=0;i<ni;i++){const wv=g[j*NI+i];x.strokeStyle=wv>0?`rgba(46,230,166,${Math.min(.8,Math.abs(wv)*.35*(.25+brainIn[i]))})`:`rgba(251,59,92,${Math.min(.8,Math.abs(wv)*.35*(.25+brainIn[i]))})`;x.beginPath();x.moveTo(inP[i].x,inP[i].y);x.lineTo(hP[j].x,hP[j].y);x.stroke();}
-  let bk=0;for(let k=1;k<NO;k++)if(brainO[k]>brainO[bk])bk=k;
-  for(let k=0;k<NO;k++)for(let j=0;j<NH;j++){const wv=g[NH*NI+k*(NH+1)+j];x.strokeStyle=wv>0?`rgba(46,230,166,${Math.min(.9,Math.abs(wv)*.4)})`:`rgba(251,59,92,${Math.min(.9,Math.abs(wv)*.4)})`;x.beginPath();x.moveTo(hP[j].x,hP[j].y);x.lineTo(oP[k].x,oP[k].y);x.stroke();}
-  const node=(p,a,rad)=>{x.beginPath();x.arc(p.x,p.y,rad,0,7);x.fillStyle=`rgba(255,194,26,${.15+.85*Math.min(1,Math.abs(a))})`;x.fill();x.strokeStyle="#c9b8ff";x.stroke();};
-  const rad=Math.max(3,h*.028);
-  inP.forEach((p,i)=>node(p,brainIn[i],rad));hP.forEach((p,j)=>node(p,brainH[j],rad*1.3));
-  oP.forEach((p,k)=>{x.beginPath();x.arc(p.x,p.y,rad*1.7,0,7);x.fillStyle=k===bk?"#8b3dff":"rgba(139,61,255,.2)";x.fill();x.strokeStyle="#c9b8ff";x.stroke();x.fillStyle="#fff";x.font=`700 ${Math.round(h*.085)}px Nunito`;x.textBaseline="middle";x.fillText(["◀","●","▶"][k],p.x+rad*2.4,p.y);});
-  x.fillStyle="#c3b8e0";x.font=`700 ${Math.round(h*.06)}px Nunito`;x.textBaseline="middle";x.textAlign="right";
-  x.fillText("bloco perto",xs[0]-rad-4,inP[1].y);x.fillText("distância",xs[0]-rad-4,inP[3].y);x.fillText("bloco longe",xs[0]-rad-4,inP[5].y);x.fillText("paredes",xs[0]-rad-4,(inP[8].y+inP[9].y)/2);x.fillText("posição",xs[0]-rad-4,inP[10].y);
-  x.textAlign="left";
+  const L=leader();if(!L||!L.bi)return;const g=L.g,bi=L.bi,bh=L.bh,bo=L.bo;
+  const xs=[w*.2,w*.52,w*.8],yIn=i=>h*(.2+.3*i),yH=j=>h*(.1+.2*j);
+  const lineCol=(wv,k)=>`rgba(${wv>0?"46,230,166":"251,59,92"},${Math.min(.9,Math.abs(wv)*.45*k)})`;
+  x.lineWidth=2;
+  for(let j=0;j<NH;j++)for(let i=0;i<3;i++){x.strokeStyle=lineCol(g[j*NI+i],.3+bi[i]);x.beginPath();x.moveTo(xs[0],yIn(i));x.lineTo(xs[1],yH(j));x.stroke();}
+  let bk=0;for(let k=1;k<NO;k++)if(bo[k]>bo[bk])bk=k;
+  for(let k=0;k<NO;k++)for(let j=0;j<NH;j++){x.strokeStyle=lineCol(g[NH*NI+k*(NH+1)+j],.4+Math.abs(bh[j])*.6);x.beginPath();x.moveTo(xs[1],yH(j));x.lineTo(xs[2],yIn(k));x.stroke();}
+  const rad=Math.max(5,h*.05),names=["esq.","meio","dir."];
+  x.font=`800 ${Math.round(h*.075)}px Nunito`;x.textBaseline="middle";
+  for(let i=0;i<3;i++){x.fillStyle=bi[i]?"#fb3b5c":"rgba(46,230,166,.35)";x.fillRect(xs[0]-rad,yIn(i)-rad,rad*2,rad*2);x.strokeStyle="#c9b8ff";x.lineWidth=1.5;x.strokeRect(xs[0]-rad,yIn(i)-rad,rad*2,rad*2);x.fillStyle="#c3b8e0";x.textAlign="right";x.fillText(names[i],xs[0]-rad-5,yIn(i));}
+  for(let j=0;j<NH;j++){x.beginPath();x.arc(xs[1],yH(j),rad*.85,0,7);x.fillStyle=`rgba(255,194,26,${.15+.85*Math.abs(bh[j])})`;x.fill();x.strokeStyle="#c9b8ff";x.stroke();}
+  for(let k=0;k<NO;k++){x.beginPath();x.arc(xs[2],yIn(k),rad*1.2,0,7);x.fillStyle=k===bk?"#8b3dff":"rgba(139,61,255,.18)";x.fill();x.strokeStyle="#c9b8ff";x.stroke();x.fillStyle=k===bk?"#fff":"#c3b8e0";x.textAlign="left";x.fillText(names[k],xs[2]+rad*1.6,yIn(k));}
+  x.fillStyle="#c3b8e0";x.font=`700 ${Math.round(h*.06)}px Nunito`;x.textAlign="center";x.textBaseline="alphabetic";
+  x.fillText("vê os blocos",xs[0],h-2);x.fillText("pensa",xs[1],h-2);x.fillText("escolhe",xs[2],h-2);
 }
 function drawChart(){
   const cv=$("chart"),r=Math.min(devicePixelRatio,2),w=cv.clientWidth,h=cv.clientHeight;cv.width=w*r;cv.height=h*r;
   const x=cv.getContext("2d");x.setTransform(r,0,0,r,0,0);
   const cs=getComputedStyle(document.documentElement),ink=cs.getPropertyValue("--soft").trim(),pur=cs.getPropertyValue("--purple").trim();
-  const n=Math.max(history.length,1),pad=28,bw=(w-pad-10)/n,sy=v=>h-22-(h-36)*v/FIN;
+  const n=Math.max(history.length,1),pad=28,bw=Math.min(70,(w-pad-10)/n),sy=v=>h-22-(h-36)*v/FIN;
   x.fillStyle=ink;x.font="700 11px Nunito";x.fillText("1000 m",2,sy(FIN)+4);x.fillText("0",pad-12,sy(0));
   history.forEach((v,i)=>{x.fillStyle=v>=FIN?"#12b981":pur;const y=sy(v);x.fillRect(pad+i*bw+bw*.15,y,bw*.7,sy(0)-y);if(n<=16||i%2===0){x.fillStyle=ink;x.textAlign="center";x.fillText(i+1,pad+i*bw+bw/2,h-8);x.textAlign="left";}});
   if(best>0){x.strokeStyle="#ffc21a";x.lineWidth=3;x.setLineDash([8,6]);x.beginPath();x.moveTo(pad,sy(best));x.lineTo(w-6,sy(best));x.stroke();x.setLineDash([]);}
@@ -418,9 +415,9 @@ function drawChart(){
 
 // ---------- laço principal ----------
 let last=performance.now(),acc=0,camX=0;
-const camPos=new THREE.Vector3(2.4,2.4,4.8),camLook=new THREE.Vector3(0,1.6,0),tmp=new THREE.Vector3();
+const camPos=new THREE.Vector3(2.4,2.4,4.8),camLook=new THREE.Vector3(0,1.6,0),tmp=new THREE.Vector3(),tmpL=new THREE.Vector3();
 function frame(now){
-  const dt=Math.min(.05,(now-last)/1000);last=now;const t=now/1000;
+  const dt=Math.max(0,Math.min(.05,(now-last)/1000));last=now;const t=now/1000;
   if(mode==="play"){acc+=dt;let n=0;while(acc>=STEP&&mode==="play"&&n<10){stepPlayer();acc-=STEP;n++;}}
   else if(mode==="ai"){acc+=dt*mult;let n=0;while(acc>=STEP&&mode==="ai"&&n<40){stepAi();acc-=STEP;n++;}if(n>=40)acc=0;}
   else acc=0;
@@ -446,10 +443,11 @@ function frame(now){
     fx=L?L.x:0;fz=Z;target=1;
   }
   if(target){
-    camX+=(fx*.55-camX)*Math.min(1,dt*6);
-    tmp.set(camX,4.3,fz-7.6);
-    if(mode==="count")camPos.lerp(tmp,Math.min(1,dt*2.2));else camPos.copy(tmp);
-    camLook.set(camX*.5,1.3,fz+10);
+    camX+=(fx*.4-camX)*Math.min(1,dt*6);
+    const tall=innerWidth<innerHeight;
+    tmp.set(camX,tall?6:4.6,fz-(tall?11:8.2));
+    tmpL.set(camX*.5,1.3,fz+10);
+    if(mode==="count"){const k=Math.min(1,dt*2.6);camPos.lerp(tmp,k);camLook.lerp(tmpL,k);}else{camPos.copy(tmp);camLook.copy(tmpL);}
   }
   camera.position.copy(camPos);
   if(shake>0&&!reduce){camera.position.x+=(Math.random()-.5)*shake;camera.position.y+=(Math.random()-.5)*shake;shake=Math.max(0,shake-dt*1.6);}
@@ -479,8 +477,10 @@ addEventListener("keydown",e=>{
 $("gl").addEventListener("pointerdown",e=>{if(mode==="play")steer(e.clientX<innerWidth/2?-1:1);});
 $("pl").addEventListener("pointerdown",e=>{e.preventDefault();steer(-1);});
 $("pr").addEventListener("pointerdown",e=>{e.preventDefault();steer(1);});
-if(location.hash==="#shot-play")startRun();
-if(location.hash==="#shot-ai")startAi(true);
+// atalhos para capturas de tela: avançam a simulação sem esperar
+if(location.hash==="#shot-play"){startRun();countT=0;$("count").classList.add("hidden");mode="play";P.inv=99;for(let i=0;i<300;i++){if(i%40===0)steer(Math.random()<.5?-1:1);stepPlayer();}P.inv=0;}
+if(location.hash==="#shot-ai"){startAi(true);mult=1;for(let i=0;i<150;i++)stepAi();}
+if(location.hash==="#shot-end"){best=420;startAi(true);for(let i=0;i<60000&&mode==="ai";i++){stepAi();if(mode==="pause")startGen();}if(mode==="won")finish();}
 </script>
 </body>
 </html>

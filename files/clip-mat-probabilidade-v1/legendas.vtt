@@ -1,0 +1,73 @@
+WEBVTT
+
+1
+00:00:00.400 --> 00:00:04.473
+Sabe quando o teclado do celular adivinha a próxima palavra?
+
+2
+00:00:04.473 --> 00:00:07.528
+Os chatbots fazem o mesmo, em escala gigante.
+
+3
+00:00:07.528 --> 00:00:10.583
+E o segredo é matéria do ENEM: probabilidade.
+
+4
+00:00:11.500 --> 00:00:13.939
+A IA leu muitos textos e contou.
+
+5
+00:00:13.939 --> 00:00:20.800
+Em mil frases que começam com "vou estudar para o", seiscentas e vinte continuam com ENEM.
+
+6
+00:00:20.800 --> 00:00:25.678
+Casos favoráveis sobre casos possíveis: 620 sobre 1.000, ou 62%.
+
+7
+00:00:26.500 --> 00:00:29.065
+Mas a conta muda com o começo da frase.
+
+8
+00:00:29.065 --> 00:00:34.721
+É a probabilidade condicional: a chance da próxima palavra, dado o que já foi escrito.
+
+9
+00:00:34.721 --> 00:00:38.667
+Depois de "o goleiro defendeu o", a mais provável é pênalti.
+
+10
+00:00:39.500 --> 00:00:41.796
+E ela não escolhe sempre a primeira.
+
+11
+00:00:41.796 --> 00:00:47.601
+Ela sorteia, como numa roleta em que cada palavra ocupa uma fatia do tamanho da sua chance.
+
+12
+00:00:47.601 --> 00:00:50.982
+Por isso, perguntando de novo, a resposta pode mudar.
+
+13
+00:00:51.800 --> 00:00:54.678
+Só que provável não é o mesmo que verdadeiro.
+
+14
+00:00:54.678 --> 00:00:59.665
+Se um erro aparece em muitos textos, a IA pode repeti-lo com toda a confiança.
+
+15
+00:00:59.665 --> 00:01:01.264
+Por isso, confira sempre.
+
+16
+00:01:02.200 --> 00:01:04.341
+Quer entender a matemática da IA?
+
+17
+00:01:04.341 --> 00:01:11.152
+No BIA, o Bacharelado em Inteligência Artificial da UNIPAMPA, em Alegrete, probabilidade vira superpoder.
+
+18
+00:01:11.152 --> 00:01:11.930
+Vem pro BIA!

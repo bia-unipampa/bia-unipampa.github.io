@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ENEM + IA</title>
+<meta name="description" content="Jogo do BIA para o 3º ano: três desafios com a matemática do ENEM que faz a inteligência artificial funcionar. Ajuste a reta, desça a montanha e encare o quiz relâmpago.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400..700&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fffaf2;--panel:#ffffff;--ink:#1b1035;--soft:#5b4f75;--line:#eadff0;
+  --pink:#fb3b5c;--purple:#8b3dff;--mint:#12b981;--cyan:#13b5d6;--sun:#ffc21a;--ok:#12b981;--bad:#fb3b5c;
+  --grid:#efe6f3;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#140c33;--panel:#1f1550;--ink:#f4efff;--soft:#c3b8e0;--line:#34286a;--purple:#b58bff;--grid:#2a2060}
+}
+:root[data-theme="dark"]{--bg:#140c33;--panel:#1f1550;--ink:#f4efff;--soft:#c3b8e0;--line:#34286a;--purple:#b58bff;--grid:#2a2060}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Nunito",system-ui,sans-serif;line-height:1.5;overflow-x:hidden}
+button{font-family:inherit;cursor:pointer}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:4px solid var(--sun);outline-offset:3px}
+a{color:var(--purple)}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 16px;max-width:960px;margin:0 auto;flex-wrap:wrap}
+.top a{color:var(--soft);font-weight:700;text-decoration:none;font-size:.95rem}
+.pills{display:flex;gap:8px}
+.pill{font-weight:800;background:var(--panel);border:2px solid var(--line);border-radius:999px;padding:5px 14px;font-size:.95rem}
+.pill.sc{color:var(--purple)}
+main{max-width:960px;margin:0 auto;padding:0 16px 48px}
+h1,h2,h3{font-family:"Fredoka",sans-serif;line-height:1.05;margin:0}
+h1{font-weight:700;font-size:clamp(2.4rem,8vw,4.2rem);margin:10px 0}
+h2{font-weight:700;font-size:clamp(1.7rem,5vw,2.4rem);margin:6px 0 8px}
+.sub{color:var(--soft);font-size:1.1rem;max-width:58ch;margin:0}
+.hidden{display:none!important}
+.big{font-family:"Fredoka",sans-serif;font-weight:600;font-size:1.25rem;border:0;border-radius:999px;padding:14px 32px;background:var(--purple);color:#fff;box-shadow:0 6px 0 #5a1fc0}
+.big:active{transform:translateY(4px);box-shadow:0 2px 0 #5a1fc0}
+.big:disabled{opacity:.45;cursor:not-allowed}
+.big.g{background:var(--mint);box-shadow:0 6px 0 #0a7a55}
+.ghost{font-weight:800;font-size:1rem;background:transparent;border:3px solid var(--purple);color:var(--purple);border-radius:999px;padding:10px 22px;text-decoration:none;display:inline-block}
+.row{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px;align-items:center}
+.intro{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center;margin-top:16px}
+@media (max-width:640px){.intro{grid-template-columns:1fr;text-align:center}.intro .sub{margin:0 auto}.intro .row,.chips{justify-content:center}}
+.bot{width:170px;height:auto;margin:0 auto;display:block}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 22px}
+.chips span{background:var(--panel);border:2px solid var(--line);border-radius:16px;padding:8px 14px;font-weight:700}
+.kick{display:inline-block;font-weight:800;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;color:var(--pink)}
+.card{background:var(--panel);border:3px solid var(--line);border-radius:26px;padding:18px}
+canvas.plot{display:block;width:100%;aspect-ratio:16/10;max-height:62vh;background:var(--panel);border:3px solid var(--line);border-radius:22px}
+#cv1{touch-action:none}
+.ctrl{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+@media (max-width:640px){.ctrl{grid-template-columns:1fr}}
+.ctrl label{display:block;font-weight:800;margin-bottom:4px}
+.ctrl label b{font-family:"Fredoka",sans-serif;color:var(--purple);font-size:1.15rem}
+input[type=range]{width:100%;accent-color:var(--purple);height:34px}
+.eq{font-family:"Fredoka",sans-serif;font-weight:600;font-size:clamp(1.4rem,5vw,2rem)}
+.meter{height:16px;background:var(--line);border-radius:999px;overflow:hidden;margin-top:6px}
+.meter i{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--mint),var(--sun),var(--pink));transition:width .15s}
+.say{background:var(--panel);border:3px solid var(--line);border-radius:22px;padding:12px 16px;font-family:"Fredoka",sans-serif;font-weight:500;font-size:clamp(1.05rem,3.4vw,1.3rem);margin-top:12px;min-height:2.6em}
+.lesson{background:var(--panel);border-left:8px solid var(--purple);border-radius:16px;padding:14px 18px;margin:14px 0;font-size:1.05rem}
+.lesson.y{border-color:var(--sun)}
+.stars{font-size:2.2rem;letter-spacing:4px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+@media (max-width:560px){.opts{grid-template-columns:1fr}}
+.opt{background:var(--panel);border:3px solid var(--line);border-radius:20px;padding:14px 16px;text-align:left;font-size:1.08rem;font-weight:700;color:var(--ink);display:flex;gap:12px;align-items:center;min-height:62px;box-shadow:0 4px 0 var(--line)}
+.opt .k{flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--line);font-family:"Fredoka",sans-serif;font-weight:700}
+.opt:hover:not(:disabled){border-color:var(--purple)}
+.opt.right{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 16%,var(--panel))}
+.opt.wrong{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 14%,var(--panel))}
+.opt:disabled{cursor:default}
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-weight:800}
+.combo{font-family:"Fredoka",sans-serif;font-weight:700;color:var(--pink);font-size:1.2rem;min-height:1.4em;transform-origin:left center}
+.combo.pop{animation:pop .35s}
+@keyframes pop{50%{transform:scale(1.35)}}
+.timer{height:12px;background:var(--line);border-radius:999px;overflow:hidden;margin:10px 0 14px}
+.timer i{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--pink),var(--purple))}
+.qt{font-family:"Fredoka",sans-serif;font-weight:500;font-size:clamp(1.2rem,3.8vw,1.55rem);line-height:1.3}
+.fig{margin:12px 0 0;display:flex;justify-content:center}
+.mx{border-collapse:collapse;font-family:"Fredoka",sans-serif;font-size:1.5rem;font-weight:600}
+.mx td{width:46px;height:46px;text-align:center;border:2px solid var(--line)}
+.pg{display:inline-grid;grid-template-columns:repeat(3,16px);gap:2px;flex:none}
+.pg i{width:16px;height:16px;border-radius:3px;background:var(--line)}
+.pg i.on{background:var(--ink)}
+.res3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:18px 0}
+@media (max-width:760px){.res3{grid-template-columns:1fr}}
+.res3 div{background:var(--panel);border:3px solid var(--line);border-radius:22px;padding:16px}
+.res3 h3{font-size:1.2rem;margin-bottom:6px}
+.res3 p{margin:6px 0 0;color:var(--soft);font-size:.98rem}
+.score{font-family:"Fredoka",sans-serif;font-weight:700;font-size:clamp(3rem,12vw,5.2rem);line-height:1;color:var(--purple)}
+.vbtns{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
+.vbtns .opt{justify-content:center;font-family:"Fredoka",sans-serif;font-size:1.4rem}
+.info{display:flex;flex-wrap:wrap;gap:8px 18px;font-weight:800;color:var(--soft);margin-top:10px}
+.info b{color:var(--ink)}
+#fx{position:fixed;inset:0;pointer-events:none;z-index:10}
+@media (prefers-reduced-motion: reduce){.combo.pop{animation:none}}
+</style>
+</head>
+<body>
+<header class="top">
+  <a href="escolas-bia-v2.html">← BIA para o 3º ano</a>
+  <div class="pills"><span class="pill" id="phase">ENEM + IA</span><span class="pill sc" id="hud">0 pts</span></div>
+</header>
+
+<main>
+  <!-- abertura -->
+  <section id="sIntro" class="intro">
+    <svg class="bot" viewBox="0 0 380 470" aria-hidden="true"><use href="#botsym"/></svg>
+    <div>
+      <span class="kick">Desafio para o 3º ano</span>
+      <h1>ENEM + IA</h1>
+      <p class="sub">A matemática que cai no ENEM é a mesma que faz a inteligência artificial aprender. Três fases rápidas para provar isso, e ainda revisar para a prova.</p>
+      <div class="chips"><span>1. Ajuste a reta 📈</span><span>2. Desça a montanha ⛰️</span><span>3. Quiz relâmpago ⚡</span></div>
+      <div class="row"><button class="big" id="go">Começar</button><span class="sub" id="rec" style="font-size:1rem"></span></div>
+    </div>
+  </section>
+
+  <!-- fase 1 -->
+  <section id="s1" class="hidden">
+    <span class="kick">Fase 1 de 3 · função afim</span>
+    <h2>Ajuste a reta 📈</h2>
+    <p class="sub">Cada ponto é uma casa à venda: tamanho no eixo x e preço no eixo y (valores ilustrativos). Arraste as bolinhas da reta, ou use os controles, para que <b>y = ax + b</b> passe o mais perto possível de todos os pontos.</p>
+    <div style="margin-top:14px"><canvas class="plot" id="cv1" aria-label="Gráfico com pontos de dados e uma reta ajustável"></canvas></div>
+    <div class="ctrl">
+      <div class="card">
+        <div class="eq" id="eq1">y = 0x + 5</div>
+        <div style="margin-top:8px;font-weight:800">Erro médio: <span id="err1">0</span> <span id="hot" style="color:var(--pink)"></span></div>
+        <div class="meter"><i id="m1"></i></div>
+      </div>
+      <div class="card">
+        <label for="ra">Inclinação <b>a</b> = <span id="va">0</span></label>
+        <input type="range" id="ra" min="-1.5" max="1.5" step="0.01" value="0">
+        <label for="rb">Ponto onde cruza o eixo y, <b>b</b> = <span id="vb">5</span></label>
+        <input type="range" id="rb" min="-3" max="12" step="0.05" value="5">
+      </div>
+    </div>
+    <div class="row" id="r1a"><button class="big" id="ok1">Confirmar minha reta</button></div>
+    <div id="r1b" class="hidden">
+      <div class="say" id="say1"></div>
+      <div class="lesson"><b>Isso é regressão linear</b>, um dos primeiros modelos de aprendizado de máquina. A IA testa valores de <b>a</b> e <b>b</b> até achar a reta com o menor erro: é isso que se chama <b>treinar</b> um modelo. A linha tracejada amarela é a reta que o computador calculou.</div>
+      <div class="row"><button class="big g" id="next1">Próxima fase →</button></div>
+    </div>
+  </section>
+
+  <!-- fase 2 -->
+  <section id="s2" class="hidden">
+    <span class="kick">Fase 2 de 3 · função quadrática</span>
+    <h2>Desça a montanha ⛰️ <span id="round2" style="font-size:.6em;color:var(--soft)"></span></h2>
+    <p class="sub">O gráfico é o <b>erro</b> de uma IA. Leve a bolinha até o ponto mais baixo (o vértice) com o <b>menor número de passos</b>. Você escolhe o tamanho de cada passo.</p>
+    <div class="eq" style="margin-top:10px" id="eq2"></div>
+    <div id="v2" class="card" style="margin-top:12px">
+      <b>Antes de descer:</b> em que valor de x fica o ponto mais baixo? Dica: <b>x<sub>v</sub> = -b / 2a</b>
+      <div class="vbtns" id="vopts"></div>
+    </div>
+    <div id="d2" class="hidden">
+      <div style="margin-top:12px"><canvas class="plot" id="cv2" aria-label="Parábola com uma bolinha que desce em passos"></canvas></div>
+      <div class="ctrl">
+        <div class="card">
+          <label for="rl">Tamanho do passo (taxa de aprendizado) = <b id="vl">0,10</b></label>
+          <input type="range" id="rl" min="0.02" max="1.2" step="0.01" value="0.1">
+          <div class="info"><span>Passos: <b id="st2">0</b>/10</span><span>x = <b id="x2"></b></span><span>inclinação f'(x) = <b id="g2"></b></span></div>
+        </div>
+        <div class="card" style="display:flex;flex-direction:column;justify-content:center;gap:10px">
+          <button class="big" id="step2">Dar um passo ⬇️</button>
+          <small style="color:var(--soft)">Cada passo: novo x = x - (passo) · f'(x). Dá para mudar o tamanho entre um passo e outro.</small>
+        </div>
+      </div>
+      <div class="say" id="say2" aria-live="polite"></div>
+      <div class="row hidden" id="r2"><button class="big g" id="next2">Continuar →</button><button class="ghost" id="retry2">Tentar de novo</button></div>
+      <div class="lesson hidden" id="les2"><b>Isso é gradiente descendente.</b> A IA olha a inclinação do erro e dá um passo morro abaixo, de novo e de novo. É assim que as redes neurais, inclusive as dos chatbots, aprendem. O tamanho do passo se chama <b>taxa de aprendizado</b>: pequeno demais, a IA demora; grande demais, ela pula de um lado para o outro e pode até piorar.</div>
+    </div>
+  </section>
+
+  <!-- fase 3 -->
+  <section id="s3" class="hidden">
+    <span class="kick">Fase 3 de 3 · quiz relâmpago</span>
+    <div class="qhead" style="margin-top:6px"><h2 style="margin:0">ENEM + IA ⚡</h2><span id="qn"></span></div>
+    <div class="combo" id="combo"></div>
+    <div class="timer"><i id="tbar"></i></div>
+    <div class="card">
+      <div class="qt" id="qt"></div>
+      <div class="fig" id="qfig"></div>
+    </div>
+    <div class="opts" id="qopts"></div>
+    <div class="say hidden" id="say3" aria-live="polite"></div>
+    <div class="row hidden" id="r3"><button class="big" id="next3">Próxima →</button></div>
+  </section>
+
+  <!-- resultado -->
+  <section id="sEnd" class="hidden">
+    <div class="intro">
+      <svg class="bot" viewBox="0 0 380 470" aria-hidden="true"><use href="#botsym"/></svg>
+      <div>
+        <span class="kick">Resultado</span>
+        <div class="score" id="final"></div>
+        <div class="stars" id="fstars"></div>
+        <p class="sub" id="fverd"></p>
+      </div>
+    </div>
+    <div class="res3">
+      <div><h3>📈 Ajuste a reta <span id="e1"></span></h3><p>Regressão linear: a IA encontra o <b>a</b> e o <b>b</b> que deixam o erro menor. É assim que se prevê preço, safra ou consumo de energia.</p></div>
+      <div><h3>⛰️ Desça a montanha <span id="e2"></span></h3><p>Gradiente descendente: o método que treina as redes neurais. O vértice da parábola é o ponto de menor erro.</p></div>
+      <div><h3>⚡ Quiz relâmpago <span id="e3"></span></h3><p>Porcentagem, probabilidade, média, mediana e matrizes: a linguagem do dia a dia de quem cria IA.</p></div>
+    </div>
+    <div class="lesson y">No <b>BIA</b>, o Bacharelado em Inteligência Artificial da UNIPAMPA, em Alegrete, essa matemática vira ferramenta desde o primeiro semestre, em disciplinas como Matemática Básica para IA, Cálculo para IA, Álgebra Linear e Probabilidade e Estatística para IA. E a entrada é pelo SiSU, com a nota do ENEM que você está treinando agora.</div>
+    <div class="row">
+      <button class="big" id="again">Jogar de novo</button>
+      <a class="ghost" href="escolas-bia-v2.html">Conhecer o BIA</a>
+    </div>
+  </section>
+</main>
+<canvas id="fx"></canvas>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="botsym" viewBox="0 0 380 470">
+    <line x1="190" y1="70" x2="190" y2="22" stroke="#c9b8ff" stroke-width="10" stroke-linecap="round"/><circle cx="190" cy="20" r="18" fill="#ffc21a"/>
+    <rect x="18" y="285" width="70" height="32" rx="16" fill="#8b3dff"/><rect x="292" y="285" width="70" height="32" rx="16" fill="#8b3dff"/>
+    <circle cx="22" cy="301" r="24" fill="#e3dcff"/><circle cx="358" cy="301" r="24" fill="#e3dcff"/>
+    <rect x="88" y="250" width="204" height="190" rx="54" fill="#efeaff"/>
+    <text x="190" y="372" text-anchor="middle" font-family="Fredoka" font-weight="700" font-size="62" fill="#8b3dff">BIA</text>
+    <rect x="140" y="440" width="36" height="26" rx="10" fill="#c9b8ff"/><rect x="204" y="440" width="36" height="26" rx="10" fill="#c9b8ff"/>
+    <rect x="40" y="62" width="300" height="200" rx="70" fill="#efeaff"/><rect x="70" y="92" width="240" height="140" rx="50" fill="#1b1035"/>
+    <ellipse cx="145" cy="148" rx="22" ry="26" fill="#2ee6a6"/><ellipse cx="235" cy="148" rx="22" ry="26" fill="#2ee6a6"/>
+    <path d="M160 192 Q190 214 220 192" stroke="#2ee6a6" stroke-width="9" fill="none" stroke-linecap="round"/>
+    <circle cx="100" cy="196" r="13" fill="#ff5e7a" opacity=".55"/><circle cx="280" cy="196" r="13" fill="#ff5e7a" opacity=".55"/>
+  </symbol>
+</svg>
+
+<script>
+const $=id=>document.getElementById(id);
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const fmt=(n,d=2)=>{let s=n.toFixed(d);if(/^-0(\.0+)?$/.test(s))s=s.slice(1);return s.replace(".",",");};
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const starStr=n=>"⭐".repeat(n)+"☆".repeat(3-n);
+const RKEY="bia-enem-ia-recorde";
+function getRec(){try{return +localStorage.getItem(RKEY)||0;}catch(e){return 0;}}
+function setRec(v){try{localStorage.setItem(RKEY,String(v));}catch(e){}}
+
+let total=0,stars=[0,0,0];
+function addPts(p){total+=Math.round(p);$("hud").textContent=total+" pts";}
+function show(id){["sIntro","s1","s2","s3","sEnd"].forEach(x=>$(x).classList.toggle("hidden",x!==id));scrollTo({top:0,behavior:reduce?"auto":"smooth"});}
+
+// sons
+let ac=null;
+function beep(fs,d=.09,type="triangle",v=.14){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();fs.forEach((f,k)=>{const o=ac.createOscillator(),g=ac.createGain();o.type=type;o.frequency.value=f;const t=ac.currentTime+k*d;g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.001,t+d*1.6);o.connect(g).connect(ac.destination);o.start(t);o.stop(t+d*1.7);});}catch(e){}}
+const sOk=()=>beep([660,990]),sBad=()=>beep([240,170],.14,"square",.06),sWin=()=>beep([523,659,784,1046],.12),sTick=()=>beep([880],.04,"sine",.05),sStep=()=>beep([420,520],.06,"sine",.08);
+
+function setup(cv){const r=cv.getBoundingClientRect(),dpr=devicePixelRatio||1;cv.width=Math.round(r.width*dpr);cv.height=Math.round(r.height*dpr);const c=cv.getContext("2d");c.setTransform(dpr,0,0,dpr,0,0);return {c,w:r.width,h:r.height};}
+
+/* ================= FASE 1: AJUSTE A RETA ================= */
+let P1,A=0,B=5,err0=1,best={a:0,b:0,e:1},done1=false,drag=null;
+const PAD={l:40,r:14,t:14,b:30};
+function genData(){
+  const neg=Math.random()<.35,pts=[];
+  const a0=neg?-(0.35+Math.random()*.25):0.35+Math.random()*.35,b0=neg?7.5+Math.random()*1.5:1+Math.random()*1.5;
+  for(let i=0;i<8;i++){const x=0.8+i*1.2+Math.random()*.4;pts.push({x,y:clamp(a0*x+b0+(Math.random()-.5)*2,0.3,9.7)});}
+  return pts;
+}
+function lsq(pts){const n=pts.length,mx=pts.reduce((s,p)=>s+p.x,0)/n,my=pts.reduce((s,p)=>s+p.y,0)/n;let sxy=0,sxx=0;pts.forEach(p=>{sxy+=(p.x-mx)*(p.y-my);sxx+=(p.x-mx)**2;});const a=sxy/sxx;return {a,b:my-a*mx};}
+const err=(a,b)=>P1.reduce((s,p)=>s+Math.abs(p.y-(a*p.x+b)),0)/P1.length;
+function startP1(){
+  P1=genData();A=0;B=5;done1=false;const l=lsq(P1);best={...l,e:err(l.a,l.b)};err0=err(A,B);
+  $("r1a").classList.remove("hidden");$("r1b").classList.add("hidden");
+  $("ra").disabled=$("rb").disabled=false;
+  $("phase").textContent="Fase 1 de 3";show("s1");sync1();
+}
+function map1(w,h){const X=x=>PAD.l+x/10*(w-PAD.l-PAD.r),Y=y=>h-PAD.b-y/10*(h-PAD.t-PAD.b);const iY=py=>(h-PAD.b-py)/(h-PAD.t-PAD.b)*10;return {X,Y,iY};}
+function grid(c,w,h,X,Y,xs,ys,xl,yl){
+  c.clearRect(0,0,w,h);c.strokeStyle=css("--grid");c.lineWidth=1;c.font="12px Nunito";c.fillStyle=css("--soft");
+  xs.forEach(v=>{c.beginPath();c.moveTo(X(v),Y(ys[0]));c.lineTo(X(v),Y(ys[ys.length-1]));c.stroke();c.fillText(xl(v),X(v)-4,h-10);});
+  ys.forEach(v=>{c.beginPath();c.moveTo(X(xs[0]),Y(v));c.lineTo(X(xs[xs.length-1]),Y(v));c.stroke();c.fillText(yl(v),6,Y(v)+4);});
+}
+function draw1(){
+  const {c,w,h}=setup($("cv1")),{X,Y}=map1(w,h);
+  grid(c,w,h,X,Y,[0,2,4,6,8,10],[0,2,4,6,8,10],v=>String(v),v=>String(v));
+  c.save();c.beginPath();c.rect(PAD.l,PAD.t,w-PAD.l-PAD.r,h-PAD.t-PAD.b);c.clip();
+  // resíduos
+  c.setLineDash([5,4]);c.strokeStyle=css("--pink");c.lineWidth=2;
+  P1.forEach(p=>{c.beginPath();c.moveTo(X(p.x),Y(p.y));c.lineTo(X(p.x),Y(A*p.x+B));c.stroke();});
+  c.setLineDash([]);
+  if(done1){c.setLineDash([10,7]);c.strokeStyle=css("--sun");c.lineWidth=4;c.beginPath();c.moveTo(X(0),Y(best.b));c.lineTo(X(10),Y(best.a*10+best.b));c.stroke();c.setLineDash([]);}
+  c.strokeStyle=css("--mint");c.lineWidth=5;c.lineCap="round";c.beginPath();c.moveTo(X(0),Y(B));c.lineTo(X(10),Y(A*10+B));c.stroke();
+  c.restore();
+  P1.forEach(p=>{c.beginPath();c.arc(X(p.x),Y(p.y),7,0,7);c.fillStyle=css("--purple");c.fill();});
+  if(!done1)[1,9].forEach(hx=>{const hy=clamp(A*hx+B,0,10);c.beginPath();c.arc(X(hx),Y(hy),12,0,7);c.fillStyle=css("--mint");c.fill();c.lineWidth=4;c.strokeStyle="#fff";c.stroke();});
+}
+function sync1(fromDrag){
+  if(!fromDrag){$("ra").value=A;$("rb").value=B;}
+  $("va").textContent=fmt(A);$("vb").textContent=fmt(B);
+  $("eq1").textContent=`y = ${fmt(A)}x ${B<0?"- "+fmt(-B):"+ "+fmt(B)}`;
+  const e=err(A,B);$("err1").textContent=fmt(e);
+  $("m1").style.width=clamp(e/err0*100,3,100)+"%";
+  const r=e/best.e;$("hot").textContent=r<1.15?"🔥 pegando fogo!":r<1.5?"♨️ esquentando":r<2.5?"🙂 morno":"🧊 frio";
+  draw1();
+}
+$("ra").addEventListener("input",e=>{A=+e.target.value;sync1(true);});
+$("rb").addEventListener("input",e=>{B=+e.target.value;sync1(true);});
+const cv1=$("cv1");
+cv1.addEventListener("pointerdown",e=>{
+  if(done1)return;const r=cv1.getBoundingClientRect(),{X,Y}=map1(r.width,r.height),px=e.clientX-r.left,py=e.clientY-r.top;
+  let k=null,bd=36;[1,9].forEach(hx=>{const d=Math.hypot(px-X(hx),py-Y(clamp(A*hx+B,0,10)));if(d<bd){bd=d;k=hx;}});
+  if(k===null)k=px<r.width/2?1:9;
+  drag=k;cv1.setPointerCapture(e.pointerId);move(e);
+});
+function move(e){
+  if(drag===null)return;const r=cv1.getBoundingClientRect(),{iY}=map1(r.width,r.height),yv=clamp(iY(e.clientY-r.top),-1,11);
+  let y1=A+B,y9=9*A+B;if(drag===1)y1=yv;else y9=yv;
+  A=clamp((y9-y1)/8,-1.5,1.5);B=clamp(y1-A,-3,12);sync1();
+}
+cv1.addEventListener("pointermove",move);
+["pointerup","pointercancel"].forEach(t=>cv1.addEventListener(t,()=>{drag=null;}));
+$("ok1").onclick=()=>{
+  done1=true;$("ra").disabled=$("rb").disabled=true;
+  const e=err(A,B),r=e/best.e,st=r<=1.12?3:r<=1.4?2:r<=2?1:0,pts=[50,150,230,300][st];
+  stars[0]=st;addPts(pts);
+  $("say1").innerHTML=`${starStr(st)} <b>+${pts} pontos.</b> Seu erro médio: <b>${fmt(e)}</b>. Erro da reta do computador: <b>${fmt(best.e)}</b>, com y = ${fmt(best.a)}x ${best.b<0?"- "+fmt(-best.b):"+ "+fmt(best.b)}. `+(st===3?"Você ajustou como uma IA! 🎉":st===2?"Muito perto!":"Dá para chegar mais perto: na próxima, acompanhe as linhas rosa diminuindo.");
+  st===3?(sWin(),burst(90)):sOk();
+  $("r1a").classList.add("hidden");$("r1b").classList.remove("hidden");draw1();
+};
+$("next1").onclick=startP2;
+
+/* ================= FASE 2: DESÇA A MONTANHA ================= */
+const ROUNDS=[{a:1,b:-6,c:10,x0:-1,xmin:-2,xmax:8},{a:2,b:-8,c:11,x0:4.5,xmin:-1.5,xmax:5.5}];
+let ri=0,R,bx,steps,trail,retried,p2pts,busy2=false,ball=null,fin2=false;
+const f=x=>R.a*x*x+R.b*x+R.c,fp=x=>2*R.a*x+R.b,xv=()=>-R.b/(2*R.a);
+function eqStr(){const a=R.a===1?"":fmt(R.a,R.a%1?1:0);return `f(x) = ${a}x² ${R.b<0?"- "+(-R.b):"+ "+R.b}x ${R.c<0?"- "+(-R.c):"+ "+R.c}`;}
+function startP2(){ri=0;p2pts=0;$("phase").textContent="Fase 2 de 3";show("s2");round2();}
+function round2(){
+  R=ROUNDS[ri];retried=false;$("round2").textContent=`montanha ${ri+1} de 2`;$("eq2").textContent=eqStr();
+  $("v2").classList.remove("hidden");$("d2").classList.add("hidden");$("les2").classList.add("hidden");
+  const v=xv(),opts=[...new Set([v,-v,-R.b,R.c])].slice(0,4).sort(()=>Math.random()-.5);
+  $("vopts").innerHTML=opts.map(o=>`<button class="opt" data-v="${o}">x = ${fmt(o,o%1?1:0)}</button>`).join("");
+  $("vopts").querySelectorAll("button").forEach(b=>b.onclick=()=>{
+    const ok=+b.dataset.v===v;$("vopts").querySelectorAll("button").forEach(x=>{x.disabled=true;if(+x.dataset.v===v)x.classList.add("right");});
+    if(!ok)b.classList.add("wrong");ok?(sOk(),addPts(50),p2pts+=50):sBad();
+    $("say2").innerHTML=(ok?"✅ Isso! ":"❌ Quase. ")+`x<sub>v</sub> = -(${R.b}) / (2 · ${R.a}) = <b>${fmt(v,0)}</b>. Agora leve a bolinha até lá.`;
+    setTimeout(startDescent,ok?900:1600);
+  });
+  $("say2").textContent="";
+}
+function startDescent(){
+  $("v2").classList.add("hidden");$("d2").classList.remove("hidden");
+  bx=R.x0;steps=0;trail=[bx];fin2=false;busy2=false;ball=null;
+  $("rl").value=0.1;$("rl").disabled=false;$("step2").disabled=false;$("r2").classList.add("hidden");
+  upd2();if(!$("say2").innerHTML.includes("x<sub>v</sub>"))$("say2").textContent="Escolha o tamanho do passo e desça!";
+}
+function upd2(){$("vl").textContent=fmt(+$("rl").value);$("st2").textContent=steps;$("x2").textContent=fmt(bx);$("g2").textContent=fmt(fp(bx));draw2();}
+$("rl").addEventListener("input",upd2);
+function map2(w,h){const ymax=f(R.xmin)*1.08,X=x=>PAD.l+(x-R.xmin)/(R.xmax-R.xmin)*(w-PAD.l-PAD.r),Y=y=>h-PAD.b-y/ymax*(h-PAD.t-PAD.b);return {X,Y,ymax};}
+function draw2(){
+  const {c,w,h}=setup($("cv2")),{X,Y,ymax}=map2(w,h);
+  const xs=[];for(let x=Math.ceil(R.xmin);x<=R.xmax;x++)xs.push(x);const ys=[];const sy=ymax>20?5:2;for(let y=0;y<=ymax;y+=sy)ys.push(y);
+  grid(c,w,h,X,Y,xs,ys,v=>String(v),v=>String(v));
+  c.save();c.beginPath();c.rect(PAD.l,PAD.t,w-PAD.l-PAD.r,h-PAD.t-PAD.b);c.clip();
+  // montanha
+  c.beginPath();for(let i=0;i<=200;i++){const x=R.xmin+(R.xmax-R.xmin)*i/200;i?c.lineTo(X(x),Y(f(x))):c.moveTo(X(x),Y(f(x)));}
+  c.lineTo(X(R.xmax),h);c.lineTo(X(R.xmin),h);c.closePath();
+  const gr=c.createLinearGradient(0,PAD.t,0,h);gr.addColorStop(0,"rgba(139,61,255,.28)");gr.addColorStop(1,"rgba(18,185,129,.12)");c.fillStyle=gr;c.fill();
+  c.beginPath();for(let i=0;i<=200;i++){const x=R.xmin+(R.xmax-R.xmin)*i/200;i?c.lineTo(X(x),Y(f(x))):c.moveTo(X(x),Y(f(x)));}
+  c.strokeStyle=css("--purple");c.lineWidth=4;c.stroke();
+  // alvo
+  const v=xv();c.beginPath();c.arc(X(v),Y(f(v)),14,0,7);c.strokeStyle=css("--sun");c.lineWidth=4;c.setLineDash([4,4]);c.stroke();c.setLineDash([]);
+  c.fillStyle=css("--soft");c.font="bold 13px Nunito";c.fillText("mínimo",X(v)-24,Y(f(v))+32);
+  // trilha
+  c.strokeStyle=css("--pink");c.lineWidth=2;c.setLineDash([6,5]);
+  for(let i=1;i<trail.length;i++){const a=trail[i-1],b=trail[i];c.beginPath();c.moveTo(X(a),Y(f(a)));c.quadraticCurveTo((X(a)+X(b))/2,Math.min(Y(f(a)),Y(f(b)))-40,X(b),Y(f(b)));c.stroke();}
+  c.setLineDash([]);
+  trail.slice(0,-1).forEach(t=>{c.beginPath();c.arc(X(t),Y(f(t)),5,0,7);c.fillStyle=css("--pink");c.fill();});
+  // tangente
+  let cx=bx,cy=f(bx);if(ball){cx=ball.x;cy=ball.y;}
+  if(!ball&&!fin2){const s=fp(bx),dx=.9;c.strokeStyle=css("--ink");c.globalAlpha=.5;c.lineWidth=2;c.beginPath();c.moveTo(X(bx-dx),Y(f(bx)-s*dx));c.lineTo(X(bx+dx),Y(f(bx)+s*dx));c.stroke();c.globalAlpha=1;}
+  c.restore();
+  // bolinha
+  const px=X(cx),py=Y(cy);
+  if(px>-20&&px<w+20&&py>-20){c.beginPath();c.arc(px,py-11,11,0,7);c.fillStyle=css("--mint");c.fill();c.lineWidth=3;c.strokeStyle="#fff";c.stroke();}
+}
+function anim(x1,x2,cb){
+  if(reduce){bx=x2;cb();return;}
+  const t0=performance.now(),D=480;
+  (function fr(t){const k=Math.min(1,(t-t0)/D),x=x1+(x2-x1)*k,lift=Math.sin(Math.PI*k)*Math.max(2,Math.abs(f(x1)-f(x2))*.25+2);
+    ball={x,y:f(x1)+(f(x2)-f(x1))*k+lift};
+    if(Math.abs(x)<50)draw2();if(k<1)requestAnimationFrame(fr);else{ball=null;bx=x2;cb();}})(t0);
+}
+$("step2").onclick=()=>{
+  if(busy2||fin2)return;busy2=true;$("step2").disabled=true;
+  const lr=+$("rl").value,g=fp(bx),nx=bx-lr*g,x1=bx;steps++;sStep();
+  anim(x1,nx,()=>{
+    trail.push(bx);busy2=false;const v=xv(),d=Math.abs(bx-v),r=1-2*R.a*lr;
+    const far=Math.abs(bx-v)>(R.xmax-v)*3;
+    if(d<0.05)return end2(true,steps===1?"Passo perfeito! Chegou ao vértice em 1 passo. 🎯":`Chegou ao vértice em ${steps} passos!`);
+    if(far)return end2(false,"A bolinha voou para fora da montanha! 🚀 O passo era tão grande que cada pulo aumentava o erro.");
+    if(steps>=10)return end2(false,"Acabaram os 10 passos antes de chegar ao fundo.");
+    let m;
+    if(Math.abs(r)>1)m="😵 Opa! A bolinha passou do fundo e foi parar ainda mais alto. Passo grande demais.";
+    else if(Math.abs(Math.abs(r)-1)<0.02)m="🔁 Ela pulou exatamente para o outro lado, na mesma altura. Com esse passo, vai ficar pulando para sempre.";
+    else if(r<0)m="↔️ Passou do fundo, mas ficou mais baixo. Está chegando, em zigue-zague.";
+    else if(r>0.7)m="🐢 Desceu, mas bem devagar. Que tal um passo maior?";
+    else m="👍 Boa descida! Continue.";
+    $("say2").textContent=m;$("step2").disabled=false;upd2();
+  });
+};
+function end2(ok,msg){
+  fin2=true;$("step2").disabled=true;$("rl").disabled=true;upd2();
+  let pts=0;if(ok){pts=Math.max(30,110-10*steps);if(retried)pts=Math.round(pts*.6);addPts(pts);p2pts+=pts;sWin();if(steps<=2)burst(70);}else sBad();
+  const ideal=1/(2*R.a);
+  $("say2").innerHTML=`${ok?"✅":"❌"} ${msg} ${ok?`<b>+${pts} pontos.</b>`:""} Aqui, o passo ideal era <b>1 / (2a) = ${fmt(ideal)}</b>.`;
+  $("r2").classList.remove("hidden");$("retry2").classList.toggle("hidden",ok||retried);$("les2").classList.remove("hidden");
+  $("next2").textContent=ri===0?"Próxima montanha →":"Ir para o quiz →";
+}
+$("retry2").onclick=()=>{retried=true;startDescent();$("say2").textContent="Nova tentativa. Pense no tamanho do passo!";};
+$("next2").onclick=()=>{
+  if(ri===0){ri=1;round2();return;}
+  stars[1]=p2pts>=240?3:p2pts>=160?2:p2pts>0?1:0;startP3();
+};
+
+/* ================= FASE 3: QUIZ RELÂMPAGO ================= */
+const pg=m=>`<span class="pg">${m.flat().map(v=>`<i class="${v?"on":""}"></i>`).join("")}</span>`;
+const chart=()=>{const v=[40,25,15,12,11],W=360,H=190,bw=44;let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" style="max-width:420px" role="img" aria-label="Gráfico de barras do erro por época: 40, 25, 15, 12 e 11 por cento">`;
+  v.forEach((y,i)=>{const x=40+i*64,bh=y*3.4;s+=`<rect x="${x}" y="${H-30-bh}" width="${bw}" height="${bh}" rx="6" fill="#8b3dff"/><text x="${x+bw/2}" y="${H-36-bh}" text-anchor="middle" font-family="Fredoka" font-weight="600" font-size="15" fill="currentColor">${y}%</text><text x="${x+bw/2}" y="${H-10}" text-anchor="middle" font-family="Nunito" font-weight="700" font-size="13" fill="currentColor">época ${i+1}</text>`;});
+  return s+"</svg>";};
+const QS=[
+ {t:"Uma IA analisou 200 fotos de folhas de soja para identificar doenças e acertou 170. Qual foi a taxa de acerto?",o:["85%","17%","70%","30%"],e:"170 ÷ 200 = 0,85 = 85%."},
+ {t:"Um modelo que lê placas de carro acerta 90% das imagens. Supondo acertos independentes, qual a probabilidade de ele acertar duas imagens seguidas?",o:["81%","90%","99%","45%"],e:"Eventos independentes se multiplicam: 0,9 × 0,9 = 0,81 = 81%."},
+ {t:"Tempos de resposta de um chatbot, em segundos: 2, 3, 3, 4 e 13. Quais são a média e a mediana?",o:["Média 5 e mediana 3","Média 3 e mediana 5","Média 5 e mediana 4","Média 4 e mediana 3"],e:"Média: 25 ÷ 5 = 5. Mediana: o valor do meio da lista ordenada, 3. O 13 puxa a média para cima, mas não mexe na mediana."},
+ {t:"Para uma IA, uma imagem em preto e branco de 3 × 3 pixels é uma matriz: 1 é pixel aceso e 0 é apagado. Qual imagem esta matriz representa?",fig:`<table class="mx"><tr><td>0</td><td>1</td><td>0</td></tr><tr><td>1</td><td>1</td><td>1</td></tr><tr><td>0</td><td>1</td><td>0</td></tr></table>`,
+  o:[pg([[0,1,0],[1,1,1],[0,1,0]])+" Sinal de mais",pg([[1,0,1],[0,1,0],[1,0,1]])+" Letra X",pg([[1,1,1],[1,0,1],[1,1,1]])+" Moldura",pg([[1,1,1],[0,1,0],[0,1,0]])+" Letra T"],e:"A linha do meio e a coluna do meio estão acesas (1): é um sinal de mais. É assim, como uma tabela de números, que a IA enxerga uma imagem."},
+ {t:"Uma foto colorida de 100 × 100 pixels guarda 3 números por pixel (vermelho, verde e azul). Quantos números a IA recebe ao ler essa foto?",o:["30.000","10.000","300","1.000"],e:"100 × 100 = 10.000 pixels, e 10.000 × 3 = 30.000 números."},
+ {t:"O gráfico mostra o erro de uma IA a cada época de treino. Entre quais épocas consecutivas o erro caiu mais?",fig:"chart",o:["Da época 1 para a 2","Da época 2 para a 3","Da época 3 para a 4","Da época 4 para a 5"],e:"As quedas foram de 15, 10, 3 e 1 ponto percentual. A maior foi da época 1 para a 2 (de 40% para 25%). Repare que a IA aprende muito no começo e depois cada vez menos."},
+ {t:"Um conjunto de treino tinha 8.000 imagens. Girando e espelhando as fotos, passou a ter 10.000. Qual foi o aumento percentual?",o:["25%","20%","2%","125%"],e:"Aumentou 2.000 em relação aos 8.000 iniciais: 2.000 ÷ 8.000 = 0,25 = 25%. Cuidado: 20% seria dividir pelo valor final."},
+ {t:"Para testar um modelo, sorteia-se uma foto de uma pasta com 12 fotos de gatos e 8 de cachorros. Qual a probabilidade de sair um cachorro?",o:["40%","8%","66,7%","60%"],e:"São 20 fotos no total: 8 ÷ 20 = 0,4 = 40%."},
+ {t:"Um serviço de IA custa R$ 50,00 fixos por mês mais R$ 0,02 por pergunta respondida. Quanto custa um mês com 3.000 perguntas?",o:["R$ 110,00","R$ 60,00","R$ 150,00","R$ 56,00"],e:"É uma função afim: C = 50 + 0,02 × 3.000 = 50 + 60 = R$ 110,00."},
+ {t:"Um modelo processa 120 imagens a cada 4 segundos. Mantendo o ritmo, quantas imagens ele processa em 1 minuto?",o:["1.800","480","3.000","7.200"],e:"120 ÷ 4 = 30 imagens por segundo, e 30 × 60 = 1.800 imagens por minuto."}
+];
+const QT=20;let quiz,qi,streak,hits,tStart,tRaf,locked;
+function startP3(){
+  quiz=[...QS].sort(()=>Math.random()-.5).slice(0,8);qi=0;streak=0;hits=0;
+  $("phase").textContent="Fase 3 de 3";show("s3");ask();
+}
+function ask(){
+  const q=quiz[qi];locked=false;$("qn").textContent=`Pergunta ${qi+1} de 8`;
+  $("qt").textContent=q.t;$("qfig").innerHTML=q.fig==="chart"?chart():(q.fig||"");
+  const order=[0,1,2,3].sort(()=>Math.random()-.5);
+  $("qopts").innerHTML=order.map((k,i)=>`<button class="opt" data-k="${k}"><span class="k">${"ABCD"[i]}</span><span>${q.o[k]}</span></button>`).join("");
+  $("qopts").querySelectorAll(".opt").forEach(b=>b.onclick=()=>answer(+b.dataset.k,b));
+  $("say3").classList.add("hidden");$("r3").classList.add("hidden");
+  tStart=performance.now();cancelAnimationFrame(tRaf);let lastS=QT;
+  (function tick(t){const left=Math.max(0,QT-(t-tStart)/1000);$("tbar").style.width=(left/QT*100)+"%";
+    const s=Math.ceil(left);if(s<lastS&&s<=5&&s>0)sTick();lastS=s;
+    if(left<=0)return answer(-1,null);if(!locked)tRaf=requestAnimationFrame(tick);})(tStart);
+}
+function answer(k,btn){
+  if(locked)return;locked=true;cancelAnimationFrame(tRaf);
+  const q=quiz[qi],ok=k===0,left=Math.max(0,QT-(performance.now()-tStart)/1000);
+  $("qopts").querySelectorAll(".opt").forEach(b=>{b.disabled=true;if(+b.dataset.k===0)b.classList.add("right");});
+  let msg;
+  if(ok){streak++;hits++;const mult=1+0.5*Math.min(streak-1,2),pts=(50+Math.round(50*left/QT))*mult;addPts(pts);
+    msg=`✅ <b>+${Math.round(pts)} pontos.</b> `;sOk();
+    const cb=$("combo");cb.textContent=streak>=2?`Combo x${fmt(mult,1).replace(",0","")} 🔥 ${streak} seguidas`:"";cb.classList.remove("pop");void cb.offsetWidth;cb.classList.add("pop");
+  }else{streak=0;$("combo").textContent="";if(btn)btn.classList.add("wrong");msg=k===-1?"⏰ Tempo esgotado! ":"❌ Não foi dessa vez. ";sBad();}
+  $("say3").innerHTML=msg+q.e;$("say3").classList.remove("hidden");
+  $("next3").textContent=qi<7?"Próxima →":"Ver resultado →";$("r3").classList.remove("hidden");
+}
+$("next3").onclick=()=>{qi++;if(qi<8)ask();else{stars[2]=hits>=8?3:hits>=6?2:hits>=3?1:0;finish();}};
+addEventListener("keydown",e=>{if($("s3").classList.contains("hidden")||locked)return;const i="1234".indexOf(e.key);if(i>=0){const b=$("qopts").querySelectorAll(".opt")[i];if(b)b.click();}});
+
+/* ================= RESULTADO ================= */
+function finish(){
+  $("phase").textContent="Resultado";show("sEnd");
+  const st=stars.reduce((a,b)=>a+b,0),rec=getRec(),isRec=total>rec;
+  if(isRec)setRec(total);
+  $("final").textContent=total+" pontos";$("fstars").textContent="⭐".repeat(st)+"☆".repeat(9-st);
+  $("fstars").setAttribute("aria-label",`${st} de 9 estrelas`);
+  $("e1").textContent=starStr(stars[0]);$("e2").textContent=starStr(stars[1]);$("e3").textContent=starStr(stars[2]);
+  $("fverd").textContent=(isRec?"🏆 Novo recorde! ":`Recorde: ${Math.max(rec,total)} pontos. `)+(st>=8?"Você pensa como quem cria IA.":st>=5?(isRec?"Mandou bem! Agora desafie a turma a bater essa marca.":"Mandou bem! Mais uma rodada e o recorde é seu."):"Cada rodada é um treino. A IA também começa errando muito.");
+  sWin();if(st>=6||isRec)burst(160);
+}
+$("go").onclick=()=>{total=0;stars=[0,0,0];addPts(0);startP1();};
+$("again").onclick=()=>{total=0;stars=[0,0,0];addPts(0);startP1();};
+(function(){const r=getRec();if(r)$("rec").textContent=`🏆 Seu recorde: ${r} pontos`;})();
+addEventListener("resize",()=>{if(!$("s1").classList.contains("hidden"))draw1();if(!$("s2").classList.contains("hidden")&&!$("d2").classList.contains("hidden"))draw2();});
+
+// confete
+const cv=$("fx"),cx=cv.getContext("2d");let parts=[];
+function size(){cv.width=innerWidth;cv.height=innerHeight;}addEventListener("resize",size);size();
+function burst(n){if(reduce)return;const C=["#fb3b5c","#8b3dff","#12b981","#ffc21a","#13b5d6"];const start=!parts.length;for(let k=0;k<n;k++)parts.push({x:innerWidth/2,y:innerHeight*.35,vx:(Math.random()-.5)*16,vy:-Math.random()*13-4,r:Math.random()*6,c:C[k%5],life:110});if(start)requestAnimationFrame(tick);}
+function tick(){cx.clearRect(0,0,cv.width,cv.height);parts.forEach(p=>{p.vy+=.35;p.x+=p.vx;p.y+=p.vy;p.life--;p.r+=.2;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-6,-4,12,8);cx.restore();});parts=parts.filter(p=>p.life>0&&p.y<cv.height+20);if(parts.length)requestAnimationFrame(tick);else cx.clearRect(0,0,cv.width,cv.height);}
+
+// modo de teste: ?fase=1|2|3|fim abre direto uma fase
+(function(){const m=location.search.match(/fase=(\w+)/);if(!m)return;const v=m[1];
+  if(v==="1")startP1();else if(v==="2"){startP2();}else if(v==="2d"){startP2();startDescent();}else if(v==="3")startP3();else if(v==="fim"){total=1234;stars=[3,2,2];finish();}})();
+</script>
+</body>
+</html>

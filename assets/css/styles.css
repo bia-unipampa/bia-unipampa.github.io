@@ -529,6 +529,7 @@ main, .nav, .footer { position: relative; z-index: 2; }
 }
 .explore__card:hover, .explore__card:focus-visible { transform: translateY(-6px); border-color: var(--cyan); box-shadow: 0 0 40px -16px var(--glow-cyan); outline: none; }
 .explore__card--accent { border-color: rgba(217,70,239,0.35); background: linear-gradient(165deg, rgba(217,70,239,0.10), rgba(34,211,238,0.04)); }
+.explore__card--wide { grid-column: 1 / -1; border-color: rgba(34,211,238,0.35); background: linear-gradient(165deg, rgba(34,211,238,0.10), rgba(217,70,239,0.04)); }
 .explore__ico { font-size: 1.7rem; line-height: 1; }
 .explore__card h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; margin: 16px 0 8px; letter-spacing: -0.01em; }
 .explore__card p { color: var(--ink-soft); font-size: 0.96rem; }

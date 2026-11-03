@@ -1,155 +1,228 @@
-<!doctype html>
-<html lang="pt-BR">
+<!DOCTYPE html>
+<html lang="pt">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Feito com IA</title>
-<meta name="description" content="Músicas e vídeos criados com inteligência artificial pelo Bacharelado em Inteligência Artificial da UNIPAMPA: exemplos do que dá para fazer com IA.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400..700&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
-<style>
-:root{
-  --bg:#fffaf2;--panel:#ffffff;--ink:#1b1035;--soft:#5b4f75;--line:#eadff0;
-  --pink:#fb3b5c;--purple:#8b3dff;--mint:#12c48b;--lime:#7cc417;--cyan:#13b5d6;--sun:#ffc21a;
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){--bg:#140c33;--panel:#1f1550;--ink:#f4efff;--soft:#c3b8e0;--line:#2e2357;--purple:#b58bff}
-}
-:root[data-theme="dark"]{--bg:#140c33;--panel:#1f1550;--ink:#f4efff;--soft:#c3b8e0;--line:#2e2357;--purple:#b58bff}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:"Nunito",system-ui,sans-serif;font-size:1.06rem;line-height:1.6}
-a{color:var(--purple);text-underline-offset:3px}
-.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
-@media (max-width:600px){.wrap{padding:0 16px}}
-h1,h2,h3{font-family:"Fredoka",system-ui,sans-serif;line-height:1.05;margin:0}
-.top{padding:14px 0 0;display:flex;flex-wrap:wrap;gap:6px 22px}
-.top a{color:var(--soft);font-weight:700;text-decoration:none;font-size:.95rem}
-.hd{padding:26px 0 10px}
-.hd h1{font-size:clamp(2.2rem,6vw,3.6rem);font-weight:700}
-.grad{background:linear-gradient(90deg,var(--pink),var(--purple) 45%,var(--mint));-webkit-background-clip:text;background-clip:text;color:transparent}
-.hd p{color:var(--soft);max-width:68ch;margin:12px 0 0}
-.jump{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
-.btn{display:inline-flex;align-items:center;font-weight:800;font-size:.98rem;padding:10px 20px;border-radius:999px;text-decoration:none;border:3px solid var(--purple)}
-.btn.solid{background:var(--purple);color:#fff}
-.btn.line{color:var(--purple)}
-.blk{margin:48px 0 0}
-.blk h2{font-size:clamp(1.6rem,4vw,2.1rem);margin-bottom:10px}
-.blk .sub{color:var(--soft);max-width:70ch;margin:0 0 18px}
-.player video{display:block;width:100%;height:auto;border-radius:18px;background:#140c33;box-shadow:0 10px 40px rgba(27,16,53,.25)}
-.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
-.how{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;padding:0;list-style:none;margin:18px 0 0}
-.how li{background:var(--panel);border:2px solid var(--line);border-radius:20px;padding:14px 16px;font-size:.98rem}
-.how b{font-family:"Fredoka",sans-serif;font-weight:600;font-size:1.1rem;display:block;margin-bottom:2px}
-.songs{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
-@media (max-width:400px){.songs{grid-template-columns:1fr}}
-.song{background:var(--panel);border:2px solid var(--line);border-radius:22px;padding:16px 18px 12px;border-top:8px solid var(--c)}
-.song h3{font-size:1.45rem;font-weight:600;display:flex;align-items:center;gap:10px}
-.song h3 span{font-size:1.6rem}
-.song .tags{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 0;padding:0}
-.song .tags span{font-size:.8rem;font-weight:800;padding:2px 10px;border-radius:999px;border:2px solid var(--c);color:var(--ink)}
-.song .d{color:var(--soft);font-size:.95rem;margin:8px 0 4px}
-.song .meta{font-size:.85rem;font-weight:800;color:var(--soft);margin:0 0 8px}
-.ver{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--line)}
-.ver .n{font-weight:800;font-size:.9rem;color:var(--soft);min-width:56px}
-.ver audio{flex:1;min-width:0;height:40px}
-.ver a{font-size:.85rem;font-weight:800;text-decoration:none;white-space:nowrap}
-.cta{margin:56px 0 0;background:var(--panel);border:2px solid var(--line);border-radius:26px;padding:26px 24px}
-.cta h2{font-size:clamp(1.5rem,4vw,2rem);margin-bottom:8px}
-.cta p{color:var(--soft);max-width:68ch;margin:0 0 16px}
-.note{color:var(--soft);font-size:.95rem;margin-top:18px;max-width:80ch}
-footer{border-top:1px solid var(--line);margin-top:52px;padding:28px 0 56px;color:var(--soft);font-size:.95rem}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feito com IA · BIA · UNIPAMPA</title>
+  <meta name="description" content="Músicas e vídeos criados com inteligência artificial pelo Bacharelado em Inteligência Artificial da UNIPAMPA: exemplos do que dá para fazer com IA." />
+  <meta name="theme-color" content="#06070d" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Feito com IA · BIA · UNIPAMPA" />
+  <meta property="og:description" content="Músicas e vídeos criados com inteligência artificial pelo Bacharelado em Inteligência Artificial da UNIPAMPA." />
+  <meta property="og:image" content="../assets/img/og-image.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+  <link rel="stylesheet" href="../assets/css/pages.css" />
+  <style>
+    /* ----- componentes específicos desta página ----- */
+    .player video { display: block; width: 100%; height: auto; border-radius: var(--radius-lg); background: #000; border: 1px solid var(--line-strong); box-shadow: 0 30px 80px -40px var(--glow-cyan); }
+    .player__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
+    .how { margin-top: 28px; }
+    .songs { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr)); gap: 18px; }
+    .song { min-width: 0; }
+    .song { border-top: 3px solid var(--c); }
+    .song h3 { display: flex; align-items: center; gap: 10px; font-size: 1.4rem; margin-top: 0; }
+    .song h3 span { font-size: 1.5rem; }
+    .song .chips { margin: 12px 0 0; }
+    .song .chip { cursor: default; font-size: 0.78rem; padding: 4px 12px; }
+    .song .chip:hover { color: var(--ink-soft); }
+    .song__d { margin-top: 12px; }
+    .song .tile__foot { margin: 14px 0 6px; }
+    .ver { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-top: 1px solid var(--line); }
+    .ver__n { font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-dim); min-width: 64px; }
+    .ver audio { flex: 1; width: 100%; min-width: 0; height: 38px; color-scheme: dark; }
+    .ver a { font-family: var(--font-mono); font-size: 0.76rem; color: var(--c); white-space: nowrap; }
+    .ver a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  </style>
+
+  <!-- Umami analytics (sem cookies, compatível com a LGPD) -->
+  <script defer src="https://stats-bia.iotedu.org/script.js" data-website-id="42daa7a0-8da8-4c04-96aa-3e7dc8e12986"></script>
 </head>
 <body>
-<div class="wrap top"><a href="../index.html">← Bacharelado em IA</a><a href="escolas-bia-v2.html">BIA nas Escolas</a></div>
+  <canvas id="neural" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
 
-<header class="hd">
-  <div class="wrap">
-    <h1>Feito com <span class="grad">IA</span></h1>
-    <p>Músicas e vídeos criados com inteligência artificial para o Bacharelado em Inteligência Artificial (BIA) da UNIPAMPA. São exemplos do que dá para fazer hoje com modelos abertos, uma GPU e um bom roteiro: compor em vários estilos, gerar cenas de vídeo, narrar e legendar. No BIA, você aprende como esses modelos funcionam por dentro e como usá-los com responsabilidade.</p>
-    <div class="jump"><a class="btn solid" href="#video">Assistir ao vídeo</a><a class="btn line" href="#musicas">Ouvir as músicas</a></div>
-  </div>
-</header>
+  <!-- ===================== NAV ===================== -->
+  <header class="nav" id="nav">
+    <a class="brand" href="../index.html" aria-label="BIA, início">
+      <span class="brand__mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" width="28" height="28"><circle cx="8" cy="9" r="3"/><circle cx="24" cy="7" r="2.4"/><circle cx="25" cy="22" r="3"/><circle cx="9" cy="24" r="2.6"/><circle cx="16" cy="16" r="2.2"/><path d="M8 9 16 16M24 7 16 16M25 22 16 16M9 24 16 16M8 9 24 7M25 22 9 24"/></svg>
+      </span>
+      <span class="brand__text">BIA</span>
+    </a>
 
-<section class="wrap blk" id="video">
-  <h2>🎬 Engenharia reversa com IA</h2>
-  <p class="sub">A Bia e o Bit mostram, passo a passo, como um pesquisador e o Claude descobriram o funcionamento de uma máscara de dormir inteligente: Bluetooth, descompilação do app, análise do binário e validação. No fim, uma receita de engenharia reversa e um desafio para a turma. Duração: 4 min 17 s. As legendas já aparecem na imagem; os arquivos VTT e SRT servem para quem quiser usá-las à parte.</p>
-  <div class="player">
-    <video controls preload="metadata" poster="feito-com-ia-v1/videos/video-engenharia-reversa-ia-v1.jpg">
-      <source src="feito-com-ia-v1/videos/video-engenharia-reversa-ia-v1.mp4" type="video/mp4">
-      <track kind="captions" src="feito-com-ia-v1/videos/video-engenharia-reversa-ia-v1.vtt" srclang="pt-BR" label="Português">
-    </video>
-    <div class="actions">
-      <a class="btn solid" href="feito-com-ia-v1/videos/video-engenharia-reversa-ia-v1.mp4" download>Baixar MP4 (720p, 44 MB)</a>
-      <a class="btn line" href="feito-com-ia-v1/videos/video-engenharia-reversa-ia-v1.vtt" download>Legendas (VTT)</a>
-      <a class="btn line" href="feito-com-ia-v1/videos/video-engenharia-reversa-ia-v1.srt" download>Legendas (SRT)</a>
+    <nav class="nav__links" aria-label="Navegação principal">
+      <a href="../index.html">Início</a>
+      <a href="../matriz.html">Matriz</a>
+      <a href="../grade.html">Monte sua grade</a>
+      <a href="../mercado.html">Mercado</a>
+      <a href="../inovacao.html">Inovação</a>
+      <a href="../por-que-bia.html">Por que o BIA</a>
+      <a href="../alegrete.html">Por que Alegrete</a>
+      <a href="escolas-bia-v2.html">Escolas</a>
+      <a href="feito-com-ia-v1.html" aria-current="page">Feito com IA</a>
+    </nav>
+
+    <div class="nav__right">
+      <a class="btn btn--solid nav__cta" href="../index.html#ingresso">Quero estudar</a>
+      <button class="nav__burger" id="burger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-  </div>
-  <ul class="how">
-    <li><b>🎥 Cenas</b>Planos de vídeo gerados pelo modelo aberto LTX-2.3, a partir de descrições em texto e quadros de referência.</li>
-    <li><b>🎵 Trilha</b>Música instrumental composta pelo ACE-Step 1.5, o mesmo gerador das músicas abaixo.</li>
-    <li><b>🗣️ Vozes e legendas</b>Narração com vozes sintéticas e legendas sincronizadas com a fala.</li>
-    <li><b>🧩 Montagem</b>Roteiro, gráficos e edição automatizados com scripts em Python, revisados por gente.</li>
-  </ul>
-</section>
+  </header>
 
-<section class="wrap blk" id="musicas">
-  <h2>🎶 A música do BIA em seis estilos</h2>
-  <p class="sub">Dezoito faixas geradas pelo ACE-Step 1.5, um modelo aberto de geração de música, rodando numa GPU local. Para cada estilo, a IA recebeu a mesma letra e uma descrição do gênero (instrumentos, voz, andamento e clima), resumida em cada cartão. Cada estilo tem três versões: mesmo pedido, sementes aleatórias diferentes. Compare e veja como a IA varia arranjo, melodia e interpretação.</p>
-  <div class="songs" id="songs"></div>
-</section>
+  <main id="top">
+    <section class="phero">
+      <div class="wrap">
+        <p class="phero__crumb"><a href="../index.html">BIA</a> / Feito com IA</p>
+        <h1 class="phero__title reveal">Feito com <em>IA</em></h1>
+        <p class="phero__lead reveal">Músicas e vídeos criados com inteligência artificial para o Bacharelado em Inteligência Artificial (BIA) da UNIPAMPA. São exemplos do que dá para fazer hoje com modelos abertos, uma GPU e um bom roteiro: compor em vários estilos, gerar cenas de vídeo, narrar e legendar. <strong>No BIA, você aprende como esses modelos funcionam por dentro e como usá-los com responsabilidade.</strong></p>
+        <div class="phero__actions reveal">
+          <a class="btn btn--solid" href="#video">Assistir ao vídeo</a>
+          <a class="btn btn--ghost" href="#musicas">Ouvir as músicas</a>
+        </div>
+      </div>
+    </section>
 
-<section class="wrap">
-  <div class="cta">
-    <h2>Quer aprender a criar coisas assim?</h2>
-    <p>No Bacharelado em Inteligência Artificial da UNIPAMPA, em Alegrete-RS, você estuda os modelos que geram texto, imagem, som e vídeo, aprende a treiná-los e a avaliá-los, e usa tudo isso para resolver problemas de verdade.</p>
-    <a class="btn solid" href="../index.html#ingresso">Como entrar no BIA</a>
-  </div>
-  <p class="note">Músicas e vídeo são conteúdos gerados por IA, sem gravação de músicos, atores ou cantores reais, e servem como demonstração e divulgação do curso.</p>
-</section>
+    <!-- ===================== VÍDEO ===================== -->
+    <section class="section section--tight" id="video" style="padding-top:0">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker">Vídeo · 4 min 17 s</p>
+          <h2 class="section__title reveal">Engenharia reversa com IA</h2>
+          <p class="section__lead reveal">A Bia e o Bit mostram, passo a passo, como um pesquisador e o Claude descobriram o funcionamento de uma máscara de dormir inteligente: Bluetooth, descompilação do app, análise do binário e validação. No fim, uma receita de engenharia reversa e um desafio para a turma. As legendas já aparecem na imagem; os arquivos VTT e SRT servem para quem quiser usá-las à parte.</p>
+        </header>
+        <div class="player reveal">
+          <video controls preload="metadata" poster="feito-com-ia-v1/videos/video-engenharia-reversa-ia-v1.jpg">
+            <source src="feito-com-ia-v1/videos/video-engenharia-reversa-ia-v1.mp4" type="video/mp4" />
+            <track kind="captions" src="feito-com-ia-v1/videos/video-engenharia-reversa-ia-v1.vtt" srclang="pt-BR" label="Português" />
+          </video>
+          <div class="player__actions">
+            <a class="btn btn--solid" href="feito-com-ia-v1/videos/video-engenharia-reversa-ia-v1.mp4" download>Baixar MP4 (720p, 44 MB)</a>
+            <a class="btn btn--ghost" href="feito-com-ia-v1/videos/video-engenharia-reversa-ia-v1.vtt" download>Legendas (VTT)</a>
+            <a class="btn btn--ghost" href="feito-com-ia-v1/videos/video-engenharia-reversa-ia-v1.srt" download>Legendas (SRT)</a>
+          </div>
+        </div>
+        <div class="grid grid--4 how">
+          <article class="tile tile--line reveal" style="--c:var(--pi)"><span class="tile__ico" aria-hidden="true">🎥</span><h3>Cenas</h3><p>Planos de vídeo gerados pelo modelo aberto LTX-2.3, a partir de descrições em texto e quadros de referência.</p></article>
+          <article class="tile tile--line reveal" style="--c:var(--fm)"><span class="tile__ico" aria-hidden="true">🎵</span><h3>Trilha</h3><p>Música instrumental composta pelo ACE-Step 1.5, o mesmo gerador das músicas abaixo.</p></article>
+          <article class="tile tile--line reveal" style="--c:var(--ia)"><span class="tile__ico" aria-hidden="true">🗣️</span><h3>Vozes e legendas</h3><p>Narração com vozes sintéticas e legendas sincronizadas com a fala.</p></article>
+          <article class="tile tile--line reveal" style="--c:var(--cp)"><span class="tile__ico" aria-hidden="true">🧩</span><h3>Montagem</h3><p>Roteiro, gráficos e edição automatizados com scripts em Python, revisados por gente.</p></article>
+        </div>
+      </div>
+    </section>
 
-<footer>
-  <div class="wrap">Bacharelado em Inteligência Artificial, UNIPAMPA, Campus Alegrete-RS. "Feito com IA", versão 1, novembro de 2026.</div>
-</footer>
+    <!-- ===================== MÚSICAS ===================== -->
+    <section class="section section--tight section--alt" id="musicas">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker">Música · 18 faixas</p>
+          <h2 class="section__title reveal">A música do BIA em seis estilos</h2>
+          <p class="section__lead reveal">Dezoito faixas geradas pelo ACE-Step 1.5, um modelo aberto de geração de música, rodando numa GPU local. Para cada estilo, a IA recebeu a mesma letra e uma descrição do gênero (instrumentos, voz, andamento e clima), resumida em cada cartão. Cada estilo tem três versões: mesmo pedido, sementes aleatórias diferentes. Compare e veja como a IA varia arranjo, melodia e interpretação.</p>
+        </header>
+        <div class="songs" id="songs"></div>
+      </div>
+    </section>
 
-<script>
-const SONGS = [
-  {id:"rock", nome:"Rock de arena", em:"🎸", c:"var(--pink)", dur:"3:20", bpm:148, tom:"Mi maior",
-   tags:["hard rock","hino de estádio"],
-   d:"Vocal masculino rasgado, coro da galera no refrão, guitarras distorcidas com riffs abafados, bateria pesada, solo de guitarra e mudança de tom no refrão final."},
-  {id:"rock-gaucho", nome:"Rock gaúcho", em:"🧉", c:"var(--sun)", dur:"3:10", bpm:185, tom:"Lá maior",
-   tags:["punk'n'roll","rockabilly","garage rock"],
-   d:"Rock gaúcho dos anos 90: rápido e cru, vocal gritado com sotaque do Sul, gritos de \"hey\" no refrão, guitarras com eco rockabilly, baixo caminhante e paradas bruscas."},
-  {id:"rock-banjo", nome:"Rock com banjo", em:"🪕", c:"var(--lime)", dur:"3:25", bpm:140, tom:"Sol maior",
-   tags:["folk rock","country rock","bluegrass"],
-   d:"Hino de festival com banjo dedilhado como instrumento principal, violão, guitarras por baixo, palmas e batidas de pé, solo de banjo e refrão final explosivo."},
-  {id:"sertanejo", nome:"Sertanejo", em:"🤠", c:"var(--mint)", dur:"3:20", bpm:150, tom:"Ré maior",
-   tags:["sertanejo universitário","agronejo"],
-   d:"Dupla cantando em terças, sanfona puxando a melodia, violão e viola caipira, plateia cantando junto no refrão e clima de show ao vivo."},
-  {id:"funk", nome:"Funk", em:"🔊", c:"var(--purple)", dur:"3:00", bpm:130, tom:"Fá♯ menor",
-   tags:["baile funk","funk mandelão","funk paulista"],
-   d:"MC com flow ritmado, refrão-chiclete repetido, batida de tamborzão, grave 808, palmas, pergunta e resposta com a plateia e energia de baile."},
-  {id:"trap", nome:"Trap", em:"🎧", c:"var(--cyan)", dur:"3:15", bpm:140, tom:"Dó♯ menor",
-   tags:["trap nacional","trap melódico"],
-   d:"Rap rápido nas estrofes e refrão cantado com auto-tune, hi-hats acelerados, 808 deslizante, sintetizadores escuros e troca de batida no meio da faixa."}
-];
-const box = document.getElementById("songs");
-box.innerHTML = SONGS.map(s => `
-  <article class="song" style="--c:${s.c}">
-    <h3><span aria-hidden="true">${s.em}</span>${s.nome}</h3>
-    <p class="tags">${s.tags.map(t=>`<span>${t}</span>`).join("")}</p>
-    <p class="d">${s.d}</p>
-    <p class="meta">${s.bpm} BPM · ${s.tom} · ${s.dur} por versão</p>
-    ${[1,2,3].map(v => {
-      const f = `feito-com-ia-v1/musicas/musica-bia-${s.id}-v${v}.mp3`;
-      return `<div class="ver"><span class="n">Versão ${v}</span><audio controls preload="none" src="${f}" aria-label="${s.nome}, versão ${v}"></audio><a href="${f}" download>MP3</a></div>`;
-    }).join("")}
-  </article>`).join("");
-// toca uma faixa por vez (inclui o vídeo)
-document.addEventListener("play", e => {
-  document.querySelectorAll("audio,video").forEach(m => { if (m !== e.target) m.pause(); });
-}, true);
-</script>
+    <!-- ===================== CTA ===================== -->
+    <section class="section section--tight">
+      <div class="wrap">
+        <div class="callout reveal">
+          <h2>Quer aprender a criar as tecnologias que permitem fazer coisas assim?</h2>
+          <p>No Bacharelado em Inteligência Artificial da UNIPAMPA, em Alegrete-RS, você estuda por dentro os modelos que geram texto, imagem, som e vídeo, aprende a construí-los, treiná-los e avaliá-los, e usa tudo isso para resolver problemas de verdade.</p>
+          <div class="phero__actions cta-actions">
+            <a class="btn btn--solid" href="../index.html#ingresso">Como entrar no BIA</a>
+            <a class="btn btn--ghost" href="../matriz.html">Ver a matriz do curso</a>
+          </div>
+        </div>
+        <p class="note">Músicas e vídeo são conteúdos gerados por IA, sem gravação de músicos, atores ou cantores reais, e servem como demonstração e divulgação do curso. "Feito com IA", versão 1, novembro de 2026.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <div class="wrap footer__grid">
+      <div class="footer__brand">
+        <span class="brand__text">BIA</span>
+        <p>Bacharelado em Inteligência Artificial · Universidade Federal do Pampa · Campus Alegrete</p>
+      </div>
+      <nav class="footer__col" aria-label="Explore">
+        <h4>Explore</h4>
+        <a href="../matriz.html">Matriz</a>
+        <a href="../grade.html">Monte sua grade</a>
+        <a href="../mercado.html">Mercado</a>
+        <a href="../inovacao.html">Inovação</a>
+        <a href="../por-que-bia.html">Por que o BIA</a>
+        <a href="../alegrete.html">Por que Alegrete</a>
+        <a href="escolas-bia-v2.html">BIA nas Escolas</a>
+        <a href="feito-com-ia-v1.html">Feito com IA</a>
+      </nav>
+      <nav class="footer__col" aria-label="Links">
+        <h4>Links</h4>
+        <a href="https://ai-horizon-labs.github.io" target="_blank" rel="noopener">AI Horizon Labs</a>
+        <a href="https://alegrete-rs.github.io" target="_blank" rel="noopener">Alegrete-RS</a>
+        <a href="https://www.unipampa.edu.br" target="_blank" rel="noopener">UNIPAMPA</a>
+      </nav>
+      <div class="footer__col">
+        <h4>Contato</h4>
+        <a href="mailto:bia@unipampa.edu.br">bia@unipampa.edu.br</a>
+        <a href="https://www.instagram.com/bia.unipampa/" target="_blank" rel="noopener">@bia.unipampa</a>
+        <span>Campus Alegrete-RS</span>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2026 AI Horizon Labs · UNIPAMPA. Todos os direitos reservados.</p>
+      <p class="footer__made">Coordenado pelo AI Horizon Labs</p>
+    </div>
+  </footer>
+
+  <script>
+    const SONGS = [
+      {id:"rock", nome:"Rock de arena", em:"🎸", c:"var(--pi)", dur:"3:20", bpm:148, tom:"Mi maior",
+       tags:["hard rock","hino de estádio"],
+       d:"Vocal masculino rasgado, coro da galera no refrão, guitarras distorcidas com riffs abafados, bateria pesada, solo de guitarra e mudança de tom no refrão final."},
+      {id:"rock-gaucho", nome:"Rock gaúcho", em:"🧉", c:"var(--cp)", dur:"3:10", bpm:185, tom:"Lá maior",
+       tags:["punk'n'roll","rockabilly","garage rock"],
+       d:"Rock gaúcho dos anos 90: rápido e cru, vocal gritado com sotaque do Sul, gritos de \"hey\" no refrão, guitarras com eco rockabilly, baixo caminhante e paradas bruscas."},
+      {id:"rock-banjo", nome:"Rock com banjo", em:"🪕", c:"var(--fc)", dur:"3:25", bpm:140, tom:"Sol maior",
+       tags:["folk rock","country rock","bluegrass"],
+       d:"Hino de festival com banjo dedilhado como instrumento principal, violão, guitarras por baixo, palmas e batidas de pé, solo de banjo e refrão final explosivo."},
+      {id:"sertanejo", nome:"Sertanejo", em:"🤠", c:"var(--ia)", dur:"3:20", bpm:150, tom:"Ré maior",
+       tags:["sertanejo universitário","agronejo"],
+       d:"Dupla cantando em terças, sanfona puxando a melodia, violão e viola caipira, plateia cantando junto no refrão e clima de show ao vivo."},
+      {id:"funk", nome:"Funk", em:"🔊", c:"var(--fm)", dur:"3:00", bpm:130, tom:"Fá♯ menor",
+       tags:["baile funk","funk mandelão","funk paulista"],
+       d:"MC com flow ritmado, refrão-chiclete repetido, batida de tamborzão, grave 808, palmas, pergunta e resposta com a plateia e energia de baile."},
+      {id:"trap", nome:"Trap", em:"🎧", c:"var(--cyan)", dur:"3:15", bpm:140, tom:"Dó♯ menor",
+       tags:["trap nacional","trap melódico"],
+       d:"Rap rápido nas estrofes e refrão cantado com auto-tune, hi-hats acelerados, 808 deslizante, sintetizadores escuros e troca de batida no meio da faixa."}
+    ];
+    document.getElementById("songs").innerHTML = SONGS.map(s => `
+      <article class="tile song reveal" style="--c:${s.c}">
+        <h3><span aria-hidden="true">${s.em}</span>${s.nome}</h3>
+        <div class="chips">${s.tags.map(t => `<span class="chip" style="--c:${s.c}"><span class="chip__dot"></span>${t}</span>`).join("")}</div>
+        <p class="song__d">${s.d}</p>
+        <p class="tile__foot"><b>${s.bpm} BPM</b> · ${s.tom} · ${s.dur} por versão</p>
+        ${[1, 2, 3].map(v => {
+          const f = `feito-com-ia-v1/musicas/musica-bia-${s.id}-v${v}.mp3`;
+          return `<div class="ver"><span class="ver__n">Versão ${v}</span><audio controls preload="none" src="${f}" aria-label="${s.nome}, versão ${v}"></audio><a href="${f}" download>MP3</a></div>`;
+        }).join("")}
+      </article>`).join("");
+    // toca uma faixa por vez (inclui o vídeo)
+    document.addEventListener("play", e => {
+      document.querySelectorAll("audio,video").forEach(m => { if (m !== e.target) m.pause(); });
+    }, true);
+  </script>
+  <script src="../assets/js/neural.js"></script>
+  <script src="../assets/js/site.js"></script>
 </body>
 </html>

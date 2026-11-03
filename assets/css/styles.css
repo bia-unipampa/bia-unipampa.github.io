@@ -146,7 +146,8 @@ main, .nav, .footer { position: relative; z-index: 2; }
 .nav__links a:hover { color: #fff; } .nav__links a:hover::after { width: 100%; }
 .nav__links a[aria-current="page"] { color: #fff; }
 .nav__links a[aria-current="page"]::after { width: 100%; }
-@media (min-width: 1181px) and (max-width: 1400px) { .nav__links { gap: 18px; } .nav__links a { font-size: 0.86rem; } }
+.nav__links a { white-space: nowrap; }
+@media (min-width: 1341px) and (max-width: 1560px) { .nav__links { gap: 16px; } .nav__links a { font-size: 0.86rem; } }
 .nav__right { display: flex; align-items: center; gap: 16px; }
 .langswitch { display: inline-flex; border: 1px solid var(--line-strong); border-radius: 100px; overflow: hidden; }
 .langswitch button {
@@ -589,7 +590,7 @@ main, .nav, .footer { position: relative; z-index: 2; }
   .footer__grid { grid-template-columns: 1fr 1fr; }
 }
 /* nav collapses to the burger menu early so the link row never cramps */
-@media (max-width: 1180px) {
+@media (max-width: 1340px) {
   .nav__links, .nav__cta { display: none; }
   .nav__burger { display: flex; }
   .nav.is-open .nav__links {

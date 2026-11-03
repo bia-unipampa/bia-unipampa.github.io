@@ -86,14 +86,26 @@
         <h1 class="phero__title reveal">Feito com <em>IA</em></h1>
         <p class="phero__lead reveal">Músicas e vídeos criados com inteligência artificial para o Bacharelado em Inteligência Artificial (BIA) da UNIPAMPA. São exemplos do que dá para fazer hoje com modelos abertos, uma GPU e um bom roteiro: compor em vários estilos, gerar cenas de vídeo, narrar e legendar. <strong>No BIA, você aprende como esses modelos funcionam por dentro e como usá-los com responsabilidade.</strong></p>
         <div class="phero__actions reveal">
-          <a class="btn btn--solid" href="#video">Assistir ao vídeo</a>
-          <a class="btn btn--ghost" href="#musicas">Ouvir as músicas</a>
+          <a class="btn btn--solid" href="#musicas">Ouvir as músicas</a>
+          <a class="btn btn--ghost" href="#video">Assistir ao vídeo</a>
         </div>
       </div>
     </section>
 
+    <!-- ===================== MÚSICAS ===================== -->
+    <section class="section section--tight" id="musicas" style="padding-top:0">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker">Música · 18 faixas</p>
+          <h2 class="section__title reveal">A música do BIA em seis estilos</h2>
+          <p class="section__lead reveal">Dezoito faixas geradas pelo ACE-Step 1.5, um modelo aberto de geração de música, rodando numa GPU local. Para cada estilo, a IA recebeu a mesma letra e uma descrição do gênero (instrumentos, voz, andamento e clima), resumida em cada cartão. Cada estilo tem três versões: mesmo pedido, sementes aleatórias diferentes. Compare e veja como a IA varia arranjo, melodia e interpretação.</p>
+        </header>
+        <div class="songs" id="songs"></div>
+      </div>
+    </section>
+
     <!-- ===================== VÍDEO ===================== -->
-    <section class="section section--tight" id="video" style="padding-top:0">
+    <section class="section section--tight section--alt" id="video">
       <div class="wrap">
         <header class="section__head">
           <p class="kicker">Vídeo · 4 min 17 s</p>
@@ -113,22 +125,10 @@
         </div>
         <div class="grid grid--4 how">
           <article class="tile tile--line reveal" style="--c:var(--pi)"><span class="tile__ico" aria-hidden="true">🎥</span><h3>Cenas</h3><p>Planos de vídeo gerados pelo modelo aberto LTX-2.3, a partir de descrições em texto e quadros de referência.</p></article>
-          <article class="tile tile--line reveal" style="--c:var(--fm)"><span class="tile__ico" aria-hidden="true">🎵</span><h3>Trilha</h3><p>Música instrumental composta pelo ACE-Step 1.5, o mesmo gerador das músicas abaixo.</p></article>
+          <article class="tile tile--line reveal" style="--c:var(--fm)"><span class="tile__ico" aria-hidden="true">🎵</span><h3>Trilha</h3><p>Música instrumental composta pelo ACE-Step 1.5, o mesmo gerador das músicas acima.</p></article>
           <article class="tile tile--line reveal" style="--c:var(--ia)"><span class="tile__ico" aria-hidden="true">🗣️</span><h3>Vozes e legendas</h3><p>Narração com vozes sintéticas e legendas sincronizadas com a fala.</p></article>
           <article class="tile tile--line reveal" style="--c:var(--cp)"><span class="tile__ico" aria-hidden="true">🧩</span><h3>Montagem</h3><p>Roteiro, gráficos e edição automatizados com scripts em Python, revisados por gente.</p></article>
         </div>
-      </div>
-    </section>
-
-    <!-- ===================== MÚSICAS ===================== -->
-    <section class="section section--tight section--alt" id="musicas">
-      <div class="wrap">
-        <header class="section__head">
-          <p class="kicker">Música · 18 faixas</p>
-          <h2 class="section__title reveal">A música do BIA em seis estilos</h2>
-          <p class="section__lead reveal">Dezoito faixas geradas pelo ACE-Step 1.5, um modelo aberto de geração de música, rodando numa GPU local. Para cada estilo, a IA recebeu a mesma letra e uma descrição do gênero (instrumentos, voz, andamento e clima), resumida em cada cartão. Cada estilo tem três versões: mesmo pedido, sementes aleatórias diferentes. Compare e veja como a IA varia arranjo, melodia e interpretação.</p>
-        </header>
-        <div class="songs" id="songs"></div>
       </div>
     </section>
 

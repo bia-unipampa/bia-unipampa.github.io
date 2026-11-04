@@ -1,0 +1,100 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:06.589
+BIT: Bah, Bia! Comprei uma máscara de dormir inteligente, e ela não tem botão de desligar!
+
+00:00:06.879 --> 00:00:12.129
+BIA: Calma, Bit. Então bora descobrir como ela funciona por dentro.
+
+00:00:17.589 --> 00:00:24.420
+BIA: Engenharia reversa é descobrir como algo funciona, olhando o que ele faz e o que ele carrega.
+
+00:00:24.759 --> 00:00:27.649
+BIT: Tipo abrir o pastel pra descobrir a receita?
+
+00:00:28.009 --> 00:00:36.119
+BIA: Pode ser um app, um binário, um firmware, ou um protocolo: os bytes que dois aparelhos trocam.
+
+00:00:36.509 --> 00:00:39.479
+BIT: E por que todo mundo tá falando disso agora?
+
+00:00:40.049 --> 00:00:43.679
+BIA: Porque a IA virou parceira de engenharia reversa.
+
+00:00:44.379 --> 00:00:52.109
+BIT: Olha isso, tchê! Um repositório com mais de quatrocentas mil estrelas, e vídeos com milhões de visualizações!
+
+00:00:52.349 --> 00:01:00.959
+BIA: O segredo é o MCP: um protocolo que deixa o Claude usar ferramentas de verdade, como Ghidra, IDA e jadx.
+
+00:01:01.349 --> 00:01:08.899
+BIA: O Claude levanta uma hipótese, roda a ferramenta, lê o resultado e ajusta. Em loop, até fechar.
+
+00:01:09.269 --> 00:01:12.200
+BIT: Beleza, mas me mostra um caso real!
+
+00:01:12.849 --> 00:01:20.459
+BIA: Fevereiro de dois mil e vinte e seis: um pesquisador e o Claude, contra uma máscara de dormir inteligente.
+
+00:01:20.849 --> 00:01:25.259
+BIT: Trinta minutos de sessão autônoma. Bora ver, passo a passo!
+
+00:01:25.640 --> 00:01:35.790
+BIA: Passo um: escanear o Bluetooth. Trinta e cinco aparelhos por perto, e a máscara tinha dois canais: comandos e dados.
+
+00:01:36.390 --> 00:01:42.659
+BIT: Passo dois: chutar comandos. Cem tentativas... e nada! Nem um pio.
+
+00:01:43.040 --> 00:01:48.370
+BIA: Calma, Bit! Quando chutar não funciona, a gente lê o código do app.
+
+00:01:48.670 --> 00:01:58.700
+BIA: Passo três: descompilar o app Android com o jadx. Surpresa: era Flutter, com a lógica num binário ARM de nove megas.
+
+00:01:59.480 --> 00:02:06.390
+BIT: Passo quatro: o comando strings! Achou senha do servidor, endereços da nuvem, e quinze funções de comando.
+
+00:02:06.570 --> 00:02:14.540
+BIA: E as mensagens de debug entregaram o formato do pacote: cabeçalho, direção, comando, dados e rodapé.
+
+00:02:14.790 --> 00:02:21.980
+BIA: Passo cinco: o blutter descompilou o código Dart, e revelou o byte de cada um dos quinze comandos.
+
+00:02:22.330 --> 00:02:28.820
+BIT: Passo seis: um pacote de seis bytes, e a máscara respondeu com cento e cinquenta e três!
+
+00:02:29.340 --> 00:02:35.930
+BIT: Tri! Funcionou! Vibração, aquecimento, música... eu controlo tudo!
+
+00:02:36.719 --> 00:02:40.729
+BIA: Espera, Bit. Olha o que mais apareceu.
+
+00:02:41.050 --> 00:02:48.640
+BIA: Com a mesma senha embutida no app, dava pra ver uns vinte e cinco aparelhos de outras pessoas, até ondas cerebrais!
+
+00:02:49.010 --> 00:02:51.000
+BIT: Bah, isso é muito grave!
+
+00:02:52.010 --> 00:02:57.980
+BIA: E o pesquisador fez o certo: não mexeu nos aparelhos dos outros, e avisou a empresa.
+
+00:02:58.590 --> 00:03:07.360
+BIA: Regra de ouro: só faça engenharia reversa no que é seu, com autorização ou em CTF. E divulgue falhas com responsabilidade.
+
+00:03:07.670 --> 00:03:14.760
+BIT: Outro caso: com o Ghidra MCP, o Claude achou a instrução que tira vidas no River Raid, e trocou por um NOP!
+
+00:03:15.110 --> 00:03:22.980
+BIA: Mas atenção: a IA erra com confiança. Ela jurou que o jogo era Centipede! Sempre valide no binário original.
+
+00:03:23.610 --> 00:03:32.520
+BIA: A receita: reconhecimento, análise estática, dinâmica, hipótese, teste mínimo, reimplementação e validação.
+
+00:03:32.900 --> 00:03:40.530
+BIT: Dica de ouro: peça pro Claude separar evidência de chute, e escrever um teste que prove cada hipótese.
+
+00:03:40.950 --> 00:03:47.940
+BIA: Desafio da semana: escolham um CTF ou um aparelho de vocês, e documentem cada passo.
+
+00:03:48.410 --> 00:03:52.620
+BIT: E me chamem pra comemorar! Até a próxima, galera do BIA!

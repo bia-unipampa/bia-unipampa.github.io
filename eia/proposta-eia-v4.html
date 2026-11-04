@@ -1,0 +1,1055 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Especialização em IA Aplicada</title>
+<meta name="description" content="Proposta v4 da Especialização em Inteligência Artificial Aplicada (EIA) da UNIPAMPA, Campus Alegrete: a Resolução de Problemas como espinha dorsal, com módulos de apoio e o TCC construído a partir do problema real de cada aluno. IA para o mundo real.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ffffff;
+  --paper-2:#f3f6f7;
+  --ink:#13232d;
+  --ink-soft:#4a5c66;
+  --line:#d5dee2;
+  --azul:#1f4e66;
+  --verde:#1d8a52;
+  --ouro:#b57f1c;
+  --roxo:#7a4fa0;
+  --azul-bg:#e6eff3;
+  --verde-bg:#e3f3ea;
+  --ouro-bg:#f8eedb;
+  --roxo-bg:#efe8f6;
+  --code:#26343c;
+  --maxw:1160px;
+  --display:"Archivo",system-ui,sans-serif;
+  --body:"Public Sans",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0f1a20;--paper-2:#15232b;--ink:#e8eef1;--ink-soft:#a7b6be;--line:#2a3b44;
+    --azul:#7fb4d0;--verde:#5ccf8f;--ouro:#e4b459;--roxo:#b896dc;
+    --azul-bg:#173040;--verde-bg:#143326;--ouro-bg:#3a2d12;--roxo-bg:#2c2140;--code:#0a1217;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0f1a20;--paper-2:#15232b;--ink:#e8eef1;--ink-soft:#a7b6be;--line:#2a3b44;
+  --azul:#7fb4d0;--verde:#5ccf8f;--ouro:#e4b459;--roxo:#b896dc;
+  --azul-bg:#173040;--verde-bg:#143326;--ouro-bg:#3a2d12;--roxo-bg:#2c2140;--code:#0a1217;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--azul);text-underline-offset:3px}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--ouro);outline-offset:3px;border-radius:4px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+@media (max-width:600px){.wrap{padding:0 16px}}
+h1,h2,h3{font-family:var(--display);line-height:1.08;margin:0;color:var(--ink)}
+h2{font-size:clamp(1.9rem,4.2vw,3rem);font-variation-settings:"wdth" 112;font-weight:800;letter-spacing:-.01em;max-width:22ch}
+h3{font-size:1.25rem;font-weight:700;font-variation-settings:"wdth" 100}
+p{margin:0 0 1em}
+.lead{font-size:1.2rem;color:var(--ink-soft);max-width:62ch}
+section{padding:96px 0;border-top:1px solid var(--line)}
+@media (max-width:700px){section{padding:64px 0}}
+.sec-head{display:grid;gap:18px;margin-bottom:44px}
+
+/* topo */
+.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:60px}
+.brand{font-family:var(--display);font-weight:900;font-variation-settings:"wdth" 125;font-size:1.25rem;text-decoration:none;color:var(--ink);letter-spacing:.02em}
+.brand small{font-family:var(--body);font-weight:500;font-size:.8rem;color:var(--ink-soft);letter-spacing:0;margin-left:8px}
+.top nav{display:flex;gap:22px;font-size:.95rem}
+.top nav a{color:var(--ink-soft);text-decoration:none}
+.top nav a:hover{color:var(--ink)}
+@media (max-width:860px){.top nav{display:none}}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--body);font-weight:700;font-size:1rem;padding:12px 20px;border-radius:999px;text-decoration:none;border:2px solid var(--azul);cursor:pointer}
+.btn-solid{background:var(--azul);color:var(--paper)}
+.btn-line{background:transparent;color:var(--azul)}
+.top .btn{padding:7px 14px;font-size:.9rem}
+
+/* hero */
+.hero{padding:72px 0 0;border-top:0}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:start}
+@media (max-width:960px){.hero-grid{grid-template-columns:1fr;gap:40px}}
+.hero-grid>*,.sem-grid>*,.two>*{min-width:0}
+.hero h1{font-size:clamp(2.2rem,4.4vw,3.7rem);font-weight:900;font-variation-settings:"wdth" 108;letter-spacing:-.02em;line-height:.98}
+.hero h1 span{display:block}
+.hero h1 .l3{color:var(--azul)}
+.hero .lead{margin-top:26px}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);margin-top:64px;border-top:2px solid var(--ink)}
+.facts div{padding:18px 16px 26px 0}
+.facts b{display:block;font-family:var(--display);font-variation-settings:"wdth" 120;font-weight:800;font-size:1.9rem;line-height:1.1}
+.facts span{color:var(--ink-soft);font-size:.95rem}
+@media (max-width:700px){.facts{grid-template-columns:repeat(2,1fr)}}
+.horizon{height:56px;margin-top:8px;background:linear-gradient(180deg,transparent 0,transparent 50%,var(--verde-bg) 50%,var(--verde-bg) 100%);border-bottom:1px solid var(--line)}
+
+/* demonstração do ciclo */
+.demo{border:1px solid var(--line);border-radius:14px;background:var(--paper-2);padding:20px;font-size:.98rem}
+.demo-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;color:var(--ink-soft);font-size:.9rem}
+.demo-head button{background:none;border:1px solid var(--line);color:var(--ink-soft);border-radius:999px;padding:4px 12px;font:inherit;cursor:pointer}
+.msg{border-radius:10px;padding:12px 14px;margin:0 0 10px;opacity:0;transform:translateY(6px);transition:opacity .45s ease,transform .45s ease}
+.msg.on{opacity:1;transform:none}
+.msg .who{display:block;font-weight:700;font-size:.85rem;margin-bottom:3px}
+.m-aluno{background:var(--paper);border:1px solid var(--line)}
+.m-aluno .who{color:var(--azul)}
+.m-ia{background:var(--code);color:#dfe8ec}
+.m-ia .who{color:#8fd3ae}
+.m-ia code{display:block;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.78rem;color:#9fb3bd;margin-top:6px;white-space:pre;overflow-x:auto}
+.m-adv{background:var(--ouro-bg);border:1px solid color-mix(in srgb,var(--ouro) 40%,transparent)}
+.m-adv .who{color:var(--ouro)}
+.m-ok{background:var(--verde-bg);border:1px solid color-mix(in srgb,var(--verde) 35%,transparent)}
+.m-ok .who{color:var(--verde)}
+@media (prefers-reduced-motion: reduce){.msg{transition:none}}
+
+/* para quem */
+.who-table{width:100%;border-collapse:collapse}
+.who-table th,.who-table td{text-align:left;vertical-align:top;padding:18px 16px 18px 0;border-bottom:1px solid var(--line)}
+.who-table th{font-family:var(--display);font-variation-settings:"wdth" 108;font-size:1.1rem;width:30%}
+.who-table td{color:var(--ink-soft)}
+.who-table tr.comp th{color:var(--azul)}
+@media (max-width:700px){.who-table th,.who-table td{display:block;width:100%;padding:0}.who-table th{padding-top:18px}.who-table td{padding-bottom:18px}}
+.req{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:40px}
+@media (max-width:760px){.req{grid-template-columns:1fr}}
+.req h3{margin-bottom:10px}
+.req ul{margin:0;padding-left:20px}
+.req li{margin-bottom:6px}
+
+/* ciclo */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:0;counter-reset:s}
+.steps li{padding:0 18px 0 0;border-top:4px solid var(--azul);padding-top:16px;counter-increment:s}
+.steps li:nth-child(3){border-color:var(--ouro)}
+.steps li:nth-child(5){border-color:var(--verde)}
+.steps li::before{content:counter(s);font-family:var(--display);font-weight:900;font-variation-settings:"wdth" 125;font-size:2rem;display:block;color:var(--ink-soft);line-height:1;margin-bottom:10px}
+.steps p{color:var(--ink-soft);font-size:.98rem;margin-top:8px}
+@media (max-width:900px){.steps{grid-template-columns:1fr;gap:24px}}
+
+/* matriz */
+.sem-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+@media (max-width:860px){.sem-grid{grid-template-columns:1fr}}
+.sem h3{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid var(--ink);padding-bottom:10px;margin-bottom:6px}
+.sem h3 small{font-family:var(--body);font-weight:500;font-size:.95rem;color:var(--ink-soft)}
+details.comp{border-bottom:1px solid var(--line)}
+details.comp summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:62px 1fr auto;gap:12px;padding:14px 0;align-items:baseline}
+details.comp summary::-webkit-details-marker{display:none}
+.code{font-weight:700;font-size:.9rem;color:var(--ink-soft)}
+.cname{font-weight:600}
+.ch{font-family:var(--display);font-weight:800;font-variation-settings:"wdth" 110;white-space:nowrap}
+details.comp[open] summary .cname{color:var(--azul)}
+details.comp.v summary .code,details.comp.v summary .cname{color:var(--roxo)}
+details.comp.n summary .code{color:var(--ouro)}
+.cbody{padding:0 0 18px 74px;color:var(--ink-soft);font-size:.98rem}
+.cbody b{color:var(--ink)}
+@media (max-width:600px){.cbody{padding-left:0}}
+.legend{display:flex;flex-wrap:wrap;gap:18px;margin-top:22px;font-size:.92rem;color:var(--ink-soft)}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.split{display:flex;height:34px;border-radius:6px;overflow:hidden;margin-top:36px;font-size:.82rem;font-weight:700;color:#fff}
+.split div{display:flex;align-items:center;padding:0 6px;white-space:nowrap;overflow:hidden;min-width:0}
+.split-cap{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:10px;font-size:.92rem;color:var(--ink-soft)}
+
+/* visão */
+.vision{background:var(--roxo-bg)}
+.vision h2,.vision .accent{color:var(--roxo)}
+.vis-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+@media (max-width:860px){.vis-grid{grid-template-columns:1fr}}
+.vis-grid article{border-top:2px solid var(--roxo);padding-top:16px}
+.vis-grid h3{margin-bottom:8px}
+.vis-grid p{color:var(--ink-soft);margin:0}
+.pixels{display:grid;grid-template-columns:repeat(24,1fr);gap:2px;max-width:420px;margin-top:8px}
+.pixels span{aspect-ratio:1;border-radius:1px}
+
+/* desafios */
+.ch-list{display:grid;grid-template-columns:repeat(2,1fr);gap:0 48px}
+@media (max-width:760px){.ch-list{grid-template-columns:1fr}}
+.ch-item{padding:20px 0;border-bottom:1px solid var(--line)}
+.ch-item .org{font-size:.9rem;font-weight:700;color:var(--verde)}
+.ch-item.priv .org{color:var(--azul)}
+.ch-item h3{font-size:1.12rem;margin:4px 0 6px}
+.ch-item p{color:var(--ink-soft);margin:0;font-size:.98rem}
+.note{font-size:.92rem;color:var(--ink-soft);margin-top:18px}
+
+/* computação */
+.comp-sec .two{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start}
+@media (max-width:860px){.comp-sec .two{grid-template-columns:1fr;gap:32px}}
+.adv{border-left:4px solid var(--azul);padding-left:22px}
+.adv dl{margin:0}
+.adv dt{font-weight:700;margin-top:14px}
+.adv dd{margin:2px 0 0;color:var(--ink-soft)}
+
+/* BIA */
+.bia{background:var(--azul);color:#eaf2f6}
+.bia h2,.bia h3{color:#fff}
+.bia .lead{color:#c8dbe4}
+.bia a{color:#ffd88a}
+.bia-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px 48px}
+@media (max-width:760px){.bia-grid{grid-template-columns:1fr}}
+.bia-grid div{border-top:1px solid rgba(255,255,255,.25);padding-top:16px}
+.bia-grid p{color:#c8dbe4;margin:6px 0 0}
+.path{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:44px;font-family:var(--display);font-variation-settings:"wdth" 112;font-weight:700}
+.path span{border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:8px 16px}
+.path .arrow{border:0;padding:0;opacity:.7}
+
+/* comparação */
+.cmp{width:100%;border-collapse:collapse;font-size:.98rem}
+.cmp th,.cmp td{padding:12px 12px 12px 0;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.cmp thead th{font-size:.9rem;color:var(--ink-soft);font-weight:600;border-bottom:2px solid var(--ink)}
+.cmp td.eia{font-weight:700;color:var(--azul)}
+.tbl-scroll{overflow-x:auto}
+
+/* docentes */
+.prof{display:grid;grid-template-columns:repeat(3,1fr);gap:0 36px}
+@media (max-width:860px){.prof{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.prof{grid-template-columns:1fr}}
+.prof div{padding:16px 0;border-bottom:1px solid var(--line)}
+.prof b{display:block}
+.prof span{color:var(--ink-soft);font-size:.95rem}
+
+/* seleção e FAQ */
+.sel{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+@media (max-width:860px){.sel{grid-template-columns:1fr}}
+.sel div{border-top:4px solid var(--ink);padding-top:14px}
+.sel b{font-family:var(--display);font-variation-settings:"wdth" 118;font-weight:900;font-size:2.2rem;display:block;line-height:1}
+.sel h3{margin:8px 0}
+.sel p{color:var(--ink-soft);margin:0}
+.faq details{border-bottom:1px solid var(--line);padding:16px 0}
+.faq summary{cursor:pointer;font-weight:700;font-size:1.08rem}
+.faq details p{color:var(--ink-soft);margin:10px 0 0;max-width:72ch}
+
+footer{border-top:1px solid var(--line);padding:48px 0 64px;color:var(--ink-soft);font-size:.95rem}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px}
+footer ul{list-style:none;margin:0;padding:0}
+footer li{margin-bottom:6px}
+
+/* reunião do grupo (v2) */
+.meet{background:var(--paper-2)}
+.kicker{font-size:.9rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ouro)}
+.materials{margin:0;font-size:1rem;color:var(--ink-soft)}
+.materials b{color:var(--ink)}
+.top5{border-top:4px solid var(--ink);padding-top:18px;margin-bottom:44px}
+.top5 h3{margin-bottom:12px}
+.top5 ol{margin:0;padding-left:24px;display:grid;gap:10px;max-width:80ch}
+.top5 li::marker{font-family:var(--display);font-weight:800}
+.roteiro{margin-bottom:40px}
+.roteiro h3{margin-bottom:8px}
+.roteiro table{border-collapse:collapse;width:100%;max-width:760px}
+.roteiro td{padding:9px 14px 9px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.roteiro td:first-child{font-weight:700;white-space:nowrap;width:80px;color:var(--azul)}
+.tags-legend{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px}
+.tag{display:inline-block;font-size:.8rem;font-weight:700;padding:3px 10px;border-radius:999px;border:1px solid}
+.tag.now{color:var(--verde);border-color:var(--verde);background:var(--verde-bg)}
+.tag.next{color:var(--ink-soft);border-color:var(--line);background:var(--paper)}
+h3.bloco{font-size:1.5rem;font-variation-settings:"wdth" 110;margin:48px 0 18px;padding-bottom:8px;border-bottom:2px solid var(--ink)}
+.qs{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+@media (max-width:860px){.qs{grid-template-columns:1fr}}
+.q{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:18px 20px;min-width:0;scroll-margin-top:80px}
+.q header{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
+.qn{font-family:var(--display);font-weight:900;font-variation-settings:"wdth" 125;font-size:1.3rem;color:var(--azul)}
+.q h4{font-family:var(--display);font-size:1.15rem;line-height:1.2;margin:0 0 10px}
+.q dl{margin:0;font-size:.97rem}
+.q dt{font-weight:700;font-size:.85rem;text-transform:uppercase;letter-spacing:.03em;color:var(--ink-soft);margin-top:10px}
+.q dd{margin:2px 0 0}
+.q dd ul{margin:4px 0 0;padding-left:20px}
+.q dd li{margin-bottom:3px}
+.dec{margin:14px 0 0;padding-top:10px;border-top:1px dashed var(--line);font-weight:700;color:var(--ouro);min-height:3.2em}
+.two-notes{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:56px}
+@media (max-width:760px){.two-notes{grid-template-columns:1fr}}
+.two-notes h3{margin-bottom:10px}
+.two-notes ul{margin:0;padding-left:20px;color:var(--ink-soft)}
+.two-notes li{margin-bottom:6px}
+.draft{display:inline-block;margin-left:8px;font-size:.8rem;font-family:var(--body);font-weight:700;color:var(--ouro)}
+@media print{
+  .top,.demo,.hero-ctas,.horizon{display:none}
+  section{padding:24px 0}
+  .q{break-inside:avoid}
+  .meet{background:#fff}
+}
+
+/* v3 */
+.notice{border-left:4px solid var(--ouro);background:var(--ouro-bg);padding:12px 16px;border-radius:6px;font-size:.98rem;max-width:80ch;margin-top:22px}
+.aud-bar{background:var(--paper-2);border-bottom:1px solid var(--line);font-size:.92rem}
+.aud-bar .wrap{display:flex;flex-wrap:wrap;gap:6px 16px;padding-top:10px;padding-bottom:10px;align-items:center}
+.aud-bar span{color:var(--ink-soft);font-weight:700}
+.aud-bar a{color:var(--ink-soft);text-decoration:none;border-bottom:2px solid transparent}
+.aud-bar a:hover{color:var(--ink)}
+.aud-bar a[aria-current]{color:var(--azul);border-color:var(--azul);font-weight:700}
+.steps.six{grid-template-columns:repeat(6,1fr)}
+.steps.six li:nth-child(3){border-color:var(--azul)}
+.steps.six li:nth-child(5){border-color:var(--ouro)}
+.steps.six li:nth-child(6){border-color:var(--verde)}
+@media (max-width:1000px){.steps.six{grid-template-columns:repeat(3,1fr);gap:28px 0}}
+@media (max-width:640px){.steps.six{grid-template-columns:1fr}}
+.sheet{margin-top:36px;border:1px solid var(--line);border-radius:12px;padding:18px 20px;max-width:80ch}
+.sheet h3{margin-bottom:6px}
+.sheet p{margin:0;color:var(--ink-soft)}
+details.comp.hl summary .cname::after{content:"destaque para você";display:inline-block;margin-left:8px;font-size:.72rem;font-weight:700;color:var(--verde);border:1px solid var(--verde);border-radius:999px;padding:1px 8px;vertical-align:2px}
+.cname small{display:block;font-weight:500;color:var(--ink-soft);font-size:.88rem}
+.noseu{border-left:3px solid var(--verde);padding-left:12px}
+.tag.ok{color:var(--verde);border-color:var(--verde);background:var(--verde-bg)}
+.tag.part{color:var(--ouro);border-color:var(--ouro);background:var(--ouro-bg)}
+.tag.open{color:var(--roxo);border-color:var(--roxo);background:var(--roxo-bg)}
+.aud-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+@media (max-width:760px){.aud-cards{grid-template-columns:1fr}}
+.aud-cards a{display:block;border:1px solid var(--line);border-radius:12px;padding:18px 20px;text-decoration:none;color:var(--ink);background:var(--paper)}
+.aud-cards a:hover{border-color:var(--azul)}
+.aud-cards b{font-family:var(--display);font-size:1.2rem;display:block;margin-bottom:4px;color:var(--azul)}
+.aud-cards span{color:var(--ink-soft);font-size:.97rem}
+.why{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+@media (max-width:860px){.why{grid-template-columns:1fr}}
+.why div{border-top:4px solid var(--azul);padding-top:14px}
+.why h3{margin-bottom:8px}
+.why p{color:var(--ink-soft);margin:0}
+.cmp caption{text-align:left;font-weight:700;padding-bottom:8px}
+.crit{margin-top:28px}
+.crit summary{cursor:pointer;font-weight:700;color:var(--azul)}
+.crit .tbl-scroll{margin-top:16px}
+.crit h4{font-family:var(--display);font-size:1.1rem;margin:24px 0 8px}
+.issues li{margin-bottom:8px}
+
+/* v4: Resolução de Problemas como espinha dorsal */
+.kicker-hero{display:inline-block;font-family:var(--display);font-weight:900;font-variation-settings:"wdth" 118;font-size:1rem;letter-spacing:.08em;text-transform:uppercase;color:var(--verde);margin-bottom:14px}
+.hero h1 .l3{color:var(--verde)}
+.m-col{background:var(--paper);border:1px solid color-mix(in srgb,var(--roxo) 40%,transparent)}
+.m-col .who{color:var(--roxo)}
+.m-tut{background:var(--azul-bg);border:1px solid color-mix(in srgb,var(--azul) 35%,transparent)}
+.m-tut .who{color:var(--azul)}
+.spine{overflow-x:auto;margin-top:8px;padding-bottom:6px}
+.spine-grid{display:grid;grid-template-columns:118px repeat(12,minmax(52px,1fr));gap:8px 4px;min-width:820px;align-items:stretch}
+.spine-grid .lab{font-size:.85rem;font-weight:700;color:var(--ink-soft);display:flex;align-items:center}
+.spine-grid .mon{font-size:.8rem;color:var(--ink-soft);text-align:center;border-bottom:2px solid var(--ink);padding-bottom:4px}
+.sb{overflow-wrap:anywhere;border-radius:6px;padding:7px 8px;font-size:.8rem;line-height:1.25;font-weight:600;min-width:0}
+.sb small{display:block;font-weight:500;opacity:.85}
+.sb.mod{background:var(--azul-bg);border:1px solid color-mix(in srgb,var(--azul) 30%,transparent);color:var(--ink)}
+.sb.mod.vis{background:var(--roxo-bg);border-color:color-mix(in srgb,var(--roxo) 35%,transparent)}
+.sb.rp{background:var(--verde);color:var(--paper);font-family:var(--display);font-variation-settings:"wdth" 112;font-size:.95rem;font-weight:800;padding:12px 10px}
+.sb.tcc{background:var(--ouro-bg);border:1px solid color-mix(in srgb,var(--ouro) 40%,transparent);color:var(--ink)}
+.mk{display:flex;align-items:center;justify-content:flex-end;font-size:.78rem;font-weight:700;color:var(--verde);white-space:nowrap}
+.mk::after{content:"";width:12px;height:12px;background:var(--verde);transform:rotate(45deg);margin-left:6px;flex:none}
+.spine-cap{display:flex;flex-wrap:wrap;gap:6px 22px;margin-top:14px;font-size:.92rem;color:var(--ink-soft)}
+.spine-cap i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.why.four{grid-template-columns:repeat(2,1fr)}
+@media (max-width:760px){.why.four{grid-template-columns:1fr}}
+.why div.g{border-color:var(--verde)}
+.cell{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:48px}
+@media (max-width:860px){.cell{grid-template-columns:1fr}}
+.cell h3{margin-bottom:10px}
+.cell ul{margin:0;padding-left:20px;color:var(--ink-soft)}
+.cell li{margin-bottom:6px}
+.cell li b{color:var(--ink)}
+.rpbox{border:2px solid var(--verde);border-radius:12px;padding:18px 20px}
+.cbody .rp-use{border-left:3px solid var(--verde);padding-left:12px;color:var(--ink)}
+.cbody .orig{font-size:.9rem}
+details.comp.rpc summary .code,details.comp.rpc summary .cname{color:var(--verde)}
+.from{width:100%;border-collapse:collapse;font-size:.97rem}
+.from th,.from td{padding:10px 12px 10px 0;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.from thead th{font-size:.9rem;color:var(--ink-soft);font-weight:600;border-bottom:2px solid var(--ink)}
+.from td.chg{color:var(--verde);font-weight:700;white-space:nowrap}
+.msgsec{background:var(--verde-bg)}
+.msgsec h2{color:var(--verde)}
+.slogan{font-family:var(--display);font-weight:900;font-variation-settings:"wdth" 118;font-size:clamp(2.4rem,6vw,4.4rem);line-height:1;letter-spacing:-.02em;color:var(--ink);margin:0 0 28px}
+.slogans{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+@media (max-width:760px){.slogans{grid-template-columns:1fr}}
+.slogans li{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px 18px;font-family:var(--display);font-weight:800;font-size:1.25rem;line-height:1.2}
+.slogans li small{display:block;font-family:var(--body);font-weight:500;font-size:.92rem;color:var(--ink-soft);margin-top:6px;line-height:1.45}
+.q .tag.v4{color:var(--verde);border-color:var(--verde);background:var(--verde-bg)}
+</style>
+</head>
+<body>
+<header class="top">
+<div class="wrap">
+<a class="brand" href="#inicio">EIA<small>UNIPAMPA Alegrete</small></a>
+<nav aria-label="Seções">
+<a href="#reuniao">Decisões</a>
+<a href="index.html">Discussões</a>
+<a href="divulgacao-eia.html">Divulgação</a>
+<a href="#rp">RP</a>
+<a href="#marcos">Marcos</a>
+<a href="#matriz">Módulos</a>
+<a href="#selecao">Seleção</a>
+</nav>
+<a class="btn btn-solid" href="#reuniao">Pauta da reunião</a>
+</div>
+</header>
+<main id="inicio">
+<section class="hero">
+<div class="wrap hero-grid">
+<div>
+<span class="kicker-hero">IA para o mundo real</span>
+<h1><span>Traga o seu problema real.</span><span>A IA escreve o código.</span><span class="l3">Você sai com a solução.</span></h1>
+<p class="lead">Na Especialização em Inteligência Artificial Aplicada da UNIPAMPA, o curso gira em torno de um problema real, seu ou de uma organização parceira. A Resolução de Problemas (RP) é a espinha dorsal dos 12 meses, e as disciplinas existem para dar suporte a ela: cada uma chega quando o seu problema precisa dela. O que você constrói na RP vira o seu TCC.</p>
+<div class="hero-ctas">
+<a class="btn btn-solid" href="#rp">Como funciona a RP</a>
+<a class="btn btn-line" href="#reuniao">O que falta decidir</a>
+</div>
+<p class="notice"><b>Curso em proposição.</b> Documento de trabalho do grupo proponente. A v4 reorganiza a <a href="proposta-eia-v3.html">v3</a> com a RP como eixo e mantém os limites já acertados com o PPC: 375 h, 10 componentes e 12 meses. Nada aqui é oferta aprovada.</p>
+</div>
+<div class="demo" aria-label="Exemplo ilustrativo de uma sessão de célula de RP">
+<div class="demo-head"><span>Uma sessão de célula de RP, mês 3 (exemplo ilustrativo)</span><button type="button" id="replay">Repetir</button></div>
+<div class="msg m-aluno"><span class="who">Aluna, servidora da prefeitura</span>Marco 2, linha de base: hoje a equipe leva 9 dias para priorizar um buraco. Organizei 14 mil fotos de 2025 e o tempo de cada atendimento.</div>
+<div class="msg m-col"><span class="who">Colega da célula, agrônomo</span>Essas fotos são todas de dia? Na cooperativa, as imagens com pouca luz derrubaram o nosso modelo.</div>
+<div class="msg m-adv"><span class="who">Agente adversarial</span>12% das fotos não têm GPS, e 3 bairros têm menos de 20 registros. A linha de base é fraca justamente ali.</div>
+<div class="msg m-tut"><span class="who">Tutor da célula</span>Pergunta da próxima quinzena, já com o módulo Prever e Decidir: qual erro custa mais, um buraco grave tratado como leve ou o contrário?</div>
+<div class="msg m-ok"><span class="who">Registro no diário de RP</span>Linha de base: 9 dias. Critério de sucesso: 3 dias, sem aumentar os graves esquecidos. Limitação registrada: bairros com poucos dados.</div>
+</div>
+</div>
+<div class="wrap">
+<div class="facts">
+<div><b>135 h</b><span>de Resolução de Problemas, do mês 1 ao mês 10</span></div>
+<div><b>215 h</b><span>em cima do seu problema, somando a aplicação nos módulos</span></div>
+<div><b>8 módulos</b><span>de apoio, 240 h, cada um quando o problema pede</span></div>
+<div><b>0 h</b><span>de aulas de programação</span></div>
+</div>
+</div>
+<div class="horizon" aria-hidden="true"></div>
+</section>
+
+<section id="reuniao" class="meet">
+<div class="wrap">
+<div class="sec-head">
+<span class="kicker">Versão 4, novembro de 2026 · documento de trabalho do grupo</span>
+<h2>RP como espinha dorsal: o que muda e o que decidir</h2>
+<p class="lead">A v3 já tinha a semente da ideia: o problema da seleção atravessava os componentes e virava TCC. Mas cada componente era uma disciplina fechada, e o problema aparecia só na entrega final de cada uma. A v4 inverte a lógica: a RP é o componente principal, contínuo, e as disciplinas viram módulos de apoio que entram na ordem em que o problema precisa delas.</p>
+<p class="materials"><b>Leitura de apoio:</b> <a href="proposta-eia-v3.html#reuniao">status das 21 questões na v3</a> · <a href="index.html">página central das discussões</a> · <a href="divulgacao-eia.html">materiais de divulgação</a></p>
+</div>
+<div class="top5">
+<h3>O que a v4 muda, em seis pontos</h3>
+<ol>
+<li><b>Dois componentes de RP somam 135 h.</b> RP I (do problema ao plano, 75 h, meses 1 a 5) e RP II (da solução à evidência, 60 h, meses 6 a 10). <a href="#r1">R1</a></li>
+<li><b>Oito módulos de apoio de 30 h,</b> um de cada vez, na ordem do problema. Cada um reserva 10 h para aplicar o conteúdo no problema do aluno e levar o resultado à célula de RP. <a href="#r4">R4</a>, <a href="#r6">R6</a></li>
+<li><b>Células de RP:</b> 5 alunos de áreas diferentes, cada um com o seu problema, que se reúnem a cada 15 dias com um tutor e atacam o trabalho uns dos outros. <a href="#r2">R2</a></li>
+<li><b>O tutor da célula é o orientador do TCC desde o mês 1.</b> 10 docentes, 20 células, 10 orientandos por docente. <a href="#r3">R3</a></li>
+<li><b>Cinco marcos de RP formam o TCC.</b> No mês 11, o TCC é organizar e escrever o que já foi construído e validado. <a href="#r5">R5</a></li>
+<li><b>A RP vira a mensagem de divulgação:</b> “IA para o mundo real”. <a href="#r8">R8</a></li>
+</ol>
+</div>
+<div class="roteiro">
+<h3>Roteiro sugerido para a reunião (90 min)</h3>
+<table>
+<tr><td>10 min</td><td>A ideia da v4: RP como eixo e disciplinas como apoio</td></tr>
+<tr><td>25 min</td><td>Carga da RP, fusões e cortes nos componentes (R1 e R6)</td></tr>
+<tr><td>20 min</td><td>Células, tutoria e orientação desde o mês 1 (R2 e R3)</td></tr>
+<tr><td>15 min</td><td>Avaliação por marcos (R5)</td></tr>
+<tr><td>20 min</td><td>Encaminhamentos: ordem dos módulos, responsável na organização e mensagem de divulgação (R4, R7 e R8)</td></tr>
+</table>
+</div>
+<div class="tags-legend">
+<span class="tag now">Decidir nesta reunião</span>
+<span class="tag next">Encaminhar</span>
+</div>
+<div class="qs" style="margin-top:20px">
+<article class="q" id="r1">
+<header><span class="qn">R1</span><span class="tag now">Decidir nesta reunião</span></header>
+<h4>Quanto da carga horária vai para a RP?</h4>
+<dl>
+<dt>Proposta da v4</dt><dd>135 h em dois componentes (RP I com 75 h e RP II com 60 h), 36% das 375 h. Somando as 10 h de aplicação de cada módulo, 215 h (57%) são trabalho direto sobre o problema do aluno.</dd>
+<dt>Alternativas</dt><dd><ul><li>105 h de RP, preservando 45 h em Prever e Decidir e em Segurança.</li><li>150 h de RP (40%), fundindo Números com o Método.</li></ul></dd>
+<dt>Limite</dt><dd>O total continua 375 h e 10 componentes, o que mantém os ajustes do Regimento já listados no apêndice A do PPC.</dd>
+</dl>
+<p class="dec">Decisão:</p>
+</article>
+<article class="q" id="r2">
+<header><span class="qn">R2</span><span class="tag now">Decidir nesta reunião</span></header>
+<h4>Problema individual ou em equipe?</h4>
+<dl>
+<dt>Proposta da v4</dt><dd>Cada aluno tem o seu problema, trabalhado numa célula de 5 alunos de áreas diferentes. A célula funciona como uma consultoria mútua: todos criticam e atacam o trabalho de todos. O TCC continua individual, como no PPC.</dd>
+<dt>Alternativas</dt><dd><ul><li>Equipes de 2 ou 3 alunos no mesmo problema, o que exige TCC em grupo.</li><li>Híbrido: desafios do banco em equipe, com cada aluno responsável por uma parte que vira o seu TCC.</li></ul></dd>
+<dt>Por que importa</dt><dd>A trilha de RP do BIA é em equipe. Na especialização, cada aluno traz um problema do próprio trabalho, o que favorece o modelo individual em célula.</dd>
+</dl>
+<p class="dec">Decisão:</p>
+</article>
+<article class="q" id="r3">
+<header><span class="qn">R3</span><span class="tag now">Decidir nesta reunião</span></header>
+<h4>O tutor da célula é o orientador do TCC desde o mês 1?</h4>
+<dl>
+<dt>Proposta da v4</dt><dd>Sim. Cada docente acompanha 2 células (10 alunos), formadas pela linha de TCC indicada na proposta de problema da seleção. Troca de orientador possível até o Marco 3.</dd>
+<dt>Carga docente</dt><dd>1 h 30 min por célula a cada 15 dias (cerca de 1 h 30 min por semana para as duas células), mais a avaliação dos marcos.</dd>
+<dt>Risco</dt><dd>Parear aluno e orientador antes do pré-projeto. Na v3, o termo de aceite era no mês 6.</dd>
+</dl>
+<p class="dec">Decisão:</p>
+</article>
+<article class="q" id="r4">
+<header><span class="qn">R4</span><span class="tag next">Encaminhar</span></header>
+<h4>Em que ordem entram os módulos?</h4>
+<dl>
+<dt>Proposta da v4</dt><dd>Um módulo por vez, em ordem fixa, seguindo a maturidade típica de um problema: método, números, dados, previsão, textos, agentes, imagens e segurança. Clínicas sob demanda (1 h ao vivo) quando várias células travarem no mesmo ponto.</dd>
+<dt>A definir</dt><dd>Modelo comum de módulo: 20 h de conteúdo comum e 10 h de aplicação no problema, com a entrega apresentada na célula. Quem prepara as clínicas e como são pedidas.</dd>
+</dl>
+<p class="dec">Decisão:</p>
+</article>
+<article class="q" id="r5">
+<header><span class="qn">R5</span><span class="tag now">Decidir nesta reunião</span></header>
+<h4>Como avaliar a RP?</h4>
+<dl>
+<dt>Proposta da v4</dt><dd>Por marcos. RP I: Marcos 1, 2 e 3 (20%, 30% e 50%). RP II: Marcos 4 e 5 (40% e 60%). Critérios: avanço com evidência, uso do método (folha do método), resposta às críticas, contribuição à célula e relação com a organização.</dd>
+<dt>Pontos em discussão</dt><dd><ul><li>O responsável na organização dá parecer, mas não dá nota.</li><li>Um resultado negativo bem medido e documentado (“a IA não resolve isso, e eis por quê”) é aprovado.</li></ul></dd>
+</dl>
+<p class="dec">Decisão:</p>
+</article>
+<article class="q" id="r6">
+<header><span class="qn">R6</span><span class="tag now">Decidir nesta reunião</span></header>
+<h4>Fusões e cortes nos componentes da v3</h4>
+<dl>
+<dt>Proposta da v4</dt><dd><ul><li>EIA06 (Dirigir a IA e Responder pelo Resultado) é absorvido pela RP I.</li><li>EIA05 é dividido: séries de dados vão para Prever e Decidir (M4); textos e sons, para Documentos (M5).</li><li>EIA01, EIA04, EIA07, EIA08 e EIA10 passam de 45 h para 30 h: a parte de aplicação migra para a RP.</li></ul></dd>
+<dt>Efeito colateral</dt><dd>Resolve a questão Q1 da v3: visão computacional fica com 30 h (M7), e o capítulo 2 do PPC deixa de falar em 60 h.</dd>
+</dl>
+<p class="dec">Decisão:</p>
+</article>
+<article class="q" id="r7">
+<header><span class="qn">R7</span><span class="tag next">Encaminhar</span></header>
+<h4>Responsável na organização e termo de uso de dados</h4>
+<dl>
+<dt>Proposta da v4</dt><dd>Todo problema tem uma pessoa responsável na organização, que valida o critério de sucesso no Marco 1 e recebe a evidência no Marco 5. O termo de uso de dados é assinado no Marco 1.</dd>
+<dt>A definir</dt><dd>Modelo de termo, regra de anonimização e lista de ferramentas aprovadas (avança a Q12 da v3). Quando o aluno é a própria organização (profissional liberal), quem valida.</dd>
+</dl>
+<p class="dec">Decisão:</p>
+</article>
+<article class="q" id="r8">
+<header><span class="qn">R8</span><span class="tag next">Encaminhar</span></header>
+<h4>A RP como mensagem de divulgação</h4>
+<dl>
+<dt>Proposta da v4</dt><dd>“IA para o mundo real” como assinatura do curso e “Venha resolver os seus problemas reais” como chamada. Ver as <a href="#mensagem">opções de mensagem</a>.</dd>
+<dt>A definir</dt><dd>Refazer flyer, folder, posts e clip numa v2 com a nova mensagem, depois da decisão sobre R1 a R3 (avança a Q21 da v3).</dd>
+</dl>
+<p class="dec">Decisão:</p>
+</article>
+</div>
+<div class="two-notes">
+<div>
+<h3>Efeito sobre as questões da v3</h3>
+<ul>
+<li><b>Q1</b> (visão computacional): resolvida se R6 for aprovada; 30 h no M7.</li>
+<li><b>Q2</b> (ementas): precisam ser reescritas para 8 módulos e 2 componentes de RP.</li>
+<li><b>Q3</b> (carga por eixo): passa a ser RP 135 h e módulos 240 h.</li>
+<li><b>Q4</b> (sequência): resolvida; um módulo por vez, RP contínua.</li>
+<li><b>Q7</b> (estrutura do componente): 20 h de conteúdo e 10 h de aplicação na RP.</li>
+<li><b>Q8</b> (avaliação): RP por marcos (R5).</li>
+<li><b>Q13</b> (TCC): o formato não muda; o conteúdo nasce dos marcos.</li>
+<li><b>Q14</b> (orientação): orientação desde o mês 1, pela célula (R3).</li>
+<li><b>Q18</b> (Banco de Desafios Reais): fica mais urgente, porque a RP depende de problemas bons desde o mês 1.</li>
+<li><b>Q21</b> (divulgação): nova mensagem (R8).</li>
+<li>As demais (Q5, Q6, Q9 a Q12, Q15 a Q17, Q19 e Q20) seguem como na <a href="proposta-eia-v3.html#reuniao">v3</a>.</li>
+</ul>
+</div>
+<div>
+<h3>O que mudou da v3 para a v4</h3>
+<ul>
+<li>RP I e RP II como espinha dorsal, com 135 h.</li>
+<li>Dez componentes da v3 reorganizados em 2 de RP e 8 módulos de apoio de 30 h; o total segue 375 h e 10 componentes.</li>
+<li>Cinco marcos de RP que formam o TCC.</li>
+<li>Células de 5 alunos e tutor que é o orientador desde o mês 1.</li>
+<li>Ciclo quinzenal de RP com sessão de célula.</li>
+<li>Responsável na organização para cada problema.</li>
+<li>Nova mensagem: “IA para o mundo real”.</li>
+<li>As versões por público continuam na v3 e serão refeitas depois da decisão sobre a v4.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+
+<section id="rp">
+<div class="wrap">
+<div class="sec-head">
+<h2>Por que a Resolução de Problemas é o eixo</h2>
+<p class="lead">O BIA tem uma trilha de RP herdeira da aprendizagem baseada em problemas praticada desde 2011 na Engenharia de Software da UNIPAMPA. A EIA leva a mesma ideia a profissionais já graduados, com uma diferença: o problema não é um caso de sala de aula, e sim o problema do trabalho de cada aluno.</p>
+</div>
+<div class="why four">
+<div class="g"><h3>Aprende-se IA resolvendo</h3><p>O conteúdo chega quando o problema precisa dele. Quem está organizando dados faz o módulo de dados com os próprios dados; ninguém estuda previsão “para um dia usar”.</p></div>
+<div class="g"><h3>O TCC se constrói no caminho</h3><p>Cada marco de RP é um capítulo do TCC. No mês 11, o trabalho é organizar e escrever o que já foi construído, medido e atacado.</p></div>
+<div><h3>A organização sai ganhando</h3><p>O problema volta para a prefeitura, a cooperativa ou a empresa com uma solução testada, ou com a evidência medida de por que a IA não resolve aquele caso.</p></div>
+<div><h3>Um diferencial claro</h3><p>Nos 84 cursos mapeados, o problema real aparece, quando aparece, como projeto final ou estudo de caso. Na EIA, ele está no centro do curso do primeiro ao último mês.</p></div>
+</div>
+<div class="cell">
+<div class="rpbox">
+<h3>A célula de RP</h3>
+<ul>
+<li><b>5 alunos de áreas diferentes,</b> cada um com o seu problema: uma servidora, um agrônomo, uma enfermeira, um engenheiro, uma advogada.</li>
+<li><b>1 tutor,</b> que é o orientador do TCC dos cinco.</li>
+<li><b>Sessão ao vivo a cada 15 dias,</b> de 1 h 30 min, gravada. Cada aluno mostra a evidência da quinzena em cerca de 10 minutos, e os colegas atacam.</li>
+<li><b>20 células</b> por turma de 100 alunos; cada docente acompanha 2.</li>
+</ul>
+</div>
+<div>
+<h3>Por que misturar áreas</h3>
+<ul>
+<li>Quem não conhece o problema faz as perguntas que o dono do problema já não faz.</li>
+<li>Os ataques de um colega leigo testam se a solução se explica sem jargão.</li>
+<li>Soluções migram entre áreas: um classificador de fotos de buracos serve para folhas doentes.</li>
+<li>É o que o aluno vai viver no trabalho: explicar IA para quem decide e não é técnico.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+
+<section id="ciclo">
+<div class="wrap">
+<div class="sec-head">
+<h2>Uma quinzena de RP</h2>
+<p class="lead">A RP anda em ciclos de duas semanas. A sessão da célula fecha uma quinzena e abre a próxima. Dentro de cada ciclo, o aluno aplica o método de seis passos que aprende no mês 1.</p>
+</div>
+<ol class="steps">
+<li><h3>Pergunta da quinzena</h3><p>Na sessão da célula, com o tutor, o aluno define o que precisa saber ou construir agora para avançar.</p></li>
+<li><h3>Módulo do momento</h3><p>O conteúdo do módulo em curso é estudado pensando no problema. As 10 h de aplicação do módulo entram aqui.</p></li>
+<li><h3>Construir com a IA</h3><p>Pedir um plano, aprovar, deixar a IA gerar e executar o código, verificar sem ler código.</p></li>
+<li><h3>Ataque</h3><p>O agente adversarial do módulo e, depois, os colegas da célula procuram onde a solução falha.</p></li>
+<li><h3>Evidência e registro</h3><p>O aluno leva à sessão o que mediu, o que mudou e o que ainda falha, e registra tudo no diário de RP.</p></li>
+</ol>
+<div class="sheet">
+<h3>Diário de RP e folha do método</h3>
+<p>O diário de RP registra cada quinzena: pergunta, o que foi feito, evidência, críticas recebidas e próxima pergunta. A folha do método da v3 (critério de sucesso, decomposição, plano aprovado, verificações, ataques e limitações) continua em toda entrega de marco.</p>
+</div>
+</div>
+</section>
+
+<section id="marcos">
+<div class="wrap">
+<div class="sec-head">
+<h2>Cinco marcos, do problema à evidência</h2>
+<p class="lead">Os marcos são os pontos de avaliação da RP. Cada um é alimentado pelos módulos daquele período e corresponde a uma parte do TCC.</p>
+</div>
+<div class="tbl-scroll">
+<table class="cmp">
+<thead><tr><th>Marco</th><th>Mês</th><th>O que o aluno entrega</th><th>Módulos que alimentam</th><th>No TCC</th></tr></thead>
+<tbody>
+<tr><th>1. Contrato do problema</th><td>1</td><td>Problema, quem é afetado, como é feito hoje, critério de sucesso, dados disponíveis, responsável na organização e termo de uso de dados.</td><td>M1</td><td>Introdução e problema</td></tr>
+<tr><th>2. Linha de base</th><td>3</td><td>Dados organizados e documentados, análise exploratória e medição de como o problema é resolvido hoje.</td><td>M2, M3</td><td>Dados e situação atual</td></tr>
+<tr><th>3. Proposta técnica</th><td>5</td><td>Pré-projeto do TCC: plano, solução de referência medida contra o critério de sucesso, plano de medições, riscos, linha e formato (artigo ou produto).</td><td>M4</td><td>Proposta e método</td></tr>
+<tr><th>4. Protótipo em piloto</th><td>8</td><td>Solução funcionando nas mãos de quem tem o problema, com a primeira skill própria.</td><td>M5, M6, M7</td><td>Solução</td></tr>
+<tr><th>5. Evidência</th><td>10</td><td>Medição de antes e depois, relatório de validação adversarial, limitações, declaração do uso de IA e demonstração gravada.</td><td>M8</td><td>Resultados e validação</td></tr>
+<tr><th>TCC</th><td>11 e 12</td><td>Artigo ou produto de software com relatório, banca e defesa a distância, e apresentação no Dia de Demonstração.</td><td>Todos</td><td>Documento final</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note">Quando um módulo não se aplica ao problema (por exemplo, imagens num problema só com textos), as 10 h de aplicação viram um estudo de caso indicado pelo professor ou reforço do marco em curso, sem prejuízo à avaliação.</p>
+</div>
+</section>
+
+<section id="matriz">
+<div class="wrap">
+<div class="sec-head">
+<h2>A espinha dorsal e os módulos de apoio</h2>
+<p class="lead">Dez componentes, 375 h e 12 meses, como na v3. A diferença está na forma: a RP corre por baixo de todo o curso, e os módulos entram um de cada vez, alimentando os marcos.</p>
+</div>
+<div class="spine" role="img" aria-label="Linha do tempo de 12 meses: a RP I ocupa os meses 1 a 5 e a RP II os meses 6 a 10, com cinco marcos nos meses 1, 3, 5, 8 e 10; os módulos M1 a M8 entram um de cada vez acima da RP; o TCC ocupa os meses 11 e 12.">
+<div class="spine-grid">
+<div class="lab" style="grid-row:1;grid-column:1">Mês</div>
+<div class="mon" style="grid-row:1;grid-column:2">1</div><div class="mon" style="grid-row:1;grid-column:3">2</div><div class="mon" style="grid-row:1;grid-column:4">3</div><div class="mon" style="grid-row:1;grid-column:5">4</div><div class="mon" style="grid-row:1;grid-column:6">5</div><div class="mon" style="grid-row:1;grid-column:7">6</div><div class="mon" style="grid-row:1;grid-column:8">7</div><div class="mon" style="grid-row:1;grid-column:9">8</div><div class="mon" style="grid-row:1;grid-column:10">9</div><div class="mon" style="grid-row:1;grid-column:11">10</div><div class="mon" style="grid-row:1;grid-column:12">11</div><div class="mon" style="grid-row:1;grid-column:13">12</div>
+<div class="lab" style="grid-row:2;grid-column:1">Módulos de apoio</div>
+<div class="sb mod" style="grid-row:2;grid-column:2/3">M1<small>Método</small></div>
+<div class="sb mod" style="grid-row:2;grid-column:3/4">M2<small>Números</small></div>
+<div class="sb mod" style="grid-row:2;grid-column:4/5">M3<small>Dados</small></div>
+<div class="sb mod" style="grid-row:2;grid-column:5/7">M4<small>Prever e decidir</small></div>
+<div class="sb mod" style="grid-row:2;grid-column:7/8">M5<small>Textos</small></div>
+<div class="sb mod" style="grid-row:2;grid-column:8/9">M6<small>Agentes</small></div>
+<div class="sb mod vis" style="grid-row:2;grid-column:9/10">M7<small>Imagens</small></div>
+<div class="sb mod" style="grid-row:2;grid-column:10/12">M8<small>Segurança e ética</small></div>
+<div class="lab" style="grid-row:3;grid-column:1">Espinha dorsal</div>
+<div class="sb rp" style="grid-row:3;grid-column:2/7">RP I · Do problema ao plano · 75 h</div>
+<div class="sb rp" style="grid-row:3;grid-column:7/12">RP II · Da solução à evidência · 60 h</div>
+<div class="sb tcc" style="grid-row:3;grid-column:12/14">TCC<small>escrita e defesa</small></div>
+<div class="lab" style="grid-row:4;grid-column:1">Marcos</div>
+<div class="mk" style="grid-row:4;grid-column:2/3">1</div>
+<div class="mk" style="grid-row:4;grid-column:4/5">2</div>
+<div class="mk" style="grid-row:4;grid-column:6/7">3</div>
+<div class="mk" style="grid-row:4;grid-column:9/10">4</div>
+<div class="mk" style="grid-row:4;grid-column:11/12">5</div>
+</div>
+</div>
+<div class="spine-cap">
+<span><i style="background:var(--verde)"></i>Resolução de Problemas, 135 h (36%)</span>
+<span><i style="background:var(--azul-bg);border:1px solid var(--azul)"></i>Módulos de apoio, 240 h (64%), dos quais 80 h aplicadas ao problema</span>
+<span><i style="background:var(--ouro-bg);border:1px solid var(--ouro)"></i>TCC, sem créditos</span>
+</div>
+
+<div class="sem-grid" style="margin-top:56px">
+<div class="sem"><h3>1º semestre <small>meses 1 a 5, 195 h</small></h3>
+<details class="comp rpc" open>
+<summary><span class="code">RP I</span><span class="cname">Resolução de Problemas I: do Problema ao Plano<small>espinha dorsal, meses 1 a 5, Marcos 1 a 3</small></span><span class="ch">75 h</span></summary>
+<div class="cbody">
+<p>Delimitação do problema com a organização: quem é afetado, como é resolvido hoje e qual decisão se quer melhorar. Critério de sucesso mensurável e linha de base. Decomposição e plano. Abstrair a execução não significa abstrair a responsabilidade: o que muda e o que não muda para quem entrega uma solução feita pela IA. Evidências, documentação honesta e declaração do uso de IA. Proposta técnica. Trabalho em célula: dar e receber crítica.</p>
+<p><b>Como funciona.</b> Ciclos quinzenais com sessão da célula; Marcos 1, 2 e 3.</p>
+<p class="rp-use"><b>Resultado.</b> Pré-projeto do TCC (Marco 3), com solução de referência já medida.</p>
+<p class="orig"><b>Origem na v3.</b> Absorve o EIA06 (30 h) e a parte aplicada do EIA01 e do EIA04.</p>
+<p><b>Docentes.</b> Os 10 docentes, como tutores de célula.</p>
+</div>
+</details>
+<details class="comp n">
+<summary><span class="code">M1</span><span class="cname">Trabalhar com IA: o Método<small>Fundamentos de IA Generativa e Desenvolvimento Assistido por IA (mês 1)</small></span><span class="ch">30 h</span></summary>
+<div class="cbody">
+<p>O método de seis passos. Como funcionam os modelos de linguagem, em nível conceitual: contexto, limites e alucinação. Como pedir bem e pedir um plano antes da solução. Fazer a IA gerar e executar código na nuvem, sem programar. Verificar sem ler código. Privacidade e LGPD no uso cotidiano.</p>
+<p class="rp-use"><b>Na RP.</b> Primeira versão do contrato do problema e uma primeira automação simples, verificada (Marco 1).</p>
+<p class="orig"><b>Origem na v3.</b> EIA01, de 45 h para 30 h.</p>
+<p><b>Docentes.</b> Silvio Quincozes, Paulo Souza, Francisco Vogt, Dionatan Schmidt</p>
+</div>
+</details>
+<details class="comp">
+<summary><span class="code">M2</span><span class="cname">Não Ser Enganado pelos Números<small>Raciocínio Quantitativo e Estatística para IA (mês 2)</small></span><span class="ch">30 h</span></summary>
+<div class="cbody">
+<p>Médias, variação e distribuições. Gráficos que esclarecem e gráficos que enganam. Probabilidade e incerteza. Correlação e causalidade. Amostras e vieses. Como uma IA “aprende” a partir de exemplos, sem fórmulas.</p>
+<p class="rp-use"><b>Na RP.</b> Análise exploratória dos dados do problema, com as principais incertezas (Marco 2).</p>
+<p class="orig"><b>Origem na v3.</b> EIA02, sem mudança de carga.</p>
+<p><b>Docentes.</b> Aline Lunkes, Dionatan Schmidt</p>
+</div>
+</details>
+<details class="comp">
+<summary><span class="code">M3</span><span class="cname">Organizar as Informações do Problema<small>Dados, Nuvem e Bancos de Dados para IA (mês 3)</small></span><span class="ch">30 h</span></summary>
+<div class="cbody">
+<p>Onde estão as informações de um problema. Organização de dados para que a IA consiga usá-los. Da planilha a uma base de dados, com a IA fazendo a montagem. Perguntas aos dados em linguagem comum. Nuvem, custos e quem pode ver o quê.</p>
+<p class="rp-use"><b>Na RP.</b> Base de dados do problema, organizada e documentada, e a medição da situação atual (Marco 2).</p>
+<p class="orig"><b>Origem na v3.</b> EIA03, sem mudança de carga.</p>
+<p><b>Docentes.</b> Marcelo Luizelli, Francisco Vogt</p>
+</div>
+</details>
+<details class="comp">
+<summary><span class="code">M4</span><span class="cname">Prever e Decidir com Dados<small>Aprendizado de Máquina e Séries de Dados (meses 4 e 5)</small></span><span class="ch">30 h</span></summary>
+<div class="cbody">
+<p>Previsão, classificação e agrupamento. Séries de dados ao longo do tempo: tendência e sazonalidade. Quando uma previsão ajuda a decidir. Treinar e comparar modelos com a IA. Acerto, erro e o custo de cada tipo de erro. Dados do futuro misturados ao passado, modelos que decoram, tratamento desigual entre grupos.</p>
+<p class="rp-use"><b>Na RP.</b> Solução de referência medida contra o critério de sucesso (Marco 3).</p>
+<p class="orig"><b>Origem na v3.</b> EIA04 (de 45 h para 30 h) e a parte de séries de dados do EIA05.</p>
+<p><b>Docentes.</b> Aline Lunkes, Marcelo Luizelli</p>
+</div>
+</details>
+</div>
+<div class="sem"><h3>2º semestre <small>meses 6 a 10, com o TCC até o mês 12, 180 h</small></h3>
+<details class="comp rpc" open>
+<summary><span class="code">RP II</span><span class="cname">Resolução de Problemas II: da Solução à Evidência<small>espinha dorsal, meses 6 a 10, Marcos 4 e 5</small></span><span class="ch">60 h</span></summary>
+<div class="cbody">
+<p>Construção iterativa da solução com a IA. Piloto com quem tem o problema. Medições de antes e depois. Validação adversarial cruzada na célula. Limitações e casos em que a solução piora. Documentação honesta, declaração do uso de IA, registro de programa de computador no INPI e preparação da demonstração.</p>
+<p><b>Como funciona.</b> Ciclos quinzenais com sessão da célula; Marcos 4 e 5.</p>
+<p class="rp-use"><b>Resultado.</b> Solução em piloto e evidência medida, que formam o núcleo do TCC.</p>
+<p class="orig"><b>Origem na v3.</b> Parte aplicada do EIA07, do EIA08 e do EIA10.</p>
+<p><b>Docentes.</b> Os 10 docentes, como tutores de célula.</p>
+</div>
+</details>
+<details class="comp">
+<summary><span class="code">M5</span><span class="cname">Ler, Resumir e Extrair de Textos, Documentos e Áudios<small>LLMs, Engenharia de Prompt e Modelos Pré-treinados (mês 6)</small></span><span class="ch">30 h</span></summary>
+<div class="cbody">
+<p>Documentos longos: editais, laudos, contratos, atas e normas. Resumo, comparação e extração em tabelas. Transcrição e análise de áudios. Modelos prontos e como adaptá-los com poucos exemplos. Medir a qualidade das respostas com um conjunto de testes. Alucinação e citações inventadas.</p>
+<p class="rp-use"><b>Na RP.</b> Parte de documentos ou áudios do protótipo, com conjunto de testes, quando pertinente (Marco 4).</p>
+<p class="orig"><b>Origem na v3.</b> EIA07 (de 45 h para 30 h) e a parte de textos e sons do EIA05.</p>
+<p><b>Docentes.</b> Silvio Quincozes, Rodrigo Mansilha</p>
+</div>
+</details>
+<details class="comp">
+<summary><span class="code">M6</span><span class="cname">Automatizar Tarefas com Agentes de IA<small>Agentes, Skills, RAG e Implantação (mês 7)</small></span><span class="ch">30 h</span></summary>
+<div class="cbody">
+<p>O que é um agente de IA e quando vale a pena. Agentes que consultam documentos da organização e usam ferramentas. Criação de skills. O que o agente pode e não pode fazer. Publicação da solução para outras pessoas usarem. Qualidade e custo.</p>
+<p class="rp-use"><b>Na RP.</b> Protótipo funcional com a primeira skill própria (Marco 4).</p>
+<p class="orig"><b>Origem na v3.</b> EIA08, de 45 h para 30 h.</p>
+<p><b>Docentes.</b> Paulo Souza, Marcelo Luizelli, Diego Kreutz</p>
+</div>
+</details>
+<details class="comp v">
+<summary><span class="code">M7</span><span class="cname">IA que Enxerga: Imagens, Fotos e Drones<small>Visão Computacional e IA Multimodal (mês 8)</small></span><span class="ch">30 h</span></summary>
+<div class="cbody">
+<p>Classificar, localizar e contornar objetos em imagens. Modelos prontos e plataformas sem código. Montar e marcar um conjunto de imagens. Modelos que combinam foto e pergunta. Satélite, drone e celular. Viés em conjuntos de imagens.</p>
+<p class="rp-use"><b>Na RP.</b> Parte de imagens do protótipo, quando pertinente (Marco 4).</p>
+<p class="orig"><b>Origem na v3.</b> EIA09, sem mudança de carga.</p>
+<p><b>Docentes.</b> Eliezer Flores, Francisco Vogt</p>
+</div>
+</details>
+<details class="comp">
+<summary><span class="code">M8</span><span class="cname">Usar IA com Segurança, Ética e Dentro da Lei<small>IA Adversarial, Cibersegurança, Ética e Governança (meses 9 e 10)</small></span><span class="ch">30 h</span></summary>
+<div class="cbody">
+<p>Como soluções de IA são atacadas: instruções maliciosas escondidas, dados envenenados e respostas manipuladas. Segurança de agentes. Vieses e explicabilidade. LGPD, regulação brasileira de IA e regulamento europeu. Política de uso de IA nas organizações.</p>
+<p class="rp-use"><b>Na RP.</b> O aluno constrói o próprio agente adversarial e o aplica à solução de um colega da célula; relatório de validação (Marco 5).</p>
+<p class="orig"><b>Origem na v3.</b> EIA10, de 45 h para 30 h.</p>
+<p><b>Docentes.</b> Diego Kreutz, Silvio Quincozes, Rodrigo Mansilha</p>
+</div>
+</details>
+</div>
+</div>
+
+<div class="tbl-scroll" style="margin-top:48px">
+<table class="from">
+<caption style="text-align:left;font-weight:700;padding-bottom:8px">Da v3 para a v4, componente por componente</caption>
+<thead><tr><th>v3</th><th>Carga</th><th>v4</th><th>Carga</th><th>Mudança</th></tr></thead>
+<tbody>
+<tr><td>EIA01 Trabalhar com IA: o Método</td><td>45 h</td><td>M1</td><td>30 h</td><td class="chg">15 h para RP I</td></tr>
+<tr><td>EIA02 Não Ser Enganado pelos Números</td><td>30 h</td><td>M2</td><td>30 h</td><td>sem mudança</td></tr>
+<tr><td>EIA03 Organizar as Informações do Problema</td><td>30 h</td><td>M3</td><td>30 h</td><td>sem mudança</td></tr>
+<tr><td>EIA04 Prever e Decidir com Dados</td><td>45 h</td><td>M4</td><td>30 h</td><td class="chg">recebe séries; aplicação para RP I</td></tr>
+<tr><td>EIA05 IA com Textos, Sons e Séries de Dados</td><td>30 h</td><td>M4 e M5</td><td>0 h</td><td class="chg">dividido</td></tr>
+<tr><td>EIA06 Dirigir a IA e Responder pelo Resultado</td><td>30 h</td><td>RP I</td><td>75 h</td><td class="chg">vira o núcleo da RP I</td></tr>
+<tr><td>EIA07 Ler, Resumir e Extrair de Documentos</td><td>45 h</td><td>M5</td><td>30 h</td><td class="chg">recebe textos e sons</td></tr>
+<tr><td>EIA08 Automatizar Tarefas com Agentes</td><td>45 h</td><td>M6</td><td>30 h</td><td class="chg">15 h para RP II</td></tr>
+<tr><td>EIA09 IA que Enxerga</td><td>30 h</td><td>M7</td><td>30 h</td><td>sem mudança</td></tr>
+<tr><td>EIA10 Segurança, Ética e Lei</td><td>45 h</td><td>M8</td><td>30 h</td><td class="chg">relatório de validação para RP II</td></tr>
+<tr><th>Total</th><th>375 h</th><th>10 componentes</th><th>375 h</th><td>RP 135 h; módulos 240 h</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+
+<section id="mensagem" class="msgsec">
+<div class="wrap">
+<div class="sec-head">
+<span class="kicker">Para a divulgação (R8)</span>
+<h2>A RP também é a mensagem</h2>
+<p class="lead">A maioria dos cursos de IA vende ferramentas e conteúdos. A EIA pode vender um resultado: o problema do aluno resolvido, medido e documentado. É uma promessa concreta, que atrai quem tem um problema de verdade e já conversa com a seleção, que pede exatamente isso.</p>
+</div>
+<p class="slogan">IA para o mundo real.</p>
+<ul class="slogans">
+<li>Venha resolver os seus problemas reais.<small>Chamada principal para flyer, folder e posts.</small></li>
+<li>Traga o problema que tira o seu sono. Saia com ele resolvido.<small>Para o público que já tem um problema claro no trabalho.</small></li>
+<li>O seu TCC é a solução do seu problema.<small>Para quem teme a carga de uma pós com TCC.</small></li>
+<li>Seu problema é o seu ingresso.<small>Para a divulgação do processo seletivo, cuja etapa central é a proposta de problema.</small></li>
+</ul>
+<div class="two-notes" style="margin-top:40px">
+<div>
+<h3>Cuidado com a promessa</h3>
+<ul>
+<li>Nem todo problema tem solução com IA. A promessa honesta é sair com uma solução testada ou com a evidência medida de por que a IA não resolve aquele caso.</li>
+<li>“Sem programar” continua valendo, mas a mensagem principal deixa de ser a ausência de código e passa a ser o problema resolvido.</li>
+</ul>
+</div>
+<div>
+<h3>Peças a atualizar</h3>
+<ul>
+<li>Flyer, folder, posts e clip em v2, com “IA para o mundo real” como assinatura.</li>
+<li>Posts com casos de problemas por área, no formato do exemplo da célula no topo desta página.</li>
+<li>As quatro versões por público, refeitas sobre a v4.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+
+<section id="para-quem">
+<div class="wrap">
+<div class="sec-head">
+<h2>Para quem tem um problema real no trabalho</h2>
+<p class="lead">O curso é aberto a graduados em qualquer área. O que une a turma não é a formação de origem, e sim o tipo de problema: muitas variáveis, dados dispersos e mais de uma solução possível. A especialização não ensina a programar e não forma engenheiros de IA: forma profissionais que usam IA para resolver problemas da sua área e respondem pelos resultados.</p>
+</div>
+<table class="who-table">
+<tr><th>Agronegócio e ambiente</th><td>Agrônomos, veterinários, zootecnistas e técnicos de cooperativas: falhas de plantio, doenças em folhas, risco sanitário, áreas alagadas, previsão de safra.</td></tr>
+<tr><th>Setor público</th><td>Servidores de prefeituras, do Judiciário, da saúde e da educação: atendimento ao cidadão, editais e processos, previsão de demanda, priorização de fiscalizações.</td></tr>
+<tr><th>Engenharias e tecnologia</th><td>Engenheiros e profissionais de TI: dirigir agentes de programação, inspeção visual, manutenção preditiva, segurança de IA.</td></tr>
+<tr><th>Saúde, educação, direito e gestão</th><td>Profissionais que já usam IA e querem construir soluções próprias, validadas e seguras: laudos, tutores, jurisprudência, indicadores.</td></tr>
+</table>
+<div class="req">
+<div><h3>O que pedimos</h3><ul><li>Diploma de graduação em qualquer área.</li><li>Cerca de 10 horas por semana.</li><li>Um problema real para resolver, seu ou do Banco de Desafios Reais, e uma pessoa na organização que o acompanhe.</li></ul></div>
+<div><h3>O que não pedimos</h3><ul><li>Saber programar.</li><li>Matemática avançada.</li><li>Inglês.</li><li>Experiência prévia com ferramentas de IA ou formação em computação.</li></ul></div>
+</div>
+</div>
+</section>
+
+<section id="metodo">
+<div class="wrap">
+<div class="sec-head">
+<h2>O método que a RP usa</h2>
+<p class="lead">O método de seis passos é apresentado no M1 e aplicado em cada quinzena de RP. A RP é onde ele é usado de verdade; os módulos ensinam a usá-lo em tipos diferentes de problema.</p>
+</div>
+<ol class="steps six">
+<li><h3>Entender o problema</h3><p>Qual decisão ou tarefa quero melhorar? Quem é afetado? Como é feito hoje? Como vou saber que melhorou?</p></li>
+<li><h3>Decompor</h3><p>Dividir o problema em partes que a IA resolve uma de cada vez.</p></li>
+<li><h3>Pedir bem</h3><p>Contexto, objetivo, dados, formato e critério de correção. Pedir um plano antes da solução.</p></li>
+<li><h3>Verificar sem ler código</h3><p>Caso de resposta conhecida, ordem de grandeza, segunda opinião, dados alterados de propósito e amostra manual.</p></li>
+<li><h3>Atacar</h3><p>Onde a solução falha, com quais dados ela erra e quem pode ser prejudicado.</p></li>
+<li><h3>Decidir e responder</h3><p>Decidir, registrar o que a solução faz e onde falha, e assumir a responsabilidade.</p></li>
+</ol>
+<p class="note">Em cada módulo, a nota soma a aplicação ao problema, com a folha do método e o relatório de validação (60%), e as atividades comuns, fóruns e encontros ao vivo (40%). A aprovação exige menção mínima C e 75% de frequência, como no PPC.</p>
+</div>
+</section>
+
+<section id="desafios">
+<div class="wrap">
+<div class="sec-head">
+<h2>Banco de Desafios Reais</h2>
+<p class="lead">Não tem um problema para trazer? Escolha um. A cada turma, organizações públicas e privadas propõem desafios com dados, uma pessoa responsável e regras de privacidade. Na v4 o banco fica mais importante: a RP começa no mês 1, e os desafios precisam estar prontos antes da matrícula.</p>
+</div>
+<div class="ch-list">
+<div class="ch-item"><span class="org">Setor público municipal</span><h3>Priorizar a manutenção de vias</h3><p>Classificar fotos enviadas pelo cidadão e montar o mapa de prioridades por bairro.</p></div>
+<div class="ch-item priv"><span class="org">Cooperativa agrícola</span><h3>Estimar falhas de plantio no arroz</h3><p>Contar falhas em imagens de drone e cruzar com dados de solo e clima.</p></div>
+<div class="ch-item"><span class="org">Câmara de vereadores</span><h3>Pesquisar a legislação municipal</h3><p>Agente que responde com base nas leis do município e cita o artigo de origem.</p></div>
+<div class="ch-item priv"><span class="org">Comércio e serviços</span><h3>Prever demanda e estoque</h3><p>Previsão de vendas por loja, com sazonalidade de safra e de fronteira.</p></div>
+<div class="ch-item"><span class="org">Saúde pública</span><h3>Organizar a fila de exames</h3><p>Extrair dados de pedidos digitalizados e sinalizar casos urgentes para revisão humana.</p></div>
+<div class="ch-item priv"><span class="org">Indústria e startups do PampaTec</span><h3>Inspeção visual de qualidade</h3><p>Detectar defeitos em embalagens e peças a partir de câmeras na linha.</p></div>
+</div>
+<p class="note">Os desafios acima são ilustrativos. O banco de cada turma será publicado com o edital, a partir da rede de parceiros da UNIPAMPA e do BIA, como a Prefeitura e a Câmara de Vereadores de Alegrete, o COREDE Fronteira Oeste, o SEBRAE, o Sicredi, a Fundação Maronna, o PampaTec e empresas da região. Desafios que ficarem abertos podem seguir na trilha de RP do BIA, e vice-versa.</p>
+</div>
+</section>
+
+<section id="tcc">
+<div class="wrap">
+<div class="sec-head">
+<h2>O TCC é a RP escrita</h2>
+<p class="lead">O problema descrito na seleção é o mesmo da RP e do TCC. Cada marco gera uma parte do trabalho final, e o tutor da célula acompanha tudo desde o mês 1. Os formatos e a banca seguem o PPC.</p>
+</div>
+<div class="tbl-scroll">
+<table class="cmp">
+<caption>Quatro linhas de TCC, que também organizam as células</caption>
+<thead><tr><th>Linha</th><th>Exemplos de problemas</th><th>Tutores e orientadores</th></tr></thead>
+<tbody>
+<tr><th>L1. Dados, previsão e decisão</th><td>Previsão de demanda de serviços públicos; estimativa de produtividade agrícola; risco sanitário em rebanhos</td><td>Aline Lunkes, Dionatan Schmidt, Marcelo Luizelli, Francisco Vogt</td></tr>
+<tr><th>L2. LLMs, agentes e automação</th><td>Agente de atendimento com base em normas e manuais; extração de dados de editais e laudos; automação de processos administrativos</td><td>Silvio Quincozes, Paulo Souza, Marcelo Luizelli</td></tr>
+<tr><th>L3. Visão computacional e IA multimodal</th><td>Identificação de cultivares e falhas de plantio; inspeção visual; análise de imagens de satélite e drone</td><td>Eliezer Flores, Rodrigo Mansilha, Francisco Vogt</td></tr>
+<tr><th>L4. Segurança, robustez e governança de IA</th><td>Auditoria de soluções de IA em organizações; políticas de uso de IA; detecção de fraudes e ameaças</td><td>Diego Kreutz, Silvio Quincozes, Rodrigo Mansilha</td></tr>
+</tbody>
+</table>
+</div>
+<div class="vis-grid" style="margin-top:40px">
+<article style="border-color:var(--verde)"><h3>Artigo científico</h3><p>De 10 a 15 páginas, em condições de submissão a evento ou periódico da área, escrito a partir dos marcos.</p></article>
+<article style="border-color:var(--verde)"><h3>Produto de software</h3><p>A solução da RP II, com relatório técnico de 8 a 12 páginas, código e documentação em repositório, demonstração gravada e pedido de registro no INPI.</p></article>
+<article style="border-color:var(--verde)"><h3>Defesa</h3><p>A distância, no mês 12, com banca de dois membros, e apresentação à organização no Dia de Demonstração.</p></article>
+</div>
+</div>
+</section>
+
+<section id="computacao" class="comp-sec">
+<div class="wrap two">
+<div>
+<h2>Modo Avançado, para quem já programa</h2>
+<p class="lead" style="margin-top:18px">Continua em aberto (Q9 da v3). Na v4, a forma mais simples é levá-lo para dentro da RP: quem já programa pode resolver o seu problema com uma solução de nível de produção, sem carga extra nos módulos.</p>
+<p>As células misturam áreas de propósito: quem programa trabalha ao lado de quem conhece o problema.</p>
+</div>
+<div class="adv">
+<dl>
+<dt>Desenvolvimento com agentes</dt><dd>Repositório real, especificação, plano, testes automatizados e revisão do código gerado.</dd>
+<dt>Visão computacional na borda</dt><dd>Modelos rodando em celular, drone ou câmera, com medição de custo e desempenho.</dd>
+<dt>Agentes em produção</dt><dd>Servidor MCP próprio, observabilidade e implantação.</dd>
+<dt>Segurança de IA</dt><dd>Red teaming automatizado e validação adversarial no pipeline de entrega contínua.</dd>
+</dl>
+</div>
+</div>
+</section>
+
+<section id="bia" class="bia">
+<div class="wrap">
+<div class="sec-head">
+<h2>A RP do BIA, para quem já se formou</h2>
+<p class="lead">O Campus Alegrete oferece o <a href="https://bia-unipampa.github.io">Bacharelado em Inteligência Artificial (BIA)</a>, com uma trilha de Resolução de Problemas de seis semestres, em equipe e com problemas reais da região. A EIA leva a mesma espinha dorsal a quem já tem graduação, em 12 meses e a distância.</p>
+</div>
+<div class="bia-grid">
+<div><h3>Mesma espinha dorsal</h3><p>Resolução de Problemas no centro do currículo, com as disciplinas a seu serviço.</p></div>
+<div><h3>Mesmos docentes</h3><p>Docentes que atuam no BIA, na Ciência da Computação, na Engenharia de Software e no mestrado PPGES.</p></div>
+<div><h3>Mesma rede de parceiros</h3><p>Prefeitura e Câmara de Alegrete, COREDE Fronteira Oeste, SEBRAE, Sicredi, Fundação Maronna, PampaTec e empresas da região são convidados a propor desafios.</p></div>
+<div><h3>Uma comunidade só</h3><p>Estudantes do BIA participam do Dia de Demonstração, e desafios abertos circulam entre a RP do bacharelado e a da especialização.</p></div>
+</div>
+<div class="path" aria-label="Caminho de formação">
+<span>BIA, graduação</span><span class="arrow">→</span><span>EIA, especialização</span><span class="arrow">→</span><span>PPGES, mestrado</span><span class="arrow">→</span><span>PampaTec, startup</span>
+</div>
+</div>
+</section>
+
+<section id="comparar">
+<div class="wrap">
+<div class="sec-head">
+<h2>Como a EIA se compara</h2>
+<p class="lead">Em outubro de 2026 mapeamos 84 especializações e MBAs em IA no Brasil: 35 em instituições públicas e 49 em privadas. <a href="especializacoes-ia-BR.html">Veja a análise completa.</a></p>
+</div>
+<div class="tbl-scroll">
+<table class="cmp">
+<thead><tr><th>Critério</th><th>EIA UNIPAMPA</th><th>35 cursos de instituições públicas</th><th>49 cursos de instituições privadas</th></tr></thead>
+<tbody>
+<tr><th>Problema real de organização</th><td class="eia">Espinha dorsal de 135 h, do mês 1 ao TCC, com uma pessoa responsável na organização</td><td>Projeto ou TCC, em geral sem parceiro definido</td><td>Projetos aplicados e estudos de caso</td></tr>
+<tr><th>Aberto a qualquer graduação</th><td class="eia">Sim, sem exigir programação</td><td>14 de 35; os demais pedem base técnica ou não informam</td><td>21 de 49, quase todos de IA para negócios ou para um setor</td></tr>
+<tr><th>Programação</th><td class="eia">Gerada pela IA, sob direção do aluno</td><td>13 ensinam Python ou outra linguagem</td><td>18 ensinam Python ou outra linguagem</td></tr>
+<tr><th>Visão computacional</th><td class="eia">Módulo próprio (M7), aberto a qualquer graduação</td><td>6 com disciplina própria, todos para público técnico</td><td>13 com disciplina própria; só 1 aberto a qualquer graduação</td></tr>
+<tr><th>Validação adversarial</th><td class="eia">Em todos os módulos e na célula de RP</td><td>Nenhum descreve</td><td>Nenhum descreve</td></tr>
+<tr><th>Duração</th><td class="eia">12 meses</td><td>10 a 30 meses, mediana de 18</td><td>4 a 24 meses, mediana de 12</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+
+<section id="docentes">
+<div class="wrap">
+<div class="sec-head">
+<h2>Quem ensina e quem acompanha</h2>
+<p class="lead">Dez docentes do Campus Alegrete: nove doutores já definidos e um décimo a definir. Todos são tutores de duas células de RP e orientadores dos dez alunos dessas células; cada um também prepara a skill e o agente adversarial dos seus módulos.</p>
+</div>
+<div class="prof">
+<div><b>Aline Lunkes</b><span>Doutora em Ciências e Modelagem Computacional (LNCC). M2, M4. Linha L1.</span></div>
+<div><b>Diego Kreutz</b><span>Doutor em Informática (Universidade de Luxemburgo). M6, M8. Linha L4.</span></div>
+<div><b>Dionatan Schmidt</b><span>Doutor em Matemática Aplicada (UFRGS). M1, M2. Linha L1.</span></div>
+<div><b>Eliezer Flores</b><span>Doutor em Computação (UFRGS). M7. Linha L3.</span></div>
+<div><b>Francisco Vogt</b><span>Doutor em Ciência da Computação (Unicamp). M1, M3, M7. Linhas L1 e L3.</span></div>
+<div><b>Marcelo Luizelli</b><span>Doutor em Computação (UFRGS). M3, M4, M6. Linhas L1 e L2.</span></div>
+<div><b>Paulo Souza</b><span>Doutor em Ciência da Computação (PUCRS). M1, M6. Linha L2.</span></div>
+<div><b>Rodrigo Mansilha</b><span>Doutor em Ciência da Computação (UFRGS). M5, M8. Linhas L3 e L4.</span></div>
+<div><b>Silvio Quincozes</b><span>Doutor em Ciência da Computação (UFF). M1, M5, M8. Linhas L2 e L4.</span></div>
+<div><b>10º docente, a definir</b><span>Perfil sugerido: experiência aplicada em agronegócio, gestão pública ou saúde, útil na tutoria de células.</span></div>
+</div>
+<p class="note">A alocação nos módulos segue a da v3, componente de origem por componente de origem. Com a saída do EIA05 e do EIA06, Eliezer Flores, Paulo Souza e Rodrigo Mansilha têm menos horas em módulos e podem assumir a coordenação da RP (a definir).</p>
+</div>
+</section>
+
+<section id="selecao">
+<div class="wrap">
+<div class="sec-head">
+<h2>Seleção: o seu problema é o seu ingresso</h2>
+<p class="lead">A seleção não testa programação. Ela verifica se você tem um problema real, se sabe explicá-lo e se tem senso crítico diante do que a IA entrega. A proposta de problema da Etapa 2 é o ponto de partida da RP e define a sua célula. São 100 vagas por turma, para graduados em qualquer área.</p>
+</div>
+<div class="sel">
+<div><b>20</b><h3>Currículo</h3><p>Experiência profissional, projetos com dados ou decisões complexas, outra pós-graduação e produção técnica ou científica.</p></div>
+<div><b>40</b><h3>Proposta de problema</h3><p>Até duas páginas sobre um problema real e complexo, seu ou do Banco de Desafios Reais, com a indicação de quem o acompanha na organização. Eliminatória: mínimo de 20 pontos.</p></div>
+<div><b>40</b><h3>Desafio prático com IA</h3><p>60 minutos resolvendo um pequeno problema com um assistente de IA e uma planilha que tem um erro de propósito, seguidos de 15 minutos de conversa com dois docentes.</p></div>
+</div>
+<p class="note">As rubricas das três etapas são as da <a href="proposta-eia-v3.html#selecao">v3</a>, alinhadas ao PPC. A v4 só acrescenta à proposta de problema a indicação do responsável na organização (R7).</p>
+<div class="faq" style="margin-top:56px">
+<details><summary>Preciso saber programar?</summary><p>Não. O módulo M1 ensina a pedir, executar e conferir código gerado por IA, e a RP coloca isso em prática desde o primeiro mês.</p></details>
+<details><summary>E se eu não tiver um problema para trazer?</summary><p>Você escolhe um desafio do Banco de Desafios Reais, proposto por uma organização parceira, com dados e uma pessoa responsável.</p></details>
+<details><summary>E se o meu problema não tiver solução com IA?</summary><p>Também é um resultado. A RP avalia o processo e a evidência: uma conclusão bem medida e documentada de que a IA não resolve aquele caso é aprovada, e é útil para a organização.</p></details>
+<details><summary>Posso trocar de problema?</summary><p>Até o Marco 1 (mês 1), livremente. Até o Marco 3 (mês 5), com a concordância do tutor. Depois disso, não, porque o TCC já está em construção.</p></details>
+<details><summary>Meu problema envolve dados sigilosos. Posso trazê-lo?</summary><p>Sim, com o termo de uso de dados assinado no Marco 1, dados anonimizados quando necessário e só nas ferramentas aprovadas pelo curso.</p></details>
+<details><summary>Quanto tempo preciso dedicar?</summary><p>Cerca de 10 horas por semana, durante 12 meses: o módulo do momento, o trabalho no seu problema e uma sessão de célula de 1 h 30 min a cada 15 dias.</p></details>
+<details><summary>Posso usar IA nas atividades?</summary><p>Sim, e é parte do método. Em cada entrega você declara quais ferramentas usou e para quê. A responsabilidade pelo que é entregue, inclusive por erros da IA, é sempre sua.</p></details>
+<details><summary>Qual o valor?</summary><p>O curso é autofinanciado. O valor será definido com a fundação de apoio e publicado no edital, e inclui o custo de licenças e de uso de ferramentas de IA para todos os alunos.</p></details>
+</div>
+</div>
+</section>
+
+<section id="cronograma">
+<div class="wrap">
+<div class="sec-head">
+<h2>Doze meses, do contrato do problema à defesa</h2>
+</div>
+<div class="tbl-scroll"><table class="cmp"><tbody>
+<tr><th>2 meses antes</th><td>Processo seletivo; formação das células pela linha indicada na proposta de problema; convite aos responsáveis nas organizações</td></tr>
+<tr><th>Mês 1</th><td>M1 e início da RP I; Marco 1, contrato do problema</td></tr>
+<tr><th>Meses 2 e 3</th><td>M2 e M3; Marco 2, linha de base</td></tr>
+<tr><th>Meses 4 e 5</th><td>M4; Marco 3, proposta técnica (pré-projeto do TCC)</td></tr>
+<tr><th>Meses 6 a 8</th><td>M5, M6 e M7 e início da RP II; Marco 4, protótipo em piloto</td></tr>
+<tr><th>Meses 9 e 10</th><td>M8; Marco 5, evidência</td></tr>
+<tr><th>Mês 11</th><td>Escrita do TCC a partir dos marcos e entrega à banca, 30 dias antes da defesa</td></tr>
+<tr><th>Mês 12</th><td>Defesas, Dia de Demonstração com as organizações e encerramento</td></tr>
+</tbody></table></div>
+</div>
+</section>
+</main>
+<footer>
+<div class="wrap">
+<div>
+<b>Especialização em Inteligência Artificial Aplicada (EIA)</b><br>
+UNIPAMPA, Campus Alegrete, RS<br>
+Proposta em elaboração, versão 4 (v4), novembro de 2026. <a href="proposta-eia-v3.html">Ver a versão anterior (v3)</a>.
+</div>
+<ul>
+<li><a href="index.html">Página central das discussões</a></li>
+<li><a href="proposta-eia-v3.html">Proposta v3 e versões por público</a></li>
+<li><a href="divulgacao-eia.html">Divulgação: todos os materiais</a></li>
+<li><a href="especializacoes-ia-BR.html">Análise das especializações em IA no Brasil</a></li>
+<li><a href="https://bia-unipampa.github.io">Bacharelado em Inteligência Artificial (BIA)</a></li>
+</ul>
+</div>
+</footer>
+<script>
+const msgs=[...document.querySelectorAll(".demo .msg")];
+const reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+function play(){
+msgs.forEach(m=>m.classList.remove("on"));
+if(reduce){msgs.forEach(m=>m.classList.add("on"));return;}
+msgs.forEach((m,i)=>setTimeout(()=>m.classList.add("on"),300+i*1100));
+}
+document.getElementById("replay").addEventListener("click",play);
+play();
+</script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+WEBVTT
+
+1
+00:00:00.400 --> 00:00:03.746
+Como o seu e-mail sabe que uma mensagem é spam?
+
+2
+00:00:03.746 --> 00:00:07.305
+Quem decide é uma IA, usando uma função do 3º ano.
+
+3
+00:00:08.400 --> 00:00:12.548
+O filtro dá pontos às pistas: grátis, clique já, muitos links.
+
+4
+00:00:12.548 --> 00:00:14.688
+Remetente conhecido tira pontos.
+
+5
+00:00:14.688 --> 00:00:18.234
+A soma é a pontuação x, que pode ser qualquer número.
+
+6
+00:00:19.300 --> 00:00:27.188
+Aí entra a exponencial: eˣ cresce rápido, como juros e população; e⁻ˣ decai, como na meia-vida.
+
+7
+00:00:27.188 --> 00:00:28.184
+Cai no ENEM!
+
+8
+00:00:29.200 --> 00:00:33.362
+Agora, a sigmoide: σ(x) = 1 / (1 + e⁻ˣ).
+
+9
+00:00:33.362 --> 00:00:37.316
+Com x grande, e⁻ˣ some e σ vai para 1.
+
+10
+00:00:37.316 --> 00:00:40.750
+Com x muito negativo, vai para 0.
+
+11
+00:00:40.750 --> 00:00:42.519
+Em zero, dá meio.
+
+12
+00:00:43.500 --> 00:00:45.684
+Acima de 50%, é spam.
+
+13
+00:00:45.684 --> 00:00:50.156
+Nosso e-mail tem 2,2 pontos: σ(2,2) dá 90%.
+
+14
+00:00:50.156 --> 00:00:50.675
+Spam!
+
+15
+00:00:50.675 --> 00:00:57.435
+A mensagem da professora, com −2, fica com 12%: caixa de entrada.
+
+16
+00:00:58.400 --> 00:01:07.261
+Essa função está na regressão logística e nos neurônios das primeiras redes neurais: cada um soma as entradas com pesos e passa o total pela sigmoide.
+
+17
+00:01:08.300 --> 00:01:12.979
+Exponencial e funções: a matemática do 3º ano é a base da IA.
+
+18
+00:01:12.979 --> 00:01:18.271
+No BIA, na UNIPAMPA, em Alegrete, você transforma isso em tecnologia.
+
+19
+00:01:18.271 --> 00:01:19.191
+Vem pro BIA!

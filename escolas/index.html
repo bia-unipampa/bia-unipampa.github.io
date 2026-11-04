@@ -132,9 +132,6 @@ section{padding:84px 0}
 .vid h3{margin:14px 0 4px;font-size:1.35rem}
 .vid p{margin:0;color:#c9bdf0}
 .vid .links{margin-top:8px;font-weight:700;font-size:.95rem}
-.vid .art{aspect-ratio:16/9;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:12px;text-align:center;background:color-mix(in srgb,var(--c) 16%,var(--panel));border:3px solid color-mix(in srgb,var(--c) 45%,var(--panel))}
-.vid .art .em{font-size:3.2rem;line-height:1}
-.vid .art .f{font-weight:800;font-size:clamp(1rem,1.6vw,1.2rem);color:var(--ink)}
 
 /* 4 anos */
 .years{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
@@ -397,7 +394,7 @@ footer li{margin-bottom:5px}
     <div class="sec-head">
       <span class="kicker">Revisão para o ENEM, versão IA</span>
       <h2>O conteúdo do 3º ano que vira inteligência artificial</h2>
-      <p class="lead">Matriz, funções, probabilidade, geometria analítica e estatística caem no ENEM e também estão no coração da IA. Assista aos vídeos, veja mais três exemplos, entenda o porquê e depois encare o desafio.</p>
+      <p class="lead">Matriz, funções, probabilidade, geometria analítica e estatística caem no ENEM e também estão no coração da IA. Assista aos seis vídeos, entenda o porquê e depois encare o desafio.</p>
     </div>
     <div class="vids" style="grid-template-columns:repeat(3,1fr)">
       <div class="vid">
@@ -418,20 +415,23 @@ footer li{margin-bottom:5px}
         <p style="color:var(--soft)">Como o chatbot escolhe a próxima palavra, e por que às vezes ele inventa coisas.</p>
         <div class="links"><a href="clip-mat-probabilidade-v1.html">Roteiro e download</a></div>
       </div>
-      <div class="vid" style="--c:var(--cyan)">
-        <div class="art" aria-hidden="true"><span class="em">📍</span><span class="f">d = √((x₂ − x₁)² + (y₂ − y₁)²)</span></div>
+      <div class="vid">
+        <video controls preload="none" poster="clip-mat-distancia-v1/poster.jpg"><source src="clip-mat-distancia-v1/clip-mat-distancia-v1.mp4" type="video/mp4"><track kind="captions" src="clip-mat-distancia-v1/legendas.vtt" srclang="pt-BR" label="Português"></video>
         <h3>📍 Geometria analítica</h3>
         <p style="color:var(--soft)">Cada pessoa vira um ponto no plano. A IA calcula a distância entre os pontos para recomendar a música ou o vídeo de quem está mais perto de você.</p>
+        <div class="links"><a href="clip-mat-distancia-v1.html">Roteiro e download</a></div>
       </div>
-      <div class="vid" style="--c:var(--mint)">
-        <div class="art" aria-hidden="true"><span class="em">📊</span><span class="f">média · mediana · desvio padrão</span></div>
+      <div class="vid">
+        <video controls preload="none" poster="clip-mat-estatistica-v1/poster.jpg"><source src="clip-mat-estatistica-v1/clip-mat-estatistica-v1.mp4" type="video/mp4"><track kind="captions" src="clip-mat-estatistica-v1/legendas.vtt" srclang="pt-BR" label="Português"></video>
         <h3>📊 Estatística</h3>
         <p style="color:var(--soft)">Média e desvio padrão mostram o que é normal. Quando uma compra no cartão foge muito do padrão, a IA desconfia de fraude e dá o alerta.</p>
+        <div class="links"><a href="clip-mat-estatistica-v1.html">Roteiro e download</a></div>
       </div>
-      <div class="vid" style="--c:var(--purple)">
-        <div class="art" aria-hidden="true"><span class="em">📈</span><span class="f">σ(x) = 1 / (1 + e⁻ˣ)</span></div>
+      <div class="vid">
+        <video controls preload="none" poster="clip-mat-exponencial-v1/poster.jpg"><source src="clip-mat-exponencial-v1/clip-mat-exponencial-v1.mp4" type="video/mp4"><track kind="captions" src="clip-mat-exponencial-v1/legendas.vtt" srclang="pt-BR" label="Português"></video>
         <h3>📈 Função exponencial</h3>
         <p style="color:var(--soft)">Uma função com a potência e⁻ˣ transforma qualquer pontuação num número entre 0 e 1. É assim que a IA diz “90% de chance de ser spam”.</p>
+        <div class="links"><a href="clip-mat-exponencial-v1.html">Roteiro e download</a></div>
       </div>
     </div>
     <article class="game g3" style="margin-top:30px;min-height:0;background:linear-gradient(140deg,#ffc21a,#fb3b5c)">
@@ -602,6 +602,9 @@ footer li{margin-bottom:5px}
       <li><a href="clip-mat-matrizes-v1.html">Matrizes e IA</a></li>
       <li><a href="clip-mat-parabola-v1.html">Funções e IA</a></li>
       <li><a href="clip-mat-probabilidade-v1.html">Probabilidade e IA</a></li>
+      <li><a href="clip-mat-distancia-v1.html">Geometria analítica e IA</a></li>
+      <li><a href="clip-mat-estatistica-v1.html">Estatística e IA</a></li>
+      <li><a href="clip-mat-exponencial-v1.html">Função exponencial e IA</a></li>
       <li><a href="../feito-com-ia/index.html">Feito com IA: músicas e vídeos</a></li>
     </ul></div>
   </div>

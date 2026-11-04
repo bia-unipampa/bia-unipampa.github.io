@@ -1,0 +1,77 @@
+WEBVTT
+
+1
+00:00:00.400 --> 00:00:03.794
+O banco bloqueou o cartão: compra suspeita.
+
+2
+00:00:03.794 --> 00:00:04.977
+Como ele sabia?
+
+3
+00:00:04.977 --> 00:00:07.424
+Foi uma IA, usando estatística.
+
+4
+00:00:08.100 --> 00:00:12.131
+Estes são os gastos de uma pessoa em um mês: dez compras no cartão.
+
+5
+00:00:12.131 --> 00:00:13.755
+Qual é o gasto típico dela?
+
+6
+00:00:14.700 --> 00:00:19.082
+A média soma tudo e divide por dez: 500 sobre 10, R$ 50.
+
+7
+00:00:19.082 --> 00:00:23.934
+A mediana, o valor do meio da lista em ordem, também dá R$ 50.
+
+8
+00:00:23.934 --> 00:00:28.550
+Se uma compra fosse de R$ 574, a média pularia para R$ 100.
+
+9
+00:00:28.550 --> 00:00:30.272
+A mediana nem se mexe.
+
+10
+00:00:31.100 --> 00:00:35.479
+O desvio padrão mede o tamanho normal da variação: aqui, R$ 15.
+
+11
+00:00:35.479 --> 00:00:41.178
+Quase tudo fica entre dois desvios abaixo e dois acima da média: de R$ 20 a R$ 80.
+
+12
+00:00:42.100 --> 00:00:46.573
+Agora chega uma compra de R$ 350, às três da manhã.
+
+13
+00:00:46.573 --> 00:00:51.572
+350 menos 50, dividido por 15: 20 desvios longe da média!
+
+14
+00:00:51.572 --> 00:00:53.063
+Alerta de fraude.
+
+15
+00:00:54.300 --> 00:01:00.519
+A IA de verdade olha valor, hora, lugar e tipo de loja, e aprende o padrão de cada pessoa.
+
+16
+00:01:00.519 --> 00:01:05.495
+Mas também erra: numa viagem, uma compra normal pode virar falso alarme.
+
+17
+00:01:06.500 --> 00:01:12.107
+Média, mediana e desvio padrão: é a estatística do ensino médio por trás da IA.
+
+18
+00:01:12.107 --> 00:01:17.003
+No BIA, na UNIPAMPA, em Alegrete, você transforma isso em tecnologia.
+
+19
+00:01:17.003 --> 00:01:17.855
+Vem pro BIA!

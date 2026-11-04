@@ -4,12 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Feito com IA · BIA · UNIPAMPA</title>
-  <meta name="description" content="Músicas e vídeos criados com inteligência artificial pelo Bacharelado em Inteligência Artificial da UNIPAMPA: exemplos do que dá para fazer com IA." />
+  <meta name="description" content="Jogos, músicas e vídeos criados com inteligência artificial pelo Bacharelado em Inteligência Artificial da UNIPAMPA: exemplos do que dá para fazer com IA." />
   <meta name="theme-color" content="#06070d" />
 
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Feito com IA · BIA · UNIPAMPA" />
-  <meta property="og:description" content="Músicas e vídeos criados com inteligência artificial pelo Bacharelado em Inteligência Artificial da UNIPAMPA." />
+  <meta property="og:description" content="Jogos, músicas e vídeos criados com inteligência artificial pelo Bacharelado em Inteligência Artificial da UNIPAMPA." />
   <meta property="og:image" content="../assets/img/og-image.svg" />
   <meta name="twitter:card" content="summary_large_image" />
 
@@ -44,6 +44,25 @@
     .games { margin-top: 30px; }
     .games__t { font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-dim); margin: 0 0 12px; }
     .games .chip { text-decoration: none; }
+    .jogos__feat { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+    .jogos__more { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr)); gap: 18px; margin-top: 20px; }
+    @media (max-width: 860px) { .jogos__feat { grid-template-columns: 1fr; } }
+    .gcard { display: flex; flex-direction: column; min-width: 0; border-top: 3px solid var(--c); padding-top: 0; overflow: hidden; }
+    .gcard__art { display: flex; align-items: center; justify-content: center; gap: 14px; height: 120px; margin: 0 -28px 4px; font-size: 3rem; background: radial-gradient(circle at 50% 120%, color-mix(in srgb, var(--c) 38%, transparent), transparent 70%); border-bottom: 1px solid var(--line); }
+    .gcard--big .gcard__art { height: 170px; font-size: 4.2rem; }
+    .gcard h3 { font-size: 1.4rem; }
+    .gcard--big h3 { font-size: 1.9rem; }
+    .gcard--big > p { font-size: 1.02rem; }
+    .gcard__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin-top: 4px; font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-dim); }
+    .gcard__new { color: #06070d; background: var(--c); border-radius: 999px; padding: 2px 10px; font-weight: 700; }
+    .diff { display: inline-flex; align-items: center; gap: 8px; color: var(--ink-soft); }
+    .diff i { display: inline-flex; gap: 4px; }
+    .diff i span { width: 10px; height: 10px; border-radius: 50%; border: 1px solid var(--c); }
+    .diff i span.on { background: var(--c); box-shadow: 0 0 8px var(--c); }
+    .gcard ul { margin: 12px 0 0; padding-left: 1.1em; color: var(--ink-soft); font-size: 0.95rem; }
+    .gcard ul li + li { margin-top: 4px; }
+    .gcard__go { margin-top: auto; padding-top: 18px; }
+    .gcard__go .btn { width: 100%; justify-content: center; text-align: center; }
   </style>
 
   <!-- Umami analytics (sem cookies, compatível com a LGPD) -->
@@ -87,14 +106,16 @@
       <div class="wrap">
         <p class="phero__crumb"><a href="../index.html">BIA</a> / Feito com IA</p>
         <h1 class="phero__title reveal">Feito com <em>IA</em></h1>
-        <p class="phero__lead reveal">Músicas e vídeos criados com inteligência artificial para o Bacharelado em Inteligência Artificial (BIA) da UNIPAMPA. São exemplos do que dá para fazer hoje com modelos abertos, uma GPU e um bom roteiro: compor em vários estilos, gerar cenas de vídeo, narrar, legendar e até programar jogos. <strong>No BIA, você aprende como esses modelos funcionam por dentro e como usá-los com responsabilidade.</strong></p>
+        <p class="phero__lead reveal">Jogos, músicas e vídeos criados com inteligência artificial para o Bacharelado em Inteligência Artificial (BIA) da UNIPAMPA. São exemplos do que dá para fazer hoje com modelos abertos, uma GPU e um bom roteiro: programar jogos que rodam direto no navegador, compor em vários estilos, gerar cenas de vídeo, narrar e legendar. <strong>No BIA, você aprende como esses modelos funcionam por dentro e como usá-los com responsabilidade.</strong></p>
         <div class="phero__actions reveal">
-          <a class="btn btn--solid" href="#musicas">Ouvir as músicas</a>
+          <a class="btn btn--solid" href="#jogos">Jogar os jogos</a>
+          <a class="btn btn--ghost" href="#musicas">Ouvir as músicas</a>
           <a class="btn btn--ghost" href="#pias">Assistir aos vídeos</a>
         </div>
         <nav class="games reveal" id="jogos-ia" aria-label="Jogos feitos com IA">
           <p class="games__t">Jogos feitos com IA, direto no navegador</p>
           <div class="chips">
+            <a class="chip" style="--c:var(--ia)" href="../jogo/maquina-misteriosa.html"><span class="chip__dot"></span>Máquina Misteriosa (novo)</a>
             <a class="chip" style="--c:var(--cp)" href="../jogo/index.html"><span class="chip__dot"></span>Caixa-Preta</a>
             <a class="chip" style="--c:var(--pi)" href="jogo-3d-corrida-neural-v1.html"><span class="chip__dot"></span>Corrida Neural</a>
             <a class="chip" style="--c:var(--fm)" href="jogo-3d-barcos-ia-v1.html"><span class="chip__dot"></span>Rio Limpo: IA contra IA</a>
@@ -106,8 +127,79 @@
       </div>
     </section>
 
+    <!-- ===================== JOGOS ===================== -->
+    <section class="section section--tight" id="jogos" style="padding-top:0">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker">Jogos · 7 no navegador</p>
+          <h2 class="section__title reveal">Jogue contra a IA, ou com ela</h2>
+          <p class="section__lead reveal">Sete jogos programados com IA e revisados por gente, que rodam direto no navegador, no computador ou no celular, sem instalar nada. Em cada um, você vê por dentro uma ideia de inteligência artificial: testar hipóteses, aprender com exemplos, evoluir por tentativa e erro. Cada cartão indica o <strong>nível de dificuldade</strong>, de fácil (●○○) a difícil (●●●).</p>
+        </header>
+        <div class="jogos__feat">
+          <article class="tile gcard gcard--big reveal" style="--c:var(--ia)">
+            <div class="gcard__art" aria-hidden="true">⚙️🔴🔷</div>
+            <h3>Máquina Misteriosa</h3>
+            <p class="gcard__meta"><span class="gcard__new">Novo</span><span>3D · 3 rodadas · 8+ anos</span><span class="diff" title="Dificuldade: Fácil a média">Dificuldade <i aria-hidden="true"><span class="on"></span><span></span><span></span></i> <b>Fácil a média</b></span></p>
+            <p>Uma máquina de brinquedo transforma tudo o que entra nela seguindo uma <b>regra secreta</b>. Você coloca bolas, cubos e cones de várias cores, observa o que sai e disputa com um robô de IA quem descobre a regra primeiro.</p>
+            <ul><li>Cada teste vira uma pista para os dois jogadores: risque as regras que não combinam.</li><li>Escolha o adversário: <b>robô aprendiz</b>, que testa ao acaso, ou <b>robô esperto</b>, que planeja cada teste.</li><li>Três rodadas, das regras simples às regras com “se”, e uma dica da Bia por rodada.</li></ul>
+            <div class="gcard__go"><a class="btn btn--solid" href="../jogo/maquina-misteriosa.html">Jogar Máquina Misteriosa</a></div>
+          </article>
+          <article class="tile gcard gcard--big reveal" style="--c:var(--cp)">
+            <div class="gcard__art" aria-hidden="true">🔌🧩🤖</div>
+            <h3>Caixa-Preta: você contra a IA</h3>
+            <p class="gcard__meta"><span>3D · melhor de 5 · ensino médio em diante</span><span class="diff" title="Dificuldade: Difícil">Dificuldade <i aria-hidden="true"><span class="on"></span><span class="on"></span><span class="on"></span></i> <b>Difícil</b></span></p>
+            <p>Dois circuitos lacrados idênticos aplicam uma transformação secreta aos 8 bits de entrada. Você e uma IA sondam suas cópias, observam as saídas e tentam reconstruir o circuito. Quem enviar a solução correta primeiro vence a rodada.</p>
+            <ul><li>Sonde com um byte, compare a saída e monte a sequência de operações sobre bits.</li><li>A IA elimina hipóteses a cada sondagem e mostra no terminal quantas ainda restam.</li><li>Três níveis para a IA rival: fácil, médio e difícil.</li></ul>
+            <div class="gcard__go"><a class="btn btn--solid" href="../jogo/index.html">Jogar Caixa-Preta</a></div>
+          </article>
+        </div>
+        <div class="jogos__more">
+          <article class="tile gcard reveal" style="--c:var(--ia)">
+            <div class="gcard__art" aria-hidden="true">🤔</div>
+            <h3>Tem IA ou não tem?</h3>
+            <p class="gcard__meta"><span>60 segundos</span><span class="diff" title="Dificuldade: Fácil">Dificuldade <i aria-hidden="true"><span class="on"></span><span></span><span></span></i> <b>Fácil</b></span></p>
+            <p>Descubra, contra o relógio, quais coisas do dia a dia usam inteligência artificial.</p>
+            
+            <div class="gcard__go"><a class="btn btn--ghost" href="jogo-tem-ia-v1.html">Jogar</a></div>
+          </article>
+          <article class="tile gcard reveal" style="--c:var(--pi)">
+            <div class="gcard__art" aria-hidden="true">♻️</div>
+            <h3>Treine a Bia</h3>
+            <p class="gcard__meta"><span>Classificação</span><span class="diff" title="Dificuldade: Fácil">Dificuldade <i aria-hidden="true"><span class="on"></span><span></span><span></span></i> <b>Fácil</b></span></p>
+            <p>Ensine a robô Bia a separar o lixo com exemplos e veja como uma IA aprende.</p>
+            
+            <div class="gcard__go"><a class="btn btn--ghost" href="jogo-treine-a-bia-v1.html">Jogar</a></div>
+          </article>
+          <article class="tile gcard reveal" style="--c:var(--fm)">
+            <div class="gcard__art" aria-hidden="true">🚤</div>
+            <h3>Rio Limpo: IA contra IA</h3>
+            <p class="gcard__meta"><span>3D · você assiste</span><span class="diff" title="Dificuldade: Fácil">Dificuldade <i aria-hidden="true"><span class="on"></span><span></span><span></span></i> <b>Fácil</b></span></p>
+            <p>Três barcos guiados por IAs diferentes disputam quem recolhe mais lixo do rio: detecção de objetos e planejamento de rota.</p>
+            
+            <div class="gcard__go"><a class="btn btn--ghost" href="jogo-3d-barcos-ia-v1.html">Assistir à disputa</a></div>
+          </article>
+          <article class="tile gcard reveal" style="--c:var(--pi)">
+            <div class="gcard__art" aria-hidden="true">🏎️</div>
+            <h3>Corrida Neural</h3>
+            <p class="gcard__meta"><span>3D · redes neurais</span><span class="diff" title="Dificuldade: Média">Dificuldade <i aria-hidden="true"><span class="on"></span><span class="on"></span><span></span></i> <b>Média</b></span></p>
+            <p>Corra pela pista neon e depois veja 24 robôs Bia aprenderem a correr sozinhos, com redes neurais que evoluem.</p>
+            
+            <div class="gcard__go"><a class="btn btn--ghost" href="jogo-3d-corrida-neural-v1.html">Jogar</a></div>
+          </article>
+          <article class="tile gcard reveal" style="--c:var(--cp)">
+            <div class="gcard__art" aria-hidden="true">📐</div>
+            <h3>ENEM + IA</h3>
+            <p class="gcard__meta"><span>3º ano do ensino médio</span><span class="diff" title="Dificuldade: Média">Dificuldade <i aria-hidden="true"><span class="on"></span><span class="on"></span><span></span></i> <b>Média</b></span></p>
+            <p>Três desafios com a matemática do ENEM que faz a IA funcionar: ajuste a reta, desça a montanha e encare o quiz relâmpago.</p>
+            
+            <div class="gcard__go"><a class="btn btn--ghost" href="jogo-enem-ia-v1.html">Encarar o desafio</a></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <!-- ===================== MÚSICAS ===================== -->
-    <section class="section section--tight" id="musicas" style="padding-top:0">
+    <section class="section section--tight section--alt" id="musicas">
       <div class="wrap">
         <header class="section__head">
           <p class="kicker">Música · 18 faixas</p>
@@ -119,7 +211,7 @@
     </section>
 
     <!-- ===================== VÍDEO: FOGO DE CHÃO DOS PIÁS ===================== -->
-    <section class="section section--tight section--alt" id="pias">
+    <section class="section section--tight" id="pias">
       <div class="wrap">
         <header class="section__head">
           <p class="kicker">Vídeo · 55 s</p>
@@ -144,7 +236,7 @@
     </section>
 
     <!-- ===================== VÍDEO ===================== -->
-    <section class="section section--tight" id="video">
+    <section class="section section--tight section--alt" id="video">
       <div class="wrap">
         <header class="section__head">
           <p class="kicker">Vídeo · 4 min 2 s</p>
@@ -172,7 +264,7 @@
     </section>
 
     <!-- ===================== VÍDEO: CHURRASCO ===================== -->
-    <section class="section section--tight section--alt" id="churrasco">
+    <section class="section section--tight" id="churrasco">
       <div class="wrap">
         <header class="section__head">
           <p class="kicker">Vídeo · 1 min 30 s</p>
@@ -196,26 +288,6 @@
       </div>
     </section>
 
-    <!-- ===================== JOGO: CAIXA-PRETA ===================== -->
-    <section class="section section--tight" id="jogo">
-      <div class="wrap">
-        <header class="section__head">
-          <p class="kicker">Jogo · 3D no navegador</p>
-          <h2 class="section__title reveal">Caixa-Preta: você contra a IA</h2>
-          <p class="section__lead reveal">Sobre a bancada há dois circuitos lacrados idênticos, e cada um aplica uma transformação secreta aos 8 bits de entrada. Você e uma IA sondam suas cópias, observam as saídas e tentam reconstruir o circuito. Quem enviar a solução correta primeiro vence a rodada. A partida é melhor de 5, e cada rodada esconde um circuito mais difícil. A IA testa milhões de hipóteses por força bruta; você tem intuição e padrões de bits. <strong>Será que dá para vencer a máquina?</strong></p>
-        </header>
-        <div class="player__actions reveal">
-          <a class="btn btn--solid" href="../jogo/index.html">Jogar Caixa-Preta</a>
-        </div>
-        <div class="grid grid--4 how">
-          <article class="tile tile--line reveal" style="--c:var(--pi)"><span class="tile__ico" aria-hidden="true">🔌</span><h3>Sondar</h3><p>Escolha um byte de entrada, envie ao circuito e compare a saída com o que você esperava.</p></article>
-          <article class="tile tile--line reveal" style="--c:var(--fm)"><span class="tile__ico" aria-hidden="true">🧩</span><h3>Reconstruir</h3><p>Monte a sequência de operações sobre bits que explica todas as saídas observadas.</p></article>
-          <article class="tile tile--line reveal" style="--c:var(--ia)"><span class="tile__ico" aria-hidden="true">🤖</span><h3>A rival</h3><p>A IA elimina hipóteses a cada sondagem e mostra no terminal quantas ainda restam.</p></article>
-          <article class="tile tile--line reveal" style="--c:var(--cp)"><span class="tile__ico" aria-hidden="true">✍️</span><h3>Feito com IA</h3><p>Jogo inteiro, da cena 3D à lógica da adversária, programado com IA e revisado por gente.</p></article>
-        </div>
-      </div>
-    </section>
-
     <!-- ===================== CTA ===================== -->
     <section class="section section--tight section--alt">
       <div class="wrap">
@@ -227,7 +299,7 @@
             <a class="btn btn--ghost" href="../matriz.html">Ver a matriz do curso</a>
           </div>
         </div>
-        <p class="note">Músicas e vídeos são conteúdos gerados por IA, sem gravação de músicos, atores ou cantores reais, e servem como demonstração e divulgação do curso. O jogo Caixa-Preta também foi programado com IA. "Feito com IA", versão 1, novembro de 2026.</p>
+        <p class="note">Músicas e vídeos são conteúdos gerados por IA, sem gravação de músicos, atores ou cantores reais, e servem como demonstração e divulgação do curso. Os sete jogos também foram programados com IA. "Feito com IA", versão 1, novembro de 2026.</p>
       </div>
     </section>
   </main>

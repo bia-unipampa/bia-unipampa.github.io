@@ -41,6 +41,9 @@
     .ver audio { flex: 1; width: 100%; min-width: 0; height: 38px; color-scheme: dark; }
     .ver a { font-family: var(--font-mono); font-size: 0.76rem; color: var(--c); white-space: nowrap; }
     .ver a:hover { text-decoration: underline; text-underline-offset: 3px; }
+    .games { margin-top: 30px; }
+    .games__t { font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-dim); margin: 0 0 12px; }
+    .games .chip { text-decoration: none; }
   </style>
 
   <!-- Umami analytics (sem cookies, compatível com a LGPD) -->
@@ -84,11 +87,22 @@
       <div class="wrap">
         <p class="phero__crumb"><a href="../index.html">BIA</a> / Feito com IA</p>
         <h1 class="phero__title reveal">Feito com <em>IA</em></h1>
-        <p class="phero__lead reveal">Músicas e vídeos criados com inteligência artificial para o Bacharelado em Inteligência Artificial (BIA) da UNIPAMPA. São exemplos do que dá para fazer hoje com modelos abertos, uma GPU e um bom roteiro: compor em vários estilos, gerar cenas de vídeo, narrar, legendar e até programar um jogo. <strong>No BIA, você aprende como esses modelos funcionam por dentro e como usá-los com responsabilidade.</strong></p>
+        <p class="phero__lead reveal">Músicas e vídeos criados com inteligência artificial para o Bacharelado em Inteligência Artificial (BIA) da UNIPAMPA. São exemplos do que dá para fazer hoje com modelos abertos, uma GPU e um bom roteiro: compor em vários estilos, gerar cenas de vídeo, narrar, legendar e até programar jogos. <strong>No BIA, você aprende como esses modelos funcionam por dentro e como usá-los com responsabilidade.</strong></p>
         <div class="phero__actions reveal">
           <a class="btn btn--solid" href="#musicas">Ouvir as músicas</a>
-          <a class="btn btn--ghost" href="#video">Assistir aos vídeos</a>
+          <a class="btn btn--ghost" href="#pias">Assistir aos vídeos</a>
         </div>
+        <nav class="games reveal" id="jogos-ia" aria-label="Jogos feitos com IA">
+          <p class="games__t">Jogos feitos com IA, direto no navegador</p>
+          <div class="chips">
+            <a class="chip" style="--c:var(--cp)" href="../jogo/index.html"><span class="chip__dot"></span>Caixa-Preta</a>
+            <a class="chip" style="--c:var(--pi)" href="jogo-3d-corrida-neural-v1.html"><span class="chip__dot"></span>Corrida Neural</a>
+            <a class="chip" style="--c:var(--fm)" href="jogo-3d-barcos-ia-v1.html"><span class="chip__dot"></span>Rio Limpo: IA contra IA</a>
+            <a class="chip" style="--c:var(--ia)" href="jogo-enem-ia-v1.html"><span class="chip__dot"></span>ENEM + IA</a>
+            <a class="chip" style="--c:var(--cp)" href="jogo-tem-ia-v1.html"><span class="chip__dot"></span>Tem IA ou não tem?</a>
+            <a class="chip" style="--c:var(--pi)" href="jogo-treine-a-bia-v1.html"><span class="chip__dot"></span>Treine a Bia</a>
+          </div>
+        </nav>
       </div>
     </section>
 
@@ -104,8 +118,33 @@
       </div>
     </section>
 
+    <!-- ===================== VÍDEO: FOGO DE CHÃO DOS PIÁS ===================== -->
+    <section class="section section--tight section--alt" id="pias">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker">Vídeo · 55 s</p>
+          <h2 class="section__title reveal">Fogo de chão dos piás</h2>
+          <p class="section__lead reveal">Tonico, o peãozinho de bigode pintado com carvão, e Chiquinha, a prendinha debochada e mandona, decidem que o churrasco hoje é por conta deles. Entre o costelão nas estacas, o sal grosso, uma mão boba que tenta beliscar a carne antes da hora e a roda de chimarrão, a conversa sai no mais puro gauchês. Personagens, falas, sotaque, paisagem e som foram gerados por IA. <strong>Nenhuma câmera nem nenhum ator foram usados.</strong></p>
+        </header>
+        <div class="player reveal">
+          <video controls preload="metadata" poster="feito-com-ia-v1/videos/video-fogo-de-chao-dos-pias.jpg">
+            <source src="feito-com-ia-v1/videos/video-fogo-de-chao-dos-pias.mp4" type="video/mp4" />
+          </video>
+          <div class="player__actions">
+            <a class="btn btn--solid" href="feito-com-ia-v1/videos/video-fogo-de-chao-dos-pias.mp4" download>Baixar MP4 (720p, 26 MB)</a>
+          </div>
+        </div>
+        <div class="grid grid--4 how">
+          <article class="tile tile--line reveal" style="--c:var(--pi)"><span class="tile__ico" aria-hidden="true">🎬</span><h3>Cenas e vozes</h3><p>Sete cenas de 8 segundos geradas no Google Flow (Veo), com imagem, diálogo e som ambiente juntos.</p></article>
+          <article class="tile tile--line reveal" style="--c:var(--fm)"><span class="tile__ico" aria-hidden="true">🧒</span><h3>Personagens fixos</h3><p>Uma mesma descrição detalhada de Tonico e Chiquinha entra em todas as cenas, para manter os dois iguais do início ao fim.</p></article>
+          <article class="tile tile--line reveal" style="--c:var(--ia)"><span class="tile__ico" aria-hidden="true">✍️</span><h3>Roteiro</h3><p>Cenas, falas e prompts escritos com o Claude, revisados por gente.</p></article>
+          <article class="tile tile--line reveal" style="--c:var(--cp)"><span class="tile__ico" aria-hidden="true">🧉</span><h3>Bem gaúcho</h3><p>Bah, tchê, guri, prenda velha: o sotaque e as expressões do Rio Grande do Sul fazem parte do pedido.</p></article>
+        </div>
+      </div>
+    </section>
+
     <!-- ===================== VÍDEO ===================== -->
-    <section class="section section--tight section--alt" id="video">
+    <section class="section section--tight" id="video">
       <div class="wrap">
         <header class="section__head">
           <p class="kicker">Vídeo · 4 min 2 s</p>
@@ -133,7 +172,7 @@
     </section>
 
     <!-- ===================== VÍDEO: CHURRASCO ===================== -->
-    <section class="section section--tight" id="churrasco">
+    <section class="section section--tight section--alt" id="churrasco">
       <div class="wrap">
         <header class="section__head">
           <p class="kicker">Vídeo · 1 min 30 s</p>
@@ -153,31 +192,6 @@
           <article class="tile tile--line reveal" style="--c:var(--fm)"><span class="tile__ico" aria-hidden="true">🎵</span><h3>Trilha</h3><p>Música instrumental composta pelo ACE-Step 1.5, o mesmo gerador das músicas acima.</p></article>
           <article class="tile tile--line reveal" style="--c:var(--ia)"><span class="tile__ico" aria-hidden="true">✍️</span><h3>Roteiro e montagem</h3><p>Passos, textos na tela e edição feitos com o Claude, revisados por gente.</p></article>
           <article class="tile tile--line reveal" style="--c:var(--cp)"><span class="tile__ico" aria-hidden="true">💻</span><h3>Feito em casa</h3><p>Tudo gerado localmente, numa única NVIDIA GB10, sem depender de serviços na nuvem.</p></article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== VÍDEO: FOGO DE CHÃO DOS PIÁS ===================== -->
-    <section class="section section--tight section--alt" id="pias">
-      <div class="wrap">
-        <header class="section__head">
-          <p class="kicker">Vídeo · 55 s</p>
-          <h2 class="section__title reveal">Fogo de chão dos piás</h2>
-          <p class="section__lead reveal">Tonico, o peãozinho de bigode pintado com carvão, e Chiquinha, a prendinha debochada e mandona, decidem que o churrasco hoje é por conta deles. Entre o costelão nas estacas, o sal grosso, uma mão boba que tenta beliscar a carne antes da hora e a roda de chimarrão, a conversa sai no mais puro gauchês. Personagens, falas, sotaque, paisagem e som foram gerados por IA. <strong>Nenhuma câmera nem nenhum ator foram usados.</strong></p>
-        </header>
-        <div class="player reveal">
-          <video controls preload="metadata" poster="feito-com-ia-v1/videos/video-fogo-de-chao-dos-pias.jpg">
-            <source src="feito-com-ia-v1/videos/video-fogo-de-chao-dos-pias.mp4" type="video/mp4" />
-          </video>
-          <div class="player__actions">
-            <a class="btn btn--solid" href="feito-com-ia-v1/videos/video-fogo-de-chao-dos-pias.mp4" download>Baixar MP4 (720p, 26 MB)</a>
-          </div>
-        </div>
-        <div class="grid grid--4 how">
-          <article class="tile tile--line reveal" style="--c:var(--pi)"><span class="tile__ico" aria-hidden="true">🎬</span><h3>Cenas e vozes</h3><p>Sete cenas de 8 segundos geradas no Google Flow (Veo), com imagem, diálogo e som ambiente juntos.</p></article>
-          <article class="tile tile--line reveal" style="--c:var(--fm)"><span class="tile__ico" aria-hidden="true">🧒</span><h3>Personagens fixos</h3><p>Uma mesma descrição detalhada de Tonico e Chiquinha entra em todas as cenas, para manter os dois iguais do início ao fim.</p></article>
-          <article class="tile tile--line reveal" style="--c:var(--ia)"><span class="tile__ico" aria-hidden="true">✍️</span><h3>Roteiro</h3><p>Cenas, falas e prompts escritos com o Claude, revisados por gente.</p></article>
-          <article class="tile tile--line reveal" style="--c:var(--cp)"><span class="tile__ico" aria-hidden="true">🧉</span><h3>Bem gaúcho</h3><p>Bah, tchê, guri, prenda velha: o sotaque e as expressões do Rio Grande do Sul fazem parte do pedido.</p></article>
         </div>
       </div>
     </section>

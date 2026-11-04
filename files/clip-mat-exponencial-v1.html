@@ -145,7 +145,7 @@ body.render #stage{display:block}
       <div class="row" data-hl="3.5"><span>muitos links</span><span>+0,5</span></div>
       <div class="row" data-hl="4.4" style="font-size:34px"><span>remetente conhecido</span><span style="color:#ff8aa0">−2,0</span></div>
     </div>
-    <div class="el card" data-in="0.8" data-fx="pop" style="left:660px;top:220px;width:1180px;font-size:46px;white-space:normal"><small>De: superpremio@ofertas.xyz (remetente desconhecido)</small>Celular <span class="mk" data-hl="2.4">GRÁTIS</span> para você! <span class="mk" data-hl="2.8">Clique já</span> para resgatar: <span class="mk" data-hl="3.5">🔗 🔗 🔗 🔗 🔗</span></div>
+    <div class="el card" data-in="0.8" data-fx="pop" style="left:660px;top:220px;width:1180px;font-size:46px;white-space:normal"><small>De: superpremio@ofertas.xyz (remetente desconhecido)</small>Celular <span class="mk" data-hl="2.4">GRÁTIS</span> para você! <span class="mk" data-hl="2.8">Clique já</span> para resgatar:<br><span class="mk" data-hl="3.5">🔗🔗🔗🔗🔗 5 links</span></div>
     <div class="el formula" data-in="2.2" data-fx="pop" style="left:660px;top:510px;font-size:56px">pontuação <em>x</em> = <span class="hl" data-hl="2.4">0,9</span><span class="hl" data-hl="2.8"> + 0,8</span><span class="hl" data-hl="3.5"> + 0,5</span><span class="hl" data-hl="6.6"> = <em>2,2</em></span></div>
     <div class="el chip" data-in="8.2" data-fx="up" style="left:660px;top:680px;background:#d9ccff;font-size:38px">x pode ser qualquer número real: −5, 0, 2,2, 12…</div>
   </section>
@@ -183,7 +183,7 @@ body.render #stage{display:block}
     <div class="el t-mid" data-in="0.3" data-fx="up" style="left:120px;top:100px">A matemática do <span class="grad">3º ano</span> é a base da IA</div>
     <div class="el chip" data-in="1.2" data-fx="pop" style="left:126px;top:250px;background:#2ee6a6">✔ exponencial</div>
     <div class="el chip" data-in="1.8" data-fx="pop" style="left:506px;top:250px;background:#ffc21a">✔ e<sup>x</sup> e e<sup>−x</sup></div>
-    <div class="el chip" data-in="2.4" data-fx="pop" style="left:836px;top:250px;background:#d9ccff">✔ sigmoide</div>
+    <div class="el chip" data-in="2.4" data-fx="pop" style="left:776px;top:250px;background:#d9ccff">✔ sigmoide</div>
     <div class="el t-sm" data-in="5.8" data-fx="up" style="left:126px;top:390px;color:#fff;font-size:52px">BIA · Bacharelado em Inteligência Artificial</div>
     <div class="el t-sm" data-in="6.6" data-fx="up" style="left:126px;top:470px;font-size:52px">UNIPAMPA · Alegrete-RS</div>
     <div class="el t-big grad" data-in="10.4" data-fx="zoom" style="left:120px;top:600px;font-size:200px">Vem pro BIA!</div>
@@ -319,7 +319,7 @@ function drawSig(t,al){
       const p=ease(clamp((l-CASES[k][0])/.7)),x=k?lerp(CASES[k-1][1],CASES[k][1],p):CASES[0][1];
       const da=al*clamp((l-CASES[0][0])/.3);
       dash(c,GS.X(x),GS.Y(0),GS.X(x),GS.Y(sig(x)),"#ffc21a",da*.8);
-      dot(c,GS.X(x),GS.Y(sig(x)),18,"#ffc21a",da,true);
+      dot(c,GS.X(x),GS.Y(sig(x)),13,"#ffc21a",da,true);
     }
     return;
   }
@@ -328,7 +328,7 @@ function drawSig(t,al){
   dash(c,GS.x0,GS.Y(.5),GS.x1,GS.Y(.5),"#ffc21a",la,5);
   label(c,GS.X(-4.4),GS.Y(.5),"limiar 50%","#ffc21a","#140c33",la,30);
   label(c,GS.X(-4),GS.Y(.82),"🚫 spam","#ff5e7a","#fff",la,34);
-  label(c,GS.X(3.6),GS.Y(.2),"✅ caixa de entrada","#2ee6a6","#140c33",la,34);
+  label(c,GS.X(4.3),GS.Y(.2),"✅ caixa de entrada","#2ee6a6","#140c33",la,34);
   [[2.2,2.8,"σ(2,2) ≈ 90%","#ff5e7a","#fff",170,60],[-2,9.6,"σ(−2) ≈ 12%","#2ee6a6","#140c33",-160,-60]].forEach(([x,t0,s,col,fg,dx,dy])=>{
     const a=al*clamp((m-t0)/.4);if(!a)return;
     const pp=back(clamp((m-t0)/.5));
@@ -348,7 +348,7 @@ function drawNeuron(t,al){
     const a=al*clamp((l-.8-i*.25)/.4);if(!a)return;
     const la=al*clamp((l-2.4-i*.3)/.5),y=NY(i),on=v==="1";
     if(la){c.save();c.globalAlpha=la*(on?1:.45);c.strokeStyle=w>0?"#2ee6a6":"#ff5e7a";c.lineWidth=4+Math.abs(w)*3;c.beginPath();c.moveTo(960,y);c.lineTo(SX-90,SY);c.stroke();c.restore();
-      label(c,lerp(960,SX-90,.45),lerp(y,SY,.45)-28,"×"+br(w,1),"rgba(255,255,255,.92)","#140c33",la*(on?1:.6),26);}
+      label(c,lerp(960,SX-90,.3),lerp(y,SY,.3)-30,"×"+br(w,1),"rgba(255,255,255,.92)","#140c33",la*(on?1:.6),26);}
     label(c,820,y,`${nm} = ${v}`,on?"#ffc21a":"#5b4f75",on?"#140c33":"#fff",a,32);
   });
   const sa=al*clamp((l-4.2)/.4);

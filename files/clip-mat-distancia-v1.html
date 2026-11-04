@@ -137,7 +137,7 @@ body.render #stage{display:block}
     <div class="el step" data-in="6.6" data-fx="left" style="left:60px;top:400px">= √(<em>3</em>² + <em>4</em>²)</div>
     <div class="el step" data-in="9.6" data-fx="left" style="left:60px;top:480px">= √(9 + 16) = √25</div>
     <div class="el chip" data-in="12.4" data-fx="pop" style="left:60px;top:575px;background:#2ee6a6;font-size:50px">d = 5 ✅</div>
-    <div class="el t-sm" data-in="7.6" data-fx="up" style="left:1450px;top:250px;color:#fff;font-size:40px;white-space:nowrap">a² + b² = c²</div>
+    <div class="el t-sm" data-in="7.6" data-fx="up" style="left:1450px;top:250px;color:#fff;font-size:40px;white-space:nowrap">a² + b² = c²<br><span style="color:#ffc21a">3² + 4² = 5²</span></div>
   </section>
 
   <section class="sc" data-s="3">
@@ -344,9 +344,9 @@ function drawPlane(t,al){
     // círculo que cresce até encostar no vizinho mais próximo (raio √5)
     const r=Math.sqrt(5)*ease(clamp((l-3.8)/2))*72;
     if(r>0){c.save();c.globalAlpha=al;c.beginPath();c.arc(mx,my,r,0,7);c.fillStyle="rgba(46,230,166,.12)";c.fill();c.lineWidth=5;c.strokeStyle="#2ee6a6";c.setLineDash([14,10]);c.lineDashOffset=-t*40;c.stroke();c.restore();}
-    PEO.slice(1).forEach(q=>{const found=q.n==="Leo"&&l>5.8;person(c,q,al,found?1+.15*Math.sin(t*8):1,found?"#2ee6a6":"#ffc21a",true,q.n==="Caio"?44:0,q.n==="Leo"?48:-48);});
+    PEO.slice(1).forEach(q=>{const found=q.n==="Leo"&&l>5.8;person(c,q,al,found?1+.15*Math.sin(t*8):1,found?"#2ee6a6":"#ffc21a",true,q.n==="Caio"?44:q.n==="Leo"?130:0,q.n==="Leo"?0:-48);});
     person(c,ME,al,1,"#ff5e7a",true,-112,0);
-    if(l>6)label(c,mx+70,my+150,"r = √5 ≈ 2,24","#2ee6a6","#140c33",al*clamp((l-6)/.4),28);
+    if(l>6)label(c,mx,my-161-34,"r = √5 ≈ 2,24","#2ee6a6","#140c33",al*clamp((l-6)/.4),28);
   }
 }
 // cena 4: a bolha
@@ -367,22 +367,22 @@ function drawBubble(t,al){
     const k=((l-t0)*.7)%1;dot(c,lerp(x,mx,k),lerp(y,my,k),9,col,al*a);};
   flow(PEO[2],"#2ee6a6",1.8);flow(PEO[3],"#2ee6a6",2.2);
   ["Ana","Duda","Caio","Maria"].forEach((n,i)=>flow(PEO.find(q=>q.n===n),"#ffc21a",5.6+i*.25));
-  PEO.slice(1).forEach(q=>person(c,q,al,1,"#ffc21a",true,q.n==="Caio"?44:0,q.n==="Leo"?48:-48));
+  PEO.slice(1).forEach(q=>person(c,q,al,1,"#ffc21a",true,q.n==="Caio"?44:q.n==="Leo"?130:0,q.n==="Leo"?0:-48));
   person(c,ME,al,1,"#ff5e7a",true,-112,0);
 }
 
 // ===== cena 5: três dimensões =====
-function p3(x,y,z,th){const xr=x*Math.cos(th)-z*Math.sin(th),zr=x*Math.sin(th)+z*Math.cos(th);return [1040+40*xr,720-40*y*.9+40*zr*.35];}
+function p3(x,y,z,th){const xr=x*Math.cos(th)-z*Math.sin(th),zr=x*Math.sin(th)+z*Math.cos(th);return [1060+52*xr,700-52*y*.9+52*zr*.35];}
 const VEC=[3,4,1,...Array.from({length:60},(_,i)=>(i*7+3)%10)];
 function draw3D(t,al){
-  const c=art,l=loc(4,t),th=.95-.4*ease(clamp(l/S[4].d)),a=al*clamp((l-.4)/.5);
+  const c=art,l=loc(4,t),th=.7-.35*ease(clamp(l/S[4].d)),a=al*clamp((l-.4)/.5);
   if(!a)return;
   // chão quadriculado (sertanejo × rock)
   c.save();c.globalAlpha=a*.5;c.strokeStyle="rgba(217,204,255,.3)";c.lineWidth=2;
-  for(let k=0;k<=10;k+=2){let [x0,y0]=p3(k,0,0,th),[x1,y1]=p3(k,0,10,th);c.beginPath();c.moveTo(x0,y0);c.lineTo(x1,y1);c.stroke();[x0,y0]=p3(0,0,k,th);[x1,y1]=p3(10,0,k,th);c.beginPath();c.moveTo(x0,y0);c.lineTo(x1,y1);c.stroke();}
+  for(let k=0;k<=8;k+=2){let [x0,y0]=p3(k,0,0,th),[x1,y1]=p3(k,0,8,th);c.beginPath();c.moveTo(x0,y0);c.lineTo(x1,y1);c.stroke();[x0,y0]=p3(0,0,k,th);[x1,y1]=p3(8,0,k,th);c.beginPath();c.moveTo(x0,y0);c.lineTo(x1,y1);c.stroke();}
   c.restore();
   const o=p3(0,0,0,th);
-  [[[10.5,0,0],"sertanejo"],[[0,10.5,0],"funk"],[[0,0,10.5],"rock"]].forEach(([v,n],i)=>{
+  [[[8.6,0,0],"sertanejo"],[[0,8.6,0],"funk"],[[0,0,8.6],"rock"]].forEach(([v,n],i)=>{
     const e=p3(...v,th),aa=i===2?a*clamp((l-1.0)/.5):a;seg(c,o[0],o[1],e[0],e[1],i===2?"#13b5d6":"#d9ccff",5,aa);
     c.save();c.globalAlpha=aa;c.font="800 30px Nunito";c.fillStyle=i===2?"#13b5d6":"#fff";c.textAlign="center";c.textBaseline="middle";c.fillText(n,e[0]+(i===1?0:i===0?40:-30),e[1]+(i===1?-26:26));c.restore();
   });
@@ -399,8 +399,8 @@ function draw3D(t,al){
   if(va){
     c.save();c.globalAlpha=va;rr(c,640,960,1240,76,38);c.fillStyle="rgba(255,255,255,.08)";c.fill();c.lineWidth=3;c.strokeStyle="rgba(217,204,255,.35)";c.stroke();
     c.font="800 34px Nunito";c.textBaseline="middle";c.textAlign="left";c.fillStyle="#ff5e7a";c.fillText("você = (",670,999);
-    c.save();rr(c,800,962,830,72,0);c.clip();
-    const off=Math.max(0,l-4)*120;let x=810-off;
+    c.save();rr(c,806,962,824,72,0);c.clip();
+    const off=Math.max(0,l-5)*70;let x=812-off;
     VEC.forEach((v,i)=>{const s=v+", ";c.fillStyle=i<3?"#fff":"#d9ccff";c.fillText(s,x,999);x+=c.measureText(s).width;});
     c.restore();
     c.fillStyle="#d9ccff";c.fillText("…)",1640,999);

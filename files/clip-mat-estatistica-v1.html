@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Estatística e Fraudes</title>
+<meta name="description" content="Clip animado do BIA para o 3º ano do ensino médio: a robô Bia mostra como média, mediana e desvio padrão ajudam uma inteligência artificial a perceber uma compra suspeita no cartão, e por que ela também pode dar falso alarme.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400..700&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fffaf2;--ink:#1b1035;--soft:#5b4f75;--line:#eadff0;--panel:#ffffff;
+  --pink:#fb3b5c;--purple:#8b3dff;--mint:#12c48b;--lime:#7cc417;--cyan:#13b5d6;--sun:#ffc21a;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#140c33;--ink:#f4efff;--soft:#c3b8e0;--line:#2e2357;--panel:#1f1550;--purple:#b58bff}
+}
+:root[data-theme="dark"]{--bg:#140c33;--ink:#f4efff;--soft:#c3b8e0;--line:#2e2357;--panel:#1f1550;--purple:#b58bff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Nunito",system-ui,sans-serif;font-size:1.06rem;line-height:1.6}
+a{color:var(--purple)}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+@media (max-width:600px){.wrap{padding:0 16px}}
+h1,h2{font-family:"Fredoka",system-ui,sans-serif;line-height:1.05;margin:0}
+.hd{padding:44px 0 22px}
+.hd .back{font-weight:700;text-decoration:none;color:var(--soft);font-size:.95rem}
+.hd h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:700;margin-top:10px}
+.hd p{color:var(--soft);max-width:66ch;margin:10px 0 0}
+.player video{display:block;width:100%;height:auto;aspect-ratio:16/9;border-radius:18px;background:#140c33;box-shadow:0 10px 40px rgba(27,16,53,.25)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.btn{display:inline-flex;font-weight:800;font-size:.98rem;padding:10px 20px;border-radius:999px;text-decoration:none;border:3px solid var(--purple);color:var(--purple)}
+.btn.solid{background:var(--purple);color:#fff}
+.blk{margin:44px 0}
+.blk h2{font-size:1.8rem;margin-bottom:10px}
+.tbl{overflow-x:auto}
+.blk table{width:100%;border-collapse:collapse;font-size:.98rem;min-width:720px}
+.blk td,.blk th{text-align:left;vertical-align:top;padding:10px 12px 10px 0;border-bottom:1px solid var(--line)}
+.blk th{color:var(--soft);font-size:.88rem}
+.blk td:first-child{font-weight:800;color:var(--purple);white-space:nowrap}
+.blk td.nar{font-style:italic}
+.qs{padding-left:22px}
+.qs li{margin-bottom:10px}
+.qs details{margin-top:6px;background:var(--panel);border:2px solid var(--line);border-radius:14px;padding:8px 14px}
+.qs summary{cursor:pointer;font-weight:800;color:var(--purple)}
+.qs details p{margin:6px 0 0}
+.math{font-family:"Fredoka",sans-serif;font-weight:500;white-space:nowrap}
+footer{border-top:1px solid var(--line);padding:28px 0 56px;color:var(--soft);font-size:.95rem}
+
+/* ===== palco 1920 x 1080, usado só para gerar os quadros (#render) ===== */
+#stage{display:none;width:1920px;height:1080px;background:#140c33;overflow:hidden;font-family:"Fredoka",system-ui,sans-serif;color:#fff;position:relative}
+body.render{margin:0;background:#140c33}
+body.render #stage{display:block}
+#bgc,#art,#confetti{position:absolute;inset:0}
+#confetti{pointer-events:none}
+.sc{position:absolute;inset:0;opacity:0}
+.el{position:absolute;opacity:0;will-change:transform,opacity}
+.t-big{font-weight:700;font-size:120px;line-height:1;letter-spacing:-.01em}
+.t-mid{font-weight:600;font-size:80px;line-height:1.05;white-space:nowrap}
+.t-sm{font-family:"Nunito",sans-serif;font-weight:800;font-size:44px;line-height:1.2;color:#d9ccff}
+.grad{background:linear-gradient(90deg,#ff5e7a,#b366ff 45%,#2ee6a6);-webkit-background-clip:text;background-clip:text;color:transparent}
+.chip{border-radius:999px;padding:14px 30px;font-weight:600;font-size:42px;color:#1b1035;white-space:nowrap}
+.panel{background:rgba(255,255,255,.08);border:3px solid rgba(217,204,255,.35);border-radius:32px;padding:20px 28px;width:460px}
+.panel small{display:block;font-family:"Nunito",sans-serif;font-weight:800;font-size:32px;color:#d9ccff}
+.panel b{display:block;font-weight:700;font-size:64px;line-height:1.15;font-variant-numeric:tabular-nums;white-space:nowrap}
+.formula{background:#fff;color:#1b1035;border-radius:28px;padding:16px 30px;font-weight:600;font-size:50px;white-space:nowrap;box-shadow:0 10px 0 rgba(0,0,0,.25)}
+.formula em{font-style:normal;color:#8b3dff}
+.card{background:#fff;color:#1b1035;border-radius:32px;padding:24px 30px;box-shadow:0 12px 0 rgba(0,0,0,.25);font-weight:600;font-size:52px;line-height:1.3;white-space:nowrap}
+.card small{display:block;font-family:"Nunito",sans-serif;font-weight:800;font-size:30px;color:#5b4f75}
+#bot{position:absolute;left:0;top:0;width:380px;height:470px;transform-origin:50% 100%}
+</style>
+</head>
+<body>
+<div id="page">
+<header class="hd">
+  <div class="wrap">
+    <a class="back" href="index.html">← BIA para o 3º ano</a>
+    <h1>Estatística: como a IA percebe uma compra suspeita</h1>
+    <p>Clip animado de cerca de 80 segundos para o 3º ano do ensino médio. A robô Bia mostra os gastos de um mês no cartão, calcula a média e a mediana (e por que a mediana resiste a um valor extremo), usa o desvio padrão para desenhar a faixa normal de gastos e mede quantos desvios uma compra nova está longe da média. É assim que a inteligência artificial de um banco levanta um alerta de fraude, e é por isso que ela às vezes dá falso alarme.</p>
+  </div>
+</header>
+<div class="wrap player">
+  <video controls preload="metadata" poster="clip-mat-estatistica-v1/poster.jpg">
+    <source src="clip-mat-estatistica-v1/clip-mat-estatistica-v1.mp4" type="video/mp4">
+    <track kind="captions" src="clip-mat-estatistica-v1/legendas.vtt" srclang="pt-BR" label="Português">
+  </video>
+  <div class="actions">
+    <a class="btn solid" href="clip-mat-estatistica-v1/clip-mat-estatistica-v1.mp4" download>Baixar MP4 (1920 × 1080)</a>
+    <a class="btn" href="clip-mat-estatistica-v1/legendas.vtt" download>Baixar legendas (VTT)</a>
+  </div>
+</div>
+
+<section class="wrap blk" id="roteiro">
+  <h2>Roteiro</h2>
+  <div class="tbl"><table><thead><tr><th>Tempo</th><th>Cena</th><th>Na tela</th><th>Narração da Bia</th></tr></thead><tbody id="rot"></tbody></table></div>
+  <p style="color:var(--soft)">A voz é sintética e serve para marcar o ritmo; a versão final pode ser dublada por estudantes do BIA. Os gastos são ilustrativos, mas todas as contas do vídeo são reais. As dez compras (R$ 38, 55, 25, 47, 73, 40, 58, 37, 74 e 53) somam R$ 500, então a média é <span class="math">500 ÷ 10 = 50</span>. Em ordem, os valores do meio são 47 e 53, e a mediana é <span class="math">(47 + 53) ÷ 2 = 50</span>. Os desvios em relação à média, ao quadrado, somam 2250, e o desvio padrão (dividindo pelo número de compras) é <span class="math">√(2250 ÷ 10) = √225 = 15</span>. A compra suspeita está a <span class="math">(350 − 50) ÷ 15 = 20</span> desvios da média; a da viagem, a <span class="math">(120 − 50) ÷ 15 ≈ 4,7</span>. Um banco de verdade usa modelos que combinam muitas variáveis, mas a ideia de medir o quanto algo foge do padrão é a mesma.</p>
+</section>
+
+<section class="wrap blk" id="conversa">
+  <h2>Para resolver com a turma depois do vídeo</h2>
+  <ol class="qs">
+    <li>Outra pessoa fez cinco compras no mês: R$ 20, 30, 30, 40 e 80. Calcule a média e a mediana. Qual das duas descreve melhor o gasto típico dela?
+      <details><summary>Ver resposta</summary><p>Média: (20 + 30 + 30 + 40 + 80) ÷ 5 = 200 ÷ 5 = 40. Mediana: o valor do meio da lista em ordem, 30. A compra de R$ 80 puxa a média para cima; a mediana descreve melhor o gasto típico.</p></details></li>
+    <li>Calcule o desvio padrão dos valores 10, 20, 30, 40 e 50, dividindo pelo número de valores, como no vídeo.
+      <details><summary>Ver resposta</summary><p>A média é 30. Os desvios são −20, −10, 0, 10 e 20; ao quadrado, 400, 100, 0, 100 e 400, que somam 1000. Então 1000 ÷ 5 = 200 e o desvio padrão é √200 ≈ 14,1.</p></details></li>
+    <li>Com média R$ 50 e desvio padrão R$ 15, quantos desvios da média estão uma compra de R$ 95 e uma de R$ 41? Qual delas sai da faixa normal de dois desvios?
+      <details><summary>Ver resposta</summary><p>R$ 95: (95 − 50) ÷ 15 = 3 desvios acima da média, fora da faixa de R$ 20 a R$ 80. R$ 41: (41 − 50) ÷ 15 = −0,6, ou seja, 0,6 desvio abaixo da média, dentro da faixa.</p></details></li>
+    <li>Para conversar: o que é pior para quem tem um cartão, um falso alarme (bloquear uma compra verdadeira) ou uma fraude que passa sem alerta? Como o banco poderia equilibrar os dois erros?</li>
+  </ol>
+</section>
+
+<footer>
+  <div class="wrap">BIA para o 3º ano, clip "Estatística: como a IA percebe uma compra suspeita", versão 1, novembro de 2026. Bacharelado em Inteligência Artificial, UNIPAMPA, Campus Alegrete-RS. <a href="index.html">Mais vídeos e jogos</a>.</div>
+</footer>
+</div>
+
+<div id="stage">
+  <canvas id="bgc" width="1920" height="1080"></canvas>
+  <canvas id="art" width="1920" height="1080"></canvas>
+
+  <section class="sc" data-s="0">
+    <div class="el t-mid" data-in="0.3" data-fx="up" style="left:560px;top:70px">Cartão <span class="grad">bloqueado</span>! 😱</div>
+    <div class="el card" data-in="2.0" data-fx="pop" style="left:1240px;top:270px"><small>🔔 Banco · agora</small>Compra suspeita<br>de R$ 350 🚫</div>
+    <div class="el chip" data-in="3.1" data-fx="up" style="left:620px;top:690px;background:#ffc21a">🤔 Como ele sabia?</div>
+    <div class="el chip" data-in="4.0" data-fx="up" style="left:1180px;top:690px;background:#2ee6a6">📊 IA + estatística</div>
+  </section>
+
+  <section class="sc" data-s="1">
+    <div class="el t-mid" data-in="0.3" data-fx="up" style="left:560px;top:70px">Os gastos do <span class="grad">mês</span> 💳</div>
+    <div class="el panel" data-in="0.6" data-fx="left" style="left:60px;top:230px"><small>compras no mês</small><b id="nc">0</b><small style="margin-top:8px">total gasto</small><b id="tot">R$ 0</b></div>
+    <div class="el chip" data-in="4.3" data-fx="pop" style="left:60px;top:560px;background:#ffc21a;font-size:40px">🤔 gasto típico?</div>
+  </section>
+
+  <section class="sc" data-s="2">
+    <div class="el t-mid" data-in="0.3" data-fx="up" style="left:560px;top:70px">Média e <span class="grad">mediana</span> ⚖️</div>
+    <div class="el formula" data-in="1.0" data-fx="pop" style="left:60px;top:220px;font-size:40px"><em>média</em> = 500 ÷ 10 = 50</div>
+    <div class="el formula" data-in="7.4" data-fx="pop" style="left:60px;top:325px;font-size:34px;padding:16px 24px"><em>mediana</em> = (47 + 53) ÷ 2 = 50</div>
+    <div class="el panel" data-in="9.6" data-fx="left" style="left:60px;top:430px;width:580px;padding:16px 26px"><small>se R$ 74 virasse R$ 574</small><b id="mm" style="font-size:50px;color:#ffc21a">média: R$ 50</b><b style="font-size:50px;color:#2ee6a6">mediana: R$ 50</b></div>
+    <div class="el chip" data-in="14.4" data-fx="up" style="left:700px;top:950px;background:#2ee6a6;font-size:38px">✅ a mediana resiste a valores extremos</div>
+  </section>
+
+  <section class="sc" data-s="3">
+    <div class="el t-mid" data-in="0.3" data-fx="up" style="left:560px;top:70px">Desvio <span class="grad">padrão</span> 📏</div>
+    <div class="el formula" data-in="1.0" data-fx="pop" style="left:60px;top:220px;font-size:40px"><em>σ</em> = √(2250 ÷ 10) = 15</div>
+    <div class="el t-sm" data-in="1.6" data-fx="up" style="left:66px;top:318px;font-size:32px;white-space:nowrap">o tamanho normal da variação</div>
+    <div class="el formula" data-in="5.6" data-fx="pop" style="left:60px;top:380px;font-size:40px">50 − 2 × 15 = <em>20</em></div>
+    <div class="el formula" data-in="6.4" data-fx="pop" style="left:60px;top:475px;font-size:40px">50 + 2 × 15 = <em>80</em></div>
+    <div class="el chip" data-in="8.8" data-fx="up" style="left:60px;top:580px;background:#2ee6a6;font-size:34px">✅ faixa normal: R$ 20 a R$ 80</div>
+  </section>
+
+  <section class="sc" data-s="4">
+    <div class="el t-mid" data-in="0.3" data-fx="up" style="left:560px;top:70px">Compra <span class="grad">suspeita</span>? 🚨</div>
+    <div class="el card" data-in="0.8" data-fx="pop" style="left:60px;top:220px"><small>nova compra · 3h da manhã</small>R$ 350</div>
+    <div class="el t-sm" data-in="3.9" data-fx="up" style="left:66px;top:392px;font-size:32px;white-space:nowrap">quantos desvios longe da média?</div>
+    <div class="el formula" data-in="4.8" data-fx="pop" style="left:60px;top:452px;font-size:40px">(350 − 50) ÷ 15</div>
+    <div class="el formula" data-in="8.2" data-fx="pop" style="left:60px;top:547px;font-size:40px">= 300 ÷ 15 = <em>20</em></div>
+    <div class="el chip" data-in="10.1" data-fx="pop" style="left:860px;top:290px;background:#ff2d55;color:#fff;font-size:54px">🚨 Alerta de fraude!</div>
+  </section>
+
+  <section class="sc" data-s="5">
+    <div class="el t-mid" data-in="0.3" data-fx="up" style="left:560px;top:70px">A IA de <span class="grad">verdade</span> 🧠</div>
+    <div class="el chip ft" data-in="1.9" data-fx="left" style="left:80px;top:230px;background:#ffc21a;font-size:38px">💰 valor</div>
+    <div class="el chip ft" data-in="3.2" data-fx="left" style="left:80px;top:330px;background:#13b5d6;font-size:38px">🕒 hora</div>
+    <div class="el chip ft" data-in="3.6" data-fx="left" style="left:80px;top:430px;background:#d9ccff;font-size:38px">📍 lugar</div>
+    <div class="el chip ft" data-in="4.2" data-fx="left" style="left:80px;top:530px;background:#2ee6a6;font-size:38px">🏪 tipo de loja</div>
+    <div class="el card" data-in="5.2" data-fx="pop" style="left:1060px;top:225px;font-size:44px;line-height:1.35"><small>o padrão desta pessoa</small>☀️ compras de dia<br>📍 Alegrete<br>💰 de R$ 20 a R$ 80</div>
+    <div class="el card" data-in="8.1" data-fx="pop" style="left:1060px;top:600px;font-size:44px"><small>✈️ viagem: R$ 120 em Porto Alegre (4,7 desvios)</small>🚨 Bloqueado, mas era você!</div>
+    <div class="el chip" data-in="10.2" data-fx="up" style="left:1060px;top:820px;background:#ff5e7a;color:#fff;font-size:38px">😅 falso alarme: a IA também erra</div>
+  </section>
+
+  <section class="sc" data-s="6">
+    <div class="el t-mid" data-in="0.3" data-fx="up" style="left:120px;top:100px">A estatística do <span class="grad">3º ano</span> é a base da IA</div>
+    <div class="el chip" data-in="0.6" data-fx="pop" style="left:126px;top:250px;background:#ffc21a">✔ média</div>
+    <div class="el chip" data-in="1.1" data-fx="pop" style="left:400px;top:250px;background:#2ee6a6">✔ mediana</div>
+    <div class="el chip" data-in="1.7" data-fx="pop" style="left:724px;top:250px;background:#d9ccff">✔ desvio padrão</div>
+    <div class="el t-sm" data-in="6.0" data-fx="up" style="left:126px;top:390px;color:#fff;font-size:52px">BIA · Bacharelado em Inteligência Artificial</div>
+    <div class="el t-sm" data-in="6.8" data-fx="up" style="left:126px;top:470px;font-size:52px">UNIPAMPA · Alegrete-RS</div>
+    <div class="el t-big grad" data-in="10.9" data-fx="zoom" style="left:120px;top:600px;font-size:200px">Vem pro BIA!</div>
+    <div class="el t-sm" data-in="11.5" data-fx="up" style="left:126px;top:870px;color:#fff;font-size:56px">bia-unipampa.github.io</div>
+  </section>
+
+  <canvas id="confetti" width="1920" height="1080"></canvas>
+
+  <svg id="bot" viewBox="0 0 380 470" aria-hidden="true">
+    <defs>
+      <linearGradient id="gb" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e3dcff"/></linearGradient>
+    </defs>
+    <g id="ant"><line x1="190" y1="70" x2="190" y2="22" stroke="#d9ccff" stroke-width="10" stroke-linecap="round"/><circle id="antball" cx="190" cy="20" r="18" fill="#2ee6a6"/></g>
+    <g id="armL" style="transform-origin:78px 300px"><rect x="18" y="285" width="70" height="32" rx="16" fill="#b366ff"/><circle cx="22" cy="301" r="24" fill="#fff"/></g>
+    <g id="armR" style="transform-origin:302px 300px"><rect x="292" y="285" width="70" height="32" rx="16" fill="#b366ff"/><circle cx="358" cy="301" r="24" fill="#fff"/></g>
+    <rect x="88" y="250" width="204" height="190" rx="54" fill="url(#gb)"/>
+    <text x="190" y="372" text-anchor="middle" font-family="Fredoka" font-weight="700" font-size="62" fill="#8b3dff">BIA</text>
+    <rect x="140" y="440" width="36" height="26" rx="10" fill="#d9ccff"/><rect x="204" y="440" width="36" height="26" rx="10" fill="#d9ccff"/>
+    <rect x="40" y="62" width="300" height="200" rx="70" fill="url(#gb)"/>
+    <rect x="70" y="92" width="240" height="140" rx="50" fill="#1b1035"/>
+    <g id="eyes" style="transform-origin:190px 150px"><ellipse cx="145" cy="148" rx="22" ry="26" fill="#2ee6a6"/><ellipse cx="235" cy="148" rx="22" ry="26" fill="#2ee6a6"/></g>
+    <path id="mouth" d="M160 192 Q190 214 220 192" stroke="#2ee6a6" stroke-width="9" fill="none" stroke-linecap="round"/>
+    <circle cx="100" cy="196" r="13" fill="#ff5e7a" opacity=".55"/><circle cx="280" cy="196" r="13" fill="#ff5e7a" opacity=".55"/>
+  </svg>
+</div>
+
+<script>
+// cenas: duração (s), início da narração, duração da fala, texto falado e o que aparece na tela
+const S=[
+ {d:7.7, n:0.4,f:7.024, nome:"Cartão bloqueado", tela:"Um cartão de crédito recebe o carimbo BLOQUEADO e chega o aviso do banco: compra suspeita de R$ 350. Como ele sabia? IA + estatística.", txt:"O banco bloqueou o cartão: compra suspeita. Como ele sabia? Foi uma IA, usando estatística."},
+ {d:6.6, n:0.4,f:5.655, nome:"Os gastos do mês", tela:"Dez barras sobem num gráfico, uma por compra do mês: R$ 38, 55, 25, 47, 73, 40, 58, 37, 74 e 53. O painel conta 10 compras e R$ 500 no total.", txt:"Estes são os gastos de uma pessoa em um mês: dez compras no cartão. Qual é o gasto típico dela?"},
+ {d:16.4,n:0.4,f:15.572,nome:"Média e mediana", tela:"Média = 500 ÷ 10 = 50, com a linha da média no gráfico. As barras se ordenam e as duas do meio acendem: mediana = (47 + 53) ÷ 2 = 50. A barra de R$ 74 vira R$ 574: a média sobe para R$ 100, a mediana fica em R$ 50.", txt:"A média soma tudo e divide por dez: 500 sobre 10, R$ 50. A mediana, o valor do meio da lista em ordem, também dá R$ 50. Se uma compra fosse de R$ 574, a média pularia para R$ 100. A mediana nem se mexe."},
+ {d:11.0,n:0.4,f:10.078,nome:"Desvio padrão", tela:"Segmentos mostram o quanto cada compra se afasta da média; σ = √(2250 ÷ 10) = 15. A faixa de média ± 2 desvios (de R$ 20 a R$ 80) é pintada e todas as compras ficam dentro dela.", txt:"O desvio padrão mede o tamanho normal da variação: aqui, R$ 15. Quase tudo fica entre dois desvios abaixo e dois acima da média: de R$ 20 a R$ 80."},
+ {d:12.2,n:0.4,f:10.963,nome:"Alerta de fraude", tela:"Chega uma compra de R$ 350 às 3h da manhã; o eixo do gráfico se estica para caber a barra nova. Uma régua de desvios conta de 1 a 20: (350 − 50) ÷ 15 = 20. Alerta de fraude!", txt:"Agora chega uma compra de R$ 350, às três da manhã. 350 menos 50, dividido por 15: 20 desvios longe da média! Alerta de fraude."},
+ {d:12.2,n:0.4,f:11.195,nome:"A IA de verdade", tela:"Valor, hora, lugar e tipo de loja entram na IA, que aprende o padrão da pessoa. Numa viagem, uma compra de R$ 120 em Porto Alegre (4,7 desvios) é bloqueada, mas era a própria pessoa: falso alarme.", txt:"A IA de verdade olha valor, hora, lugar e tipo de loja, e aprende o padrão de cada pessoa. Mas também erra: numa viagem, uma compra normal pode virar falso alarme."},
+ {d:13.8,n:0.4,f:11.355,nome:"Vem pro BIA", tela:"Média, mediana e desvio padrão; convite ao BIA, UNIPAMPA, Alegrete-RS, com confete.", txt:"Média, mediana e desvio padrão: é a estatística do ensino médio por trás da IA. No BIA, na UNIPAMPA, em Alegrete, você transforma isso em tecnologia. Vem pro BIA!"}
+];
+let acc=0;S.forEach(s=>{s.t0=+acc.toFixed(2);acc+=s.d;});
+const TOTAL=+acc.toFixed(2);
+
+const LAST=S.length-1;
+// posição da robô: [tempo, x, y (base), escala]
+const BOT=[[0,70,1500,1],[0.8,70,1010,1],[S[1].t0-.4,70,1010,1],[S[1].t0+.4,110,1050,.7],[S[LAST].t0,110,1050,.7],[S[LAST].t0+.9,1430,1010,1.05],[TOTAL,1430,1010,1.05]];
+
+const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const ease=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const back=x=>{const c1=1.70158,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2);};
+const lerp=(a,b,p)=>a+(b-a)*p;
+function lerpKF(kf,t){
+  if(t<=kf[0][0])return kf[0].slice(1);
+  for(let i=1;i<kf.length;i++){
+    if(t<=kf[i][0]){const a=kf[i-1],b=kf[i],p=ease((t-a[0])/(b[0]-a[0]||1));return a.slice(1).map((v,j)=>v+(b[j+1]-v)*p);}
+  }
+  return kf[kf.length-1].slice(1);
+}
+function sceneAt(t){for(let i=S.length-1;i>=0;i--)if(t>=S[i].t0)return i;return 0;}
+const loc=(s,t)=>t-S[s].t0;
+const win=(t,a,b)=>t<a||t>=b?0:Math.min(clamp((t-a)/.35),clamp((b-t)/.35));
+const br=(v,d=2)=>{let r=v.toFixed(d);if(/^-0[.,]?0*$/.test(r))r=r.slice(1);return r.replace(".",",").replace("-","−");};
+
+const art=document.getElementById("art").getContext("2d");
+function rr(c,x,y,w,h,r){c.beginPath();c.roundRect(x,y,w,h,r);}
+
+// ===== gráficos =====
+function G(x0,y0,x1,y1,u0,u1,v0,v1){return {x0,y0,x1,y1,u0,u1,v0,v1,X:u=>x0+(u-u0)/(u1-u0)*(x1-x0),Y:v=>y1-(v-v0)/(v1-v0)*(y1-y0)};}
+function axes(c,g,xl,yl,ticksY,a){
+  c.save();c.globalAlpha=a;
+  c.strokeStyle="rgba(217,204,255,.14)";c.lineWidth=2;
+  ticksY.forEach(v=>{c.beginPath();c.moveTo(g.x0,g.Y(v));c.lineTo(g.x1,g.Y(v));c.stroke();});
+  c.strokeStyle="#d9ccff";c.lineWidth=5;c.lineCap="round";
+  const ox=g.x0,oy=g.Y(0);
+  c.beginPath();c.moveTo(g.x0,oy);c.lineTo(g.x1+20,oy);c.moveTo(ox,g.y1);c.lineTo(ox,g.y0-20);c.stroke();
+  c.fillStyle="#d9ccff";c.beginPath();c.moveTo(g.x1+40,oy);c.lineTo(g.x1+16,oy-12);c.lineTo(g.x1+16,oy+12);c.fill();
+  c.beginPath();c.moveTo(ox,g.y0-40);c.lineTo(ox-12,g.y0-16);c.lineTo(ox+12,g.y0-16);c.fill();
+  c.font="800 28px Nunito";c.textAlign="right";c.textBaseline="middle";
+  ticksY.forEach(v=>{if(v!==0)c.fillText(br(v,0),ox-14,g.Y(v));});
+  c.font="800 32px Nunito";c.fillStyle="#fff";c.textAlign="right";c.textBaseline="bottom";c.fillText(xl,g.x1+30,oy-16);
+  c.textAlign="left";c.textBaseline="middle";c.fillText(yl,ox+22,g.y0-30);
+  c.restore();
+}
+function dot(c,x,y,r,col,a=1,ring=false){c.save();c.globalAlpha=a;c.fillStyle=col;c.shadowColor=col;c.shadowBlur=24;c.beginPath();c.arc(x,y,r,0,7);c.fill();if(ring){c.shadowBlur=0;c.lineWidth=5;c.strokeStyle="#fff";c.stroke();}c.restore();}
+function label(c,x,y,txt,bg,fg="#140c33",a=1,size=30){c.save();c.globalAlpha=a;c.font=`800 ${size}px Nunito`;const w=c.measureText(txt).width+28;rr(c,x-w/2,y-size*.75,w,size*1.5,size*.75);c.fillStyle=bg;c.fill();c.fillStyle=fg;c.textAlign="center";c.textBaseline="middle";c.fillText(txt,x,y+1);c.restore();}
+function hline(c,g,v,col,a,p=1,dash=null,w=6){
+  if(p<=0||a<=0)return;c.save();c.globalAlpha=a;c.strokeStyle=col;c.lineWidth=w;c.lineCap="round";c.shadowColor=col;c.shadowBlur=14;
+  if(dash)c.setLineDash(dash);c.beginPath();c.moveTo(g.x0,g.Y(v));c.lineTo(lerp(g.x0,g.x1,p),g.Y(v));c.stroke();c.restore();
+}
+function band(c,g,v0,v1,col,a){if(a<=0)return;c.save();c.globalAlpha=a;c.fillStyle=col;c.fillRect(g.x0+3,g.Y(v1),g.x1-g.x0,g.Y(v0)-g.Y(v1));c.restore();}
+
+// os gastos do mês (valores ilustrativos): soma 500, média 50, mediana 50, desvio padrão 15
+const DAYS=[1,4,7,10,13,16,19,22,25,28],V=[38,55,25,47,73,40,58,37,74,53];
+const N=V.length,MEAN=V.reduce((s,v)=>s+v,0)/N,SD=Math.sqrt(V.reduce((s,v)=>s+(v-MEAN)**2,0)/N);
+const ORDER=V.map((v,i)=>i).sort((a,b)=>V[a]-V[b]),RANK=[];ORDER.forEach((i,r)=>RANK[i]=r);
+const MED=(V[ORDER[4]]+V[ORDER[5]])/2;
+const GC=vmax=>G(700,240,1800,860,0,32.5,0,vmax);
+const BW=56;
+// uma barra: x em pixels, valor v, recorta no topo do gráfico com um "corte" em zigue-zague
+function bar(c,g,x,v,col,a,grow=1,txt=true,lab=null){
+  if(a<=0||grow<=0)return;
+  const vv=v*grow,top=g.Y(vv),cut=top<g.y0-10,yt=cut?g.y0-10:top,base=g.Y(0);
+  c.save();c.globalAlpha=a;c.fillStyle=col;c.shadowColor=col;c.shadowBlur=16;
+  rr(c,x-BW/2,yt,BW,base-yt,[12,12,0,0]);c.fill();c.shadowBlur=0;
+  if(cut){c.fillStyle="#140c33";c.beginPath();c.moveTo(x-BW/2-2,yt+40);for(let k=0;k<=4;k++)c.lineTo(x-BW/2+k*BW/4,yt+(k%2?28:40));c.lineTo(x+BW/2+2,yt+52);for(let k=4;k>=0;k--)c.lineTo(x-BW/2+k*BW/4,yt+(k%2?40:52));c.fill();}
+  if(txt&&!cut){c.font="800 28px Nunito";c.fillStyle="#fff";c.textAlign="center";c.textBaseline="bottom";c.fillText(br(vv,0),x,yt-8);}
+  if(lab)label(c,x,yt-34,lab,cut?"#ff5e7a":"#fff",cut?"#fff":"#140c33",a,28);
+  c.restore();
+}
+function dayLabel(c,g,x,d,a){c.save();c.globalAlpha=a;c.font="800 24px Nunito";c.fillStyle="#d9ccff";c.textAlign="center";c.textBaseline="top";c.fillText(d,x,g.Y(0)+12);c.restore();}
+const TICKS=[20,40,60,80,100,120];
+
+// cena 1: o cartão bloqueado
+function drawCard(t,a){
+  const c=art,l=loc(0,t),p=clamp((l-.3)/.55);if(!p)return;
+  const b=back(p),cx=900,cy=440;
+  c.save();c.globalAlpha=a*clamp(p*3);c.translate(cx,cy);c.rotate(-.06);c.scale(.3+.7*b,.3+.7*b);
+  const g=c.createLinearGradient(-280,-175,280,175);g.addColorStop(0,"#8b3dff");g.addColorStop(1,"#fb3b5c");
+  c.shadowColor="rgba(0,0,0,.4)";c.shadowBlur=40;c.shadowOffsetY=16;rr(c,-280,-175,560,350,36);c.fillStyle=g;c.fill();
+  c.shadowColor="transparent";
+  c.fillStyle="rgba(255,255,255,.12)";c.beginPath();c.arc(200,-120,170,0,7);c.fill();
+  c.font="800 28px Nunito";c.fillStyle="rgba(255,255,255,.9)";c.textAlign="left";c.textBaseline="middle";c.fillText("cartão de crédito",-230,-120);
+  rr(c,-230,-60,96,70,14);c.fillStyle="#ffd86b";c.fill();
+  c.strokeStyle="rgba(140,90,0,.5)";c.lineWidth=3;c.beginPath();c.moveTo(-230,-25);c.lineTo(-134,-25);c.moveTo(-182,-60);c.lineTo(-182,10);c.stroke();
+  c.font="600 42px Fredoka";c.fillStyle="#fff";c.fillText("•••• •••• •••• 2026",-230,70);
+  c.font="700 30px Fredoka";c.fillText("ALUNA DO 3º ANO",-230,130);
+  c.restore();
+  // carimbo
+  const s=clamp((l-1.1)/.35);if(!s)return;
+  const k=2.2-1.2*ease(s);
+  c.save();c.globalAlpha=a*s;c.translate(cx,cy);c.rotate(-.2);c.scale(k,k);
+  c.font="700 70px Fredoka";const w=c.measureText("BLOQUEADO 🔒").width+60;
+  rr(c,-w/2,-60,w,120,22);c.fillStyle="rgba(255,255,255,.95)";c.fill();c.lineWidth=9;c.strokeStyle="#ff2d55";c.stroke();
+  c.fillStyle="#ff2d55";c.textAlign="center";c.textBaseline="middle";c.fillText("BLOQUEADO 🔒",0,4);
+  c.restore();
+}
+
+// cena 2: as barras sobem uma a uma
+function drawMonth(t,al){
+  const c=art,l=loc(1,t),g=GC(120);
+  axes(c,g,"dia","gasto (R$)",TICKS,al);
+  V.forEach((v,i)=>{const p=clamp((l-.6-i*.22)/.4);if(!p)return;const x=g.X(DAYS[i]);bar(c,g,x,v,"#b366ff",al,ease(p));dayLabel(c,g,x,DAYS[i],al*p);});
+  const k=V.filter((v,i)=>l>=.6+i*.22+.4).length;
+  $("nc").textContent=k;$("tot").textContent="R$ "+V.slice(0,k).reduce((s,v)=>s+v,0);
+}
+
+// cena 3: média, mediana e o valor extremo
+function drawMedian(t,al){
+  const c=art,l=loc(2,t),g=GC(120);
+  axes(c,g,"dia","gasto (R$)",TICKS,al);
+  const ps=ease(clamp((l-5.4)/1.2)),hm=clamp((l-6.8)/.4),go=ease(clamp((l-9.4)/1.2));
+  const big=ORDER[9];
+  V.forEach((v,i)=>{
+    const x=lerp(g.X(DAYS[i]),g.X(DAYS[RANK[i]]),ps);
+    const mid=RANK[i]===4||RANK[i]===5;
+    const col=mid&&hm?"#2ee6a6":"#b366ff";
+    const vv=i===big?v+500*go:v;
+    bar(c,g,x,vv,col,al,1,true,i===big&&go>.05?"R$ "+Math.round(vv):null);
+    dayLabel(c,g,x,DAYS[i],al*(1-ps));
+  });
+  // mediana: o meio da lista em ordem
+  if(hm){
+    const xm=(g.X(DAYS[4])+g.X(DAYS[5]))/2;
+    c.save();c.globalAlpha=al*hm;c.strokeStyle="#2ee6a6";c.lineWidth=5;c.setLineDash([12,10]);
+    c.beginPath();c.moveTo(xm,g.Y(0));c.lineTo(xm,g.Y(80));c.stroke();c.restore();
+    label(c,xm,g.Y(88),"mediana R$ 50","#2ee6a6","#140c33",al*hm,30);
+  }
+  // média: sobe de 50 para 100 quando a compra de 74 vira 574
+  const pm=clamp((l-3.6)/.8);
+  const mv=lerp(MEAN,MEAN+50,ease(clamp((l-12)/1)));
+  hline(c,g,mv,"#ffc21a",al,ease(pm));
+  if(pm>=1)label(c,g.X(3.2),g.Y(mv)-34,"média R$ "+Math.round(mv),"#ffc21a","#140c33",al,30);
+  $("mm").textContent="média: R$ "+Math.round(mv);
+}
+
+// cena 4: desvio padrão e a faixa normal
+function drawSpread(t,al){
+  const c=art,l=loc(3,t),g=GC(120);
+  const b1=clamp((l-3.8)/.5),b2=ease(clamp((l-5)/1.4)),ok=clamp((l-8.6)/.4);
+  // faixa de 2 desvios (abre a partir da média) e faixa de 1 desvio
+  band(c,g,MEAN-2*SD*b2,MEAN+2*SD*b2,"rgba(46,230,166,.16)",al*(b2>0));
+  band(c,g,MEAN-SD,MEAN+SD,"rgba(46,230,166,.18)",al*b1);
+  axes(c,g,"dia","gasto (R$)",TICKS,al);
+  if(b2>0){[MEAN-2*SD*b2,MEAN+2*SD*b2].forEach(v=>hline(c,g,v,"#2ee6a6",al*.9,1,[14,10],4));}
+  V.forEach((v,i)=>{const x=g.X(DAYS[i]);bar(c,g,x,v,ok?"#2ee6a6":"#b366ff",al);dayLabel(c,g,x,DAYS[i],al);});
+  hline(c,g,MEAN,"#ffc21a",al,1);
+  // desvios de cada compra até a média
+  const pd=clamp((l-.8)/1.8),fd=1-clamp((l-4.6)/.6);
+  if(pd>0&&fd>0){c.save();c.globalAlpha=al*fd;c.strokeStyle="#ff5e7a";c.lineWidth=5;c.setLineDash([8,7]);
+    V.forEach((v,i)=>{if(pd<(i+1)/N-.05)return;const x=g.X(DAYS[i])+BW/2+10;c.beginPath();c.moveTo(x,g.Y(v));c.lineTo(x,g.Y(MEAN));c.stroke();});c.restore();}
+  label(c,g.X(1.2)-10,g.Y(MEAN),"média","#ffc21a","#140c33",al,26);
+  if(b1){c.save();c.globalAlpha=al*b1*(1-clamp((l-5)/.5));const x=g.x1-30;c.strokeStyle="#fff";c.lineWidth=5;c.beginPath();c.moveTo(x-12,g.Y(MEAN));c.lineTo(x,g.Y(MEAN));c.lineTo(x,g.Y(MEAN+SD));c.lineTo(x-12,g.Y(MEAN+SD));c.stroke();c.restore();
+    label(c,g.x1-90,g.Y(MEAN+SD/2),"σ = 15","#fff","#140c33",al*b1*(1-clamp((l-5)/.5)),28);}
+  const pl=clamp((l-8.4)/.4);
+  if(pl){label(c,g.x1-80,g.Y(80)-30,"R$ 80","#2ee6a6","#140c33",al*pl,28);label(c,g.x1-80,g.Y(20)+30,"R$ 20","#2ee6a6","#140c33",al*pl,28);}
+}
+
+// cena 5: a compra suspeita, 20 desvios longe da média
+function drawAlert(t,al){
+  const c=art,l=loc(4,t);
+  const vmax=lerp(120,400,ease(clamp((l-.8)/1.2))),g=GC(vmax);
+  band(c,g,MEAN-2*SD,MEAN+2*SD,"rgba(46,230,166,.2)",al);
+  axes(c,g,"dia","gasto (R$)",vmax<200?TICKS:[100,200,300,400],al);
+  hline(c,g,MEAN-2*SD,"#2ee6a6",al*.9,1,[14,10],4);hline(c,g,MEAN+2*SD,"#2ee6a6",al*.9,1,[14,10],4);
+  V.forEach((v,i)=>{const x=g.X(DAYS[i]);bar(c,g,x,v,"#2ee6a6",al,1,vmax<200);dayLabel(c,g,x,DAYS[i],al);});
+  hline(c,g,MEAN,"#ffc21a",al,1);
+  const pn=ease(clamp((l-1.2)/1.2)),xn=g.X(31);
+  if(pn){bar(c,g,xn,350,"#ff5e7a",al,pn,false,pn>.5?"R$ 350 · 3h":null);dayLabel(c,g,xn,"31",al*pn);}
+  // régua de desvios: um tique a cada 15 reais
+  const n=Math.floor(20*clamp((l-5.0)/3.2));
+  if(l>5){
+    const bx=xn+BW/2+22;c.save();c.globalAlpha=al;c.strokeStyle="#fff";c.lineWidth=5;c.lineCap="round";
+    c.beginPath();c.moveTo(bx,g.Y(MEAN));c.lineTo(bx,g.Y(MEAN+SD*n));c.stroke();
+    for(let k=0;k<=n;k++){c.beginPath();c.moveTo(bx-10,g.Y(MEAN+SD*k));c.lineTo(bx+10,g.Y(MEAN+SD*k));c.stroke();}
+    c.restore();
+    if(n>0)label(c,bx-150,g.Y(MEAN+SD*n),n===1?"1 desvio":n+" desvios",n===20?"#ffc21a":"#fff","#140c33",al,30);
+  }
+  // alerta piscando
+  const fa=clamp((l-10.1)/.3);
+  if(fa){c.save();c.globalAlpha=al*fa*(.45+.35*Math.sin(t*12));c.strokeStyle="#ff2d55";c.lineWidth=26;c.strokeRect(13,13,1894,1054);c.restore();}
+}
+
+// cena 6: muitas variáveis entram na IA
+function drawModel(t,al){
+  const c=art,l=loc(5,t),nx=830,ny=440;
+  const na=clamp((l-1.2)/.5);
+  document.querySelectorAll("#stage .ft").forEach((el,i)=>{
+    const a=+el.style.opacity;if(!a)return;
+    const x0=el.offsetLeft+el.offsetWidth+16,y0=el.offsetTop+el.offsetHeight/2;
+    c.save();c.globalAlpha=al*a;c.strokeStyle="rgba(217,204,255,.55)";c.lineWidth=4;c.beginPath();c.moveTo(x0,y0);c.lineTo(nx-110,ny);c.stroke();
+    const q=((t*.8+i*.27)%1);dot(c,lerp(x0,nx-110,q),lerp(y0,ny,q),8,"#ffc21a",al*a);c.restore();
+  });
+  if(na){
+    const pa=clamp((l-5.2)/.5);
+    if(pa){c.save();c.globalAlpha=al*pa;c.strokeStyle="rgba(46,230,166,.7)";c.lineWidth=5;c.beginPath();c.moveTo(nx+110,ny);c.lineTo(1050,ny-60);c.stroke();
+      const q=(t*.9)%1;dot(c,lerp(nx+110,1050,q),lerp(ny,ny-60,q),9,"#2ee6a6",al*pa);c.restore();}
+    const pv=clamp((l-8.1)/.5);
+    if(pv){c.save();c.globalAlpha=al*pv;c.strokeStyle="rgba(255,94,122,.75)";c.lineWidth=5;c.beginPath();c.moveTo(nx+80,ny+80);c.lineTo(1050,680);c.stroke();c.restore();}
+    const b=back(na),pulse=1+.05*Math.sin(t*5);
+    c.save();c.globalAlpha=al*clamp(na*3);c.translate(nx,ny);c.scale((.3+.7*b)*pulse,(.3+.7*b)*pulse);
+    c.shadowColor="#b366ff";c.shadowBlur=50;c.fillStyle="#8b3dff";c.beginPath();c.arc(0,0,110,0,7);c.fill();
+    c.shadowBlur=0;c.lineWidth=8;c.strokeStyle="#fff";c.stroke();
+    c.font="700 76px Fredoka";c.fillStyle="#fff";c.textAlign="center";c.textBaseline="middle";c.fillText("IA",0,4);
+    c.restore();
+  }
+}
+
+// fundo: papel quadriculado com pontos de rede neural
+const bg=document.getElementById("bgc").getContext("2d");
+const P=[...Array(40)].map((_,i)=>({x:(i*397)%1920,y:(i*211+90)%1080,a:i*1.7,r:3+(i%4)}));
+function drawBg(t){
+  bg.clearRect(0,0,1920,1080);
+  bg.strokeStyle="rgba(179,102,255,.07)";bg.lineWidth=2;bg.beginPath();
+  for(let x=0;x<=1920;x+=60){bg.moveTo(x,0);bg.lineTo(x,1080);}for(let y=0;y<=1080;y+=60){bg.moveTo(0,y);bg.lineTo(1920,y);}bg.stroke();
+  const pts=P.map(p=>({x:p.x+Math.sin(t*.35+p.a)*40,y:p.y+Math.cos(t*.3+p.a)*30,r:p.r}));
+  bg.lineWidth=2;
+  for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){
+    const d=Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y);
+    if(d<240){bg.strokeStyle=`rgba(179,102,255,${.16*(1-d/240)})`;bg.beginPath();bg.moveTo(pts[i].x,pts[i].y);bg.lineTo(pts[j].x,pts[j].y);bg.stroke();}
+  }
+  pts.forEach((p,i)=>{bg.fillStyle=i%3?"rgba(46,230,166,.4)":"rgba(255,94,122,.38)";bg.beginPath();bg.arc(p.x,p.y,p.r,0,7);bg.fill();});
+}
+
+// confete (cena final)
+const cf=document.getElementById("confetti").getContext("2d");
+const COLORS=["#ff5e7a","#b366ff","#2ee6a6","#ffc21a","#13b5d6","#a3e635"];
+const T_VEM=10.9;
+function drawConfetti(t){
+  cf.clearRect(0,0,1920,1080);
+  const t0=S[LAST].t0+T_VEM;if(t<t0)return;
+  const k=t-t0;
+  for(let i=0;i<160;i++){
+    const x0=(i*523)%1920,vy=280+(i*37)%260,sway=Math.sin(k*3+i)*40;
+    const y=-60+(k-(i%20)*.12)*vy;if(y<-60||y>1120)continue;
+    cf.save();cf.translate(x0+sway,y);cf.rotate(k*4+i);cf.fillStyle=COLORS[i%6];cf.fillRect(-10,-6,20,12);cf.restore();
+  }
+}
+
+const $=id=>document.getElementById(id);
+const bot=$("bot"),armL=$("armL"),armR=$("armR"),eyes=$("eyes"),mouth=$("mouth"),antball=$("antball");
+const els=[...document.querySelectorAll(".sc")].map(sc=>({sc,s:+sc.dataset.s,items:[...sc.querySelectorAll(".el")]}));
+
+function renderAt(t){
+  drawBg(t);
+  const si=sceneAt(t);
+  els.forEach(({sc,s,items})=>{
+    const sd=S[s],lc=t-sd.t0;
+    let o=0;
+    if(lc>=0&&lc<sd.d){o=Math.min(clamp(lc/.35),s===LAST?1:clamp((sd.d-lc)/.35));}
+    sc.style.opacity=o;
+    if(!o)return;
+    items.forEach(el=>{
+      const p=clamp((lc-(+el.dataset.in||0))/.55);
+      const fx=el.dataset.fx;let tr="",op=p>0?1:0;
+      if(fx==="pop"){const b=back(p);tr=`scale(${.2+.8*b})`;op=clamp(p*3);}
+      else if(fx==="zoom"){const b=back(p);tr=`scale(${1.6-.6*b})`;op=clamp(p*2.5);}
+      else if(fx==="up"){tr=`translateY(${(1-ease(p))*60}px)`;op=ease(p);}
+      else if(fx==="left"){tr=`translateX(${(1-ease(p))*-140}px)`;op=ease(p);}
+      else {op=ease(p);}
+      el.style.opacity=op;el.style.transform=tr;
+    });
+  });
+  art.clearRect(0,0,1920,1080);
+  const a0=win(t,0,S[1].t0);if(a0)drawCard(t,a0);
+  const a1=win(t,S[1].t0,S[2].t0);if(a1)drawMonth(t,a1);
+  const a2=win(t,S[2].t0,S[3].t0);if(a2)drawMedian(t,a2);
+  const a3=win(t,S[3].t0,S[4].t0);if(a3)drawSpread(t,a3);
+  const a4=win(t,S[4].t0,S[5].t0);if(a4)drawAlert(t,a4);
+  const a5=win(t,S[5].t0,S[6].t0);if(a5)drawModel(t,a5);
+  // robô
+  const [x,y,sc]=lerpKF(BOT,t);
+  const fin=si===LAST&&loc(LAST,t)>T_VEM;
+  const bob=Math.sin(t*3.2)*10,jump=fin?-Math.abs(Math.sin(t*5))*60:0;
+  bot.style.transform=`translate(${x}px,${y-470+bob+jump}px) scale(${sc})`;
+  const wave=(t>.8&&t<1.0)||fin||(si===3&&loc(3,t)>8.8&&loc(3,t)<10.6)||(si===2&&loc(2,t)>14.4&&loc(2,t)<16);
+  armR.style.transform=`rotate(${wave?-35+Math.sin(t*10)*28:Math.sin(t*2)*6}deg)`;
+  const oops=(si===0&&loc(0,t)>1.1&&loc(0,t)<3.0)||(si===4&&loc(4,t)>10.1)||(si===5&&loc(5,t)>8.3&&loc(5,t)<10.2);
+  armL.style.transform=`rotate(${oops?24:Math.sin(t*2+1)*6}deg)`;
+  const blink=(t%3.1)<.12;eyes.style.transform=`scaleY(${blink?.1:1})`;
+  const sp=S[si],lt=t-sp.t0,talk=lt>sp.n&&lt<sp.n+sp.f&&Math.floor(t*8)%2===0;
+  mouth.setAttribute("d",oops?"M172 200 Q190 180 208 200 Q190 220 172 200":talk?"M162 190 Q190 226 218 190 Q190 200 162 190":"M160 192 Q190 214 220 192");
+  antball.setAttribute("fill",(si===4&&loc(4,t)>10.1)?((Math.floor(t*6)%2)?"#ff2d55":"#ffc21a"):(Math.floor(t*2)%2)?"#2ee6a6":"#ffc21a");
+  drawConfetti(t);
+}
+window.renderAt=renderAt;window.TOTAL=TOTAL;window.S=S;
+
+// roteiro em tabela
+const fmt=s=>{s=Math.round(s);return Math.floor(s/60)+":"+String(s%60).padStart(2,"0");};
+S.forEach((s,i)=>{const tr=document.createElement("tr");tr.innerHTML=`<td>${fmt(s.t0)} a ${fmt(s.t0+s.d)}</td><td>${i+1}. ${s.nome}</td><td>${s.tela}</td><td class="nar">${s.txt}</td>`;$("rot").appendChild(tr);});
+
+// modo de exportação: #render deixa só o palco, em tamanho real
+if(location.hash==="#render"){
+  document.body.className="render";
+  document.body.replaceChildren($("stage"));
+}
+document.fonts.ready.then(()=>renderAt(0));
+</script>
+</body>
+</html>

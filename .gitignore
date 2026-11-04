@@ -13,6 +13,6 @@ docs/
 Thumbs.db
 *.swp
 
-# Pastas de trabalho de mídia (originais e pipelines); a versão publicada fica em files/feito-com-ia-v1/
+# Pastas de trabalho de mídia (originais e pipelines); a versão publicada fica em feito-com-ia/
 /musicas/
 /videos/

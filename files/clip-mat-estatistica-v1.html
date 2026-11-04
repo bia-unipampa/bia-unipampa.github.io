@@ -266,7 +266,7 @@ const DAYS=[1,4,7,10,13,16,19,22,25,28],V=[38,55,25,47,73,40,58,37,74,53];
 const N=V.length,MEAN=V.reduce((s,v)=>s+v,0)/N,SD=Math.sqrt(V.reduce((s,v)=>s+(v-MEAN)**2,0)/N);
 const ORDER=V.map((v,i)=>i).sort((a,b)=>V[a]-V[b]),RANK=[];ORDER.forEach((i,r)=>RANK[i]=r);
 const MED=(V[ORDER[4]]+V[ORDER[5]])/2;
-const GC=vmax=>G(700,240,1800,860,0,32.5,0,vmax);
+const GC=vmax=>G(700,240,1800,860,0,34,0,vmax);
 const BW=56;
 // uma barra: x em pixels, valor v, recorta no topo do gráfico com um "corte" em zigue-zague
 function bar(c,g,x,v,col,a,grow=1,txt=true,lab=null){
@@ -275,7 +275,7 @@ function bar(c,g,x,v,col,a,grow=1,txt=true,lab=null){
   c.save();c.globalAlpha=a;c.fillStyle=col;c.shadowColor=col;c.shadowBlur=16;
   rr(c,x-BW/2,yt,BW,base-yt,[12,12,0,0]);c.fill();c.shadowBlur=0;
   if(cut){c.fillStyle="#140c33";c.beginPath();c.moveTo(x-BW/2-2,yt+40);for(let k=0;k<=4;k++)c.lineTo(x-BW/2+k*BW/4,yt+(k%2?28:40));c.lineTo(x+BW/2+2,yt+52);for(let k=4;k>=0;k--)c.lineTo(x-BW/2+k*BW/4,yt+(k%2?40:52));c.fill();}
-  if(txt&&!cut){c.font="800 28px Nunito";c.fillStyle="#fff";c.textAlign="center";c.textBaseline="bottom";c.fillText(br(vv,0),x,yt-8);}
+  if(txt&&!cut){c.font="800 28px Nunito";c.fillStyle="#fff";c.textAlign="center";c.textBaseline="bottom";c.lineWidth=7;c.lineJoin="round";c.strokeStyle="#140c33";c.strokeText(br(vv,0),x,yt-8);c.fillText(br(vv,0),x,yt-8);}
   if(lab)label(c,x,yt-34,lab,cut?"#ff5e7a":"#fff",cut?"#fff":"#140c33",a,28);
   c.restore();
 }
@@ -322,6 +322,9 @@ function drawMedian(t,al){
   axes(c,g,"dia","gasto (R$)",TICKS,al);
   const ps=ease(clamp((l-5.4)/1.2)),hm=clamp((l-6.8)/.4),go=ease(clamp((l-9.4)/1.2));
   const big=ORDER[9];
+  const pm=clamp((l-3.6)/.8);
+  const mv=lerp(MEAN,MEAN+50,ease(clamp((l-12)/1)));
+  hline(c,g,mv,"#ffc21a",al,ease(pm));
   V.forEach((v,i)=>{
     const x=lerp(g.X(DAYS[i]),g.X(DAYS[RANK[i]]),ps);
     const mid=RANK[i]===4||RANK[i]===5;
@@ -338,9 +341,6 @@ function drawMedian(t,al){
     label(c,xm,g.Y(88),"mediana R$ 50","#2ee6a6","#140c33",al*hm,30);
   }
   // média: sobe de 50 para 100 quando a compra de 74 vira 574
-  const pm=clamp((l-3.6)/.8);
-  const mv=lerp(MEAN,MEAN+50,ease(clamp((l-12)/1)));
-  hline(c,g,mv,"#ffc21a",al,ease(pm));
   if(pm>=1)label(c,g.X(3.2),g.Y(mv)-34,"média R$ "+Math.round(mv),"#ffc21a","#140c33",al,30);
   $("mm").textContent="média: R$ "+Math.round(mv);
 }
@@ -354,15 +354,15 @@ function drawSpread(t,al){
   band(c,g,MEAN-SD,MEAN+SD,"rgba(46,230,166,.18)",al*b1);
   axes(c,g,"dia","gasto (R$)",TICKS,al);
   if(b2>0){[MEAN-2*SD*b2,MEAN+2*SD*b2].forEach(v=>hline(c,g,v,"#2ee6a6",al*.9,1,[14,10],4));}
-  V.forEach((v,i)=>{const x=g.X(DAYS[i]);bar(c,g,x,v,ok?"#2ee6a6":"#b366ff",al);dayLabel(c,g,x,DAYS[i],al);});
   hline(c,g,MEAN,"#ffc21a",al,1);
+  V.forEach((v,i)=>{const x=g.X(DAYS[i]);bar(c,g,x,v,ok?"#2ee6a6":"#b366ff",al);dayLabel(c,g,x,DAYS[i],al);});
   // desvios de cada compra até a média
   const pd=clamp((l-.8)/1.8),fd=1-clamp((l-4.6)/.6);
   if(pd>0&&fd>0){c.save();c.globalAlpha=al*fd;c.strokeStyle="#ff5e7a";c.lineWidth=5;c.setLineDash([8,7]);
     V.forEach((v,i)=>{if(pd<(i+1)/N-.05)return;const x=g.X(DAYS[i])+BW/2+10;c.beginPath();c.moveTo(x,g.Y(v));c.lineTo(x,g.Y(MEAN));c.stroke();});c.restore();}
-  label(c,g.X(1.2)-10,g.Y(MEAN),"média","#ffc21a","#140c33",al,26);
-  if(b1){c.save();c.globalAlpha=al*b1*(1-clamp((l-5)/.5));const x=g.x1-30;c.strokeStyle="#fff";c.lineWidth=5;c.beginPath();c.moveTo(x-12,g.Y(MEAN));c.lineTo(x,g.Y(MEAN));c.lineTo(x,g.Y(MEAN+SD));c.lineTo(x-12,g.Y(MEAN+SD));c.stroke();c.restore();
-    label(c,g.x1-90,g.Y(MEAN+SD/2),"σ = 15","#fff","#140c33",al*b1*(1-clamp((l-5)/.5)),28);}
+  label(c,g.x1-50,g.Y(MEAN),"média","#ffc21a","#140c33",al,26);
+  if(b1){c.save();c.globalAlpha=al*b1*(1-clamp((l-5)/.5));const x=1712;c.strokeStyle="#fff";c.lineWidth=5;c.beginPath();c.moveTo(x-12,g.Y(MEAN));c.lineTo(x,g.Y(MEAN));c.lineTo(x,g.Y(MEAN+SD));c.lineTo(x-12,g.Y(MEAN+SD));c.stroke();c.restore();
+    label(c,1770,g.Y(MEAN+SD)-6,"σ = 15","#fff","#140c33",al*b1*(1-clamp((l-5)/.5)),28);}
   const pl=clamp((l-8.4)/.4);
   if(pl){label(c,g.x1-80,g.Y(80)-30,"R$ 80","#2ee6a6","#140c33",al*pl,28);label(c,g.x1-80,g.Y(20)+30,"R$ 20","#2ee6a6","#140c33",al*pl,28);}
 }
@@ -385,7 +385,7 @@ function drawAlert(t,al){
     c.beginPath();c.moveTo(bx,g.Y(MEAN));c.lineTo(bx,g.Y(MEAN+SD*n));c.stroke();
     for(let k=0;k<=n;k++){c.beginPath();c.moveTo(bx-10,g.Y(MEAN+SD*k));c.lineTo(bx+10,g.Y(MEAN+SD*k));c.stroke();}
     c.restore();
-    if(n>0)label(c,bx-150,g.Y(MEAN+SD*n),n===1?"1 desvio":n+" desvios",n===20?"#ffc21a":"#fff","#140c33",al,30);
+    if(n>0)label(c,xn-170,g.Y(200),n===1?"1 desvio":n+" desvios",n===20?"#ffc21a":"#fff","#140c33",al,30);
   }
   // alerta piscando
   const fa=clamp((l-10.1)/.3);

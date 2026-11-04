@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vizinho Mais Próximo</title>
+<meta name="description" content="Clip animado do BIA nas Escolas para o 3º ano do ensino médio: a robô Bia mostra como um aplicativo de música recomenda canções usando geometria analítica, distância entre pontos, Pitágoras e o vizinho mais próximo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400..700&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fffaf2;--ink:#1b1035;--soft:#5b4f75;--line:#eadff0;
+  --pink:#fb3b5c;--purple:#8b3dff;--mint:#12c48b;--lime:#7cc417;--cyan:#13b5d6;--sun:#ffc21a;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#140c33;--ink:#f4efff;--soft:#c3b8e0;--line:#2e2357;--purple:#b58bff}
+}
+:root[data-theme="dark"]{--bg:#140c33;--ink:#f4efff;--soft:#c3b8e0;--line:#2e2357;--purple:#b58bff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Nunito",system-ui,sans-serif;font-size:1.06rem;line-height:1.6}
+a{color:var(--purple)}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+@media (max-width:600px){.wrap{padding:0 16px}}
+h1,h2{font-family:"Fredoka",system-ui,sans-serif;line-height:1.05;margin:0}
+.hd{padding:44px 0 22px}
+.hd .back{font-weight:700;text-decoration:none;color:var(--soft);font-size:.95rem}
+.hd h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:700;margin-top:10px}
+.hd p{color:var(--soft);max-width:66ch;margin:10px 0 0}
+.player video{display:block;width:100%;height:auto;aspect-ratio:16/9;border-radius:18px;background:#140c33;box-shadow:0 10px 40px rgba(27,16,53,.25)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.btn{display:inline-flex;font-weight:800;font-size:.98rem;padding:10px 20px;border-radius:999px;text-decoration:none;border:3px solid var(--purple);color:var(--purple)}
+.btn.solid{background:var(--purple);color:#fff}
+.blk{margin:44px 0}
+.blk h2{font-size:1.8rem;margin-bottom:10px}
+.tbl{overflow-x:auto}
+.blk table{width:100%;border-collapse:collapse;font-size:.98rem;min-width:720px}
+.blk td,.blk th{text-align:left;vertical-align:top;padding:10px 12px 10px 0;border-bottom:1px solid var(--line)}
+.blk th{color:var(--soft);font-size:.88rem}
+.blk td:first-child{font-weight:800;color:var(--purple);white-space:nowrap}
+.blk td.nar{font-style:italic}
+.qs{padding-left:22px}
+.qs li{margin-bottom:8px}
+.math{font-family:"Fredoka",sans-serif;font-weight:500;white-space:nowrap}
+footer{border-top:1px solid var(--line);padding:28px 0 56px;color:var(--soft);font-size:.95rem}
+
+/* ===== palco 1920 x 1080, usado só para gerar os quadros (#render) ===== */
+#stage{display:none;width:1920px;height:1080px;background:#140c33;overflow:hidden;font-family:"Fredoka",system-ui,sans-serif;color:#fff;position:relative}
+body.render{margin:0;background:#140c33}
+body.render #stage{display:block}
+#bgc,#art,#confetti{position:absolute;inset:0}
+#confetti{pointer-events:none}
+.sc{position:absolute;inset:0;opacity:0}
+.el{position:absolute;opacity:0;will-change:transform,opacity}
+.t-big{font-weight:700;font-size:120px;line-height:1;letter-spacing:-.01em}
+.t-mid{font-weight:600;font-size:80px;line-height:1.05;white-space:nowrap}
+.t-sm{font-family:"Nunito",sans-serif;font-weight:800;font-size:44px;line-height:1.2;color:#d9ccff}
+.grad{background:linear-gradient(90deg,#ff5e7a,#b366ff 45%,#2ee6a6);-webkit-background-clip:text;background-clip:text;color:transparent}
+.chip{border-radius:999px;padding:14px 30px;font-weight:600;font-size:42px;color:#1b1035;white-space:nowrap}
+.panel{background:rgba(255,255,255,.08);border:3px solid rgba(217,204,255,.35);border-radius:32px;padding:20px 28px;width:460px}
+.panel small{display:block;font-family:"Nunito",sans-serif;font-weight:800;font-size:32px;color:#d9ccff}
+.panel b{display:block;font-weight:700;font-size:64px;line-height:1.15;font-variant-numeric:tabular-nums;white-space:nowrap}
+.formula{background:#fff;color:#1b1035;border-radius:28px;padding:16px 30px;font-weight:600;font-size:50px;white-space:nowrap;box-shadow:0 10px 0 rgba(0,0,0,.25)}
+.formula em{font-style:normal;color:#8b3dff}
+.formula sub{font-size:.6em}
+.step{font-weight:600;font-size:46px;white-space:nowrap;color:#fff}
+.step em{font-style:normal;color:#ffc21a}
+.card{background:#fff;color:#1b1035;border-radius:32px;padding:24px 30px;box-shadow:0 12px 0 rgba(0,0,0,.25);font-weight:600;font-size:52px;line-height:1.3;white-space:nowrap}
+.card small{display:block;font-family:"Nunito",sans-serif;font-weight:800;font-size:30px;color:#5b4f75}
+.rk{display:flex;justify-content:space-between;gap:24px;font-weight:600;font-size:38px;line-height:1.3;padding:0 12px;margin:0 -12px;border-radius:14px;font-variant-numeric:tabular-nums}
+.rk.on{background:#2ee6a6;color:#140c33}
+#bot{position:absolute;left:0;top:0;width:380px;height:470px;transform-origin:50% 100%}
+</style>
+</head>
+<body>
+<div id="page">
+<header class="hd">
+  <div class="wrap">
+    <a class="back" href="index.html">← BIA para o 3º ano</a>
+    <h1>Como a IA recomenda músicas medindo distâncias</h1>
+    <p>Clip animado de cerca de 80 segundos para o 3º ano do ensino médio. A robô Bia mostra que um aplicativo de música pode transformar cada pessoa em um ponto no plano cartesiano, medir a distância entre os pontos com a fórmula da geometria analítica (<span class="math">d = √((x₂ − x₁)² + (y₂ − y₁)²)</span>, que é o teorema de Pitágoras), encontrar o vizinho mais próximo e recomendar o que ele ouve. No fim, a mesma conta vale para vetores com centenas de números, e fica o alerta sobre a bolha de recomendações.</p>
+  </div>
+</header>
+<div class="wrap player">
+  <video controls preload="metadata" poster="clip-mat-distancia-v1/poster.jpg">
+    <source src="clip-mat-distancia-v1/clip-mat-distancia-v1.mp4" type="video/mp4">
+    <track kind="captions" src="clip-mat-distancia-v1/legendas.vtt" srclang="pt-BR" label="Português">
+  </video>
+  <div class="actions">
+    <a class="btn solid" href="clip-mat-distancia-v1/clip-mat-distancia-v1.mp4" download>Baixar MP4 (1920 × 1080)</a>
+    <a class="btn" href="clip-mat-distancia-v1/legendas.vtt" download>Baixar legendas (VTT)</a>
+  </div>
+</div>
+
+<section class="wrap blk" id="roteiro">
+  <h2>Roteiro</h2>
+  <div class="tbl"><table><thead><tr><th>Tempo</th><th>Cena</th><th>Na tela</th><th>Narração da Bia</th></tr></thead><tbody id="rot"></tbody></table></div>
+  <p style="color:var(--soft)">A voz é sintética e serve para marcar o ritmo; a versão final pode ser dublada por estudantes do BIA. As pessoas, as músicas e as horas por semana são ilustrativas, mas todas as contas do vídeo são reais: cada distância foi calculada com <span class="math">d = √((x₂ − x₁)² + (y₂ − y₁)²)</span> a partir dos pontos mostrados, e a distância em três dimensões soma também a diferença do terceiro eixo.</p>
+</section>
+
+<section class="wrap blk" id="conversa">
+  <h2>Para resolver com a turma depois do vídeo</h2>
+  <ol class="qs">
+    <li>No vídeo, você está em <span class="math">(3, 4)</span> e a Duda em <span class="math">(8, 3)</span>. Calcule a distância entre vocês. (Resposta: <span class="math">√((8 − 3)² + (3 − 4)²) = √(25 + 1) = √26 ≈ 5,10</span>.)</li>
+    <li>Uma nova pessoa, a Gabi, entra no app no ponto <span class="math">(5, 5)</span>. Ela fica mais perto de você <span class="math">(3, 4)</span> ou do Leo <span class="math">(4, 2)</span>? (Resposta: de você, pois <span class="math">√(4 + 1) = √5 ≈ 2,24</span>, enquanto até o Leo é <span class="math">√(1 + 9) = √10 ≈ 3,16</span>.)</li>
+    <li>Agora com quatro estilos de música: você = <span class="math">(3, 4, 1, 2)</span> e Leo = <span class="math">(4, 2, 3, 6)</span>. Qual é a distância? (Resposta: <span class="math">√(1² + (−2)² + 2² + 4²) = √(1 + 4 + 4 + 16) = √25 = 5</span>.)</li>
+    <li>Para conversar: você já sentiu que o app só mostra mais do mesmo? Como um sistema de recomendação poderia misturar novidade sem deixar de acertar o seu gosto?</li>
+  </ol>
+</section>
+
+<footer>
+  <div class="wrap">BIA nas Escolas, clip "Como a IA recomenda músicas medindo distâncias", versão 1, novembro de 2026. Bacharelado em Inteligência Artificial, UNIPAMPA, Campus Alegrete-RS. <a href="index.html">Mais vídeos e jogos para o 3º ano</a>.</div>
+</footer>
+</div>
+
+<div id="stage">
+  <canvas id="bgc" width="1920" height="1080"></canvas>
+  <canvas id="art" width="1920" height="1080"></canvas>
+
+  <section class="sc" data-s="0">
+    <div class="el t-mid" data-in="0.3" data-fx="up" style="left:560px;top:70px">Como o app <span class="grad">adivinha?</span> 🎧</div>
+    <div class="el chip" data-in="4.4" data-fx="pop" style="left:1110px;top:430px;background:#ff5e7a;color:#fff">🤔 Lê pensamentos? Não!</div>
+    <div class="el chip" data-in="6.0" data-fx="pop" style="left:1110px;top:580px;background:#2ee6a6;font-size:50px">📐 Geometria analítica!</div>
+  </section>
+
+  <section class="sc" data-s="1">
+    <div class="el t-mid" data-in="0.3" data-fx="up" style="left:560px;top:70px">Gosto vira <span class="grad">ponto</span> 📍</div>
+    <div class="el card" data-in="1.0" data-fx="left" style="left:60px;top:220px;font-size:38px;line-height:1.25"><small>eixo x</small>sertanejo e gauchesco<small style="margin-top:8px">eixo y</small>funk e pop<small style="margin-top:8px;color:#8b3dff">horas por semana</small></div>
+    <div class="el formula" data-in="6.8" data-fx="pop" style="left:60px;top:520px">você = (<em>3</em>, <em>4</em>)</div>
+    <div class="el t-sm" data-in="9.0" data-fx="up" style="left:1450px;top:300px;color:#fff;font-size:40px;white-space:nowrap">👥 cada pessoa,<br>um ponto</div>
+  </section>
+
+  <section class="sc" data-s="2">
+    <div class="el t-mid" data-in="0.3" data-fx="up" style="left:560px;top:70px">Distância é <span class="grad">Pitágoras</span> 📐</div>
+    <div class="el formula" data-in="1.4" data-fx="pop" style="left:40px;top:210px;font-size:40px;padding:14px 24px">d = √((x<sub>2</sub> − x<sub>1</sub>)² + (y<sub>2</sub> − y<sub>1</sub>)²)</div>
+    <div class="el step" data-in="4.2" data-fx="left" style="left:60px;top:320px">= √((<em>6 − 3</em>)² + (<em>8 − 4</em>)²)</div>
+    <div class="el step" data-in="6.6" data-fx="left" style="left:60px;top:400px">= √(<em>3</em>² + <em>4</em>²)</div>
+    <div class="el step" data-in="9.6" data-fx="left" style="left:60px;top:480px">= √(9 + 16) = √25</div>
+    <div class="el chip" data-in="12.4" data-fx="pop" style="left:60px;top:575px;background:#2ee6a6;font-size:50px">d = 5 ✅</div>
+    <div class="el t-sm" data-in="7.6" data-fx="up" style="left:1450px;top:250px;color:#fff;font-size:40px;white-space:nowrap">a² + b² = c²</div>
+  </section>
+
+  <section class="sc" data-s="3">
+    <div class="el t-mid" data-in="0.3" data-fx="up" style="left:560px;top:70px">O vizinho mais <span class="grad">próximo</span> 🔎</div>
+    <div class="el panel" data-in="1.6" data-fx="left" style="left:60px;top:210px;width:500px">
+      <small>distância até você</small>
+      <div class="rk" id="rk0"><span>Leo</span><span>√5 ≈ 2,24</span></div>
+      <div class="rk" id="rk1"><span>Rafa</span><span>√10 ≈ 3,16</span></div>
+      <div class="rk" id="rk2"><span>Ana</span><span>√25 = 5</span></div>
+      <div class="rk" id="rk3"><span>Duda</span><span>√26 ≈ 5,10</span></div>
+      <div class="rk" id="rk4"><span>Caio</span><span>√29 ≈ 5,39</span></div>
+      <div class="rk" id="rk5"><span>Maria</span><span>√61 ≈ 7,81</span></div>
+    </div>
+    <div class="el card" data-in="6.8" data-fx="pop" style="left:1440px;top:250px;font-size:38px;line-height:1.2;padding:20px 26px"><small>o Leo curtiu</small>Milonga do Pampa<small style="color:#12c48b;font-size:26px;margin-bottom:12px">✔ você já ouviu</small>Baile da Fronteira<small style="color:#fb3b5c;font-size:26px">✨ você ainda não ouviu</small></div>
+    <div class="el chip" data-in="10.2" data-fx="pop" style="left:1440px;top:620px;background:#ffc21a;font-size:36px">🎧 sua recomendação</div>
+  </section>
+
+  <section class="sc" data-s="4">
+    <div class="el t-mid" data-in="0.3" data-fx="up" style="left:560px;top:70px">Muitas <span class="grad">dimensões</span> 🧊</div>
+    <div class="el chip" data-in="1.0" data-fx="pop" style="left:60px;top:220px;background:#13b5d6;font-size:36px">🎸 + rock: 3 dimensões</div>
+    <div class="el panel" data-in="6.0" data-fx="left" style="left:60px;top:330px;width:540px"><small>você (3, 4, 1) e Leo (4, 2, 3)</small><b style="font-size:46px">√(1² + (−2)² + 2²)</b><b id="d3" style="font-size:46px">= √9 = 3</b></div>
+    <div class="el card" data-in="4.4" data-fx="pop" style="left:1470px;top:240px;font-size:40px;line-height:1.35;padding:20px 28px"><small>n dimensões</small>(a<sub style="font-size:.6em">1</sub> − b<sub style="font-size:.6em">1</sub>)²<br>+ (a<sub style="font-size:.6em">2</sub> − b<sub style="font-size:.6em">2</sub>)²<br>+ …<br>+ (a<sub style="font-size:.6em">n</sub> − b<sub style="font-size:.6em">n</sub>)²<small style="margin-top:6px;color:#8b3dff">e tira a raiz √</small></div>
+  </section>
+
+  <section class="sc" data-s="5">
+    <div class="el t-mid" data-in="0.3" data-fx="up" style="left:560px;top:70px">Cuidado com a <span class="grad">bolha</span> 🫧</div>
+    <div class="el chip" data-in="3.4" data-fx="pop" style="left:60px;top:240px;background:#13b5d6;font-size:36px">🫧 só o parecido</div>
+    <div class="el chip" data-in="5.6" data-fx="pop" style="left:1430px;top:260px;background:#ffc21a;font-size:36px">🌈 novidade</div>
+    <div class="el chip" data-in="6.6" data-fx="pop" style="left:1430px;top:360px;background:#2ee6a6;font-size:36px">🎶 diversidade</div>
+  </section>
+
+  <section class="sc" data-s="6">
+    <div class="el t-mid" data-in="0.3" data-fx="up" style="left:120px;top:100px">A matemática do <span class="grad">3º ano</span> é a base da IA</div>
+    <div class="el chip" data-in="0.8" data-fx="pop" style="left:126px;top:250px;background:#2ee6a6">✔ plano cartesiano</div>
+    <div class="el chip" data-in="1.6" data-fx="pop" style="left:610px;top:250px;background:#ffc21a">✔ distância</div>
+    <div class="el chip" data-in="2.3" data-fx="pop" style="left:920px;top:250px;background:#d9ccff">✔ Pitágoras</div>
+    <div class="el t-sm" data-in="5.6" data-fx="up" style="left:126px;top:390px;color:#fff;font-size:52px">BIA · Bacharelado em Inteligência Artificial</div>
+    <div class="el t-sm" data-in="6.4" data-fx="up" style="left:126px;top:470px;font-size:52px">UNIPAMPA · Alegrete-RS</div>
+    <div class="el t-big grad" data-in="10.0" data-fx="zoom" style="left:120px;top:600px;font-size:200px">Vem pro BIA!</div>
+    <div class="el t-sm" data-in="10.6" data-fx="up" style="left:126px;top:870px;color:#fff;font-size:56px">bia-unipampa.github.io</div>
+  </section>
+
+  <canvas id="confetti" width="1920" height="1080"></canvas>
+
+  <svg id="bot" viewBox="0 0 380 470" aria-hidden="true">
+    <defs>
+      <linearGradient id="gb" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e3dcff"/></linearGradient>
+    </defs>
+    <g id="ant"><line x1="190" y1="70" x2="190" y2="22" stroke="#d9ccff" stroke-width="10" stroke-linecap="round"/><circle id="antball" cx="190" cy="20" r="18" fill="#2ee6a6"/></g>
+    <g id="armL" style="transform-origin:78px 300px"><rect x="18" y="285" width="70" height="32" rx="16" fill="#b366ff"/><circle cx="22" cy="301" r="24" fill="#fff"/></g>
+    <g id="armR" style="transform-origin:302px 300px"><rect x="292" y="285" width="70" height="32" rx="16" fill="#b366ff"/><circle cx="358" cy="301" r="24" fill="#fff"/></g>
+    <rect x="88" y="250" width="204" height="190" rx="54" fill="url(#gb)"/>
+    <text x="190" y="372" text-anchor="middle" font-family="Fredoka" font-weight="700" font-size="62" fill="#8b3dff">BIA</text>
+    <rect x="140" y="440" width="36" height="26" rx="10" fill="#d9ccff"/><rect x="204" y="440" width="36" height="26" rx="10" fill="#d9ccff"/>
+    <rect x="40" y="62" width="300" height="200" rx="70" fill="url(#gb)"/>
+    <rect x="70" y="92" width="240" height="140" rx="50" fill="#1b1035"/>
+    <g id="eyes" style="transform-origin:190px 150px"><ellipse cx="145" cy="148" rx="22" ry="26" fill="#2ee6a6"/><ellipse cx="235" cy="148" rx="22" ry="26" fill="#2ee6a6"/></g>
+    <path id="mouth" d="M160 192 Q190 214 220 192" stroke="#2ee6a6" stroke-width="9" fill="none" stroke-linecap="round"/>
+    <circle cx="100" cy="196" r="13" fill="#ff5e7a" opacity=".55"/><circle cx="280" cy="196" r="13" fill="#ff5e7a" opacity=".55"/>
+  </svg>
+</div>
+
+<script>
+// cenas: duração (s), início da narração, duração da fala, texto falado e o que aparece na tela
+const S=[
+ {d:8.4, n:0.4,f:7.335, nome:"Como o app adivinha?", tela:"Um celular mostra a música \"Baile da Fronteira\" na lista \"Recomendado para você\". A resposta aparece: não é leitura de pensamentos, é geometria analítica.", txt:"Como o aplicativo de música sabe o que você vai gostar de ouvir? Ele não lê pensamentos. Ele usa geometria analítica!"},
+ {d:10.9,n:0.4,f:9.857, nome:"Gosto vira ponto", tela:"Plano cartesiano com eixo x (horas por semana de sertanejo e gauchesco) e eixo y (horas por semana de funk e pop). Você vira o ponto (3, 4); depois aparecem Ana (6, 8), Leo (4, 2), Rafa (2, 1), Duda (8, 3), Caio (1, 9) e Maria (9, 9).", txt:"O app anota quantas horas por semana você ouve sertanejo e gauchesco, e quantas ouve funk e pop. Pronto: você virou um ponto no plano cartesiano. E cada pessoa também."},
+ {d:14.8,n:0.4,f:13.829,nome:"Distância é Pitágoras", tela:"Entre você (3, 4) e a Ana (6, 8) se forma um triângulo retângulo de catetos 3 e 4; os quadrados dos catetos mostram 9 e 16 quadradinhos. A conta: d = √((6 − 3)² + (8 − 4)²) = √(9 + 16) = √25 = 5.", txt:"Quão parecidos são dois gostos? Basta medir a distância. Entre você e a Ana: três para o lado, quatro para cima. Pitágoras: três ao quadrado mais quatro ao quadrado, vinte e cinco. Raiz de vinte e cinco: cinco."},
+ {d:13.0,n:0.4,f:11.601,nome:"O vizinho mais próximo", tela:"A IA calcula a distância até cada pessoa (Leo √5 ≈ 2,24; Rafa √10 ≈ 3,16; Ana 5; Duda √26 ≈ 5,10; Caio √29 ≈ 5,39; Maria √61 ≈ 7,81). Um círculo cresce a partir de você até encostar no Leo. O Leo curtiu \"Baile da Fronteira\", que você ainda não ouviu: é a sua recomendação.", txt:"Agora a IA mede a sua distância até todo mundo e acha o vizinho mais próximo: o Leo, a só 2,24. Se ele curtiu uma música que você ainda não ouviu, ela vira a sua recomendação."},
+ {d:11.1,n:0.4,f:10.112,nome:"Muitas dimensões", tela:"Com um terceiro eixo (rock), os pontos vão para o espaço: você (3, 4, 1) e Leo (4, 2, 3), com d = √(1² + (−2)² + 2²) = √9 = 3. Um vetor com centenas de números passa na parte de baixo, e a fórmula geral soma (aᵢ − bᵢ)² em n dimensões.", txt:"Na vida real, não são só dois estilos. Cada gosto vira um vetor com centenas de números. E a conta continua a mesma: soma as diferenças ao quadrado e tira a raiz."},
+ {d:9.4, n:0.4,f:8.278, nome:"Cuidado com a bolha", tela:"Uma bolha envolve você e os vizinhos mais parecidos, e as recomendações só vêm de dentro dela. Depois a bolha se abre e chegam sugestões de pessoas com gostos diferentes: novidade e diversidade.", txt:"Mas atenção: se a IA só recomenda o que está pertinho, você fica preso numa bolha. Bons sistemas também misturam novidade e diversidade."},
+ {d:13.4,n:0.4,f:10.746,nome:"Vem pro BIA", tela:"Plano cartesiano, distância e Pitágoras; convite ao BIA, UNIPAMPA, Alegrete-RS, com confete.", txt:"Plano cartesiano, distância, Pitágoras: é a matemática do 3º ano por trás da IA. No BIA, na UNIPAMPA, em Alegrete, você transforma isso em tecnologia. Vem pro BIA!"}
+];
+let acc=0;S.forEach(s=>{s.t0=+acc.toFixed(2);acc+=s.d;});
+const TOTAL=+acc.toFixed(2);
+
+const LAST=S.length-1;
+// posição da robô: [tempo, x, y (base), escala]
+const BOT=[[0,70,1500,1],[0.8,70,1010,1],[S[1].t0-.5,70,1010,1],[S[1].t0+.3,110,1050,.7],[S[LAST].t0,110,1050,.7],[S[LAST].t0+.9,1430,1010,1.05],[TOTAL,1430,1010,1.05]];
+
+const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const ease=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const back=x=>{const c1=1.70158,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2);};
+const lerp=(a,b,p)=>a+(b-a)*p;
+function lerpKF(kf,t){
+  if(t<=kf[0][0])return kf[0].slice(1);
+  for(let i=1;i<kf.length;i++){
+    if(t<=kf[i][0]){const a=kf[i-1],b=kf[i],p=ease((t-a[0])/(b[0]-a[0]||1));return a.slice(1).map((v,j)=>v+(b[j+1]-v)*p);}
+  }
+  return kf[kf.length-1].slice(1);
+}
+function sceneAt(t){for(let i=S.length-1;i>=0;i--)if(t>=S[i].t0)return i;return 0;}
+const loc=(s,t)=>t-S[s].t0;
+const win=(t,a,b)=>t<a||t>=b?0:Math.min(clamp((t-a)/.35),clamp((b-t)/.35));
+const br=(v,d=2)=>{let r=v.toFixed(d);if(/^-0[.,]?0*$/.test(r))r=r.slice(1);return r.replace(".",",").replace("-","−");};
+
+const art=document.getElementById("art").getContext("2d");
+function rr(c,x,y,w,h,r){c.beginPath();c.roundRect(x,y,w,h,r);}
+
+// ===== gráficos =====
+function G(x0,y0,x1,y1,u0,u1,v0,v1){return {x0,y0,x1,y1,u0,u1,v0,v1,X:u=>x0+(u-u0)/(u1-u0)*(x1-x0),Y:v=>y1-(v-v0)/(v1-v0)*(y1-y0)};}
+function axes(c,g,xl,yl,ticksX,ticksY,a){
+  c.save();c.globalAlpha=a;
+  c.strokeStyle="rgba(217,204,255,.14)";c.lineWidth=2;
+  ticksX.forEach(u=>{c.beginPath();c.moveTo(g.X(u),g.y0);c.lineTo(g.X(u),g.y1);c.stroke();});
+  ticksY.forEach(v=>{c.beginPath();c.moveTo(g.x0,g.Y(v));c.lineTo(g.x1,g.Y(v));c.stroke();});
+  c.strokeStyle="#d9ccff";c.lineWidth=5;c.lineCap="round";
+  const ox=g.X(Math.max(g.u0,0)),oy=g.Y(Math.max(g.v0,0));
+  c.beginPath();c.moveTo(g.x0,oy);c.lineTo(g.x1+20,oy);c.moveTo(ox,g.y1);c.lineTo(ox,g.y0-20);c.stroke();
+  c.fillStyle="#d9ccff";c.beginPath();c.moveTo(g.x1+40,oy);c.lineTo(g.x1+16,oy-12);c.lineTo(g.x1+16,oy+12);c.fill();
+  c.beginPath();c.moveTo(ox,g.y0-40);c.lineTo(ox-12,g.y0-16);c.lineTo(ox+12,g.y0-16);c.fill();
+  c.font="800 26px Nunito";c.textAlign="center";c.textBaseline="top";
+  ticksX.forEach(u=>{if(u!==0||g.u0<0)c.fillText(br(u,0),g.X(u),oy+12);});
+  c.textAlign="right";c.textBaseline="middle";
+  ticksY.forEach(v=>{if(v!==0)c.fillText(br(v,0),ox-14,g.Y(v));});
+  c.font="800 30px Nunito";c.fillStyle="#fff";c.textAlign="right";c.textBaseline="bottom";c.fillText(xl,g.x1+30,oy-14);
+  c.textAlign="left";c.textBaseline="middle";c.fillText(yl,ox+22,g.y0-30);
+  c.restore();
+}
+function dot(c,x,y,r,col,a=1,ring=false){c.save();c.globalAlpha=a;c.fillStyle=col;c.shadowColor=col;c.shadowBlur=24;c.beginPath();c.arc(x,y,r,0,7);c.fill();if(ring){c.shadowBlur=0;c.lineWidth=5;c.strokeStyle="#fff";c.stroke();}c.restore();}
+function label(c,x,y,txt,bg,fg="#140c33",a=1,size=30){c.save();c.globalAlpha=a;c.font=`800 ${size}px Nunito`;const w=c.measureText(txt).width+28;rr(c,x-w/2,y-size*.75,w,size*1.5,size*.75);c.fillStyle=bg;c.fill();c.fillStyle=fg;c.textAlign="center";c.textBaseline="middle";c.fillText(txt,x,y+1);c.restore();}
+function seg(c,x0,y0,x1,y1,col,w,a,dash){c.save();c.globalAlpha=a;c.strokeStyle=col;c.lineWidth=w;c.lineCap="round";if(dash)c.setLineDash(dash);c.beginPath();c.moveTo(x0,y0);c.lineTo(x1,y1);c.stroke();c.restore();}
+
+// ===== cena 1: o celular que recomenda =====
+function drawPhone(t,a){
+  const l=loc(0,t),c=art,p=ease(clamp((l-.6)/.6));if(!p)return;
+  c.save();c.globalAlpha=a*p;c.translate(0,(1-p)*80);
+  rr(c,610,210,420,780,56);c.fillStyle="#2a1d5c";c.fill();c.lineWidth=8;c.strokeStyle="#d9ccff";c.stroke();
+  rr(c,634,234,372,732,40);c.fillStyle="#1b1035";c.fill();
+  c.fillStyle="#d9ccff";c.font="800 28px Nunito";c.textAlign="center";c.textBaseline="middle";c.fillText("Recomendado para você",820,290);
+  const g=c.createLinearGradient(670,330,970,630);g.addColorStop(0,"#ff5e7a");g.addColorStop(.5,"#b366ff");g.addColorStop(1,"#2ee6a6");
+  rr(c,670,330,300,300,28);c.fillStyle=g;c.fill();
+  c.font="160px serif";c.fillStyle="#fff";c.fillText("🎵",820,485);
+  c.font="600 38px Fredoka";c.fillStyle="#fff";c.fillText("Baile da Fronteira",820,680);
+  c.font="800 26px Nunito";c.fillStyle="#a99bd6";c.fillText("nova para você",820,725);
+  // barra de progresso
+  const pr=clamp((l-1.4)/7);rr(c,680,790,280,10,5);c.fillStyle="rgba(217,204,255,.25)";c.fill();
+  rr(c,680,790,280*pr,10,5);c.fillStyle="#2ee6a6";c.fill();dot(c,680+280*pr,795,12,"#fff");
+  // coração pulsando
+  const hb=1+.12*Math.max(0,Math.sin(t*7));c.font=`${Math.round(64*hb)}px serif`;c.fillText("💜",820,880);
+  c.restore();
+  // pontos de interrogação flutuando
+  const q=clamp((l-2.4)/.5)*clamp((5.6-l)/.5);
+  if(q)for(let i=0;i<3;i++){c.save();c.globalAlpha=a*q;c.font="800 90px Fredoka";c.fillStyle=["#ffc21a","#ff5e7a","#2ee6a6"][i];c.textAlign="center";c.fillText("?",1120+i*110,330+Math.sin(t*3+i*2)*18);c.restore();}
+}
+
+// ===== cenas 2 a 4 e 6: o plano dos gostos =====
+const GA=G(660,225,1380,945,0,10,0,10); // 72 px por unidade nos dois eixos
+const TK=[0,1,2,3,4,5,6,7,8,9,10];
+const PEO=[{n:"Você",p:[3,4]},{n:"Ana",p:[6,8]},{n:"Leo",p:[4,2]},{n:"Rafa",p:[2,1]},{n:"Duda",p:[8,3]},{n:"Caio",p:[1,9]},{n:"Maria",p:[9,9]}];
+const ME=PEO[0],dist=(a,b)=>Math.hypot(a.p[0]-b.p[0],a.p[1]-b.p[1]);
+const px=q=>[GA.X(q.p[0]),GA.Y(q.p[1])];
+function person(c,q,a,s,col,lab,dx=0,dy=-48){
+  if(!a)return;const [x,y]=px(q);
+  dot(c,x,y,15*s,col,a,true);
+  if(lab)label(c,x+dx,y+dy,`${q.n} (${q.p[0]}, ${q.p[1]})`,col,"#140c33",a*clamp((s-.6)/.4),26);
+}
+function drawPlane(t,al){
+  const c=art,si=sceneAt(t);
+  axes(c,GA,"sertanejo e gauchesco","funk e pop",TK,TK.slice(1),al*(si===1?clamp((loc(1,t)-.4)/.5):1));
+  if(si===1){
+    const l=loc(1,t);
+    // destaque dos eixos enquanto a narração fala de cada estilo
+    const hx=clamp((l-2.8)/.4)*clamp((5-l)/.4),hy=clamp((l-5)/.4)*clamp((6.6-l)/.4);
+    if(hx)seg(c,GA.x0,GA.y1,GA.x1+20,GA.y1,"#ffc21a",10,al*hx);
+    if(hy)seg(c,GA.x0,GA.y1,GA.x0,GA.y0-20,"#ffc21a",10,al*hy);
+    const sv=back(clamp((l-6.6)/.4));
+    if(l>6.6){
+      const [x,y]=px(ME),pa=clamp((l-7)/.5);
+      seg(c,x,y,x,GA.y1,"#ff5e7a",4,al*pa,[10,10]);seg(c,x,y,GA.x0,y,"#ff5e7a",4,al*pa,[10,10]);
+      person(c,ME,al,sv,"#ff5e7a",true);
+    }
+    PEO.slice(1).forEach((q,i)=>{const s=back(clamp((l-8.8-i*.18)/.4));if(l>8.8+i*.18)person(c,q,al,s,"#ffc21a",true,q.n==="Caio"?44:0);});
+  }else if(si===2){
+    const l=loc(2,t),[ax,ay]=px(PEO[1]),[mx,my]=px(ME);
+    PEO.slice(2).forEach(q=>person(c,q,al*.18,1,"#ffc21a",false));
+    // quadrados dos catetos: 3 × 3 = 9 e 4 × 4 = 16 quadradinhos
+    const sq=clamp((l-8.4)/.6),u=72;
+    if(sq){
+      c.save();c.globalAlpha=al*sq;
+      [[mx,my,3,"rgba(19,181,214,"],[ax,ay,4,"rgba(179,102,255,"]].forEach(([x0,y0,n,col],k)=>{
+        for(let i=0;i<n;i++)for(let j=0;j<n;j++){const ap=clamp((l-8.4-k*1.4-(i*n+j)*.05)/.25);if(!ap)continue;
+          c.fillStyle=col+(.35*ap)+")";c.strokeStyle=col+"0.9)";c.lineWidth=2;c.fillRect(x0+i*u+3,y0+j*u+3,u-6,u-6);c.strokeRect(x0+i*u+3,y0+j*u+3,u-6,u-6);}
+      });
+      c.restore();
+      label(c,mx+1.5*u,my+1.5*u,"3² = 9","#13b5d6","#140c33",al*clamp((l-9.2)/.4),34);
+      label(c,ax+2*u,ay+2*u,"4² = 16","#b366ff","#fff",al*clamp((l-10.6)/.4),34);
+    }
+    // catetos e hipotenusa
+    const h=ease(clamp((l-4.6)/.8)),v=ease(clamp((l-6.4)/.8)),hy=ease(clamp((l-7.6)/.8));
+    if(h)seg(c,mx,my,lerp(mx,ax,h),my,"#13b5d6",8,al);
+    if(v)seg(c,ax,my,ax,lerp(my,ay,v),"#b366ff",8,al);
+    if(v>=1){c.save();c.globalAlpha=al;c.strokeStyle="#fff";c.lineWidth=4;c.strokeRect(ax-30,my-30,30,30);c.restore();}
+    if(hy)seg(c,mx,my,lerp(mx,ax,hy),lerp(my,ay,hy),"#ffc21a",8,al);
+    if(h>=1&&!sq)label(c,(mx+ax)/2,my+40,"6 − 3 = 3","#13b5d6","#140c33",al,28);
+    if(v>=1&&!sq)label(c,ax+100,(my+ay)/2,"8 − 4 = 4","#b366ff","#fff",al,28);
+    if(hy>=1)label(c,(mx+ax)/2-80,(my+ay)/2-30,l>12.4?"d = 5":"d = ?","#ffc21a","#140c33",al,34);
+    person(c,ME,al,1,"#ff5e7a",true,-112,0);
+    person(c,PEO[1],al,1,"#ffc21a",true);
+  }else if(si===3){
+    const l=loc(3,t),[mx,my]=px(ME);
+    // linhas até cada pessoa, na ordem em que a IA calcula
+    PEO.slice(1).forEach((q,i)=>{const a=clamp((l-1.8-i*.3)/.3)*(l<5.8||q.n==="Leo"?1:.35);if(a){const [x,y]=px(q);seg(c,mx,my,x,y,q.n==="Leo"&&l>5.8?"#2ee6a6":"rgba(217,204,255,.8)",q.n==="Leo"&&l>5.8?6:3,al*a,[8,10]);}});
+    // círculo que cresce até encostar no vizinho mais próximo (raio √5)
+    const r=Math.sqrt(5)*ease(clamp((l-3.8)/2))*72;
+    if(r>0){c.save();c.globalAlpha=al;c.beginPath();c.arc(mx,my,r,0,7);c.fillStyle="rgba(46,230,166,.12)";c.fill();c.lineWidth=5;c.strokeStyle="#2ee6a6";c.setLineDash([14,10]);c.lineDashOffset=-t*40;c.stroke();c.restore();}
+    PEO.slice(1).forEach(q=>{const found=q.n==="Leo"&&l>5.8;person(c,q,al,found?1+.15*Math.sin(t*8):1,found?"#2ee6a6":"#ffc21a",true,q.n==="Caio"?44:0,q.n==="Leo"?48:-48);});
+    person(c,ME,al,1,"#ff5e7a",true,-112,0);
+    if(l>6)label(c,mx+70,my+150,"r = √5 ≈ 2,24","#2ee6a6","#140c33",al*clamp((l-6)/.4),28);
+  }
+}
+// cena 4: a bolha
+function drawBubble(t,al){
+  const c=art,l=loc(5,t),[mx,my]=px(ME);
+  axes(c,GA,"sertanejo e gauchesco","funk e pop",TK,TK.slice(1),al);
+  const open=clamp((l-5.4)/.8),R=3.3*72*ease(clamp((l-1.2)/1.4))*(1+.03*Math.sin(t*3));
+  if(R>0){
+    c.save();c.globalAlpha=al*(1-.75*open);
+    const g=c.createRadialGradient(mx-R*.3,my-R*.3,R*.1,mx,my,R);g.addColorStop(0,"rgba(255,255,255,.04)");g.addColorStop(.8,"rgba(19,181,214,.14)");g.addColorStop(1,"rgba(179,102,255,.35)");
+    c.beginPath();c.arc(mx,my,R,0,7);c.fillStyle=g;c.fill();c.lineWidth=6;c.strokeStyle="rgba(217,240,255,.85)";if(open)c.setLineDash([20,24*open+4]);c.stroke();
+    c.setLineDash([]);c.lineWidth=10;c.strokeStyle="rgba(255,255,255,.6)";c.beginPath();c.arc(mx,my,R*.82,3.6,4.3);c.stroke();
+    c.restore();
+  }
+  // recomendações de dentro da bolha (parecidas) e, depois, de fora (novidade)
+  const flow=(q,col,t0)=>{const a=clamp((l-t0)/.4);if(!a)return;const [x,y]=px(q);
+    c.save();c.globalAlpha=al*a;c.strokeStyle=col;c.lineWidth=5;c.setLineDash([4,14]);c.lineDashOffset=t*60;c.lineCap="round";c.beginPath();c.moveTo(x,y);c.lineTo(mx,my);c.stroke();c.restore();
+    const k=((l-t0)*.7)%1;dot(c,lerp(x,mx,k),lerp(y,my,k),9,col,al*a);};
+  flow(PEO[2],"#2ee6a6",1.8);flow(PEO[3],"#2ee6a6",2.2);
+  ["Ana","Duda","Caio","Maria"].forEach((n,i)=>flow(PEO.find(q=>q.n===n),"#ffc21a",5.6+i*.25));
+  PEO.slice(1).forEach(q=>person(c,q,al,1,"#ffc21a",true,q.n==="Caio"?44:0,q.n==="Leo"?48:-48));
+  person(c,ME,al,1,"#ff5e7a",true,-112,0);
+}
+
+// ===== cena 5: três dimensões =====
+function p3(x,y,z,th){const xr=x*Math.cos(th)-z*Math.sin(th),zr=x*Math.sin(th)+z*Math.cos(th);return [1040+40*xr,720-40*y*.9+40*zr*.35];}
+const VEC=[3,4,1,...Array.from({length:60},(_,i)=>(i*7+3)%10)];
+function draw3D(t,al){
+  const c=art,l=loc(4,t),th=.95-.4*ease(clamp(l/S[4].d)),a=al*clamp((l-.4)/.5);
+  if(!a)return;
+  // chão quadriculado (sertanejo × rock)
+  c.save();c.globalAlpha=a*.5;c.strokeStyle="rgba(217,204,255,.3)";c.lineWidth=2;
+  for(let k=0;k<=10;k+=2){let [x0,y0]=p3(k,0,0,th),[x1,y1]=p3(k,0,10,th);c.beginPath();c.moveTo(x0,y0);c.lineTo(x1,y1);c.stroke();[x0,y0]=p3(0,0,k,th);[x1,y1]=p3(10,0,k,th);c.beginPath();c.moveTo(x0,y0);c.lineTo(x1,y1);c.stroke();}
+  c.restore();
+  const o=p3(0,0,0,th);
+  [[[10.5,0,0],"sertanejo"],[[0,10.5,0],"funk"],[[0,0,10.5],"rock"]].forEach(([v,n],i)=>{
+    const e=p3(...v,th),aa=i===2?a*clamp((l-1.0)/.5):a;seg(c,o[0],o[1],e[0],e[1],i===2?"#13b5d6":"#d9ccff",5,aa);
+    c.save();c.globalAlpha=aa;c.font="800 30px Nunito";c.fillStyle=i===2?"#13b5d6":"#fff";c.textAlign="center";c.textBaseline="middle";c.fillText(n,e[0]+(i===1?0:i===0?40:-30),e[1]+(i===1?-26:26));c.restore();
+  });
+  const pts=[[[3,4,1],"Você (3, 4, 1)","#ff5e7a"],[[4,2,3],"Leo (4, 2, 3)","#2ee6a6"]],pa=clamp((l-1.6)/.5);
+  if(pa){
+    const [A,B]=pts.map(([v])=>p3(...v,th));
+    pts.forEach(([v,n,col])=>{const s=p3(...v,th),f=p3(v[0],0,v[2],th);seg(c,s[0],s[1],f[0],f[1],col,3,a*pa,[6,8]);dot(c,f[0],f[1],6,col,a*pa);});
+    const la=clamp((l-6.2)/.6);if(la)seg(c,A[0],A[1],lerp(A[0],B[0],la),lerp(A[1],B[1],la),"#ffc21a",7,a);
+    pts.forEach(([v,n,col],i)=>{const s=p3(...v,th);dot(c,s[0],s[1],16,col,a*pa,true);label(c,s[0]+(i?150:-150),s[1]+(i?10:-30),n,col,"#140c33",a*pa,26);});
+    if(l>9.6)label(c,(A[0]+B[0])/2+90,(A[1]+B[1])/2-40,"d = 3","#ffc21a","#140c33",a*clamp((l-9.6)/.4),32);
+  }
+  // o vetor com centenas de números
+  const va=al*clamp((l-2.8)/.5);
+  if(va){
+    c.save();c.globalAlpha=va;rr(c,640,960,1240,76,38);c.fillStyle="rgba(255,255,255,.08)";c.fill();c.lineWidth=3;c.strokeStyle="rgba(217,204,255,.35)";c.stroke();
+    c.font="800 34px Nunito";c.textBaseline="middle";c.textAlign="left";c.fillStyle="#ff5e7a";c.fillText("você = (",670,999);
+    c.save();rr(c,800,962,830,72,0);c.clip();
+    const off=Math.max(0,l-4)*120;let x=810-off;
+    VEC.forEach((v,i)=>{const s=v+", ";c.fillStyle=i<3?"#fff":"#d9ccff";c.fillText(s,x,999);x+=c.measureText(s).width;});
+    c.restore();
+    c.fillStyle="#d9ccff";c.fillText("…)",1640,999);
+    label(c,1790,999,"300 números","#ffc21a","#140c33",1,24);
+    c.restore();
+  }
+}
+
+// fundo: papel quadriculado com pontos de rede neural
+const bg=document.getElementById("bgc").getContext("2d");
+const P=[...Array(40)].map((_,i)=>({x:(i*397)%1920,y:(i*211+90)%1080,a:i*1.7,r:3+(i%4)}));
+function drawBg(t){
+  bg.clearRect(0,0,1920,1080);
+  bg.strokeStyle="rgba(179,102,255,.07)";bg.lineWidth=2;bg.beginPath();
+  for(let x=0;x<=1920;x+=60){bg.moveTo(x,0);bg.lineTo(x,1080);}for(let y=0;y<=1080;y+=60){bg.moveTo(0,y);bg.lineTo(1920,y);}bg.stroke();
+  const pts=P.map(p=>({x:p.x+Math.sin(t*.35+p.a)*40,y:p.y+Math.cos(t*.3+p.a)*30,r:p.r}));
+  bg.lineWidth=2;
+  for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){
+    const d=Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y);
+    if(d<240){bg.strokeStyle=`rgba(179,102,255,${.16*(1-d/240)})`;bg.beginPath();bg.moveTo(pts[i].x,pts[i].y);bg.lineTo(pts[j].x,pts[j].y);bg.stroke();}
+  }
+  pts.forEach((p,i)=>{bg.fillStyle=i%3?"rgba(46,230,166,.4)":"rgba(255,94,122,.38)";bg.beginPath();bg.arc(p.x,p.y,p.r,0,7);bg.fill();});
+}
+
+// confete (cena final)
+const cf=document.getElementById("confetti").getContext("2d");
+const COLORS=["#ff5e7a","#b366ff","#2ee6a6","#ffc21a","#13b5d6","#a3e635"];
+const T_VEM=10.0;
+function drawConfetti(t){
+  cf.clearRect(0,0,1920,1080);
+  const t0=S[LAST].t0+T_VEM;if(t<t0)return;
+  const k=t-t0;
+  for(let i=0;i<160;i++){
+    const x0=(i*523)%1920,vy=280+(i*37)%260,sway=Math.sin(k*3+i)*40;
+    const y=-60+(k-(i%20)*.12)*vy;if(y<-60||y>1120)continue;
+    cf.save();cf.translate(x0+sway,y);cf.rotate(k*4+i);cf.fillStyle=COLORS[i%6];cf.fillRect(-10,-6,20,12);cf.restore();
+  }
+}
+
+const $=id=>document.getElementById(id);
+const bot=$("bot"),armL=$("armL"),armR=$("armR"),eyes=$("eyes"),mouth=$("mouth"),antball=$("antball");
+const els=[...document.querySelectorAll(".sc")].map(sc=>({sc,s:+sc.dataset.s,items:[...sc.querySelectorAll(".el")]}));
+const RK=[0,1,2,3,4,5].map(i=>$("rk"+i));
+
+function renderAt(t){
+  drawBg(t);
+  const si=sceneAt(t);
+  els.forEach(({sc,s,items})=>{
+    const sd=S[s],lc=t-sd.t0;
+    let o=0;
+    if(lc>=0&&lc<sd.d){o=Math.min(clamp(lc/.35),s===LAST?1:clamp((sd.d-lc)/.35));}
+    sc.style.opacity=o;
+    if(!o)return;
+    items.forEach(el=>{
+      const p=clamp((lc-(+el.dataset.in||0))/.55);
+      const fx=el.dataset.fx;let tr="",op=p>0?1:0;
+      if(fx==="pop"){const b=back(p);tr=`scale(${.2+.8*b})`;op=clamp(p*3);}
+      else if(fx==="zoom"){const b=back(p);tr=`scale(${1.6-.6*b})`;op=clamp(p*2.5);}
+      else if(fx==="up"){tr=`translateY(${(1-ease(p))*60}px)`;op=ease(p);}
+      else if(fx==="left"){tr=`translateX(${(1-ease(p))*-140}px)`;op=ease(p);}
+      else {op=ease(p);}
+      el.style.opacity=op;el.style.transform=tr;
+    });
+  });
+  art.clearRect(0,0,1920,1080);
+  const a0=win(t,0,S[1].t0);if(a0)drawPhone(t,a0);
+  const a1=win(t,S[1].t0,S[4].t0);if(a1)drawPlane(t,a1);
+  if(si===3){const l=loc(3,t);RK.forEach((r,i)=>{r.style.opacity=clamp((l-2.1-i*.3)/.3);r.classList.toggle("on",i===0&&l>5.9);});}
+  const a4=win(t,S[4].t0,S[5].t0);if(a4)draw3D(t,a4);
+  const a5=win(t,S[5].t0,S[6].t0);if(a5)drawBubble(t,a5);
+  // robô
+  const [x,y,sc]=lerpKF(BOT,t);
+  const fin=si===LAST&&loc(LAST,t)>T_VEM;
+  const bob=Math.sin(t*3.2)*10,jump=fin?-Math.abs(Math.sin(t*5))*60:0;
+  bot.style.transform=`translate(${x}px,${y-470+bob+jump}px) scale(${sc})`;
+  const wave=(t>.8&&t<3.4)||fin||(si===3&&loc(3,t)>5.8&&loc(3,t)<7.8)||(si===2&&loc(2,t)>12.4&&loc(2,t)<14.2);
+  armR.style.transform=`rotate(${wave?-35+Math.sin(t*10)*28:Math.sin(t*2)*6}deg)`;
+  const oops=(si===0&&loc(0,t)>4.4&&loc(0,t)<5.8)||(si===5&&loc(5,t)>3.4&&loc(5,t)<5.4);
+  armL.style.transform=`rotate(${oops?24:Math.sin(t*2+1)*6}deg)`;
+  const blink=(t%3.1)<.12;eyes.style.transform=`scaleY(${blink?.1:1})`;
+  const sp=S[si],lt=t-sp.t0,talk=lt>sp.n&&lt<sp.n+sp.f&&Math.floor(t*8)%2===0;
+  mouth.setAttribute("d",oops?"M172 200 Q190 180 208 200 Q190 220 172 200":talk?"M162 190 Q190 226 218 190 Q190 200 162 190":"M160 192 Q190 214 220 192");
+  antball.setAttribute("fill",(Math.floor(t*2)%2)?"#2ee6a6":"#ffc21a");
+  drawConfetti(t);
+}
+window.renderAt=renderAt;window.TOTAL=TOTAL;window.S=S;
+
+// roteiro em tabela
+const fmt=s=>{s=Math.round(s);return Math.floor(s/60)+":"+String(s%60).padStart(2,"0");};
+S.forEach((s,i)=>{const tr=document.createElement("tr");tr.innerHTML=`<td>${fmt(s.t0)} a ${fmt(s.t0+s.d)}</td><td>${i+1}. ${s.nome}</td><td>${s.tela}</td><td class="nar">${s.txt}</td>`;$("rot").appendChild(tr);});
+
+// modo de exportação: #render deixa só o palco, em tamanho real
+if(location.hash==="#render"){
+  document.body.className="render";
+  document.body.replaceChildren($("stage"));
+}
+document.fonts.ready.then(()=>renderAt(0));
+</script>
+</body>
+</html>

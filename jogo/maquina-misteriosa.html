@@ -166,7 +166,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center;color:inherit}
   <div id="stage">
     <canvas id="c" aria-label="Cena 3D da máquina misteriosa"></canvas>
     <div id="hud">
-      <a class="pill back" href="../files/feito-com-ia-v1.html#jogos" aria-label="Sair do jogo e voltar aos jogos do BIA">← Voltar</a>
+      <a class="pill back" href="../feito-com-ia/index.html#jogos" aria-label="Sair do jogo e voltar aos jogos do BIA">← Voltar</a>
       <span class="pill logo">Máquina Misteriosa</span>
       <span class="pill score"><span class="you">Você <b id="sc-you">0</b></span> × <span class="bot"><b id="sc-bot">0</b> Robô</span></span>
       <span class="pill" id="round-pill">Rodada 1 de 3</span>
@@ -781,7 +781,7 @@ function showStart() {
       <button type="button" data-level="aprendiz" aria-pressed="${G.level === 'aprendiz'}"><b>Robô aprendiz</b><span>Escolhe os testes ao acaso.</span></button>
       <button type="button" data-level="esperto" aria-pressed="${G.level === 'esperto'}"><b>Robô esperto</b><span>Planeja cada teste para descartar o máximo de regras.</span></button>
     </div>
-    <div class="actions"><a class="btn" href="../files/feito-com-ia-v1.html#jogos">Voltar aos jogos</a><button class="btn main" type="button" data-act="start" data-focus>Começar a jogar</button></div>`);
+    <div class="actions"><a class="btn" href="../feito-com-ia/index.html#jogos">Voltar aos jogos</a><button class="btn main" type="button" data-act="start" data-focus>Começar a jogar</button></div>`);
 }
 function showRoundEnd(winner) {
   const r = ROUNDS[G.round], last = G.round === ROUNDS.length - 1;
@@ -811,7 +811,7 @@ function showFinal() {
     <div class="final-score"><div class="you"><span>você</span><strong>${y}</strong></div><div class="bot"><span>robô</span><strong>${b}</strong></div></div>
     <p>Você acabou de praticar duas coisas importantes da computação. Fez <b>engenharia reversa</b>: tentou descobrir como algo funciona só olhando o que entra e o que sai. E viu como uma <b>IA</b> pensa: ela guarda todas as possibilidades e descarta as que não combinam com as pistas.</p>
     <div class="bia-box"><b>Gostou de pensar assim?</b><span>No <b>BIA</b>, o Bacharelado em Inteligência Artificial da UNIPAMPA, em Alegrete, você aprende a criar IAs que raciocinam desse jeito e a entender como elas tomam decisões.</span></div>
-    <div class="actions"><a class="btn" href="../files/feito-com-ia-v1.html#jogos">Voltar aos jogos</a><button class="btn" type="button" data-act="menu">Trocar de robô</button><button class="btn main" type="button" data-act="again" data-focus>Jogar de novo</button></div>`);
+    <div class="actions"><a class="btn" href="../feito-com-ia/index.html#jogos">Voltar aos jogos</a><button class="btn" type="button" data-act="menu">Trocar de robô</button><button class="btn main" type="button" data-act="again" data-focus>Jogar de novo</button></div>`);
 }
 ov.addEventListener('click', e => {
   const lv = e.target.closest('[data-level]');

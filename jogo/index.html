@@ -166,7 +166,7 @@ details code{font-family:var(--mono);color:var(--fg)}
 
 <div id="app">
   <header id="hud">
-    <a class="iconbtn back" href="../files/feito-com-ia-v1.html#jogos" aria-label="Sair do jogo e voltar aos jogos do BIA">← voltar</a>
+    <a class="iconbtn back" href="../feito-com-ia/index.html#jogos" aria-label="Sair do jogo e voltar aos jogos do BIA">← voltar</a>
     <div class="brand">caixa-preta<small>engenharia reversa</small></div>
     <div class="score" aria-label="Placar">
       <span class="h">VOCÊ</span><b class="h" id="sc-h">0</b><span class="vs">×</span><b class="a" id="sc-a">0</b><span class="a">IA</span>
@@ -1209,7 +1209,7 @@ function showStart() {
     <div class="seg" role="group" aria-label="Dificuldade">
       ${Object.entries(DIFF).map(([k, d]) => `<button type="button" data-diff="${k}" aria-pressed="${k === G.diff}"><b>${d.label}</b><span>${d.desc}</span></button>`).join('')}
     </div>
-    <div class="actions"><a class="btn" href="../files/feito-com-ia-v1.html#jogos">Voltar aos jogos</a><button class="btn primary" type="button" data-action="begin" data-focus>Começar partida</button></div>`);
+    <div class="actions"><a class="btn" href="../feito-com-ia/index.html#jogos">Voltar aos jogos</a><button class="btn primary" type="button" data-action="begin" data-focus>Começar partida</button></div>`);
 }
 function showRoundIntro() {
   const cfg = G.cfg;
@@ -1244,7 +1244,7 @@ function showFinal() {
     <p>${hw ? 'A IA examina milhões de hipóteses por sondagem. Você venceu reconhecendo padrões que ela só elimina por força bruta.' : 'A IA elimina hipóteses em escala que nenhum humano acompanha. Tente começar por 0x00, 0x01 e 0x80: cada operação deixa uma assinatura nesses valores.'}</p>
     <div class="hist">${G.history.map(r => `<div><span class="${r.winner === 'human' ? 'w-h' : 'w-a'}">R${r.round} ${r.winner === 'human' ? 'VOCÊ' : 'IA  '}</span> · ${fmtTime(r.time)} · ${r.secret}</div>`).join('')}</div>
     <div class="stats"><div class="stat h"><span class="k">você</span><span class="v">${G.score.h}</span></div><div class="stat a"><span class="k">ia</span><span class="v">${G.score.a}</span></div></div>
-    <div class="actions"><a class="btn" href="../files/feito-com-ia-v1.html#jogos">Voltar aos jogos</a><button class="btn" type="button" data-action="menu">Trocar dificuldade</button><button class="btn primary" type="button" data-action="begin" data-focus>Jogar de novo</button></div>`);
+    <div class="actions"><a class="btn" href="../feito-com-ia/index.html#jogos">Voltar aos jogos</a><button class="btn" type="button" data-action="menu">Trocar dificuldade</button><button class="btn primary" type="button" data-action="begin" data-focus>Jogar de novo</button></div>`);
 }
 ov.addEventListener('click', e => {
   const d = e.target.closest('[data-diff]');

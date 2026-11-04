@@ -84,7 +84,7 @@
       <div class="wrap">
         <p class="phero__crumb"><a href="../index.html">BIA</a> / Feito com IA</p>
         <h1 class="phero__title reveal">Feito com <em>IA</em></h1>
-        <p class="phero__lead reveal">Músicas e vídeos criados com inteligência artificial para o Bacharelado em Inteligência Artificial (BIA) da UNIPAMPA. São exemplos do que dá para fazer hoje com modelos abertos, uma GPU e um bom roteiro: compor em vários estilos, gerar cenas de vídeo, narrar e legendar. <strong>No BIA, você aprende como esses modelos funcionam por dentro e como usá-los com responsabilidade.</strong></p>
+        <p class="phero__lead reveal">Músicas e vídeos criados com inteligência artificial para o Bacharelado em Inteligência Artificial (BIA) da UNIPAMPA. São exemplos do que dá para fazer hoje com modelos abertos, uma GPU e um bom roteiro: compor em vários estilos, gerar cenas de vídeo, narrar, legendar e até programar um jogo. <strong>No BIA, você aprende como esses modelos funcionam por dentro e como usá-los com responsabilidade.</strong></p>
         <div class="phero__actions reveal">
           <a class="btn btn--solid" href="#musicas">Ouvir as músicas</a>
           <a class="btn btn--ghost" href="#video">Assistir aos vídeos</a>
@@ -136,16 +136,16 @@
     <section class="section section--tight" id="churrasco">
       <div class="wrap">
         <header class="section__head">
-          <p class="kicker">Vídeo · 1 min 25 s</p>
+          <p class="kicker">Vídeo · 1 min 30 s</p>
           <h2 class="section__title reveal">Churrasco de fogo de chão</h2>
           <p class="section__lead reveal">O assado mais antigo do Rio Grande do Sul, passo a passo: um gauchinho e uma prenda pilchados acendem o fogo direto no chão, preparam a costela inteira, cravam os espetos inclinados ao calor e cortam a carne no ponto, com a roda de chimarrão enquanto o assado se faz. Tudo, da paisagem do pampa ao som ambiente, foi gerado por IA. <strong>Nenhuma câmera foi usada.</strong></p>
         </header>
         <div class="player reveal">
-          <video controls preload="metadata" poster="feito-com-ia-v1/videos/video-churrasco-fogo-de-chao.jpg">
-            <source src="feito-com-ia-v1/videos/video-churrasco-fogo-de-chao.mp4" type="video/mp4" />
+          <video controls preload="metadata" poster="feito-com-ia-v1/videos/video-churrasco-fogo-de-chao-v2.jpg">
+            <source src="feito-com-ia-v1/videos/video-churrasco-fogo-de-chao-v2.mp4" type="video/mp4" />
           </video>
           <div class="player__actions">
-            <a class="btn btn--solid" href="feito-com-ia-v1/videos/video-churrasco-fogo-de-chao.mp4" download>Baixar MP4 (720p, 38 MB)</a>
+            <a class="btn btn--solid" href="feito-com-ia-v1/videos/video-churrasco-fogo-de-chao-v2.mp4" download>Baixar MP4 (720p, 44 MB)</a>
           </div>
         </div>
         <div class="grid grid--4 how">
@@ -153,6 +153,26 @@
           <article class="tile tile--line reveal" style="--c:var(--fm)"><span class="tile__ico" aria-hidden="true">🎵</span><h3>Trilha</h3><p>Música instrumental composta pelo ACE-Step 1.5, o mesmo gerador das músicas acima.</p></article>
           <article class="tile tile--line reveal" style="--c:var(--ia)"><span class="tile__ico" aria-hidden="true">✍️</span><h3>Roteiro e montagem</h3><p>Passos, textos na tela e edição feitos com o Claude, revisados por gente.</p></article>
           <article class="tile tile--line reveal" style="--c:var(--cp)"><span class="tile__ico" aria-hidden="true">💻</span><h3>Feito em casa</h3><p>Tudo gerado localmente, numa única NVIDIA GB10, sem depender de serviços na nuvem.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== JOGO: CAIXA-PRETA ===================== -->
+    <section class="section section--tight section--alt" id="jogo">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker">Jogo · 3D no navegador</p>
+          <h2 class="section__title reveal">Caixa-Preta: você contra a IA</h2>
+          <p class="section__lead reveal">Sobre a bancada há dois circuitos lacrados idênticos, e cada um aplica uma transformação secreta aos 8 bits de entrada. Você e uma IA sondam suas cópias, observam as saídas e tentam reconstruir o circuito. Quem enviar a solução correta primeiro vence a rodada. A partida é melhor de 5, e cada rodada esconde um circuito mais difícil. A IA testa milhões de hipóteses por força bruta; você tem intuição e padrões de bits. <strong>Será que dá para vencer a máquina?</strong></p>
+        </header>
+        <div class="player__actions reveal">
+          <a class="btn btn--solid" href="../jogo/index.html">Jogar Caixa-Preta</a>
+        </div>
+        <div class="grid grid--4 how">
+          <article class="tile tile--line reveal" style="--c:var(--pi)"><span class="tile__ico" aria-hidden="true">🔌</span><h3>Sondar</h3><p>Escolha um byte de entrada, envie ao circuito e compare a saída com o que você esperava.</p></article>
+          <article class="tile tile--line reveal" style="--c:var(--fm)"><span class="tile__ico" aria-hidden="true">🧩</span><h3>Reconstruir</h3><p>Monte a sequência de operações sobre bits que explica todas as saídas observadas.</p></article>
+          <article class="tile tile--line reveal" style="--c:var(--ia)"><span class="tile__ico" aria-hidden="true">🤖</span><h3>A rival</h3><p>A IA elimina hipóteses a cada sondagem e mostra no terminal quantas ainda restam.</p></article>
+          <article class="tile tile--line reveal" style="--c:var(--cp)"><span class="tile__ico" aria-hidden="true">✍️</span><h3>Feito com IA</h3><p>Jogo inteiro, da cena 3D à lógica da adversária, programado com IA e revisado por gente.</p></article>
         </div>
       </div>
     </section>
@@ -168,7 +188,7 @@
             <a class="btn btn--ghost" href="../matriz.html">Ver a matriz do curso</a>
           </div>
         </div>
-        <p class="note">Músicas e vídeos são conteúdos gerados por IA, sem gravação de músicos, atores ou cantores reais, e servem como demonstração e divulgação do curso. "Feito com IA", versão 1, novembro de 2026.</p>
+        <p class="note">Músicas e vídeos são conteúdos gerados por IA, sem gravação de músicos, atores ou cantores reais, e servem como demonstração e divulgação do curso. O jogo Caixa-Preta também foi programado com IA. "Feito com IA", versão 1, novembro de 2026.</p>
       </div>
     </section>
   </main>

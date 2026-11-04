@@ -109,8 +109,8 @@
         <p class="phero__lead reveal">Jogos, músicas e vídeos criados com inteligência artificial para o Bacharelado em Inteligência Artificial (BIA) da UNIPAMPA. São exemplos do que dá para fazer hoje com modelos abertos, uma GPU e um bom roteiro: programar jogos que rodam direto no navegador, compor em vários estilos, gerar cenas de vídeo, narrar e legendar. <strong>No BIA, você aprende como esses modelos funcionam por dentro e como usá-los com responsabilidade.</strong></p>
         <div class="phero__actions reveal">
           <a class="btn btn--solid" href="#jogos">Jogar os jogos</a>
+          <a class="btn btn--ghost" href="#video">Assistir aos vídeos</a>
           <a class="btn btn--ghost" href="#musicas">Ouvir as músicas</a>
-          <a class="btn btn--ghost" href="#pias">Assistir aos vídeos</a>
         </div>
         <nav class="games reveal" id="jogos-ia" aria-label="Jogos feitos com IA">
           <p class="games__t">Jogos feitos com IA, direto no navegador</p>
@@ -198,8 +198,36 @@
       </div>
     </section>
 
+    <!-- ===================== VÍDEO ===================== -->
+    <section class="section section--tight section--alt" id="video">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker">Vídeo · 4 min 2 s</p>
+          <h2 class="section__title reveal">Engenharia reversa com IA</h2>
+          <p class="section__lead reveal">A Bia e o Bit mostram, passo a passo, como um pesquisador e o Claude descobriram o funcionamento de uma máscara de dormir inteligente: Bluetooth, descompilação do app, análise do binário e validação. No fim, uma receita de engenharia reversa e um desafio para a turma. As legendas já aparecem na imagem; os arquivos VTT e SRT servem para quem quiser usá-las à parte.</p>
+        </header>
+        <div class="player reveal">
+          <video controls preload="metadata" poster="feito-com-ia-v1/videos/video-engenharia-reversa-ia-v2.jpg">
+            <source src="feito-com-ia-v1/videos/video-engenharia-reversa-ia-v2.mp4" type="video/mp4" />
+            <track kind="captions" src="feito-com-ia-v1/videos/video-engenharia-reversa-ia-v2.vtt" srclang="pt-BR" label="Português" />
+          </video>
+          <div class="player__actions">
+            <a class="btn btn--solid" href="feito-com-ia-v1/videos/video-engenharia-reversa-ia-v2.mp4" download>Baixar MP4 (1080p, 48 MB)</a>
+            <a class="btn btn--ghost" href="feito-com-ia-v1/videos/video-engenharia-reversa-ia-v2.vtt" download>Legendas (VTT)</a>
+            <a class="btn btn--ghost" href="feito-com-ia-v1/videos/video-engenharia-reversa-ia-v2.srt" download>Legendas (SRT)</a>
+          </div>
+        </div>
+        <div class="grid grid--4 how">
+          <article class="tile tile--line reveal" style="--c:var(--pi)"><span class="tile__ico" aria-hidden="true">🎥</span><h3>Cenas</h3><p>Planos de vídeo gerados pelo modelo aberto LTX-2.3, a partir de descrições em texto e quadros de referência.</p></article>
+          <article class="tile tile--line reveal" style="--c:var(--fm)"><span class="tile__ico" aria-hidden="true">🎵</span><h3>Trilha</h3><p>Música instrumental composta pelo ACE-Step 1.5, o mesmo gerador das músicas abaixo.</p></article>
+          <article class="tile tile--line reveal" style="--c:var(--ia)"><span class="tile__ico" aria-hidden="true">🗣️</span><h3>Vozes e legendas</h3><p>Narração com vozes sintéticas e legendas sincronizadas com a fala.</p></article>
+          <article class="tile tile--line reveal" style="--c:var(--cp)"><span class="tile__ico" aria-hidden="true">🧩</span><h3>Montagem</h3><p>Roteiro, gráficos e edição automatizados com scripts em Python, revisados por gente.</p></article>
+        </div>
+      </div>
+    </section>
+
     <!-- ===================== MÚSICAS ===================== -->
-    <section class="section section--tight section--alt" id="musicas">
+    <section class="section section--tight" id="musicas">
       <div class="wrap">
         <header class="section__head">
           <p class="kicker">Música · 18 faixas</p>
@@ -211,7 +239,7 @@
     </section>
 
     <!-- ===================== VÍDEO: FOGO DE CHÃO DOS PIÁS ===================== -->
-    <section class="section section--tight" id="pias">
+    <section class="section section--tight section--alt" id="pias">
       <div class="wrap">
         <header class="section__head">
           <p class="kicker">Vídeo · 55 s</p>
@@ -236,7 +264,7 @@
     </section>
 
     <!-- ===================== VÍDEO: CHURRASCO DOS PIÁS (CLAUDE) ===================== -->
-    <section class="section section--tight section--alt" id="pias-claude">
+    <section class="section section--tight" id="pias-claude">
       <div class="wrap">
         <header class="section__head">
           <p class="kicker">Vídeo · 30 s</p>
@@ -254,40 +282,12 @@
       </div>
     </section>
 
-    <!-- ===================== VÍDEO ===================== -->
-    <section class="section section--tight" id="video">
-      <div class="wrap">
-        <header class="section__head">
-          <p class="kicker">Vídeo · 4 min 2 s</p>
-          <h2 class="section__title reveal">Engenharia reversa com IA</h2>
-          <p class="section__lead reveal">A Bia e o Bit mostram, passo a passo, como um pesquisador e o Claude descobriram o funcionamento de uma máscara de dormir inteligente: Bluetooth, descompilação do app, análise do binário e validação. No fim, uma receita de engenharia reversa e um desafio para a turma. As legendas já aparecem na imagem; os arquivos VTT e SRT servem para quem quiser usá-las à parte.</p>
-        </header>
-        <div class="player reveal">
-          <video controls preload="metadata" poster="feito-com-ia-v1/videos/video-engenharia-reversa-ia-v2.jpg">
-            <source src="feito-com-ia-v1/videos/video-engenharia-reversa-ia-v2.mp4" type="video/mp4" />
-            <track kind="captions" src="feito-com-ia-v1/videos/video-engenharia-reversa-ia-v2.vtt" srclang="pt-BR" label="Português" />
-          </video>
-          <div class="player__actions">
-            <a class="btn btn--solid" href="feito-com-ia-v1/videos/video-engenharia-reversa-ia-v2.mp4" download>Baixar MP4 (1080p, 48 MB)</a>
-            <a class="btn btn--ghost" href="feito-com-ia-v1/videos/video-engenharia-reversa-ia-v2.vtt" download>Legendas (VTT)</a>
-            <a class="btn btn--ghost" href="feito-com-ia-v1/videos/video-engenharia-reversa-ia-v2.srt" download>Legendas (SRT)</a>
-          </div>
-        </div>
-        <div class="grid grid--4 how">
-          <article class="tile tile--line reveal" style="--c:var(--pi)"><span class="tile__ico" aria-hidden="true">🎥</span><h3>Cenas</h3><p>Planos de vídeo gerados pelo modelo aberto LTX-2.3, a partir de descrições em texto e quadros de referência.</p></article>
-          <article class="tile tile--line reveal" style="--c:var(--fm)"><span class="tile__ico" aria-hidden="true">🎵</span><h3>Trilha</h3><p>Música instrumental composta pelo ACE-Step 1.5, o mesmo gerador das músicas acima.</p></article>
-          <article class="tile tile--line reveal" style="--c:var(--ia)"><span class="tile__ico" aria-hidden="true">🗣️</span><h3>Vozes e legendas</h3><p>Narração com vozes sintéticas e legendas sincronizadas com a fala.</p></article>
-          <article class="tile tile--line reveal" style="--c:var(--cp)"><span class="tile__ico" aria-hidden="true">🧩</span><h3>Montagem</h3><p>Roteiro, gráficos e edição automatizados com scripts em Python, revisados por gente.</p></article>
-        </div>
-      </div>
-    </section>
-
     <!-- ===================== VÍDEO: CHURRASCO ===================== -->
     <section class="section section--tight section--alt" id="churrasco">
       <div class="wrap">
         <header class="section__head">
           <p class="kicker">Vídeo · 1 min 30 s</p>
-          <h2 class="section__title reveal">Churrasco de fogo de chão</h2>
+          <h2 class="section__title reveal">Churrasco de fogo de chão, versão realista</h2>
           <p class="section__lead reveal">O assado mais antigo do Rio Grande do Sul, passo a passo: um gauchinho e uma prenda pilchados acendem o fogo direto no chão, preparam a costela inteira, cravam os espetos inclinados ao calor e cortam a carne no ponto, com a roda de chimarrão enquanto o assado se faz. Tudo, da paisagem do pampa ao som ambiente, foi gerado por IA. <strong>Nenhuma câmera foi usada.</strong></p>
         </header>
         <div class="player reveal">

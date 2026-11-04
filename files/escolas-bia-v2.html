@@ -46,9 +46,15 @@ section{padding:84px 0}
 .brand{font-family:"Fredoka",sans-serif;font-weight:700;font-size:1.3rem;text-decoration:none;color:#fff;white-space:nowrap}
 .brand span{color:#ffd86b}
 .top nav{display:flex;gap:18px;font-weight:700;font-size:.95rem}
-.top nav a{color:#c9bdf0;text-decoration:none}
+.top nav a{color:#c9bdf0;text-decoration:none;white-space:nowrap}
 .top nav a:hover{color:#fff}
-@media (max-width:980px){.top nav{display:none}}
+.top .lft{display:flex;align-items:center;gap:14px;min-width:0}
+.top .back{color:#c9bdf0;text-decoration:none;font-weight:700;font-size:.9rem;white-space:nowrap;padding:5px 12px;border:2px solid rgba(201,189,240,.35);border-radius:999px}
+.top .back:hover{color:#fff;border-color:#fff}
+.top nav{gap:14px;font-size:.9rem}
+.top .share{white-space:nowrap}
+@media (max-width:420px){.top .brand span{display:none}}
+@media (max-width:1240px){.top nav{display:none}}
 .btn{display:inline-flex;align-items:center;gap:8px;font-family:"Fredoka",sans-serif;font-weight:600;font-size:1.12rem;padding:13px 28px;border-radius:999px;text-decoration:none;border:0}
 .btn-p{background:var(--purple);color:#fff;box-shadow:0 5px 0 #5a1fc0}
 .btn-y{background:var(--sun);color:#1b1035!important;box-shadow:0 5px 0 #c08f00}
@@ -220,7 +226,7 @@ footer li{margin-bottom:5px}
 
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#inicio">BIA <span>3º ano</span></a>
+    <div class="lft"><a class="back" href="../index.html" title="Voltar para o site do BIA">← Site do BIA</a><a class="brand" href="#inicio">BIA <span>3º ano</span></a></div>
     <nav aria-label="Seções">
       <a href="#primeira">Primeira turma</a>
       <a href="#quiz">Combina comigo?</a>

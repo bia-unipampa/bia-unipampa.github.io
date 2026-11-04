@@ -1,0 +1,1014 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rio Limpo Realista</title>
+<meta name="description" content="Jogo 3D realista do BIA nas Escolas: três barcos autônomos guiados por inteligências artificiais diferentes disputam quem recolhe mais lixo do Rio Ibirapuitã, em Alegrete (RS).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400..700&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fffaf2;--panel:#ffffff;--ink:#1b1035;--soft:#5b4f75;--line:#eadff0;
+  --purple:#8b3dff;--pink:#fb3b5c;--mint:#12b981;--sun:#ffc21a;--cyan:#13b5d6;
+  --glass:rgba(255,255,255,.88);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#140c33;--panel:#1f1550;--ink:#f4efff;--soft:#c3b8e0;--line:#34286a;--glass:rgba(31,21,80,.9)}
+}
+:root[data-theme="dark"]{--bg:#140c33;--panel:#1f1550;--ink:#f4efff;--soft:#c3b8e0;--line:#34286a;--glass:rgba(31,21,80,.9)}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;overflow:hidden;background:#9fb9cf;color:var(--ink);font-family:"Nunito",system-ui,sans-serif;line-height:1.5}
+button{font-family:inherit;cursor:pointer}
+button:focus-visible,a:focus-visible{outline:4px solid var(--sun);outline-offset:3px}
+a{color:var(--purple)}
+.hidden{display:none!important}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+#scene{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none}
+#labels{position:fixed;inset:0;pointer-events:none;z-index:2;overflow:hidden}
+#fx{position:fixed;inset:0;pointer-events:none;z-index:9}
+
+/* fundo da abertura: fotos reais do Ibirapuitã (ou vídeo, se existir) */
+#bgReal{position:fixed;inset:0;z-index:1;overflow:hidden;background:#2b3a2c;transition:opacity 1.2s}
+#bgReal.off{opacity:0;pointer-events:none}
+#bgReal img,#bgReal video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.6s ease}
+#bgReal img.on,#bgReal video.on{opacity:1}
+#bgReal img.on{animation:kb 9s ease-out forwards}
+@keyframes kb{from{transform:scale(1.02) translate(0,0)}to{transform:scale(1.14) translate(-2%,-1%)}}
+#bgReal::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,16,30,.25),rgba(10,16,30,.55))}
+#bgCap{position:fixed;right:12px;bottom:10px;z-index:3;color:#fff;font-size:.78rem;font-weight:700;text-shadow:0 1px 3px #000;max-width:60%;text-align:right;transition:opacity 1s}
+#bgCap.off{opacity:0}
+
+.top{position:fixed;top:0;left:0;right:0;z-index:5;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 14px;pointer-events:none}
+.top>*{pointer-events:auto}
+.pill{background:var(--glass);color:var(--ink);border:2px solid var(--line);border-radius:999px;padding:6px 14px;font-weight:800;font-size:.95rem;text-decoration:none;backdrop-filter:blur(6px)}
+.top a.pill{color:var(--soft)}
+
+.det{position:absolute;left:0;top:0;border:2px solid var(--c);border-radius:6px;will-change:transform;background:color-mix(in srgb,var(--c) 12%,transparent)}
+.det span{position:absolute;bottom:100%;left:-2px;margin-bottom:2px;white-space:nowrap;font-weight:800;font-size:11px;line-height:1.3;color:#fff;background:var(--c);padding:0 5px;border-radius:5px}
+.det.fake{border-style:dashed}
+.det.nat{--c:#6b7c8f!important}
+.bn{position:absolute;left:0;top:0;font-family:"Fredoka",sans-serif;font-weight:600;font-size:14px;color:#fff;background:var(--c);padding:1px 10px;border-radius:999px;white-space:nowrap;box-shadow:0 2px 0 rgba(0,0,0,.25);will-change:transform}
+.plus{position:absolute;font-family:"Fredoka",sans-serif;font-weight:700;font-size:22px;color:var(--c);text-shadow:0 2px 0 #fff,0 0 6px #fff;animation:up .9s ease-out forwards;pointer-events:none}
+@keyframes up{to{transform:translate(-50%,-46px);opacity:0}}
+
+.over{position:fixed;inset:0;z-index:6;display:flex;align-items:center;justify-content:center;padding:64px 14px 18px;pointer-events:none}
+.card{pointer-events:auto;background:var(--glass);border:3px solid var(--line);border-radius:28px;padding:22px 24px;max-width:860px;width:100%;max-height:100%;overflow:auto;box-shadow:0 20px 60px -20px rgba(20,12,51,.5);backdrop-filter:blur(8px)}
+h1{font-family:"Fredoka",sans-serif;font-weight:700;font-size:clamp(2rem,6vw,3.3rem);line-height:1;margin:2px 0 10px}
+h2{font-family:"Fredoka",sans-serif;font-weight:700;font-size:clamp(1.6rem,4.6vw,2.4rem);line-height:1.05;margin:0 0 8px}
+h3{font-family:"Fredoka",sans-serif;font-weight:600;font-size:1.15rem;margin:0 0 4px}
+.sub{color:var(--soft);font-size:1.08rem;margin:0 0 14px}
+.kick{font-weight:800;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;color:var(--purple)}
+.boats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+@media (max-width:700px){.boats{grid-template-columns:1fr}}
+.boat{border:3px solid var(--c);border-radius:20px;padding:12px 14px;background:color-mix(in srgb,var(--c) 8%,var(--panel))}
+.boat h3{color:var(--c);display:flex;align-items:center;gap:8px}
+.boat p{margin:0;font-size:.95rem}
+.boat .res{font-family:"Fredoka",sans-serif;font-weight:700;font-size:1.6rem;color:var(--c);line-height:1;margin:4px 0 6px}
+.steps{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 16px}
+.steps span{background:var(--panel);border:2px solid var(--line);border-radius:14px;padding:5px 12px;font-weight:700;font-size:.95rem}
+.big{font-family:"Fredoka",sans-serif;font-weight:600;font-size:1.35rem;border:0;border-radius:999px;padding:14px 34px;background:var(--purple);color:#fff;box-shadow:0 6px 0 #5a1fc0}
+.big:active{transform:translateY(4px);box-shadow:0 2px 0 #5a1fc0}
+.big:disabled{opacity:.6;cursor:progress}
+.ghost{display:inline-block;font-weight:800;font-size:1rem;background:transparent;border:3px solid var(--purple);color:var(--purple);border-radius:999px;padding:10px 22px;text-decoration:none}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:16px}
+.lesson{background:var(--panel);border-left:8px solid var(--purple);border-radius:14px;padding:12px 16px;margin:12px 0;font-size:1.02rem}
+.nature{text-align:center;background:color-mix(in srgb,var(--mint) 14%,var(--panel));border:3px solid var(--mint);border-radius:22px;padding:14px;margin:12px 0}
+.nature b{display:block;font-family:"Fredoka",sans-serif;font-size:clamp(1.5rem,4.6vw,2.1rem);font-weight:700;color:var(--mint);line-height:1.1}
+.cta{color:var(--soft);margin-top:16px}
+.real{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:8px 0 4px}
+@media (max-width:700px){.real{grid-template-columns:repeat(2,1fr)}}
+.real figure{margin:0;border-radius:14px;overflow:hidden;position:relative;aspect-ratio:4/3;background:#cfd8c8}
+.real img{width:100%;height:100%;object-fit:cover;display:block}
+.real figcaption{position:absolute;left:0;right:0;bottom:0;padding:14px 8px 4px;font-size:.72rem;font-weight:800;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.7))}
+details.cred{font-size:.85rem;color:var(--soft);margin-top:8px}
+details.cred summary{cursor:pointer;font-weight:800}
+details.cred li{margin:2px 0}
+.load{font-weight:800;color:var(--soft)}
+
+#hud{position:fixed;top:54px;right:14px;z-index:4;display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.clock{font-family:"Fredoka",sans-serif;font-weight:700;font-size:2.2rem;line-height:1;background:var(--glass);border:3px solid var(--line);border-radius:18px;padding:6px 16px;min-width:110px;text-align:center}
+.clock.low{color:var(--pink);border-color:var(--pink)}
+.stat{background:var(--glass);border:2px solid var(--line);border-radius:999px;padding:3px 12px;font-weight:800;font-size:.92rem}
+.ctl{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.ctl button{background:var(--glass);color:var(--ink);border:2px solid var(--line);border-radius:999px;padding:5px 12px;font-weight:800;font-size:.95rem}
+#board{position:fixed;left:14px;bottom:14px;z-index:4;display:grid;gap:8px;width:min(330px,calc(100% - 28px))}
+.sb{background:var(--glass);border:3px solid var(--c);border-radius:18px;padding:6px 12px 8px;display:grid;grid-template-columns:auto 1fr auto;gap:0 10px;align-items:center}
+.sb .nm{font-family:"Fredoka",sans-serif;font-weight:600;font-size:1.15rem;color:var(--c)}
+.sb .dot{width:14px;height:14px;border-radius:50%;background:var(--c)}
+.sb .sc{font-family:"Fredoka",sans-serif;font-weight:700;font-size:1.6rem;line-height:1}
+.sb .bar{grid-column:1 / -1;height:7px;border-radius:9px;background:var(--line);overflow:hidden;margin-top:3px}
+.sb .bar i{display:block;height:100%;width:0;background:var(--c);transition:width .3s}
+.sb .st{grid-column:1 / -1;font-size:.82rem;font-weight:700;color:var(--soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#feed{position:fixed;top:54px;left:14px;z-index:4;display:flex;flex-direction:column;gap:6px;max-width:min(360px,calc(100% - 170px))}
+.toast{background:var(--glass);border:2px solid var(--line);border-left:6px solid var(--c,var(--purple));border-radius:12px;padding:5px 12px;font-weight:700;font-size:.92rem;animation:tin .3s ease-out}
+.toast.out{opacity:0;transition:opacity .5s}
+@keyframes tin{from{transform:translateX(-20px);opacity:0}}
+#count{position:fixed;inset:0;z-index:7;display:flex;align-items:center;justify-content:center;pointer-events:none;font-family:"Fredoka",sans-serif;font-weight:700;font-size:clamp(4rem,18vw,10rem);color:#fff;text-shadow:0 6px 0 #5a1fc0,0 0 30px rgba(139,61,255,.6)}
+#count.pop{animation:pop .8s ease-out}
+@keyframes pop{from{transform:scale(1.8);opacity:0}30%{opacity:1}}
+#hint{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:4;font-size:.8rem;font-weight:800;color:#fff;text-shadow:0 1px 3px #000;pointer-events:none;white-space:nowrap}
+@media (max-width:700px){
+  #board{grid-template-columns:repeat(3,minmax(0,1fr));width:auto;right:8px;left:8px;bottom:8px;gap:6px}
+  .sb{padding:4px 8px 6px;grid-template-columns:minmax(0,1fr) auto}
+  .sb .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  #phase{display:none}
+  .sb .dot{display:none}
+  .sb .nm{font-size:.98rem}.sb .sc{font-size:1.3rem}
+  .sb .st{font-size:.72rem}
+  #hud{top:50px;right:8px}
+  .clock{font-size:1.6rem;min-width:84px;padding:4px 10px}
+  .stat{font-size:.8rem}
+  .ctl button{font-size:.8rem;padding:4px 9px}
+  #feed{left:8px;top:50px;max-width:calc(100% - 120px)}
+  .toast{font-size:.8rem}
+  .det span{font-size:9px}
+  .bn{font-size:12px}
+  #hint{display:none}
+}
+@media (prefers-reduced-motion: reduce){.toast,#count.pop,.plus,#bgReal img.on{animation:none}}
+</style>
+</head>
+<body>
+<canvas id="scene" aria-hidden="true"></canvas>
+<p class="sr">Simulação 3D realista do Rio Ibirapuitã, em Alegrete: um trecho do rio com mata ciliar, a ponte e o pampa ao fundo, lixo boiando e três barcos autônomos, cada um guiado por uma inteligência artificial diferente, recolhendo o lixo. O placar e os acontecimentos aparecem em texto na tela.</p>
+<div id="bgReal" aria-hidden="true"></div>
+<div id="bgCap" aria-hidden="true"></div>
+<div id="labels" aria-hidden="true"></div>
+<canvas id="fx" aria-hidden="true"></canvas>
+
+<header class="top">
+  <a class="pill" href="../../files/feito-com-ia-v1.html#jogos" aria-label="Sair do jogo e voltar aos jogos do BIA">← Voltar</a>
+  <span class="pill" id="phase">Rio Limpo · Ibirapuitã</span>
+</header>
+
+<div id="hud" class="hidden">
+  <div class="clock" id="clock" role="timer" aria-label="Tempo restante">1:30</div>
+  <div class="stat">🗑️ No rio: <b id="nRio">0</b></div>
+  <div class="stat">♻️ Retirado: <b id="nOut">0</b></div>
+  <div class="ctl"><button id="cam" type="button" aria-label="Trocar a câmera">🎥 Geral</button><button id="spd" type="button" aria-label="Mudar a velocidade da simulação">⏩ 1x</button><button id="snd" type="button" aria-label="Ligar ou desligar o som">🔊</button></div>
+</div>
+<div id="board" class="hidden" aria-live="off"></div>
+<div id="feed" aria-live="polite"></div>
+<div id="count" aria-live="assertive"></div>
+<div id="hint" class="hidden">Arraste para girar · role ou pince para aproximar · 🎥 segue um barco</div>
+
+<section class="over" id="sIntro">
+  <div class="card">
+    <span class="kick">Jogo 3D realista · BIA nas Escolas</span>
+    <h1>Rio Limpo: IA contra IA</h1>
+    <p class="sub">No <b>Rio Ibirapuitã</b>, em Alegrete, três barcos autônomos vão disputar quem recolhe mais lixo. Ninguém pilota: cada barco é guiado por uma <b>inteligência artificial</b> diferente. Você dá o play, torce e pode girar a câmera para ver tudo de perto.</p>
+    <div class="steps"><span>1. Dê o play</span><span>2. Assista à disputa de 90 segundos</span><span>3. Descubra qual estratégia funcionou melhor</span></div>
+    <div class="row" style="margin-top:0">
+      <button class="big" id="go" type="button" disabled>Carregando o rio…</button>
+      <span class="sub" style="margin:0"><b>Palpite:</b> qual barco vai ganhar?</span>
+    </div>
+    <div class="boats" id="introBoats"></div>
+    <h3>O rio de verdade</h3>
+    <div class="real" id="realPics"></div>
+    <details class="cred"><summary>Créditos das fotos (Wikimedia Commons)</summary><ul id="credList"></ul>
+      <p style="margin:4px 0 0">O horizonte do jogo é uma montagem feita com essas fotos da APA do Ibirapuitã, distribuída sob a mesma licença CC BY-SA 4.0.</p></details>
+    <p class="sub hidden" id="noGL" style="margin-top:14px;color:var(--pink)">Este navegador não conseguiu abrir o modo 3D (WebGL). Tente outro navegador ou outro aparelho.</p>
+  </div>
+</section>
+
+<section class="over hidden" id="sEnd">
+  <div class="card" id="endCard" aria-live="polite">
+    <span class="kick">Fim da disputa</span>
+    <h2 id="winner"></h2>
+    <p class="sub" id="summary"></p>
+    <div class="nature"><b>🐟 O Ibirapuitã agradece! 🐦</b>Com a água mais limpa, os dourados, as garças e os biguás voltam ao rio.</div>
+    <h3 style="margin-top:16px">Como cada IA pensou</h3>
+    <div class="boats" id="endBoats"></div>
+    <div class="lesson"><b>Detecção de objetos:</b> a câmera de cada barco usa um modelo treinado com milhares de fotos de lixo na água. Para cada objeto, o modelo diz o que acha que é e com que confiança: é a porcentagem que aparece nas caixinhas.</div>
+    <div class="lesson" style="border-color:var(--mint)"><b>Planejamento de rota:</b> saber onde está o lixo não basta, a IA precisa decidir a ordem da coleta. É um problema clássico da computação, parecido com o do entregador que quer visitar vários endereços andando o mínimo possível.</div>
+    <div class="lesson" style="border-color:var(--pink)"><b>Falso positivo:</b> quando a IA vê lixo onde não tem (uma folha, um galho, um aguapé, um peixe), ela perde tempo. Para errar menos, quem treina o modelo precisa mostrar também muitos exemplos do que <b>não</b> é lixo.</div>
+    <div class="lesson" style="border-color:var(--sun)"><b>No mundo real:</b> já existem barcos e barreiras que recolhem lixo de rios em vários países, e pesquisadores testam barcos autônomos guiados por câmeras. Cada partida aqui é diferente: jogue de novo e veja se o vencedor muda.</div>
+    <div class="row">
+      <button class="big" id="again" type="button">Jogar de novo</button>
+      <a class="ghost" href="../../files/feito-com-ia-v1.html#jogos">Outros jogos</a>
+    </div>
+    <p class="cta">No <b>BIA</b>, o Bacharelado em Inteligência Artificial da UNIPAMPA, em Alegrete, você aprende a criar IAs como essas, que enxergam, decidem e ajudam a cuidar do lugar onde a gente vive. <a href="../../index.html">Conheça o curso</a>.</p>
+  </div>
+</section>
+
+<script type="importmap">
+{"imports":{
+  "three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+}}
+</script>
+<script type="module">
+import * as THREE from "three";
+import {Water} from "three/addons/objects/Water.js";
+import {Sky} from "three/addons/objects/Sky.js";
+import {OrbitControls} from "three/addons/controls/OrbitControls.js";
+import {mergeGeometries,mergeVertices} from "three/addons/utils/BufferGeometryUtils.js";
+
+const $=id=>document.getElementById(id);
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const HASH=location.hash;
+const AUTO=/auto/.test(HASH);
+const TURBO=+((HASH.match(/x(\d+)/)||[])[1]||0);
+const LOW=/low/.test(HASH)||(navigator.hardwareConcurrency||8)<=4||/Mobi|Android/i.test(navigator.userAgent);
+const rand=(a,b)=>a+Math.random()*(b-a);
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const clamp=(v,a,b)=>v<a?a:v>b?b:v;
+const smooth=(a,b,x)=>{const t=clamp((x-a)/(b-a),0,1);return t*t*(3-2*t);};
+const wrapA=a=>{while(a>Math.PI)a-=2*Math.PI;while(a<-Math.PI)a+=2*Math.PI;return a;};
+const d2=(a,b)=>(a.x-b.x)**2+(a.z-b.z)**2;
+// ruído determinístico simples
+const hash=(x,y)=>{const s=Math.sin(x*127.1+y*311.7)*43758.5453;return s-Math.floor(s);};
+function vnoise(x,y){const i=Math.floor(x),j=Math.floor(y),f=x-i,g=y-j,u=f*f*(3-2*f),v=g*g*(3-2*g);
+  return (hash(i,j)*(1-u)+hash(i+1,j)*u)*(1-v)+(hash(i,j+1)*(1-u)+hash(i+1,j+1)*u)*v;}
+const fbm=(x,y)=>vnoise(x,y)*.5+vnoise(x*2.1,y*2.1)*.25+vnoise(x*4.3,y*4.3)*.125+vnoise(x*8.7,y*8.7)*.0625;
+
+// ===== fotos reais (Wikimedia Commons) =====
+const PICS=[
+  {src:"assets/rio-ibirapuita-ponte-borges.jpg",cap:"Rio Ibirapuitã e a Ponte Borges de Medeiros, Alegrete",who:"autor da Wikipédia em português",lic:"Domínio público",url:"https://commons.wikimedia.org/wiki/File:Rio_Ibirapuit%C3%A3_-_Alegrete_-_Ponte_Borges_de_Medeiros.JPG"},
+  {src:"assets/ponte-ferrea-ibirapuita.jpg",cap:"Ponte férrea sobre o Ibirapuitã",who:"olimpio_marcal (Panoramio)",lic:"CC BY 3.0",url:"https://commons.wikimedia.org/wiki/File:Ponte_f%C3%A9rrea_dobre_o_rio_Ibirapuit%C3%A3_-_panoramio.jpg"},
+  {src:"assets/apa-ibirapuita-coxilhas.jpg",cap:"Coxilhas da APA do Ibirapuitã",who:"Roberta Farenzena",lic:"CC BY-SA 4.0",url:"https://commons.wikimedia.org/wiki/File:%C3%81rea_de_Prote%C3%A7%C3%A3o_Ambiental_Ibirapuit%C3%A3_por_Roberta_Farenzena_(07).jpg"},
+  {src:"assets/apa-ibirapuita-cerro.jpg",cap:"Cerro na APA do Ibirapuitã",who:"Roberta Farenzena",lic:"CC BY-SA 4.0",url:"https://commons.wikimedia.org/wiki/File:%C3%81rea_de_Prote%C3%A7%C3%A3o_Ambiental_Ibirapuit%C3%A3_por_Roberta_Farenzena_(13).jpg"}
+];
+const PANO_CRED=[
+  ["Roberta Farenzena","https://commons.wikimedia.org/wiki/File:%C3%81rea_de_Prote%C3%A7%C3%A3o_Ambiental_Ibirapuit%C3%A3_por_Roberta_Farenzena_(08).jpg","APA do Ibirapuitã (08)"],
+  ["Roberta Farenzena","https://commons.wikimedia.org/wiki/File:%C3%81rea_de_Prote%C3%A7%C3%A3o_Ambiental_Ibirapuit%C3%A3_por_Roberta_Farenzena_(14).jpg","APA do Ibirapuitã (14)"]
+];
+$("realPics").innerHTML=PICS.map(p=>`<figure><img src="${p.src}" alt="${p.cap}" loading="lazy"><figcaption>${p.cap}</figcaption></figure>`).join("");
+$("credList").innerHTML=PICS.map(p=>`<li><a href="${p.url}" target="_blank" rel="noopener">${p.cap}</a>, por ${p.who}, ${p.lic}</li>`).join("")+
+  PANO_CRED.map(([w,u,c])=>`<li><a href="${u}" target="_blank" rel="noopener">${c}</a>, por ${w}, CC BY-SA 4.0</li>`).join("")+
+  `<li>Licenças: <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.pt-br" target="_blank" rel="noopener">CC BY-SA 4.0</a>, <a href="https://creativecommons.org/licenses/by/3.0/deed.pt-br" target="_blank" rel="noopener">CC BY 3.0</a></li>`;
+
+// fundo da abertura: vídeo opcional (assets/ibirapuita.mp4) ou slideshow das fotos
+const bg=$("bgReal"),bgImgs=PICS.map(p=>{const i=new Image();i.src=p.src;i.alt="";bg.appendChild(i);return i;});
+let bgK=0,bgTimer=null;
+function bgShow(){bgImgs.forEach((im,k)=>im.classList.toggle("on",k===bgK));$("bgCap").textContent="📷 Foto real: "+PICS[bgK].cap;bgK=(bgK+1)%bgImgs.length;}
+function bgStart(){bg.classList.remove("off");$("bgCap").classList.remove("off");if(!bgTimer){bgShow();bgTimer=setInterval(bgShow,7000);}}
+function bgStop(){bg.classList.add("off");$("bgCap").classList.add("off");}
+{
+  const v=document.createElement("video");v.muted=true;v.loop=true;v.playsInline=true;v.autoplay=true;v.src="assets/ibirapuita.mp4";
+  v.addEventListener("canplay",()=>{clearInterval(bgTimer);bgTimer=1;bgImgs.forEach(i=>i.classList.remove("on"));v.classList.add("on");$("bgCap").textContent="🎬 Vídeo real do Rio Ibirapuitã";v.play().catch(()=>{});},{once:true});
+  bg.appendChild(v);
+}
+bgStart();
+
+// rio: meia largura, trecho jogável, duração e correnteza
+const HW=11,XMIN=-60,XMAX=60,MATCH=90,CURRENT=0.4;
+const zc=x=>9*Math.sin(x*0.045)+4*Math.sin(x*0.11+1);
+function terrainH(x,z){
+  const d=Math.abs(z-zc(x)),bank=smooth(HW-3,HW+2.2,d);
+  const near=(fbm(x*.08,z*.08)-.5)*1.2;
+  const hills=(Math.sin(x*0.02+1.3)*Math.cos(z*0.025)*0.5+0.5)*3.5+(fbm(x*.008+3,z*.008)-.3)*9;
+  const far=smooth(HW+3,HW+60,d);
+  // barranco: margem íngreme típica do Ibirapuitã
+  const cliff=smooth(HW+0.5,HW+3.5,d)*.7;
+  return -2.2+2.9*bank+cliff+near*smooth(HW+2,HW+8,d)+Math.max(0,hills)*far;
+}
+
+// sons
+let ac=null,soundOn=true;
+function beep(fs,d=.09,type="triangle",v=.12){if(!soundOn)return;try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();fs.forEach((f,k)=>{const o=ac.createOscillator(),g=ac.createGain();o.type=type;o.frequency.value=f;const t=ac.currentTime+k*d;g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.001,t+d*1.6);o.connect(g).connect(ac.destination);o.start(t);o.stop(t+d*1.7);});}catch(e){}}
+// ambiente: água correndo e passarinhos (ruído filtrado)
+let amb=null;
+function startAmbience(){
+  if(!soundOn||amb)return;
+  try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();
+    const len=ac.sampleRate*2,buf=ac.createBuffer(1,len,ac.sampleRate),d=buf.getChannelData(0);let last=0;
+    for(let i=0;i<len;i++){const w=Math.random()*2-1;last=(last+0.02*w)/1.02;d[i]=last*3.5;}
+    const src=ac.createBufferSource();src.buffer=buf;src.loop=true;
+    const f=ac.createBiquadFilter();f.type="lowpass";f.frequency.value=900;const g=ac.createGain();g.gain.value=0.16;
+    src.connect(f).connect(g).connect(ac.destination);src.start();amb={src,g};
+  }catch(e){}
+}
+function chirp(){if(!soundOn||!ac)return;const o=ac.createOscillator(),g=ac.createGain(),t=ac.currentTime;o.type="sine";
+  const b=rand(2600,3800);o.frequency.setValueAtTime(b,t);o.frequency.exponentialRampToValueAtTime(b*rand(.6,1.4),t+.12);
+  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.025,t+.02);g.gain.exponentialRampToValueAtTime(.0005,t+.16);o.connect(g).connect(ac.destination);o.start(t);o.stop(t+.18);}
+
+// ===== renderizador =====
+const canvas=$("scene");
+let renderer=null;
+try{renderer=new THREE.WebGLRenderer({canvas,antialias:!LOW,powerPreference:"high-performance"});}catch(e){renderer=null;}
+if(!renderer){$("noGL").classList.remove("hidden");$("go").textContent="3D indisponível";throw new Error("sem WebGL");}
+renderer.outputColorSpace=THREE.SRGBColorSpace;
+renderer.toneMapping=THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure=0.62;
+renderer.shadowMap.enabled=true;
+renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+
+const scene=new THREE.Scene();
+const FOGC=new THREE.Color(0xb9cad8);
+scene.fog=new THREE.FogExp2(FOGC,0.0015);
+const camera=new THREE.PerspectiveCamera(48,1,0.5,4000);
+camera.position.set(0,26,62);
+
+// céu físico + iluminação do ambiente a partir dele
+const sky=new Sky();sky.scale.setScalar(3000);
+const skyU=sky.material.uniforms;
+skyU.turbidity.value=6;skyU.rayleigh.value=1.6;skyU.mieCoefficient.value=0.004;skyU.mieDirectionalG.value=0.82;
+const sunDir=new THREE.Vector3().setFromSphericalCoords(1,THREE.MathUtils.degToRad(90-38),THREE.MathUtils.degToRad(205));
+skyU.sunPosition.value.copy(sunDir);
+scene.add(sky);
+{
+  const pm=new THREE.PMREMGenerator(renderer),sc=new THREE.Scene(),s2=new Sky();s2.scale.setScalar(1000);
+  Object.keys(skyU).forEach(k=>s2.material.uniforms[k].value=skyU[k].value);sc.add(s2);
+  scene.environment=pm.fromScene(sc,0.02).texture;pm.dispose();
+}
+const sunL=new THREE.DirectionalLight(0xfff1dc,2.6);
+sunL.position.copy(sunDir).multiplyScalar(160);sunL.castShadow=true;
+sunL.shadow.mapSize.set(LOW?1024:2048,LOW?1024:2048);
+Object.assign(sunL.shadow.camera,{left:-95,right:95,top:70,bottom:-70,near:10,far:400});
+sunL.shadow.bias=-0.0004;sunL.shadow.normalBias=0.04;
+scene.add(sunL,sunL.target);
+scene.add(new THREE.HemisphereLight(0xcfe3ff,0x4a5a2a,0.55));
+
+const loader=new THREE.TextureLoader();
+const maxAniso=renderer.capabilities.getMaxAnisotropy();
+function canvasTex(w,h,draw,repeat){const c=document.createElement("canvas");c.width=w;c.height=h;draw(c.getContext("2d"),w,h);
+  const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;t.anisotropy=maxAniso;if(repeat){t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(repeat,repeat);}return t;}
+
+// ===== horizonte: panorâmica real da APA do Ibirapuitã =====
+let panoReady=false;
+{
+  const R=900,TEX_AR=4096/381,REP=2,Hh=2*Math.PI*R/REP/TEX_AR;
+  const g=new THREE.CylinderGeometry(R,R,Hh,160,1,true);
+  const tex=loader.load("assets/pampa-panorama.jpg",()=>{panoReady=true;checkReady();},undefined,()=>{panoReady=true;checkReady();});
+  tex.colorSpace=THREE.SRGBColorSpace;tex.wrapS=THREE.RepeatWrapping;tex.repeat.set(REP,1);tex.anisotropy=maxAniso;
+  const m=new THREE.ShaderMaterial({uniforms:{map:{value:tex},fogC:{value:FOGC},rep:{value:REP}},side:THREE.BackSide,transparent:true,depthWrite:false,fog:false,
+    vertexShader:`varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,
+    fragmentShader:`uniform sampler2D map;uniform vec3 fogC;uniform float rep;varying vec2 vUv;
+      void main(){vec2 uv=vec2(1.-vUv.x,vUv.y);uv.x*=rep;vec4 c=texture2D(map,uv);
+        float a=1.-smoothstep(.8,.97,vUv.y);
+        // névoa atmosférica suave, para casar a foto com o céu 3D
+        vec3 col=mix(c.rgb,fogC,.28+.25*smoothstep(.45,.8,vUv.y));
+        gl_FragColor=vec4(col,a);
+        #include <tonemapping_fragment>
+        #include <colorspace_fragment>
+      }`});
+  m.toneMapped=false;
+  const pano=new THREE.Mesh(g,m);
+  // a linha do horizonte da foto (~72% da altura) fica perto da altura dos olhos
+  pano.position.y=20-(0.70-0.5)*Hh;pano.renderOrder=-1;
+  scene.add(pano);
+}
+
+// ===== terreno =====
+const grassTex=canvasTex(512,512,(c,w,h)=>{
+  c.fillStyle="#6f7f3c";c.fillRect(0,0,w,h);
+  for(let i=0;i<26000;i++){const x=Math.random()*w,y=Math.random()*h,l=rand(30,62),hh=rand(65,95);
+    c.strokeStyle=`hsl(${hh},${rand(25,50)}%,${l*.55}%)`;c.lineWidth=rand(.6,1.6);c.beginPath();c.moveTo(x,y);c.lineTo(x+rand(-2,2),y-rand(3,9));c.stroke();}
+  for(let i=0;i<300;i++){c.fillStyle=`rgba(${rand(120,170)},${rand(110,140)},60,.25)`;c.beginPath();c.arc(Math.random()*w,Math.random()*h,rand(4,18),0,7);c.fill();}
+},90);
+const terrainMat=new THREE.MeshStandardMaterial({vertexColors:true,map:grassTex,roughness:.97,metalness:0});
+{
+  const S=LOW?180:260,g=new THREE.PlaneGeometry(1900,1900,S,S);g.rotateX(-Math.PI/2);
+  // malha mais densa perto do rio: comprime os vértices em direção ao centro
+  const p=g.attributes.position;
+  for(let i=0;i<p.count;i++){let x=p.getX(i),z=p.getZ(i);const f=v=>v*(.15+.85*Math.abs(v)/950);p.setX(i,f(x));p.setZ(i,f(z));}
+  const col=new Float32Array(p.count*3),c=new THREE.Color(),mud=new THREE.Color(0x6b5236),sand=new THREE.Color(0xa8875a),dry=new THREE.Color(0xb7a061),green=new THREE.Color(0x8ea152);
+  for(let i=0;i<p.count;i++){
+    const x=p.getX(i),z=p.getZ(i),d=Math.abs(z-zc(x)),h=terrainH(x,z);
+    p.setY(i,h);
+    const n=fbm(x*.05+7,z*.05);
+    if(h<-0.3)c.copy(mud).lerp(new THREE.Color(0x3d3a2a),clamp(-h/2,0,1));
+    else if(d<HW+3.4){c.copy(mud).lerp(sand,n*.5);c.lerp(green,smooth(HW+1.5,HW+3.4,d+n*1.5));}
+    else{c.copy(green).lerp(dry,smooth(.35,.75,n)*.85);c.multiplyScalar(.85+.3*fbm(x*.2,z*.2));}
+    col[i*3]=c.r;col[i*3+1]=c.g;col[i*3+2]=c.b;
+  }
+  g.setAttribute("color",new THREE.BufferAttribute(col,3));g.computeVertexNormals();
+  // a textura da grama só vale fora da água e da areia
+  terrainMat.onBeforeCompile=s=>{
+    s.vertexShader=s.vertexShader.replace("#include <common>","#include <common>\nvarying float vH;").replace("#include <begin_vertex>","#include <begin_vertex>\nvH=position.y;");
+    s.fragmentShader=s.fragmentShader.replace("#include <common>","#include <common>\nvarying float vH;").replace("#include <map_fragment>",
+      `vec4 tg=texture2D(map,vMapUv);float gm=smoothstep(.55,1.3,vH);diffuseColor.rgb*=mix(vec3(1.),tg.rgb*1.9,gm);diffuseColor.rgb*=mix(1.,.55,1.-smoothstep(-.9,.1,vH));`);
+  };
+  const m=new THREE.Mesh(g,terrainMat);m.receiveShadow=true;scene.add(m);
+}
+
+// ===== água do Ibirapuitã (reflexo planar real + mapa de normais procedural) =====
+const waterNormals=(()=>{
+  const N=256,c=document.createElement("canvas");c.width=c.height=N;const ctx=c.getContext("2d"),img=ctx.createImageData(N,N);
+  const waves=[];for(let k=0;k<64;k++){const a=rand(0,6.28),f=rand(5,22),fx=Math.round(Math.cos(a)*f),fy=Math.round(Math.sin(a)*f);if(!fx&&!fy)continue;waves.push([fx,fy,rand(0,6.28),1/Math.hypot(fx,fy)]);}
+  const H=(x,y)=>{let s=0;for(const [fx,fy,ph,a] of waves)s+=a*Math.sin(2*Math.PI*(fx*x+fy*y)/N+ph);return s;};
+  const hs=new Float32Array(N*N);for(let y=0;y<N;y++)for(let x=0;x<N;x++)hs[y*N+x]=H(x,y);
+  for(let y=0;y<N;y++)for(let x=0;x<N;x++){
+    const dx=hs[y*N+(x+1)%N]-hs[y*N+(x+N-1)%N],dy=hs[((y+1)%N)*N+x]-hs[((y+N-1)%N)*N+x];
+    const v=new THREE.Vector3(-dx*.55,-dy*.55,1).normalize(),o=(y*N+x)*4;
+    img.data[o]=(v.x*.5+.5)*255;img.data[o+1]=(v.y*.5+.5)*255;img.data[o+2]=(v.z*.5+.5)*255;img.data[o+3]=255;}
+  ctx.putImageData(img,0,0);const t=new THREE.CanvasTexture(c);t.wrapS=t.wrapT=THREE.RepeatWrapping;return t;
+})();
+const MURKY=new THREE.Color(0x9a8352),CLEAN=new THREE.Color(0x4f8a86);
+const water=new Water(new THREE.PlaneGeometry(1900,80),{
+  textureWidth:LOW?512:1024,textureHeight:LOW?512:1024,waterNormals,sunDirection:sunDir.clone(),sunColor:0xfff4e0,
+  waterColor:MURKY.clone(),distortionScale:0.7,fog:true,alpha:1
+});
+water.material.fragmentShader=water.material.fragmentShader
+  .replace("float reflectance = rf0 + ( 1.0 - rf0 ) * pow( ( 1.0 - theta ), 5.0 );","float reflectance = 0.05 + 0.85 * pow( ( 1.0 - theta ), 4.0 );")
+  .replace("( vec3( 0.1 ) + reflectionSample * 0.9 + reflectionSample * specularLight )","( waterColor * 0.5 + reflectionSample * 0.32 + specularLight * 0.35 )")
+  .replace("( sunColor * diffuseLight * 0.3 + scatter )","( sunColor * diffuseLight * 0.12 + scatter * 1.1 )");
+water.rotation.x=-Math.PI/2;water.position.y=0;water.material.uniforms.size.value=2.2;
+scene.add(water);
+const waterU=water.material.uniforms;
+let cleanK=0.12;
+
+// ===== mata ciliar: árvores, sarandis, juncos e aguapés =====
+function blobGeo(r,det,seed){let g=new THREE.IcosahedronGeometry(r,det);g.deleteAttribute("normal");g.deleteAttribute("uv");g=mergeVertices(g);const p=g.attributes.position,v=new THREE.Vector3();
+  for(let i=0;i<p.count;i++){v.fromBufferAttribute(p,i);const n=fbm(v.x*1.3+seed,v.y*1.3+v.z*.9+seed);v.multiplyScalar(.78+.45*n);p.setXYZ(i,v.x,v.y,v.z);}
+  g.computeVertexNormals();return g;}
+function crownGeo(seed,lobes,spread,rad){
+  const parts=[];for(let k=0;k<lobes;k++){const g=blobGeo(rad*rand(.65,1.05),1,seed+k*3.1);g.scale(1,rand(.7,.9),1);
+    const a=rand(0,6.28),r=rand(0,spread);g.translate(Math.cos(a)*r,rand(-.4,.9)*rad,Math.sin(a)*r);parts.push(g);}
+  const m=mergeGeometries(parts);
+  // cor por vértice: mais clara em cima (luz do céu)
+  const p=m.attributes.position,col=new Float32Array(p.count*3);let ymin=1e9,ymax=-1e9;
+  for(let i=0;i<p.count;i++){ymin=Math.min(ymin,p.getY(i));ymax=Math.max(ymax,p.getY(i));}
+  for(let i=0;i<p.count;i++){const t=(p.getY(i)-ymin)/(ymax-ymin),j=.82+.3*hash(i*.37,seed);col[i*3]=(.55+.45*t)*j;col[i*3+1]=(.6+.4*t)*j;col[i*3+2]=(.5+.5*t)*j;}
+  m.setAttribute("color",new THREE.BufferAttribute(col,3));return m;
+}
+const leafTex=canvasTex(256,256,(c,w,h)=>{c.fillStyle="#c9d6b0";c.fillRect(0,0,w,h);
+  for(let i=0;i<4500;i++){c.fillStyle=`hsl(${rand(70,105)},${rand(15,40)}%,${rand(45,95)}%)`;c.beginPath();c.ellipse(Math.random()*w,Math.random()*h,rand(1.5,4),rand(1,2.4),rand(0,3),0,7);c.fill();}},1);
+leafTex.wrapS=leafTex.wrapT=THREE.RepeatWrapping;
+const crownMat=new THREE.MeshStandardMaterial({vertexColors:true,map:leafTex,roughness:.88,metalness:0});
+const barkMat=new THREE.MeshStandardMaterial({color:0x5b4632,roughness:.95});
+function spherical(g){ // uv simples para a textura das folhas
+  const p=g.attributes.position,uv=new Float32Array(p.count*2);for(let i=0;i<p.count;i++){uv[i*2]=p.getX(i)*.35+p.getZ(i)*.2;uv[i*2+1]=p.getY(i)*.35;}g.setAttribute("uv",new THREE.BufferAttribute(uv,2));return g;}
+const TREE_TYPES=[ // [lobos, espalhamento, raio, altura do tronco, cor]
+  {lobes:12,spread:3.0,rad:1.9,trunk:3.4,tint:0x6f8f45}, // ingazeiro / branquilho
+  {lobes:8,spread:1.6,rad:1.6,trunk:4.6,tint:0x86a055}, // salgueiro-crioulo
+  {lobes:14,spread:3.6,rad:2.1,trunk:2.6,tint:0x5f8040}, // mata densa
+  {lobes:5,spread:1.3,rad:1.3,trunk:1.0,tint:0x8a9a55}  // sarandi (arbusto)
+];
+const treeSpots=[];
+{
+  const o=new THREE.Object3D(),c=new THREE.Color();
+  TREE_TYPES.forEach((T,ti)=>{
+    const crown=spherical(crownGeo(ti*11+1,T.lobes,T.spread,T.rad));crown.translate(0,T.trunk+T.rad*.6,0);
+    const trunk=new THREE.CylinderGeometry(.18,.34,T.trunk+T.rad*.6,7);trunk.translate(0,(T.trunk+T.rad*.6)/2,0);
+    const N=ti===3?120:(LOW?70:120);
+    const cm=new THREE.InstancedMesh(crown,crownMat,N),tm=new THREE.InstancedMesh(trunk,barkMat,N);
+    cm.castShadow=tm.castShadow=true;cm.receiveShadow=true;
+    let k=0,guard=0;
+    while(k<N&&guard++<6000){
+      const x=rand(-260,260),side=Math.random()<.5?-1:1;
+      // mata ciliar: faixa estreita e densa junto ao barranco, depois capões esparsos
+      let d=ti===3?rand(HW+1.6,HW+4):(Math.random()<.78?rand(HW+3,HW+13):rand(HW+20,HW+120));
+      const z=zc(x)+side*d;
+      // abre uma clareira na frente da câmera principal para não tapar a disputa
+      if(ti!==3&&side>0&&Math.abs(x)<85&&d<HW+45)continue;
+      if(ti!==3&&d>HW+20&&fbm(x*.02,z*.02)<.5)continue; // capões agrupados
+      const s=rand(.75,1.35)*(ti===3?1:1);
+      o.position.set(x,terrainH(x,z)-.15,z);o.rotation.set(rand(-.06,.06),rand(0,6.3),rand(-.06,.06));o.scale.set(s,s*rand(.85,1.25),s);o.updateMatrix();
+      cm.setMatrixAt(k,o.matrix);tm.setMatrixAt(k,o.matrix);
+      c.set(T.tint).offsetHSL(rand(-.02,.03),rand(-.08,.08),rand(-.06,.07));cm.setColorAt(k,c);
+      treeSpots.push({x,z,r:T.spread*s});k++;
+    }
+    cm.count=tm.count=k;scene.add(cm,tm);
+  });
+}
+// grama alta / capim-annoni nas margens (cartões cruzados que balançam com o vento)
+const windU={value:0};
+{
+  const bladeTex=(()=>{const c=document.createElement("canvas");c.width=128;c.height=256;const x=c.getContext("2d");
+    for(let i=0;i<46;i++){const bx=rand(8,120),top=rand(10,120),bend=rand(-26,26);
+      x.strokeStyle=`hsl(${rand(55,95)},${rand(30,55)}%,${rand(28,55)}%)`;x.lineWidth=rand(1.5,3.5);x.beginPath();x.moveTo(bx,256);x.quadraticCurveTo(bx+bend*.3,(top+256)/2,bx+bend,top);x.stroke();}
+    const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;return t;})();
+  const q1=new THREE.PlaneGeometry(1.1,.9),q2=q1.clone().rotateY(Math.PI/2),q3=q1.clone().rotateY(Math.PI/4);
+  const tuft=mergeGeometries([q1,q2,q3]);tuft.translate(0,.62,0);
+  const mat=new THREE.MeshStandardMaterial({map:bladeTex,alphaTest:.45,side:THREE.DoubleSide,roughness:.9,color:0xc9d39a});
+  mat.onBeforeCompile=s=>{s.uniforms.uWind=windU;
+    s.vertexShader=s.vertexShader.replace("#include <common>","#include <common>\nuniform float uWind;").replace("#include <begin_vertex>",
+      `#include <begin_vertex>\nvec4 wp=instanceMatrix*vec4(0.,0.,0.,1.);float sw=sin(uWind*1.7+wp.x*.21+wp.z*.17)*.18+sin(uWind*3.1+wp.x*.5)*.06;transformed.x+=sw*max(0.,position.y);transformed.z+=sw*.5*max(0.,position.y);`);};
+  const N=LOW?3500:9000,im=new THREE.InstancedMesh(tuft,mat,N),o=new THREE.Object3D(),c=new THREE.Color();
+  let k=0,g=0;
+  while(k<N&&g++<N*6){
+    const x=rand(-140,140),side=Math.random()<.5?-1:1,d=HW+1.8+Math.pow(Math.random(),1.6)*48,z=zc(x)+side*d,h=terrainH(x,z);
+    if(h<.3)continue;
+    o.position.set(x,h-.05,z);o.rotation.y=rand(0,6.3);const s=rand(.45,1.1);o.scale.set(s,s*rand(.7,1.4),s);o.updateMatrix();
+    im.setMatrixAt(k,o.matrix);c.setHSL(rand(.14,.22),rand(.2,.4),rand(.45,.7));im.setColorAt(k,c);k++;
+  }
+  im.count=k;im.receiveShadow=true;scene.add(im);
+}
+// juncos e aguapés presos na beira d'água (decoração fixa)
+const aguapeLeaf=new THREE.SphereGeometry(.32,7,4).scale(1,.35,.75).translate(.28,.08,0);
+const aguapeMat=new THREE.MeshStandardMaterial({color:0x3f7a2a,roughness:.55});
+const flowerMat=new THREE.MeshStandardMaterial({color:0xb7a0e6,roughness:.6,emissive:0x2a1a40});
+function aguapeGeo(){const parts=[];for(let k=0;k<7;k++){const l=aguapeLeaf.clone();l.rotateY(k/7*6.28+rand(-.2,.2));l.rotateZ(rand(-.1,.25));parts.push(l);}return mergeGeometries(parts);}
+const AGUAPE_G=aguapeGeo(),FLOWER_G=new THREE.ConeGeometry(.12,.45,6).translate(0,.4,0);
+{
+  const reed=new THREE.ConeGeometry(.05,2.2,4).translate(0,1.1,0),N=LOW?500:1100;
+  const rm=new THREE.InstancedMesh(reed,new THREE.MeshStandardMaterial({color:0x6f7b3a,roughness:.9}),N),o=new THREE.Object3D();
+  for(let i=0;i<N;i++){const x=rand(-200,200),side=Math.random()<.5?-1:1,z=zc(x)+side*rand(HW-1.2,HW+1.4);
+    o.position.set(x,Math.max(-.6,terrainH(x,z))-.1,z);o.rotation.set(rand(-.25,.25),0,rand(-.25,.25));const s=rand(.5,1.2);o.scale.set(1,s,1);o.updateMatrix();rm.setMatrixAt(i,o.matrix);}
+  rm.castShadow=true;scene.add(rm);
+  const NA=LOW?60:140,am=new THREE.InstancedMesh(AGUAPE_G,aguapeMat,NA),fm=new THREE.InstancedMesh(FLOWER_G,flowerMat,NA);
+  for(let i=0;i<NA;i++){const x=rand(-150,150),side=Math.random()<.5?-1:1,z=zc(x)+side*rand(HW-2.6,HW-.6);
+    o.position.set(x,.05,z);o.rotation.set(0,rand(0,6.3),0);const s=rand(1,1.8);o.scale.set(s,s,s);o.updateMatrix();am.setMatrixAt(i,o.matrix);
+    o.scale.set(s,Math.random()<.5?s:0.001,s);o.updateMatrix();fm.setMatrixAt(i,o.matrix);}
+  scene.add(am,fm);
+}
+
+// ===== Ponte Borges de Medeiros (inspirada na foto real: vãos em arco metálico sobre pilares) =====
+{
+  const X=82,c=zc(X),grp=new THREE.Group(),steel=new THREE.MeshStandardMaterial({color:0x3b4048,metalness:.7,roughness:.45}),
+    conc=new THREE.MeshStandardMaterial({color:0x6e695f,roughness:.92});
+  const L=2*HW+26,spans=3,sl=L/spans,deckY=6.2;
+  const deck=new THREE.Mesh(new THREE.BoxGeometry(5.6,.6,L+8),conc);deck.position.y=deckY;grp.add(deck);
+  for(let i=0;i<=spans;i++){const z=-L/2+i*sl;const p=new THREE.Mesh(new THREE.BoxGeometry(3.4,deckY+4,2.2),conc);p.position.set(0,(deckY-4)/2-.2,z);grp.add(p);
+    const cap=new THREE.Mesh(new THREE.BoxGeometry(6.4,.5,2.6),conc);cap.position.set(0,deckY-.5,z);grp.add(cap);}
+  for(let i=0;i<spans;i++){
+    const z0=-L/2+i*sl,z1=z0+sl,rise=4.2;
+    [-2.6,2.6].forEach(xx=>{
+      const pts=[];for(let k=0;k<=24;k++){const t=k/24;pts.push(new THREE.Vector3(xx,deckY+.3+Math.sin(Math.PI*t)*rise,z0+t*sl));}
+      const arch=new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),40,.22,6),steel);grp.add(arch);
+      for(let k=1;k<10;k++){const t=k/10,h=Math.sin(Math.PI*t)*rise;const hg=new THREE.Mesh(new THREE.CylinderGeometry(.05,.05,h,4),steel);hg.position.set(xx,deckY+.3+h/2,z0+t*sl);grp.add(hg);}
+    });
+    for(let k=2;k<9;k+=3){const t=k/10,h=Math.sin(Math.PI*t)*4.2;const br=new THREE.Mesh(new THREE.BoxGeometry(5.2,.14,.14),steel);br.position.set(0,deckY+.3+h,z0+t*sl);grp.add(br);}
+  }
+  [-2.7,2.7].forEach(xx=>{const r=new THREE.Mesh(new THREE.BoxGeometry(.12,.9,L+8),steel);r.position.set(xx,deckY+.75,0);grp.add(r);});
+  grp.traverse(m=>{if(m.isMesh){m.castShadow=true;m.receiveShadow=true;}});
+  grp.position.set(X,0,c);grp.rotation.y=-Math.atan(0.405*Math.cos(X*.045)+.44*Math.cos(X*.11+1)); // perpendicular ao rio
+  scene.add(grp);
+}
+
+// ===== capivaras na margem (moradoras do Ibirapuitã) =====
+const capys=[];
+{
+  const fur=new THREE.MeshStandardMaterial({color:0x7a5a3a,roughness:1});
+  const body=new THREE.SphereGeometry(.7,14,10).scale(1.45,.95,.95),head=new THREE.BoxGeometry(.62,.5,.48).translate(1.15,.28,0);
+  const snout=new THREE.BoxGeometry(.3,.38,.42).translate(1.5,.18,0),ear=new THREE.SphereGeometry(.09,6,4).translate(1.0,.6,.18),ear2=ear.clone().translate(0,0,-.36);
+  const legs=[[.6,.3],[.6,-.3],[-.6,.3],[-.6,-.3]].map(([x,z])=>new THREE.CylinderGeometry(.11,.11,.55,6).translate(x,-.6,z));
+  const geo=mergeGeometries([body,head,snout,ear,ear2,...legs].map(g=>g.toNonIndexed()));
+  [[-38,-1],[-34,-1],[-30.5,-1],[24,-1],[27,-1],[55,1]].forEach(([x,s],k)=>{
+    const z=zc(x)+s*(HW+4.5+k%2),m=new THREE.Mesh(geo,fur);m.castShadow=true;m.position.set(x,terrainH(x,z)+.85,z);m.rotation.y=rand(0,6.3);
+    const sc=k===2||k===4?.65:1;m.scale.setScalar(sc*1.15);scene.add(m);capys.push({m,ph:rand(0,6),y:m.position.y});});
+}
+
+// ===== objetos no rio =====
+const std=(c,o={})=>new THREE.MeshStandardMaterial(Object.assign({color:c,roughness:.5,metalness:0},o));
+const phys=(c,o={})=>new THREE.MeshPhysicalMaterial(Object.assign({color:c,roughness:.12,metalness:0,clearcoat:1,clearcoatRoughness:.1},o));
+const bottleProfile=[[0,-.45],[.2,-.45],[.22,-.4],[.22,.12],[.2,.2],[.12,.32],[.085,.4],[.085,.46],[0,.46]].map(([r,y])=>new THREE.Vector2(r,y));
+const canLabel=(bg,fg,txt)=>canvasTex(256,128,(c,w,h)=>{c.fillStyle=bg;c.fillRect(0,0,w,h);c.fillStyle=fg;c.font="bold 54px sans-serif";c.fillText(txt,20,84);c.fillStyle="rgba(255,255,255,.35)";c.fillRect(0,14,w,6);c.fillRect(0,h-20,w,6);});
+const crumple=(g,amt)=>{g=g.toNonIndexed();const p=g.attributes.position,v=new THREE.Vector3();for(let i=0;i<p.count;i++){v.fromBufferAttribute(p,i);const n=hash(Math.round(v.x*9),Math.round(v.y*9)+Math.round(v.z*9)*7);v.multiplyScalar(1+(n-.5)*amt);p.setXYZ(i,v.x,v.y,v.z);}g.computeVertexNormals();return g;};
+const G={
+  garrafa:new THREE.LatheGeometry(bottleProfile,18).rotateZ(Math.PI/2),
+  rotulo:new THREE.CylinderGeometry(.225,.225,.24,18,1,true).rotateZ(Math.PI/2).translate(-.08,0,0),
+  tampa:new THREE.CylinderGeometry(.1,.1,.09,10).rotateZ(Math.PI/2).translate(-.5,0,0),
+  lata:new THREE.CylinderGeometry(.2,.2,.48,20).rotateZ(Math.PI/2),
+  sacola:crumple(new THREE.SphereGeometry(.5,14,10).scale(1.1,.28,.85),.35),
+  alca:new THREE.TorusGeometry(.18,.03,5,10,Math.PI).translate(.5,.05,0),
+  pneu:new THREE.TorusGeometry(.42,.18,12,24).rotateX(Math.PI/2),
+  isopor:crumple(new THREE.BoxGeometry(.85,.3,.6,3,2,3),.08),
+  caixa:new THREE.BoxGeometry(.4,.62,.3).rotateZ(Math.PI/2.2),
+  folha:new THREE.SphereGeometry(.48,10,6).scale(1,.05,.42),
+  galho:new THREE.CylinderGeometry(.07,.12,1.9,7).rotateZ(Math.PI/2),
+  galho2:new THREE.CylinderGeometry(.04,.06,.8,5).rotateZ(Math.PI/2).rotateY(.7).translate(.2,0,.25),
+  aguape:AGUAPE_G,flor:FLOWER_G,
+  peixe:new THREE.SphereGeometry(.35,14,10).scale(1.7,.62,.45),
+  cauda:new THREE.ConeGeometry(.26,.42,4).rotateZ(Math.PI/2).scale(1,1,.25).translate(-.72,0,0)
+};
+const M={
+  pet:phys(0xcfeee4,{transparent:true,opacity:.42,roughness:.05}),
+  rotuloA:std(0xffffff,{map:canLabel("#e02424","#fff","REFRI"),roughness:.4}),
+  rotuloB:std(0xffffff,{map:canLabel("#1d63d8","#fff","ÁGUA"),roughness:.4}),
+  tampa:std(0x1f5fcf,{roughness:.4}),
+  lataA:std(0xffffff,{map:canLabel("#c8102e","#f5f5f5","COLA"),metalness:.85,roughness:.28}),
+  lataB:std(0xffffff,{map:canLabel("#e6e6e6","#2a6a2a","LIMÃO"),metalness:.85,roughness:.28}),
+  sacola:phys(0xf2f2ee,{transparent:true,opacity:.86,roughness:.45,clearcoat:.3}),
+  sacolaP:phys(0x2a2a2a,{transparent:true,opacity:.92,roughness:.35,clearcoat:.4}),
+  pneu:std(0x1c1c1c,{roughness:.92}),
+  isopor:std(0xf4f3ee,{roughness:1}),
+  caixa:std(0xffffff,{map:canvasTex(128,128,(c,w,h)=>{c.fillStyle="#f7f2e4";c.fillRect(0,0,w,h);c.fillStyle="#2b7bd6";c.fillRect(0,40,w,48);c.fillStyle="#fff";c.font="bold 28px sans-serif";c.fillText("LEITE",14,75);}),roughness:.6}),
+  folha:std(0x6e7a2a,{roughness:.6,side:THREE.DoubleSide}),
+  galho:std(0x4f3b28,{roughness:.95}),
+  peixe:std(0xd9a437,{metalness:.6,roughness:.3})
+};
+const TRASH=[
+  {k:"garrafa PET",fem:true,parts:[["garrafa","pet"],["rotulo",()=>Math.random()<.5?M.rotuloA:M.rotuloB],["tampa","tampa"]],float:.05},
+  {k:"lata",fem:true,parts:[["lata",()=>Math.random()<.5?M.lataA:M.lataB]],float:.02},
+  {k:"sacola",fem:true,parts:[["sacola",()=>Math.random()<.7?M.sacola:M.sacolaP],["alca","sacola"]],float:.06},
+  {k:"pneu",fem:false,parts:[["pneu","pneu"]],float:-.08},
+  {k:"isopor",fem:false,parts:[["isopor","isopor"]],float:.08},
+  {k:"embalagem",fem:true,parts:[["caixa","caixa"]],float:0}
+];
+const NATURE=[
+  {k:"folha",fem:true,parts:[["folha","folha"]],float:.03},
+  {k:"galho",fem:false,parts:[["galho","galho"],["galho2","galho"]],float:.0},
+  {k:"aguapé",fem:false,parts:[["aguape",aguapeMat],["flor",flowerMat]],float:.02}
+];
+const matOf=m=>typeof m==="function"?m():(m.isMaterial?m:M[m]);
+let items=[],fish=[],dying=[];
+function addItem(trash,x,off,type){
+  const t=type||pick(trash?TRASH:NATURE),g=new THREE.Group();
+  t.parts.forEach(([geo,mat])=>{const me=new THREE.Mesh(G[geo],matOf(mat));me.castShadow=true;g.add(me);});
+  g.scale.setScalar(1.55);g.rotation.y=rand(0,6.3);
+  const it={mesh:g,trash,label:t.k,fem:t.fem,x,off,alive:true,ph:rand(0,6.3),drift:rand(.7,1.3),conf:{},seenB:null,fl:t.float,tilt:rand(-.25,.25)};
+  g.position.set(x,0.1,zc(x)+off);scene.add(g);items.push(it);return it;
+}
+function clearWorld(){items.forEach(i=>scene.remove(i.mesh));fish.forEach(f=>scene.remove(f.mesh));dying.forEach(d=>scene.remove(d.mesh));items=[];fish=[];dying=[];}
+function populate(){
+  clearWorld();
+  for(let k=0;k<6;k++){const cx=rand(XMIN+8,XMAX-8),co=rand(-HW+4,HW-4),n=4+Math.floor(rand(0,3.99));
+    for(let j=0;j<n;j++)addItem(true,cx+rand(-3.5,3.5),clamp(co+rand(-3,3),-HW+2,HW-2));}
+  for(let k=0;k<14;k++)addItem(true,rand(XMIN+3,XMAX-3),rand(-HW+2,HW-2));
+  for(let k=0;k<16;k++)addItem(false,rand(XMIN+3,XMAX-3),rand(-HW+2,HW-2));
+}
+// ondinhas (anéis) quando algo toca a água
+const ringTex=canvasTex(128,128,(c,w,h)=>{const g=c.createRadialGradient(64,64,40,64,64,62);g.addColorStop(0,"rgba(255,255,255,0)");g.addColorStop(.6,"rgba(255,255,255,.9)");g.addColorStop(1,"rgba(255,255,255,0)");c.fillStyle=g;c.fillRect(0,0,w,h);});
+const splashes=[];
+for(let i=0;i<40;i++){const m=new THREE.Mesh(new THREE.PlaneGeometry(1,1),new THREE.MeshBasicMaterial({map:ringTex,transparent:true,opacity:0,depthWrite:false}));m.rotation.x=-Math.PI/2;m.visible=false;scene.add(m);splashes.push({m,t:1});}
+let splI=0;function splash(x,z,s=1){const S=splashes[splI++%splashes.length];S.t=0;S.s=s;S.m.position.set(x,.06,z);S.m.visible=true;}
+function addFish(){
+  const g=new THREE.Group();g.add(new THREE.Mesh(G.peixe,M.peixe),new THREE.Mesh(G.cauda,M.peixe));g.scale.setScalar(1.3);
+  const x=rand(XMIN+4,XMAX-4),off=rand(-HW+2.5,HW-2.5),dir=rand(0,6.3);
+  const f={mesh:g,isFish:true,trash:false,label:"dourado",fem:false,alive:true,t:0,dur:rand(1.6,2.2),x,off,dir,conf:{},seenB:null,sp:false};
+  g.rotation.y=-dir;scene.add(g);fish.push(f);splash(x,zc(x)+off,1.2);
+}
+
+// ===== garças e biguás (aparecem com a água limpa) =====
+const birds=[];
+function birdGeo(){
+  const body=new THREE.SphereGeometry(.25,10,8).scale(2.2,1,1),neck=new THREE.CylinderGeometry(.06,.08,.8,6).rotateZ(-1.1).translate(.75,.28,0);
+  const head=new THREE.SphereGeometry(.12,8,6).scale(1.3,1,1).translate(1.1,.48,0),beak=new THREE.ConeGeometry(.04,.45,5).rotateZ(-Math.PI/2).translate(1.38,.46,0);
+  return mergeGeometries([body,neck,head,beak].map(g=>g.toNonIndexed()));}
+const BIRD_G=birdGeo();
+const wingShape=new THREE.Shape();wingShape.moveTo(0,-.3);wingShape.quadraticCurveTo(.9,-.4,1.8,-.05);wingShape.lineTo(1.6,.15);wingShape.quadraticCurveTo(.8,.3,0,.3);
+const WING_G=new THREE.ShapeGeometry(wingShape).rotateX(-Math.PI/2).rotateY(Math.PI/2);
+function addBird(kind){
+  const mat=kind==="garça"?std(0xf8f8f4,{roughness:.8,side:THREE.DoubleSide}):std(0x1d1f22,{roughness:.6,side:THREE.DoubleSide});
+  const g=new THREE.Group(),body=new THREE.Mesh(BIRD_G,mat),wl=new THREE.Mesh(WING_G,mat),wr=new THREE.Mesh(WING_G,mat);
+  wr.scale.z=-1;g.add(body,wl,wr);body.castShadow=true;g.scale.setScalar(kind==="garça"?1.5:1.1);scene.add(g);
+  const cx=rand(-40,40);
+  birds.push({g,wl,wr,cx,cz:zc(cx)+rand(-6,6),r:rand(10,24),h:rand(8,16),a:rand(0,6.3),w:rand(.3,.5)*(Math.random()<.5?-1:1),ph:rand(0,6),fl:kind==="garça"?4.5:8});
+}
+function clearBirds(){birds.forEach(b=>scene.remove(b.g));birds.length=0;}
+
+// ===== barcos coletores autônomos (catamarãs com esteira) =====
+const solarTex=canvasTex(256,256,(c,w,h)=>{c.fillStyle="#0d1a3a";c.fillRect(0,0,w,h);c.strokeStyle="#8aa0c8";c.lineWidth=2;
+  for(let i=0;i<=8;i++){c.beginPath();c.moveTo(i*w/8,0);c.lineTo(i*w/8,h);c.stroke();c.beginPath();c.moveTo(0,i*h/8);c.lineTo(w,i*h/8);c.stroke();}
+  const g=c.createLinearGradient(0,0,w,h);g.addColorStop(0,"rgba(255,255,255,.15)");g.addColorStop(.5,"rgba(255,255,255,0)");c.fillStyle=g;c.fillRect(0,0,w,h);});
+function makeBoat(color){
+  const g=new THREE.Group(),hullM=phys(color,{roughness:.25,clearcoat:.8}),white=std(0xf2f2f2,{roughness:.35}),dark=std(0x22252b,{roughness:.5,metalness:.4}),steel=std(0xb8bec6,{metalness:.9,roughness:.3});
+  // cascos (pontões)
+  [-.75,.75].forEach(z=>{const p=new THREE.Mesh(new THREE.CapsuleGeometry(.36,2.8,6,14).rotateZ(Math.PI/2).scale(1,.75,1),hullM);p.position.set(-.1,-.05,z);g.add(p);
+    const stripe=new THREE.Mesh(new THREE.CapsuleGeometry(.365,2.8,4,14).rotateZ(Math.PI/2).scale(1,.18,1.01),white);stripe.position.set(-.1,.12,z);g.add(stripe);});
+  const deck=new THREE.Mesh(new THREE.BoxGeometry(2.6,.12,1.9),white);deck.position.set(-.35,.38,0);g.add(deck);
+  // painel solar
+  const sp=new THREE.Mesh(new THREE.BoxGeometry(1.7,.05,1.5),std(0xffffff,{map:solarTex,roughness:.15,metalness:.3}));sp.position.set(-.7,1.15,0);g.add(sp);
+  [[-1.4,.6],[-1.4,-.6],[0,.6],[0,-.6]].forEach(([x,z])=>{const pl=new THREE.Mesh(new THREE.CylinderGeometry(.03,.03,.75,6),steel);pl.position.set(x,.76,z);g.add(pl);});
+  // caixa de coleta e eletrônica
+  const bin=new THREE.Mesh(new THREE.BoxGeometry(1.1,.5,1.1),std(0x5a6068,{roughness:.6,metalness:.3}));bin.position.set(-.6,.69,0);g.add(bin);
+  // esteira inclinada na proa
+  const ramp=new THREE.Group(),belt=new THREE.Mesh(new THREE.BoxGeometry(1.3,.05,1.05),dark);ramp.add(belt);
+  for(let i=0;i<6;i++){const s=new THREE.Mesh(new THREE.BoxGeometry(.04,.08,1.05),steel);s.position.set(-.55+i*.22,.05,0);ramp.add(s);}
+  ramp.position.set(1.05,.18,0);ramp.rotation.z=-.42;g.add(ramp);
+  // mastro com câmera e luz
+  const mast=new THREE.Mesh(new THREE.CylinderGeometry(.04,.05,1.1,8),steel);mast.position.set(-1.35,1.7,0);g.add(mast);
+  const cam=new THREE.Mesh(new THREE.SphereGeometry(.17,16,12),phys(0x111111,{roughness:.05}));cam.position.set(-1.35,2.3,0);g.add(cam);
+  const led=new THREE.Mesh(new THREE.SphereGeometry(.07,8,6),new THREE.MeshStandardMaterial({color,emissive:color,emissiveIntensity:3}));led.position.set(-1.35,2.52,0);g.add(led);
+  // motores na popa
+  [-.75,.75].forEach(z=>{const mo=new THREE.Mesh(new THREE.CylinderGeometry(.12,.12,.4,10).rotateZ(Math.PI/2),dark);mo.position.set(-1.75,-.2,z);g.add(mo);});
+  g.traverse(m=>{if(m.isMesh){m.castShadow=true;}});
+  g.scale.setScalar(1.3);scene.add(g);g.userData.led=led;return g;
+}
+const flat=(geo,color,op)=>{const m=new THREE.Mesh(geo,new THREE.MeshBasicMaterial({color,transparent:true,opacity:op,depthWrite:false,side:THREE.DoubleSide,fog:false}));m.rotation.x=-Math.PI/2;m.renderOrder=2;return m;};
+
+const BOATS=[
+  {id:0,name:"Guará",color:0x8b3dff,css:"#8b3dff",speed:4.5,turn:2.4,every:.2,who:"Câmera 360° de curto alcance.",how:"Vai sempre ao lixo mais próximo.",ico:"🟣"},
+  {id:1,name:"Capivara",color:0x12b981,css:"#12b981",speed:5.0,turn:2.2,every:.25,who:"Recebe o mapa de um drone que vê longe.",how:"Planeja uma rota pelo lugar com mais lixo junto, mas para para pensar.",ico:"🟢"},
+  {id:2,name:"Biguá",color:0xfb3b5c,css:"#fb3b5c",speed:5.7,turn:2.5,every:.25,who:"Câmera frontal de longo alcance e o barco mais rápido.",how:"Às vezes confunde folhas, galhos, aguapés e peixes com lixo.",ico:"🔴"}
+];
+const boats=BOATS.map(B=>{
+  const b=Object.assign({},B,{mesh:makeBoat(B.color),rig:new THREE.Group(),pos:new THREE.Vector3(),heading:0,score:0,target:null,wp:null,wpT:0,thinkT:0,
+    status:"",sees:[],route:[],plan:0,planning:false,pause:0,mistakes:0,wakeT:0,v:0,roll:0});
+  scene.add(b.rig);
+  if(b.id===0){b.rig.add(flat(new THREE.RingGeometry(10.6,11,64),b.color,.55));b.rig.add(flat(new THREE.CircleGeometry(10.6,48),b.color,.06));}
+  if(b.id===1){
+    b.rig.add(flat(new THREE.RingGeometry(33.6,34,96),b.color,.35));
+    const dr=new THREE.Group(),dm=std(0x2b2b3a,{roughness:.4,metalness:.3});
+    dr.add(new THREE.Mesh(new THREE.BoxGeometry(1,.25,1),dm));
+    b.rotors=[];[[.75,.75],[-.75,.75],[.75,-.75],[-.75,-.75]].forEach(([x,z])=>{const arm=new THREE.Mesh(new THREE.BoxGeometry(.9,.08,.12),dm);arm.position.set(x/2,0,z/2);arm.rotation.y=Math.atan2(-z,x);dr.add(arm);
+      const r=new THREE.Mesh(new THREE.CylinderGeometry(.42,.42,.02,16),new THREE.MeshBasicMaterial({color:0xcccccc,transparent:true,opacity:.35}));r.position.set(x,.1,z);dr.add(r);b.rotors.push(r);});
+    const eye=new THREE.Mesh(new THREE.SphereGeometry(.16,10,8),new THREE.MeshStandardMaterial({color:0x12b981,emissive:0x12b981,emissiveIntensity:2}));eye.position.y=-.2;dr.add(eye);
+    dr.traverse(m=>{if(m.isMesh)m.castShadow=true;});dr.scale.setScalar(1.5);scene.add(dr);b.drone=dr;
+    b.routeLine=new THREE.Line(new THREE.BufferGeometry().setAttribute("position",new THREE.Float32BufferAttribute(new Float32Array(3*8),3)),new THREE.LineBasicMaterial({color:0x2dffb0,fog:false}));
+    b.routeLine.frustumCulled=false;scene.add(b.routeLine);
+  }
+  if(b.id===2){b.rig.add(flat(new THREE.CircleGeometry(20,24,-0.6,1.2),b.color,.14));b.rig.add(flat(new THREE.RingGeometry(19.6,20,24,1,-0.6,1.2),b.color,.5));}
+  return b;
+});
+
+// espuma do rastro
+const foamTex=canvasTex(64,64,(c,w,h)=>{const g=c.createRadialGradient(32,32,2,32,32,31);g.addColorStop(0,"rgba(255,255,255,.95)");g.addColorStop(.5,"rgba(255,255,255,.45)");g.addColorStop(1,"rgba(255,255,255,0)");c.fillStyle=g;c.fillRect(0,0,w,h);});
+const foamG=new THREE.PlaneGeometry(1,1),foam=[];
+for(let i=0;i<140;i++){const m=new THREE.Mesh(foamG,new THREE.MeshBasicMaterial({map:foamTex,transparent:true,opacity:0,depthWrite:false,color:0xeeeeea}));m.rotation.x=-Math.PI/2;m.visible=false;scene.add(m);foam.push({m,life:0});}
+let foamI=0;
+function spawnFoam(x,z,s=1){const f=foam[foamI++%foam.length];f.life=1.8;f.s=s;f.m.position.set(x,0.07,z);f.m.rotation.z=rand(0,6);f.m.visible=true;}
+
+// ===== inteligências (mesma lógica do jogo original) =====
+function within(b,r,onlyTrash=true){const r2=r*r;return items.filter(it=>it.alive&&(!onlyTrash||it.trash)&&d2(b.pos,it.mesh.position)<r2);}
+const byDist=b=>(a,c)=>d2(b.pos,a.mesh.position)-d2(b.pos,c.mesh.position);
+const ao=it=>it.fem?"à":"ao", um=it=>it.fem?"uma":"um";
+function conf(it,b){return it.conf[b.id]||(it.conf[b.id]=Math.floor(rand(84,99.9)));}
+function thinkGuara(b){
+  const c=within(b,11).sort(byDist(b));b.sees=c.slice(0,4);
+  if(c.length){b.target=c[0];b.status=`indo ${ao(c[0])} ${c[0].label} mais ${c[0].fem?"próxima":"próximo"}`;}
+  else{b.target=null;b.status="procurando lixo por perto";}
+}
+function thinkCapivara(b){
+  b.route=b.route.filter(i=>i.alive);
+  if(b.route.length){b.target=b.route[0];b.sees=b.route;b.status=`seguindo a rota: ${b.route.length} ${b.route.length>1?"itens":"item"} pela frente`;return;}
+  if(!b.planning){b.planning=true;b.plan=0.6;b.target=null;b.sees=[];b.status="o drone está mapeando o rio...";}
+}
+function planCapivara(b){
+  b.planning=false;
+  const c=within(b,34);
+  if(!c.length){b.status="o drone não vê lixo aqui: explorando";b.wp=null;return;}
+  let best=null,bs=-1;
+  c.forEach(it=>{const n=c.filter(o=>d2(o.mesh.position,it.mesh.position)<49).length;const s=n/(1+Math.sqrt(d2(b.pos,it.mesh.position))/12);if(s>bs){bs=s;best=it;}});
+  let pool=c.filter(o=>d2(o.mesh.position,best.mesh.position)<81),route=[],cur=b.pos;
+  while(pool.length&&route.length<6){pool.sort((a,e)=>d2(cur,a.mesh.position)-d2(cur,e.mesh.position));const nx=pool.shift();route.push(nx);cur=nx.mesh.position;}
+  b.route=route;b.target=route[0];b.sees=route;
+  b.status=`rota com ${route.length} ${route.length>1?"itens":"item"} no aglomerado`;
+}
+function inCone(b,p){const dx=p.x-b.pos.x,dz=p.z-b.pos.z;if(dx*dx+dz*dz>400)return false;return Math.abs(wrapA(Math.atan2(dz,dx)-b.heading))<0.6;}
+const TRASH_NAMES=TRASH.map(t=>t.k);
+function thinkBigua(b){
+  if(b.target&&!b.target.alive&&b.target.isFish&&b.target.seenB&&b.target.seenB.fake){
+    b.mistakes++;toast("Biguá perseguiu um dourado achando que era lixo! 🐟",b.css);beep([260,200],.12,"square",.05);b.target=null;
+  }
+  const vis=[];
+  items.forEach(it=>{if(it.alive&&inCone(b,it.mesh.position))vis.push(it);});
+  fish.forEach(f=>{if(f.alive&&f.t>0.3&&inCone(b,f.mesh.position))vis.push(f);});
+  vis.forEach(v=>{
+    if(v.seenB)return;
+    if(v.trash)v.seenB={t:true,conf:Math.floor(rand(78,98)),label:v.label};
+    else if(Math.random()<(v.isFish?0.3:0.15))v.seenB={t:true,fake:true,conf:Math.floor(rand(55,75)),label:pick(TRASH_NAMES)};
+    else v.seenB={t:false,conf:Math.floor(rand(70,96)),label:v.label};
+  });
+  vis.sort(byDist(b));b.sees=vis.slice(0,6);
+  if(!(b.target&&b.target.alive)){const c=vis.filter(v=>v.seenB.t);b.target=c[0]||null;}
+  if(b.target)b.status=`a câmera vê ${vis.length} ${vis.length===1?"objeto":"objetos"} e vai atrás ${b.target.seenB.fake?"de algo que parece lixo":(b.target.fem?"da ":"do ")+b.target.label}`;
+  else b.status="varrendo o rio com a câmera";
+}
+const THINK=[thinkGuara,thinkCapivara,thinkBigua];
+function pickWander(b){
+  const reach=b.id===2?rand(18,34):rand(12,28);
+  let x=clamp(b.pos.x+(Math.random()<.5?-1:1)*reach,XMIN+5,XMAX-5);
+  return new THREE.Vector3(x,0,zc(x)+rand(-HW+3,HW-3));
+}
+function updateBoat(b,dt){
+  if(b.pause>0){b.pause-=dt;b.v=0;return;}
+  if(b.planning){b.plan-=dt;if(b.plan<=0)planCapivara(b);}
+  b.thinkT-=dt;
+  if(b.thinkT<=0||(b.target&&!b.target.alive)){b.thinkT=b.every;THINK[b.id](b);}
+  let goal;
+  if(b.target)goal=b.target.mesh.position;
+  else{b.wpT-=dt;if(!b.wp||d2(b.pos,b.wp)<9||b.wpT<0){b.wp=pickWander(b);b.wpT=7;}goal=b.wp;}
+  const dx=goal.x-b.pos.x,dz=goal.z-b.pos.z,diff=wrapA(Math.atan2(dz,dx)-b.heading);
+  const dh=clamp(diff,-b.turn*dt,b.turn*dt);b.heading=wrapA(b.heading+dh);b.roll+=((dh/dt||0)*.06-b.roll)*Math.min(1,dt*4);
+  let sp=b.speed*(1-0.55*Math.min(1,Math.abs(diff)/1.4));
+  if(b.planning)sp*=0.5;
+  b.pos.x+=Math.cos(b.heading)*sp*dt;b.pos.z+=Math.sin(b.heading)*sp*dt;
+  b.pos.x=clamp(b.pos.x,XMIN,XMAX);const c=zc(b.pos.x),m=HW-2;b.pos.z=clamp(b.pos.z,c-m,c+m);
+  b.v=sp;
+  if(b.target&&!b.target.trash&&!b.target.isFish&&d2(b.pos,b.target.mesh.position)<5){
+    const t=b.target;b.mistakes++;t.seenB={t:false,conf:Math.floor(rand(85,97)),label:t.label};
+    toast(`Biguá confundiu ${um(t)} ${t.label} com lixo! ${t.label==="folha"?"🍃":"🌿"}`,b.css);beep([260,200],.12,"square",.05);
+    b.status=`ops! era ${um(t)} ${t.label}`;b.target=null;b.pause=0.7;b.thinkT=0.7;
+  }
+}
+
+// ===== partida =====
+let state="intro",simT=0,spawnT=0,natT=0,fishT=0,escaped=0,leader=-1,speedMul=TURBO||1,warned={},totalTrash=0,removed=0,autoT=null;
+function startMatch(){
+  clearTimeout(autoT);bgStop();startAmbience();
+  populate();clearBirds();
+  totalTrash=items.filter(i=>i.trash).length;removed=0;escaped=0;leader=-1;warned={};simT=0;spawnT=2;natT=3;fishT=1;
+  cleanK=0.12;
+  const xs=[-14,0,14].sort(()=>Math.random()-.5);
+  boats.forEach((b,k)=>{b.pos.set(xs[k],0,zc(xs[k])+rand(-3,3));b.heading=rand(-3.1,3.1);b.score=0;b.target=null;b.wp=null;b.route=[];b.sees=[];b.planning=false;b.pause=0;b.mistakes=0;b.status="ligando os motores...";b.thinkT=0;});
+  $("sIntro").classList.add("hidden");$("sEnd").classList.add("hidden");
+  $("hud").classList.remove("hidden");$("board").classList.remove("hidden");$("hint").classList.remove("hidden");$("feed").innerHTML="";
+  buildBoard();updateHud(true);
+  state="count";let n=3;
+  const tick=()=>{
+    const el=$("count");el.classList.remove("pop");void el.offsetWidth;
+    if(n>0){el.textContent=n;el.classList.add("pop");beep([440],.15);n--;setTimeout(tick,800);}
+    else{el.textContent="Valendo!";el.classList.add("pop");beep([660,880],.12);state="play";$("phase").textContent="IA contra IA: ao vivo no Ibirapuitã";setTimeout(()=>{el.textContent="";},800);}
+  };
+  tick();
+}
+function collect(b,it){
+  it.alive=false;b.score++;removed++;
+  dying.push({mesh:it.mesh,t:0,b});splash(it.mesh.position.x,it.mesh.position.z,1.6);
+  beep(b.id===0?[660,880]:b.id===1?[587,784]:[740,988],.07,"triangle",.07);
+  const s=project(b.mesh.position,2);if(s){const p=document.createElement("div");p.className="plus";p.style.setProperty("--c",b.css);p.textContent="+1";p.style.left=s.x+"px";p.style.top=s.y+"px";p.style.transform="translate(-50%,0)";$("labels").appendChild(p);setTimeout(()=>p.remove(),950);}
+}
+function step(dt){
+  simT+=dt;
+  items.forEach(it=>{if(!it.alive)return;it.x+=CURRENT*dt*it.drift;if(it.x>XMAX+3){it.alive=false;scene.remove(it.mesh);if(it.trash)escaped++;}});
+  spawnT-=dt;if(spawnT<=0){spawnT=rand(0.9,1.6);addItem(true,Math.random()<.4?XMIN-3:rand(XMIN+5,XMAX-8),rand(-HW+2,HW-2));totalTrash++;}
+  natT-=dt;if(natT<=0){natT=rand(3,5);addItem(false,XMIN-3,rand(-HW+2,HW-2));}
+  fishT-=dt;if(fishT<=0){fishT=rand(1.2,2.6)/(0.5+cleanK);addFish();}
+  fish.forEach(f=>{f.t+=dt;if(f.t>=f.dur&&f.alive){f.alive=false;const p=f.mesh.position;splash(p.x,p.z,1);}});
+  boats.forEach(b=>updateBoat(b,dt));
+  for(let i=0;i<3;i++)for(let j=i+1;j<3;j++){const a=boats[i].pos,c=boats[j].pos,dd=Math.sqrt(d2(a,c));if(dd<3.4&&dd>0.01){const k=(3.4-dd)/2/dd,ox=(a.x-c.x)*k,oz=(a.z-c.z)*k;a.x+=ox;a.z+=oz;c.x-=ox;c.z-=oz;}}
+  boats.forEach(b=>items.forEach(it=>{if(it.alive&&it.trash&&d2(b.pos,it.mesh.position)<4.8)collect(b,it);}));
+  if(items.length>160)items=items.filter(i=>i.alive||boats.some(b=>b.target===i));
+  if(simT>3){const mx=Math.max(...boats.map(b=>b.score)),top=boats.filter(b=>b.score===mx);
+    if(top.length===1&&top[0].id!==leader){leader=top[0].id;if(simT>6)toast(`${top[0].name} assumiu a liderança!`,top[0].css);}}
+  const left=MATCH-simT;
+  if(left<=30&&!warned[30]){warned[30]=1;toast("Faltam 30 segundos!","#ffc21a");}
+  if(left<=10&&!warned[10]){warned[10]=1;toast("Reta final: 10 segundos!","#ffc21a");}
+  if(left<=0)endMatch();
+}
+function endMatch(){
+  state="end";simT=MATCH;updateHud(true);
+  boats.forEach(b=>{b.target=null;b.sees=[];b.route=[];b.status="missão cumprida";});
+  for(let i=0;i<6;i++)addBird("garça");for(let i=0;i<4;i++)addBird("biguá");
+  beep([523,659,784,1046],.13,"triangle",.12);
+  $("phase").textContent="Resultado";$("hint").classList.add("hidden");
+  if(camMode)setCam(0);
+  setTimeout(showEnd,1800);
+}
+function showEnd(){
+  const sorted=[...boats].sort((a,b)=>b.score-a.score),mx=sorted[0].score,top=sorted.filter(b=>b.score===mx);
+  $("winner").innerHTML=top.length>1?`🤝 Empate entre ${top.map(b=>`<span style="color:${b.css}">${b.name}</span>`).join(" e ")}!`:`🏆 <span style="color:${top[0].css}">${top[0].name}</span> venceu!`;
+  $("summary").innerHTML=`Juntos, os três barcos tiraram <b>${removed} ${removed===1?"objeto":"objetos"} de lixo</b> do Ibirapuitã em 90 segundos. ${escaped?`${escaped} ${escaped>1?"escaparam":"escapou"} rio abaixo, rumo ao Ibicuí e ao Uruguai, antes de ser ${escaped>1?"recolhidos":"recolhido"}.`:"Nenhum lixo escapou rio abaixo."}`;
+  const notes=[
+    b=>`Ir sempre ao mais próximo é simples e rápido de calcular. Mas, sem olhar o todo, o barco às vezes vai e volta pelo rio.`,
+    b=>`Planejar a rota custou algumas paradas para pensar, mas evitou viagens perdidas: o barco limpa um aglomerado de cada vez.`,
+    b=>b.mistakes?`Enxergar longe ajuda, mas o Biguá teve <b>${b.mistakes} ${b.mistakes>1?"falsos positivos":"falso positivo"}</b>: confundiu folha, galho, aguapé ou peixe com lixo e perdeu tempo.`:`Enxergar longe ajudou, e desta vez o Biguá não confundiu nada com lixo. Nas outras partidas, ele pode se enganar!`
+  ];
+  $("endBoats").innerHTML=sorted.map((b,k)=>`<div class="boat" style="--c:${b.css}"><h3>${k+1}º ${b.name}${k===0&&top.length===1?" 👑":""}</h3><div class="res">${b.score} ${b.score===1?"item":"itens"}</div><p><b>${b.how}</b> ${notes[b.id](b)}</p></div>`).join("");
+  $("hud").classList.add("hidden");$("board").classList.add("hidden");
+  $("sEnd").classList.remove("hidden");$("endCard").scrollTop=0;
+  burst(160);
+  if(AUTO)autoT=setTimeout(startMatch,25000);
+}
+
+// ===== interface =====
+function buildBoard(){$("board").innerHTML=boats.map(b=>`<div class="sb" style="--c:${b.css}"><span class="dot"></span><span class="nm" id="nm${b.id}">${b.name}</span><span class="sc" id="sc${b.id}">0</span><div class="bar"><i id="br${b.id}"></i></div><small class="st" id="st${b.id}"></small></div>`).join("");}
+const last={};
+function setText(id,v){if(last[id]!==v){last[id]=v;$(id).innerHTML=v;}}
+function updateHud(){
+  const left=Math.max(0,Math.ceil(MATCH-simT));
+  setText("clock",`${Math.floor(left/60)}:${String(left%60).padStart(2,"0")}`);
+  $("clock").classList.toggle("low",left<=10&&state==="play");
+  setText("nRio",String(items.filter(i=>i.alive&&i.trash).length));
+  setText("nOut",String(removed));
+  const mx=Math.max(1,...boats.map(b=>b.score)),best=Math.max(...boats.map(b=>b.score)),lead=boats.filter(b=>b.score===best).length===1&&best>0;
+  boats.forEach(b=>{setText("sc"+b.id,String(b.score));setText("st"+b.id,b.status);setText("nm"+b.id,b.name+(lead&&b.score===best?" 👑":""));$("br"+b.id).style.width=(b.score/mx*100)+"%";});
+}
+function toast(t,c){
+  const f=$("feed"),d=document.createElement("div");d.className="toast";d.style.setProperty("--c",c||"#8b3dff");d.textContent=t;f.prepend(d);
+  while(f.children.length>3)f.lastChild.remove();
+  setTimeout(()=>{d.classList.add("out");setTimeout(()=>d.remove(),500);},3500);
+}
+$("introBoats").innerHTML=boats.map(b=>`<div class="boat" style="--c:${b.css}"><h3>🚤 ${b.name}</h3><p>${b.who} <b>${b.how}</b></p></div>`).join("");
+$("go").onclick=()=>{beep([520,780]);startMatch();};
+$("again").onclick=()=>{beep([520,780]);startMatch();};
+$("spd").onclick=()=>{speedMul=speedMul===1?2:1;$("spd").textContent=`⏩ ${speedMul}x`;};
+$("snd").onclick=()=>{soundOn=!soundOn;$("snd").textContent=soundOn?"🔊":"🔇";if(amb)amb.g.gain.value=soundOn?.16:0;else startAmbience();};
+if(TURBO)$("spd").textContent=`⏩ ${TURBO}x`;
+let camMode=0;
+const CAM_NAMES=["🎥 Geral","🎥 Guará","🎥 Capivara","🎥 Biguá"];
+function setCam(m){camMode=m;$("cam").textContent=CAM_NAMES[m];controls.enabled=m===0;}
+$("cam").onclick=()=>setCam((camMode+1)%4);
+function checkReady(){if(panoReady){$("go").disabled=false;$("go").textContent="▶ Dar o play";}}
+setTimeout(()=>{panoReady=true;checkReady();},6000);
+
+// ===== câmera: órbita livre + modo cinema + seguir barco =====
+const controls=new OrbitControls(camera,canvas);
+controls.target.set(0,0,-3);controls.enableDamping=true;controls.dampingFactor=.06;
+controls.minDistance=14;controls.maxDistance=190;controls.maxPolarAngle=1.42;controls.minPolarAngle=.25;controls.enablePan=true;controls.screenSpacePanning=false;
+let lastUser=-99,clockT=0;
+controls.addEventListener("start",()=>{lastUser=clockT;});
+controls.addEventListener("change",()=>{if(controls.target.length()>120)controls.target.setLength(120);controls.target.y=0;});
+const camGoal=new THREE.Vector3(),lookGoal=new THREE.Vector3(),lookCur=new THREE.Vector3(0,0,-3);
+
+// ===== rótulos 2D sobre a cena =====
+const labelEls=[],vtmp=new THREE.Vector3();
+let W=innerWidth,H=innerHeight;
+function project(p,yUp=0){vtmp.set(p.x,p.y+yUp,p.z).project(camera);if(vtmp.z>1||Math.abs(vtmp.x)>1.2||Math.abs(vtmp.y)>1.2)return null;return {x:(vtmp.x*.5+.5)*W,y:(-vtmp.y*.5+.5)*H};}
+function pxPerUnit(p){const d=camera.position.distanceTo(p);return (H/2)/(Math.tan(camera.fov*Math.PI/360)*d);}
+function drawLabels(){
+  const L=[],seen=new Set();
+  if(state!=="intro"){
+    boats.forEach(b=>{if(b.target&&b.target.alive&&!seen.has(b.target)){seen.add(b.target);L.push(detLabel(b,b.target));}});
+    boats.forEach(b=>b.sees.forEach(it=>{if(it.alive&&!seen.has(it)&&L.length<30){seen.add(it);L.push(detLabel(b,it));}}));
+    boats.forEach(b=>L.push({p:b.mesh.position,bn:true,text:b.name,c:b.css}));
+  }
+  let i=0;
+  for(const l of L){
+    const s=project(l.p,l.bn?3.8:0);if(!s)continue;
+    let el=labelEls[i];
+    if(!el){el=document.createElement("div");el.innerHTML="<span></span>";$("labels").appendChild(el);labelEls.push(el);el._k="";}
+    const k=(l.bn?"bn":"det")+l.cls+l.text;
+    if(el._k!==k){el._k=k;el.className=l.bn?"bn":"det"+(l.cls||"");if(l.bn){el.textContent=l.text;}else{el.innerHTML=`<span>${l.text}</span>`;}el.style.setProperty("--c",l.c);}
+    if(l.bn){el.style.width=el.style.height="";el.style.transform=`translate(${s.x}px,${s.y}px) translate(-50%,-100%)`;}
+    else{const sz=Math.max(14,Math.min(160,pxPerUnit(l.p)*1.9));el.style.width=el.style.height=sz+"px";el.style.transform=`translate(${s.x-sz/2}px,${s.y-sz/2}px)`;}
+    el.style.display="";i++;
+  }
+  for(;i<labelEls.length;i++)labelEls[i].style.display="none";
+}
+function detLabel(b,it){
+  if(b.id===2&&it.seenB){const s=it.seenB;
+    if(s.fake)return {p:it.mesh.position,text:`${s.label}? ${s.conf}%`,c:b.css,cls:" fake"};
+    if(!s.t)return {p:it.mesh.position,text:`${s.label} ${s.conf}%`,c:b.css,cls:" nat"};
+    return {p:it.mesh.position,text:`${s.label} ${s.conf}%`,c:b.css,cls:""};}
+  return {p:it.mesh.position,text:`${it.label} ${conf(it,b)}%`,c:b.css,cls:""};
+}
+
+// ===== laço principal =====
+function resize(){W=innerWidth;H=innerHeight;renderer.setPixelRatio(pr);renderer.setSize(W,H,false);camera.aspect=W/H;camera.updateProjectionMatrix();sizeFx();}
+addEventListener("resize",resize);
+let prev=performance.now(),hudT=0,chirpT=2,perfT=0,perfN=0,pr=Math.min(devicePixelRatio,LOW?1.25:1.75);
+const tmpC=new THREE.Color();
+function frame(){
+  requestAnimationFrame(frame);
+  const now=performance.now(),raw=(now-prev)/1000,dt=clamp(raw,0,0.05);prev=now;clockT+=dt;
+  // qualidade adaptativa: se o computador estiver lento, reduz a resolução
+  perfT+=raw;perfN++;if(perfT>2.5){const fps=perfN/perfT;perfT=0;perfN=0;
+    if(fps<26&&pr>0.6){pr=Math.max(0.6,pr-0.25);resize();}
+    else if(fps<20&&sunL.castShadow&&pr<=0.6){sunL.castShadow=false;}}
+  if(state==="play"){let s=dt*speedMul;while(s>0){const h=Math.min(0.05,s);step(h);s-=h;if(state!=="play")break;}}
+  else if(state==="end"){fishT-=dt;if(fishT<=0){fishT=rand(.4,.9);addFish();}fish.forEach(f=>{f.t+=dt;if(f.t>=f.dur)f.alive=false;});}
+  // a água vai ficando menos turva conforme o lixo sai
+  const target=state==="intro"?0.12:0.12+0.88*removed/Math.max(1,totalTrash);
+  cleanK+=(target-cleanK)*Math.min(1,dt*1.5);
+  tmpC.copy(MURKY).lerp(CLEAN,cleanK);waterU.waterColor.value.copy(tmpC);
+  waterU.time.value+=dt*(reduce?.15:.55);windU.value+=dt;
+  chirpT-=dt;if(chirpT<=0){chirpT=rand(1.5,5)/(0.4+cleanK);if(amb)chirp();}
+  // objetos boiando, levemente submersos e balançando
+  items.forEach(it=>{if(!it.alive)return;const p=it.mesh.position;p.x=it.x;p.z=zc(it.x)+it.off;
+    p.y=it.fl+Math.sin(clockT*1.8+it.ph)*0.05;it.mesh.rotation.y+=dt*0.12;it.mesh.rotation.x=it.tilt+Math.sin(clockT*1.3+it.ph)*.08;it.mesh.rotation.z=Math.cos(clockT*1.1+it.ph)*.08;});
+  for(let i=dying.length-1;i>=0;i--){const d=dying[i];d.t+=dt*2.5;const p=d.mesh.position;p.lerp(d.b.mesh.position,Math.min(1,dt*6));p.y+=dt*2;d.mesh.scale.setScalar(1.55*Math.max(0,1-d.t));if(d.t>=1){scene.remove(d.mesh);dying.splice(i,1);}}
+  fish.forEach(f=>{const k=f.t/f.dur;const x=f.x+Math.cos(f.dir)*k*3,z=zc(f.x)+f.off+Math.sin(f.dir)*k*3;f.mesh.position.set(x,-0.5+Math.sin(Math.PI*k)*1.9,z);f.mesh.rotation.set(0,-f.dir,(0.5-k)*1.8);f.mesh.visible=f.alive;});
+  if(fish.length>30){fish.filter(f=>!f.alive).forEach(f=>scene.remove(f.mesh));fish=fish.filter(f=>f.alive);}
+  splashes.forEach(S=>{if(S.t<1){S.t+=dt*.8;const s=(.5+S.t*3.2)*S.s;S.m.scale.set(s,s,1);S.m.material.opacity=.5*(1-S.t);if(S.t>=1)S.m.visible=false;}});
+  capys.forEach((c,k)=>{c.m.position.y=c.y+Math.sin(clockT*1.4+c.ph)*.02;c.m.rotation.z=Math.sin(clockT*.6+c.ph)*.05-.05;});
+  // barcos: flutuação, inclinação na curva, rastro
+  boats.forEach(b=>{
+    if(state==="intro"&&!b.pos.x&&!b.pos.z){const x=[-14,0,14][b.id];b.pos.set(x,0,zc(x)+[-3,4,-1][b.id]);b.heading=[.3,2.6,-.4][b.id];}
+    if(state==="intro"){b.heading+=dt*.08*(b.id-1||.6);b.pos.x+=Math.cos(b.heading)*dt*.6;b.pos.z+=Math.sin(b.heading)*dt*.6;const c=zc(b.pos.x);b.pos.z=clamp(b.pos.z,c-HW+3,c+HW-3);}
+    const g=b.mesh,v=b.v/b.speed;
+    g.position.set(b.pos.x,.06+Math.sin(clockT*2.2+b.id)*0.05,b.pos.z);
+    g.rotation.set(Math.sin(clockT*1.7+b.id)*0.03-b.roll*.6,-b.heading,Math.sin(clockT*1.3+b.id)*.02+v*.05,"YXZ");
+    b.rig.position.set(b.pos.x,0.12,b.pos.z);b.rig.rotation.y=-b.heading;
+    b.rig.visible=state==="play"||state==="count";
+    g.userData.led.material.emissiveIntensity=2+Math.sin(clockT*6+b.id*2)*1.5;
+    if(b.drone){b.drone.position.set(b.pos.x-Math.cos(b.heading)*1.5,8+Math.sin(clockT*1.3)*0.4,b.pos.z-Math.sin(b.heading)*1.5);b.drone.rotation.y=-b.heading;b.rotors.forEach((r,k)=>r.rotation.y+=dt*(30+k));
+      const pts=[b.pos,...b.route.filter(i=>i.alive).map(i=>i.mesh.position)].slice(0,8),arr=b.routeLine.geometry.attributes.position;
+      for(let k=0;k<8;k++){const q=pts[Math.min(k,pts.length-1)];arr.setXYZ(k,q.x,0.25,q.z);}arr.needsUpdate=true;b.routeLine.visible=pts.length>1&&state==="play";}
+    if(state==="play"&&b.v>1){b.wakeT-=dt;if(b.wakeT<=0){b.wakeT=0.06;const bx=b.pos.x-Math.cos(b.heading)*2.6,bz=b.pos.z-Math.sin(b.heading)*2.6,nx=-Math.sin(b.heading),nz=Math.cos(b.heading);
+      spawnFoam(bx+nx*.95,bz+nz*.95,v);spawnFoam(bx-nx*.95,bz-nz*.95,v);}}
+  });
+  foam.forEach(f=>{if(f.life>0){f.life-=dt;const k=1-f.life/1.8;const s=(.8+k*3.2)*(.6+.4*(f.s||1));f.m.scale.set(s,s*1.4,1);f.m.material.opacity=0.6*(1-k);if(f.life<=0)f.m.visible=false;}});
+  birds.forEach(b=>{b.a+=dt*b.w;b.g.position.set(b.cx+Math.cos(b.a)*b.r,b.h+Math.sin(clockT+b.ph)*0.6,b.cz+Math.sin(b.a)*b.r);b.g.rotation.y=-(b.a+(b.w>0?Math.PI/2:-Math.PI/2));const fl=Math.sin(clockT*b.fl+b.ph)*0.7;b.wl.rotation.x=fl;b.wr.rotation.x=-fl;});
+  // câmera
+  const portrait=W<H;
+  if(camMode===0){
+    controls.maxDistance=portrait?230:190;
+    if(clockT-lastUser>8&&!reduce){ // modo cinema: gira devagar quando ninguém mexe
+      const off=camera.position.clone().sub(controls.target),sph=new THREE.Spherical().setFromVector3(off);
+      const want=new THREE.Spherical(portrait?110:58,portrait?0.98:1.06,(portrait?Math.PI/2:0)+0.35*Math.sin(clockT*0.05));
+      sph.radius+=(want.radius-sph.radius)*dt*.3;sph.phi+=(want.phi-sph.phi)*dt*.3;sph.theta+=wrapA(want.theta-sph.theta)*dt*.3;
+      controls.target.lerp(new THREE.Vector3(0,0,-3),dt*.3);
+      camera.position.copy(controls.target).add(new THREE.Vector3().setFromSpherical(sph));
+    }
+    controls.update();lookCur.copy(controls.target);
+  }else{
+    const b=boats[camMode-1],bx=Math.cos(b.heading),bz=Math.sin(b.heading);
+    camGoal.set(b.pos.x-bx*13,7.5,b.pos.z-bz*13);lookGoal.set(b.pos.x+bx*6,0.5,b.pos.z+bz*6);
+    camera.position.lerp(camGoal,Math.min(1,dt*2.2));lookCur.lerp(lookGoal,Math.min(1,dt*3));camera.lookAt(lookCur);
+    controls.target.copy(lookCur);
+  }
+  // sombra acompanha a câmera
+  sunL.target.position.set(lookCur.x,0,lookCur.z);sunL.position.copy(sunL.target.position).addScaledVector(sunDir,160);
+  renderer.render(scene,camera);
+  drawLabels();
+  hudT-=dt;if(hudT<=0&&state!=="intro"){hudT=0.15;updateHud();}
+  if(state==="end")tickFx();
+  if(/dbg/.test(HASH))document.body.dataset.f=(++dbgN)+"|"+state+"|"+simT.toFixed(2)+"|"+hudT.toFixed(2)+"|"+clockT.toFixed(2)+"|tri="+renderer.info.render.triangles+"|calls="+renderer.info.render.calls;
+}
+let dbgN=0;
+
+// confete
+const cv=$("fx"),cx=cv.getContext("2d");let parts=[];
+function sizeFx(){cv.width=innerWidth;cv.height=innerHeight;}
+function burst(n){if(reduce)return;const C=["#fb3b5c","#8b3dff","#12b981","#ffc21a","#13b5d6"];for(let k=0;k<n;k++)parts.push({x:innerWidth/2,y:innerHeight*.3,vx:(Math.random()-.5)*16,vy:-Math.random()*13-4,r:Math.random()*6,c:C[k%5],life:120});}
+function tickFx(){if(!parts.length)return;cx.clearRect(0,0,cv.width,cv.height);parts.forEach(p=>{p.vy+=.35;p.x+=p.vx;p.y+=p.vy;p.life--;p.r+=.2;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-6,-4,12,8);cx.restore();});parts=parts.filter(p=>p.life>0&&p.y<cv.height+20);if(!parts.length)cx.clearRect(0,0,cv.width,cv.height);}
+
+resize();
+populate();
+requestAnimationFrame(frame);
+// depois de alguns segundos a foto real da abertura dá lugar ao rio 3D por trás do cartão
+setTimeout(()=>{if(state==="intro"&&!/fotos/.test(HASH))bgStop();},AUTO?100:9000);
+if(AUTO)setTimeout(startMatch,1500);
+const CAMH=HASH.match(/cam(\d)/);if(CAMH)setTimeout(()=>setCam(+CAMH[1]%4),1600);
+window.__game={startMatch,boats,get state(){return state;},setCam,skip(){simT=MATCH-.15;},view(x,y,z,tx,tz){setCam(0);lastUser=clockT+1e4;camera.position.set(x,y,z);controls.target.set(tx,0,tz);}};
+</script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+Fotos reais usadas no jogo (Wikimedia Commons)
+
+rio-ibirapuita-ponte-borges.jpg — "Rio Ibirapuitã - Alegrete - Ponte Borges de Medeiros", domínio público.
+  https://commons.wikimedia.org/wiki/File:Rio_Ibirapuit%C3%A3_-_Alegrete_-_Ponte_Borges_de_Medeiros.JPG
+ponte-ferrea-ibirapuita.jpg — "Ponte férrea dobre o rio Ibirapuitã", olimpio_marcal (Panoramio), CC BY 3.0.
+  https://commons.wikimedia.org/wiki/File:Ponte_f%C3%A9rrea_dobre_o_rio_Ibirapuit%C3%A3_-_panoramio.jpg
+apa-ibirapuita-coxilhas.jpg — APA do Ibirapuitã (07), Roberta Farenzena, CC BY-SA 4.0.
+apa-ibirapuita-cerro.jpg — APA do Ibirapuitã (13), Roberta Farenzena, CC BY-SA 4.0.
+pampa-panorama.jpg — montagem (recorte e fusão) das fotos APA do Ibirapuitã (07), (08), (13) e (14),
+  de Roberta Farenzena, CC BY-SA 4.0. Esta montagem é distribuída sob a mesma licença CC BY-SA 4.0.
+  https://commons.wikimedia.org/wiki/Category:%C3%81rea_de_Prote%C3%A7%C3%A3o_Ambiental_do_Ibirapuit%C3%A3
+
+Vídeo opcional: coloque um vídeo seu do rio em assets/ibirapuita.mp4 e ele vira o fundo da tela de abertura.

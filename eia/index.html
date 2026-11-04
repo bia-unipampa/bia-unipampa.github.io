@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EIA: discussões</title>
+<meta name="description" content="Página central das discussões sobre a Especialização em Inteligência Artificial Aplicada (EIA) da UNIPAMPA, Campus Alegrete: propostas, questões em aberto, estudos de referência e materiais de divulgação.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ffffff;--paper-2:#f3f6f7;--ink:#13232d;--ink-soft:#4a5c66;--line:#d5dee2;
+  --azul:#1f4e66;--verde:#1d8a52;--ouro:#b57f1c;--roxo:#7a4fa0;
+  --display:"Archivo",system-ui,sans-serif;--body:"Public Sans",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--paper:#0f1a20;--paper-2:#15232b;--ink:#e8eef1;--ink-soft:#a7b6be;--line:#2a3b44;--azul:#7fb4d0;--ouro:#e4b459;--verde:#5cc48c;--roxo:#b796d6}
+}
+:root[data-theme="dark"]{--paper:#0f1a20;--paper-2:#15232b;--ink:#e8eef1;--ink-soft:#a7b6be;--line:#2a3b44;--azul:#7fb4d0;--ouro:#e4b459;--verde:#5cc48c;--roxo:#b796d6}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--azul);text-underline-offset:3px}
+a:focus-visible{outline:3px solid var(--ouro);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+@media (max-width:600px){.wrap{padding:0 16px}}
+h1,h2,h3{font-family:var(--display);line-height:1.08;margin:0}
+.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:60px}
+.brand{font-family:var(--display);font-weight:900;font-variation-settings:"wdth" 125;font-size:1.25rem;text-decoration:none;color:var(--ink);letter-spacing:.02em;white-space:nowrap}
+.brand small{font-family:var(--body);font-weight:500;font-size:.8rem;color:var(--ink-soft);letter-spacing:0;margin-left:8px}
+.top nav{display:flex;gap:22px;font-size:.95rem}
+.top nav a{color:var(--ink-soft);text-decoration:none;white-space:nowrap}
+.top nav a:hover{color:var(--ink)}
+@media (max-width:760px){.top nav a.opt{display:none}.top nav{gap:14px;font-size:.9rem}}
+.hero{padding:64px 0 40px}
+.kicker{font-size:.85rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ouro)}
+.hero h1{font-size:clamp(2.2rem,4.6vw,3.6rem);font-weight:900;font-variation-settings:"wdth" 108;letter-spacing:-.02em;margin-top:10px}
+.lead{font-size:1.15rem;color:var(--ink-soft);max-width:66ch;margin:16px 0 0}
+.notice{margin-top:28px;border-left:4px solid var(--ouro);padding:4px 0 4px 18px;max-width:72ch}
+.notice b{color:var(--ink)}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:40px}
+@media (max-width:760px){.facts{grid-template-columns:repeat(2,1fr)}}
+.facts div{border-top:2px solid var(--ink);padding-top:10px}
+.facts b{display:block;font-family:var(--display);font-size:2rem;font-weight:900;line-height:1.1}
+.facts span{color:var(--ink-soft);font-size:.95rem}
+section.blk{padding:56px 0;border-top:1px solid var(--line)}
+section.blk h2{font-size:clamp(1.6rem,3.4vw,2.3rem);font-weight:800;font-variation-settings:"wdth" 112;margin-bottom:8px}
+.sub{color:var(--ink-soft);max-width:66ch;margin:0 0 26px}
+.decisions{list-style:none;padding:0;margin:0;counter-reset:d;max-width:860px}
+.decisions li{counter-increment:d;display:grid;grid-template-columns:44px 1fr auto;gap:4px 14px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line)}
+.decisions li::before{content:counter(d);font-family:var(--display);font-weight:900;font-size:1.4rem;color:var(--ouro)}
+.decisions strong{display:block}
+.decisions p{margin:2px 0 0;color:var(--ink-soft);font-size:.98rem}
+.decisions a{font-size:.95rem;font-weight:600;white-space:nowrap}
+@media (max-width:560px){.decisions li{grid-template-columns:36px 1fr}.decisions a{grid-column:2}}
+.blocks{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:36px}
+@media (max-width:860px){.blocks{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.blocks{grid-template-columns:1fr}}
+.blocks div{border-top:2px solid var(--line);padding-top:10px}
+.blocks h3{font-size:1.05rem}
+.blocks p{margin:4px 0 0;color:var(--ink-soft);font-size:.95rem}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+@media (max-width:860px){.cards{grid-template-columns:1fr}}
+.card{border-top:3px solid var(--azul);padding-top:14px;min-width:0}
+.card.verde{border-color:var(--verde)}
+.card.roxo{border-color:var(--roxo)}
+.card .tag{font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+.card h3{font-size:1.35rem;margin:6px 0 6px}
+.card p{margin:0 0 14px;color:var(--ink-soft)}
+.actions{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-flex;align-items:center;font-weight:700;font-size:.95rem;padding:9px 16px;border-radius:999px;text-decoration:none;border:2px solid var(--azul)}
+.btn.solid{background:var(--azul);color:var(--paper)}
+.btn.line{color:var(--azul)}
+.ver{width:100%;border-collapse:collapse;font-size:.98rem}
+.ver th,.ver td{text-align:left;padding:11px 14px 11px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.ver thead th{font-size:.9rem;color:var(--ink-soft);border-bottom:2px solid var(--ink)}
+.tbl{overflow-x:auto}
+footer{border-top:1px solid var(--line);padding:40px 0 64px;color:var(--ink-soft);font-size:.95rem}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html">EIA<small>Discussões</small></a>
+    <nav aria-label="Seções">
+      <a href="#pauta">Pauta</a>
+      <a href="#documentos">Documentos</a>
+      <a class="opt" href="#historico">Histórico</a>
+      <a class="opt" href="../index.html">BIA</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap">
+    <span class="kicker">Especialização em Inteligência Artificial Aplicada · UNIPAMPA Alegrete</span>
+    <h1>Discussões sobre a EIA</h1>
+    <p class="lead">Ponto de partida para o grupo que está desenhando a especialização: a proposta atual, as questões que ainda precisam de decisão, o estudo de referência sobre os cursos de IA no Brasil e os materiais de divulgação.</p>
+    <p class="notice"><b>Curso em proposição.</b> Nada aqui é oferta aprovada. A versão vigente da proposta é a <a href="proposta-eia-v2.html">v2</a>, que reúne 21 questões abertas para transformar o texto em projeto pedagógico.</p>
+    <div class="facts">
+      <div><b>v2</b><span>versão atual da proposta</span></div>
+      <div><b>21</b><span>questões em aberto</span></div>
+      <div><b>375 h</b><span>carga horária proposta, em 10 componentes</span></div>
+      <div><b>84</b><span>cursos de IA mapeados no Brasil</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="blk" id="pauta">
+  <div class="wrap">
+    <h2>Pauta da próxima reunião</h2>
+    <p class="sub">As cinco decisões que destravam o resto. Cada link leva à questão na proposta v2, com o que o texto diz hoje, as alternativas e o espaço para registrar a decisão.</p>
+    <ol class="decisions">
+      <li><div><strong>Quais serão os componentes</strong><p>Sem a lista fechada, não há ementa, alocação de docentes nem calendário.</p></div><a href="proposta-eia-v2.html#q1">Q1</a></li>
+      <li><div><strong>O que cada componente ensina e quem escreve a ementa</strong><p>Um modelo único de ementa, um responsável e um prazo por componente.</p></div><a href="proposta-eia-v2.html#q2">Q2</a></li>
+      <li><div><strong>O formato das disciplinas</strong><p>Modalidade, encontros ao vivo, sequência dos componentes e estrutura padrão de cada um.</p></div><a href="proposta-eia-v2.html#q5">Q5 a Q8</a></li>
+      <li><div><strong>As ferramentas de IA e quem paga por elas</strong><p>A metodologia inteira depende de todos os alunos terem acesso às mesmas ferramentas.</p></div><a href="proposta-eia-v2.html#q10">Q10</a></li>
+      <li><div><strong>Quantas vagas conseguimos orientar</strong><p>100 vagas para 9 docentes dá cerca de 11 orientandos de TCC por docente.</p></div><a href="proposta-eia-v2.html#q14">Q14</a></li>
+    </ol>
+    <div class="blocks">
+      <div><h3>A. Componentes e carga horária</h3><p><a href="proposta-eia-v2.html#q1">Q1 a Q4</a></p></div>
+      <div><h3>B. Formato das disciplinas</h3><p><a href="proposta-eia-v2.html#q5">Q5 a Q9</a></p></div>
+      <div><h3>C e D. Ferramentas, TCC e orientação</h3><p><a href="proposta-eia-v2.html#q10">Q10 a Q14</a></p></div>
+      <div><h3>Encaminhamentos</h3><p><a href="proposta-eia-v2.html#q15">Q15 a Q21</a>: responsáveis e prazos</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="blk" id="documentos">
+  <div class="wrap">
+    <h2>Documentos</h2>
+    <p class="sub">Tudo o que foi produzido até agora sobre a especialização.</p>
+    <div class="cards">
+      <div class="card">
+        <span class="tag">Proposta · v2</span>
+        <h3>Proposta do curso</h3>
+        <p>Público, ciclo de trabalho com IA, dez componentes em dois semestres, corpo docente e seleção, precedidos das questões que o grupo precisa fechar.</p>
+        <div class="actions"><a class="btn solid" href="proposta-eia-v2.html">Abrir a v2</a><a class="btn line" href="proposta-eia-v1.html">Ver a v1</a></div>
+      </div>
+      <div class="card verde">
+        <span class="tag">Estudo de referência</span>
+        <h3>Especializações em IA no Brasil</h3>
+        <p>Mapeamento de 84 cursos de especialização e MBA em IA, com análise de preço, duração, público, programação e visão computacional.</p>
+        <div class="actions"><a class="btn solid" href="especializacoes-ia-BR.html">Abrir o mapeamento</a></div>
+      </div>
+      <div class="card roxo">
+        <span class="tag">Divulgação · em proposta</span>
+        <h3>Materiais de divulgação</h3>
+        <p>Flyer, folder, clip de vídeo e posts para Instagram, WhatsApp e LinkedIn. Quando e como divulgar é a questão Q21.</p>
+        <div class="actions"><a class="btn solid" href="divulgacao-eia.html">Abrir a divulgação</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="blk" id="historico">
+  <div class="wrap">
+    <h2>Histórico de versões</h2>
+    <p class="sub">Cada versão é um arquivo novo, e as anteriores continuam disponíveis.</p>
+    <div class="tbl">
+    <table class="ver">
+      <thead><tr><th>Documento</th><th>Versão atual</th><th>Data</th><th>Arquivos</th></tr></thead>
+      <tbody>
+        <tr><th>Proposta do curso</th><td>v2</td><td>outubro de 2026</td><td><a href="proposta-eia-v2.html">proposta-eia-v2.html</a> · anterior: <a href="proposta-eia-v1.html">v1</a></td></tr>
+        <tr><th>Mapeamento das especializações</th><td>único</td><td>outubro de 2026</td><td><a href="especializacoes-ia-BR.html">especializacoes-ia-BR.html</a></td></tr>
+        <tr><th>Flyer</th><td>v1</td><td>outubro de 2026</td><td><a href="flyer-eia-v1.html">flyer-eia-v1.html</a></td></tr>
+        <tr><th>Folder</th><td>v1</td><td>outubro de 2026</td><td><a href="folder-eia-v1.html">folder-eia-v1.html</a></td></tr>
+        <tr><th>Clip de vídeo</th><td>v1</td><td>outubro de 2026</td><td><a href="clip-eia-v1.html">clip-eia-v1.html</a></td></tr>
+        <tr><th>Posts para redes sociais</th><td>v1</td><td>outubro de 2026</td><td><a href="posts-eia-v1.html">posts-eia-v1.html</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    Especialização em Inteligência Artificial Aplicada (EIA), UNIPAMPA, Campus Alegrete, RS. Curso em proposição. <a href="../index.html">Voltar ao site do BIA</a>
+  </div>
+</footer>
+</body>
+</html>

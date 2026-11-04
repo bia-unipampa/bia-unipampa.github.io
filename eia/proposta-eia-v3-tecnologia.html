@@ -1,0 +1,775 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EIA para Engenharias e TI</title>
+<meta name="description" content="Versão da proposta da Especialização em IA Aplicada da UNIPAMPA para engenheiros, profissionais de TI e egressos de computação.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ffffff;
+  --paper-2:#f3f6f7;
+  --ink:#13232d;
+  --ink-soft:#4a5c66;
+  --line:#d5dee2;
+  --azul:#1f4e66;
+  --verde:#1d8a52;
+  --ouro:#b57f1c;
+  --roxo:#7a4fa0;
+  --azul-bg:#e6eff3;
+  --verde-bg:#e3f3ea;
+  --ouro-bg:#f8eedb;
+  --roxo-bg:#efe8f6;
+  --code:#26343c;
+  --maxw:1160px;
+  --display:"Archivo",system-ui,sans-serif;
+  --body:"Public Sans",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0f1a20;--paper-2:#15232b;--ink:#e8eef1;--ink-soft:#a7b6be;--line:#2a3b44;
+    --azul:#7fb4d0;--verde:#5ccf8f;--ouro:#e4b459;--roxo:#b896dc;
+    --azul-bg:#173040;--verde-bg:#143326;--ouro-bg:#3a2d12;--roxo-bg:#2c2140;--code:#0a1217;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0f1a20;--paper-2:#15232b;--ink:#e8eef1;--ink-soft:#a7b6be;--line:#2a3b44;
+  --azul:#7fb4d0;--verde:#5ccf8f;--ouro:#e4b459;--roxo:#b896dc;
+  --azul-bg:#173040;--verde-bg:#143326;--ouro-bg:#3a2d12;--roxo-bg:#2c2140;--code:#0a1217;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--azul);text-underline-offset:3px}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--ouro);outline-offset:3px;border-radius:4px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+@media (max-width:600px){.wrap{padding:0 16px}}
+h1,h2,h3{font-family:var(--display);line-height:1.08;margin:0;color:var(--ink)}
+h2{font-size:clamp(1.9rem,4.2vw,3rem);font-variation-settings:"wdth" 112;font-weight:800;letter-spacing:-.01em;max-width:22ch}
+h3{font-size:1.25rem;font-weight:700;font-variation-settings:"wdth" 100}
+p{margin:0 0 1em}
+.lead{font-size:1.2rem;color:var(--ink-soft);max-width:62ch}
+section{padding:96px 0;border-top:1px solid var(--line)}
+@media (max-width:700px){section{padding:64px 0}}
+.sec-head{display:grid;gap:18px;margin-bottom:44px}
+
+/* topo */
+.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:60px}
+.brand{font-family:var(--display);font-weight:900;font-variation-settings:"wdth" 125;font-size:1.25rem;text-decoration:none;color:var(--ink);letter-spacing:.02em}
+.brand small{font-family:var(--body);font-weight:500;font-size:.8rem;color:var(--ink-soft);letter-spacing:0;margin-left:8px}
+.top nav{display:flex;gap:22px;font-size:.95rem}
+.top nav a{color:var(--ink-soft);text-decoration:none}
+.top nav a:hover{color:var(--ink)}
+@media (max-width:860px){.top nav{display:none}}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--body);font-weight:700;font-size:1rem;padding:12px 20px;border-radius:999px;text-decoration:none;border:2px solid var(--azul);cursor:pointer}
+.btn-solid{background:var(--azul);color:var(--paper)}
+.btn-line{background:transparent;color:var(--azul)}
+.top .btn{padding:7px 14px;font-size:.9rem}
+
+/* hero */
+.hero{padding:72px 0 0;border-top:0}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:start}
+@media (max-width:960px){.hero-grid{grid-template-columns:1fr;gap:40px}}
+.hero-grid>*,.sem-grid>*,.two>*{min-width:0}
+.hero h1{font-size:clamp(2.2rem,4.4vw,3.7rem);font-weight:900;font-variation-settings:"wdth" 108;letter-spacing:-.02em;line-height:.98}
+.hero h1 span{display:block}
+.hero h1 .l3{color:var(--azul)}
+.hero .lead{margin-top:26px}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);margin-top:64px;border-top:2px solid var(--ink)}
+.facts div{padding:18px 16px 26px 0}
+.facts b{display:block;font-family:var(--display);font-variation-settings:"wdth" 120;font-weight:800;font-size:1.9rem;line-height:1.1}
+.facts span{color:var(--ink-soft);font-size:.95rem}
+@media (max-width:700px){.facts{grid-template-columns:repeat(2,1fr)}}
+.horizon{height:56px;margin-top:8px;background:linear-gradient(180deg,transparent 0,transparent 50%,var(--verde-bg) 50%,var(--verde-bg) 100%);border-bottom:1px solid var(--line)}
+
+/* demonstração do ciclo */
+.demo{border:1px solid var(--line);border-radius:14px;background:var(--paper-2);padding:20px;font-size:.98rem}
+.demo-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;color:var(--ink-soft);font-size:.9rem}
+.demo-head button{background:none;border:1px solid var(--line);color:var(--ink-soft);border-radius:999px;padding:4px 12px;font:inherit;cursor:pointer}
+.msg{border-radius:10px;padding:12px 14px;margin:0 0 10px;opacity:0;transform:translateY(6px);transition:opacity .45s ease,transform .45s ease}
+.msg.on{opacity:1;transform:none}
+.msg .who{display:block;font-weight:700;font-size:.85rem;margin-bottom:3px}
+.m-aluno{background:var(--paper);border:1px solid var(--line)}
+.m-aluno .who{color:var(--azul)}
+.m-ia{background:var(--code);color:#dfe8ec}
+.m-ia .who{color:#8fd3ae}
+.m-ia code{display:block;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.78rem;color:#9fb3bd;margin-top:6px;white-space:pre;overflow-x:auto}
+.m-adv{background:var(--ouro-bg);border:1px solid color-mix(in srgb,var(--ouro) 40%,transparent)}
+.m-adv .who{color:var(--ouro)}
+.m-ok{background:var(--verde-bg);border:1px solid color-mix(in srgb,var(--verde) 35%,transparent)}
+.m-ok .who{color:var(--verde)}
+@media (prefers-reduced-motion: reduce){.msg{transition:none}}
+
+/* para quem */
+.who-table{width:100%;border-collapse:collapse}
+.who-table th,.who-table td{text-align:left;vertical-align:top;padding:18px 16px 18px 0;border-bottom:1px solid var(--line)}
+.who-table th{font-family:var(--display);font-variation-settings:"wdth" 108;font-size:1.1rem;width:30%}
+.who-table td{color:var(--ink-soft)}
+.who-table tr.comp th{color:var(--azul)}
+@media (max-width:700px){.who-table th,.who-table td{display:block;width:100%;padding:0}.who-table th{padding-top:18px}.who-table td{padding-bottom:18px}}
+.req{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:40px}
+@media (max-width:760px){.req{grid-template-columns:1fr}}
+.req h3{margin-bottom:10px}
+.req ul{margin:0;padding-left:20px}
+.req li{margin-bottom:6px}
+
+/* ciclo */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:0;counter-reset:s}
+.steps li{padding:0 18px 0 0;border-top:4px solid var(--azul);padding-top:16px;counter-increment:s}
+.steps li:nth-child(3){border-color:var(--ouro)}
+.steps li:nth-child(5){border-color:var(--verde)}
+.steps li::before{content:counter(s);font-family:var(--display);font-weight:900;font-variation-settings:"wdth" 125;font-size:2rem;display:block;color:var(--ink-soft);line-height:1;margin-bottom:10px}
+.steps p{color:var(--ink-soft);font-size:.98rem;margin-top:8px}
+@media (max-width:900px){.steps{grid-template-columns:1fr;gap:24px}}
+
+/* matriz */
+.sem-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+@media (max-width:860px){.sem-grid{grid-template-columns:1fr}}
+.sem h3{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid var(--ink);padding-bottom:10px;margin-bottom:6px}
+.sem h3 small{font-family:var(--body);font-weight:500;font-size:.95rem;color:var(--ink-soft)}
+details.comp{border-bottom:1px solid var(--line)}
+details.comp summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:62px 1fr auto;gap:12px;padding:14px 0;align-items:baseline}
+details.comp summary::-webkit-details-marker{display:none}
+.code{font-weight:700;font-size:.9rem;color:var(--ink-soft)}
+.cname{font-weight:600}
+.ch{font-family:var(--display);font-weight:800;font-variation-settings:"wdth" 110;white-space:nowrap}
+details.comp[open] summary .cname{color:var(--azul)}
+details.comp.v summary .code,details.comp.v summary .cname{color:var(--roxo)}
+details.comp.n summary .code{color:var(--ouro)}
+.cbody{padding:0 0 18px 74px;color:var(--ink-soft);font-size:.98rem}
+.cbody b{color:var(--ink)}
+@media (max-width:600px){.cbody{padding-left:0}}
+.legend{display:flex;flex-wrap:wrap;gap:18px;margin-top:22px;font-size:.92rem;color:var(--ink-soft)}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.split{display:flex;height:34px;border-radius:6px;overflow:hidden;margin-top:36px;font-size:.82rem;font-weight:700;color:#fff}
+.split div{display:flex;align-items:center;padding:0 6px;white-space:nowrap;overflow:hidden;min-width:0}
+.split-cap{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:10px;font-size:.92rem;color:var(--ink-soft)}
+
+/* visão */
+.vision{background:var(--roxo-bg)}
+.vision h2,.vision .accent{color:var(--roxo)}
+.vis-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+@media (max-width:860px){.vis-grid{grid-template-columns:1fr}}
+.vis-grid article{border-top:2px solid var(--roxo);padding-top:16px}
+.vis-grid h3{margin-bottom:8px}
+.vis-grid p{color:var(--ink-soft);margin:0}
+.pixels{display:grid;grid-template-columns:repeat(24,1fr);gap:2px;max-width:420px;margin-top:8px}
+.pixels span{aspect-ratio:1;border-radius:1px}
+
+/* desafios */
+.ch-list{display:grid;grid-template-columns:repeat(2,1fr);gap:0 48px}
+@media (max-width:760px){.ch-list{grid-template-columns:1fr}}
+.ch-item{padding:20px 0;border-bottom:1px solid var(--line)}
+.ch-item .org{font-size:.9rem;font-weight:700;color:var(--verde)}
+.ch-item.priv .org{color:var(--azul)}
+.ch-item h3{font-size:1.12rem;margin:4px 0 6px}
+.ch-item p{color:var(--ink-soft);margin:0;font-size:.98rem}
+.note{font-size:.92rem;color:var(--ink-soft);margin-top:18px}
+
+/* computação */
+.comp-sec .two{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start}
+@media (max-width:860px){.comp-sec .two{grid-template-columns:1fr;gap:32px}}
+.adv{border-left:4px solid var(--azul);padding-left:22px}
+.adv dl{margin:0}
+.adv dt{font-weight:700;margin-top:14px}
+.adv dd{margin:2px 0 0;color:var(--ink-soft)}
+
+/* BIA */
+.bia{background:var(--azul);color:#eaf2f6}
+.bia h2,.bia h3{color:#fff}
+.bia .lead{color:#c8dbe4}
+.bia a{color:#ffd88a}
+.bia-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px 48px}
+@media (max-width:760px){.bia-grid{grid-template-columns:1fr}}
+.bia-grid div{border-top:1px solid rgba(255,255,255,.25);padding-top:16px}
+.bia-grid p{color:#c8dbe4;margin:6px 0 0}
+.path{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:44px;font-family:var(--display);font-variation-settings:"wdth" 112;font-weight:700}
+.path span{border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:8px 16px}
+.path .arrow{border:0;padding:0;opacity:.7}
+
+/* comparação */
+.cmp{width:100%;border-collapse:collapse;font-size:.98rem}
+.cmp th,.cmp td{padding:12px 12px 12px 0;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.cmp thead th{font-size:.9rem;color:var(--ink-soft);font-weight:600;border-bottom:2px solid var(--ink)}
+.cmp td.eia{font-weight:700;color:var(--azul)}
+.tbl-scroll{overflow-x:auto}
+
+/* docentes */
+.prof{display:grid;grid-template-columns:repeat(3,1fr);gap:0 36px}
+@media (max-width:860px){.prof{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.prof{grid-template-columns:1fr}}
+.prof div{padding:16px 0;border-bottom:1px solid var(--line)}
+.prof b{display:block}
+.prof span{color:var(--ink-soft);font-size:.95rem}
+
+/* seleção e FAQ */
+.sel{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+@media (max-width:860px){.sel{grid-template-columns:1fr}}
+.sel div{border-top:4px solid var(--ink);padding-top:14px}
+.sel b{font-family:var(--display);font-variation-settings:"wdth" 118;font-weight:900;font-size:2.2rem;display:block;line-height:1}
+.sel h3{margin:8px 0}
+.sel p{color:var(--ink-soft);margin:0}
+.faq details{border-bottom:1px solid var(--line);padding:16px 0}
+.faq summary{cursor:pointer;font-weight:700;font-size:1.08rem}
+.faq details p{color:var(--ink-soft);margin:10px 0 0;max-width:72ch}
+
+footer{border-top:1px solid var(--line);padding:48px 0 64px;color:var(--ink-soft);font-size:.95rem}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px}
+footer ul{list-style:none;margin:0;padding:0}
+footer li{margin-bottom:6px}
+
+/* reunião do grupo (v2) */
+.meet{background:var(--paper-2)}
+.kicker{font-size:.9rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ouro)}
+.materials{margin:0;font-size:1rem;color:var(--ink-soft)}
+.materials b{color:var(--ink)}
+.top5{border-top:4px solid var(--ink);padding-top:18px;margin-bottom:44px}
+.top5 h3{margin-bottom:12px}
+.top5 ol{margin:0;padding-left:24px;display:grid;gap:10px;max-width:80ch}
+.top5 li::marker{font-family:var(--display);font-weight:800}
+.roteiro{margin-bottom:40px}
+.roteiro h3{margin-bottom:8px}
+.roteiro table{border-collapse:collapse;width:100%;max-width:760px}
+.roteiro td{padding:9px 14px 9px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.roteiro td:first-child{font-weight:700;white-space:nowrap;width:80px;color:var(--azul)}
+.tags-legend{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px}
+.tag{display:inline-block;font-size:.8rem;font-weight:700;padding:3px 10px;border-radius:999px;border:1px solid}
+.tag.now{color:var(--verde);border-color:var(--verde);background:var(--verde-bg)}
+.tag.next{color:var(--ink-soft);border-color:var(--line);background:var(--paper)}
+h3.bloco{font-size:1.5rem;font-variation-settings:"wdth" 110;margin:48px 0 18px;padding-bottom:8px;border-bottom:2px solid var(--ink)}
+.qs{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+@media (max-width:860px){.qs{grid-template-columns:1fr}}
+.q{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:18px 20px;min-width:0;scroll-margin-top:80px}
+.q header{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
+.qn{font-family:var(--display);font-weight:900;font-variation-settings:"wdth" 125;font-size:1.3rem;color:var(--azul)}
+.q h4{font-family:var(--display);font-size:1.15rem;line-height:1.2;margin:0 0 10px}
+.q dl{margin:0;font-size:.97rem}
+.q dt{font-weight:700;font-size:.85rem;text-transform:uppercase;letter-spacing:.03em;color:var(--ink-soft);margin-top:10px}
+.q dd{margin:2px 0 0}
+.q dd ul{margin:4px 0 0;padding-left:20px}
+.q dd li{margin-bottom:3px}
+.dec{margin:14px 0 0;padding-top:10px;border-top:1px dashed var(--line);font-weight:700;color:var(--ouro);min-height:3.2em}
+.two-notes{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:56px}
+@media (max-width:760px){.two-notes{grid-template-columns:1fr}}
+.two-notes h3{margin-bottom:10px}
+.two-notes ul{margin:0;padding-left:20px;color:var(--ink-soft)}
+.two-notes li{margin-bottom:6px}
+.draft{display:inline-block;margin-left:8px;font-size:.8rem;font-family:var(--body);font-weight:700;color:var(--ouro)}
+@media print{
+  .top,.demo,.hero-ctas,.horizon{display:none}
+  section{padding:24px 0}
+  .q{break-inside:avoid}
+  .meet{background:#fff}
+}
+
+/* v3 */
+.notice{border-left:4px solid var(--ouro);background:var(--ouro-bg);padding:12px 16px;border-radius:6px;font-size:.98rem;max-width:80ch;margin-top:22px}
+.aud-bar{background:var(--paper-2);border-bottom:1px solid var(--line);font-size:.92rem}
+.aud-bar .wrap{display:flex;flex-wrap:wrap;gap:6px 16px;padding-top:10px;padding-bottom:10px;align-items:center}
+.aud-bar span{color:var(--ink-soft);font-weight:700}
+.aud-bar a{color:var(--ink-soft);text-decoration:none;border-bottom:2px solid transparent}
+.aud-bar a:hover{color:var(--ink)}
+.aud-bar a[aria-current]{color:var(--azul);border-color:var(--azul);font-weight:700}
+.steps.six{grid-template-columns:repeat(6,1fr)}
+.steps.six li:nth-child(3){border-color:var(--azul)}
+.steps.six li:nth-child(5){border-color:var(--ouro)}
+.steps.six li:nth-child(6){border-color:var(--verde)}
+@media (max-width:1000px){.steps.six{grid-template-columns:repeat(3,1fr);gap:28px 0}}
+@media (max-width:640px){.steps.six{grid-template-columns:1fr}}
+.sheet{margin-top:36px;border:1px solid var(--line);border-radius:12px;padding:18px 20px;max-width:80ch}
+.sheet h3{margin-bottom:6px}
+.sheet p{margin:0;color:var(--ink-soft)}
+details.comp.hl summary .cname::after{content:"destaque para você";display:inline-block;margin-left:8px;font-size:.72rem;font-weight:700;color:var(--verde);border:1px solid var(--verde);border-radius:999px;padding:1px 8px;vertical-align:2px}
+.cname small{display:block;font-weight:500;color:var(--ink-soft);font-size:.88rem}
+.noseu{border-left:3px solid var(--verde);padding-left:12px}
+.tag.ok{color:var(--verde);border-color:var(--verde);background:var(--verde-bg)}
+.tag.part{color:var(--ouro);border-color:var(--ouro);background:var(--ouro-bg)}
+.tag.open{color:var(--roxo);border-color:var(--roxo);background:var(--roxo-bg)}
+.aud-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+@media (max-width:760px){.aud-cards{grid-template-columns:1fr}}
+.aud-cards a{display:block;border:1px solid var(--line);border-radius:12px;padding:18px 20px;text-decoration:none;color:var(--ink);background:var(--paper)}
+.aud-cards a:hover{border-color:var(--azul)}
+.aud-cards b{font-family:var(--display);font-size:1.2rem;display:block;margin-bottom:4px;color:var(--azul)}
+.aud-cards span{color:var(--ink-soft);font-size:.97rem}
+.why{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+@media (max-width:860px){.why{grid-template-columns:1fr}}
+.why div{border-top:4px solid var(--azul);padding-top:14px}
+.why h3{margin-bottom:8px}
+.why p{color:var(--ink-soft);margin:0}
+.cmp caption{text-align:left;font-weight:700;padding-bottom:8px}
+.crit{margin-top:28px}
+.crit summary{cursor:pointer;font-weight:700;color:var(--azul)}
+.crit .tbl-scroll{margin-top:16px}
+.crit h4{font-family:var(--display);font-size:1.1rem;margin:24px 0 8px}
+.issues li{margin-bottom:8px}
+</style>
+</head>
+<body>
+<header class="top">
+<div class="wrap">
+<a class="brand" href="#inicio">EIA<small>UNIPAMPA Alegrete</small></a>
+<nav aria-label="Seções">
+<a href="#para-voce">Para você</a>
+<a href="#metodo">Método</a>
+<a href="#matriz">Matriz</a>
+<a href="#desafios">Desafios</a>
+<a href="#tcc">TCC</a>
+<a href="#selecao">Seleção</a>
+<a href="proposta-eia-v3.html">Versão geral</a>
+</nav>
+<a class="btn btn-solid" href="#selecao">Como entrar</a>
+</div>
+</header>
+<nav class="aud-bar" aria-label="Versões da proposta por público"><div class="wrap"><span>Versões da v3:</span><a href="proposta-eia-v3.html">Geral</a><a href="proposta-eia-v3-agro.html">Agronegócio e ambiente</a><a href="proposta-eia-v3-setor-publico.html">Setor público</a><a href="proposta-eia-v3-tecnologia.html" aria-current="page">Engenharias e tecnologia</a><a href="proposta-eia-v3-saude-educacao-direito-gestao.html">Saúde, educação, direito e gestão</a></div></nav>
+<main id="inicio">
+<section class="hero">
+<div class="wrap hero-grid">
+<div>
+<h1><span>Você já sabe programar.</span><span>Agora a IA escreve o código.</span><span class="l3">Você especifica, mede e assina.</span></h1>
+<p class="lead">Para quem vem das engenharias e da computação, a mudança não é aprender a escrever código, e sim deixar de escrevê-lo à mão: especificar, planejar, dirigir agentes, medir e responder pelo resultado. A Especialização em Inteligência Artificial Aplicada da UNIPAMPA ensina isso com método, ao lado de profissionais que conhecem os problemas que você vai resolver.</p>
+<div class="hero-ctas">
+<a class="btn btn-solid" href="#matriz">Ver a matriz curricular</a>
+<a class="btn btn-line" href="#selecao">Como é a seleção</a>
+</div>
+<p class="notice"><b>Curso em proposição.</b> Esta é uma versão da proposta voltada a engenheiros, profissionais de TI e egressos de computação. Nada aqui é oferta aprovada: conteúdos, valores e datas dependem da aprovação do projeto pedagógico e do edital.</p>
+</div>
+<div class="demo" aria-label="Exemplo ilustrativo do ciclo de trabalho no curso">
+<div class="demo-head"><span>Um problema real, do começo ao fim (exemplo ilustrativo)</span><button type="button" id="replay">Repetir</button></div>
+<div class="msg m-aluno"><span class="who">Analista de TI</span>Nossa central tem 40 mil chamados por ano. Quero um agente que classifique cada chamado e sugira a resposta com base na base de conhecimento.</div>
+<div class="msg m-ia"><span class="who">IA programadora</span>Montei um agente com busca na base de conhecimento e classificação por categoria. Código gerado, testado e publicado em ambiente de homologação.<code>agente = Agente(ferramentas=[buscar_base, classificar])
+avaliar(agente, conjunto_testes=&quot;chamados_rotulados.csv&quot;)</code></div>
+<div class="msg m-adv"><span class="who">Agente adversarial</span>Escondi uma instrução num chamado: o agente revelou o e-mail de outro usuário. Em 9% das respostas ele citou um artigo que não existe na base.</div>
+<div class="msg m-aluno"><span class="who">Analista</span>Isole os dados por usuário, só aceite citação que exista na base e rode o conjunto de testes e os ataques antes e depois.</div>
+<div class="msg m-ok"><span class="who">Evidência entregue à equipe</span>Vazamentos: 0 em 500 ataques. Citações inexistentes: de 9% para 1,2%. Limitação documentada: chamados em espanhol. Em piloto com o primeiro nível de atendimento.</div>
+</div>
+</div>
+<div class="wrap">
+<div class="facts">
+<div><b>12 meses</b><span>a distância, com encontros ao vivo</span></div>
+<div><b>375 h</b><span>em 10 componentes, mais o TCC</span></div>
+<div><b>6 passos</b><span>um método, aplicado em todos os componentes</span></div>
+<div><b>0 h</b><span>de aulas de programação</span></div>
+</div>
+</div>
+<div class="horizon" aria-hidden="true"></div>
+</section>
+<section id="para-voce">
+<div class="wrap">
+<div class="sec-head">
+<h2>Por que este curso para você</h2>
+<p class="lead">A turma reúne pessoas de várias áreas. O que as une é o tipo de problema: muitas variáveis, dados espalhados e mais de uma resposta possível. Para engenheiros, profissionais de TI e egressos de computação, o curso oferece três coisas.</p>
+</div>
+<div class="why">
+<div><h3>Liderar quem programa por você</h3><p>Especificação, plano antes do código, medições de antes e depois e uma lista honesta do que ainda falha. É a competência que o EIA06 ensina e que o mercado passou a exigir de quem conduz agentes de programação.</p></div>
+<div><h3>Segurança de IA com quem pesquisa o tema</h3><p>Injeção de instruções, envenenamento de dados e segurança de agentes, com um grupo docente de pesquisa reconhecida na área. No EIA10 você constrói o seu próprio agente adversarial.</p></div>
+<div><h3>Trabalhar com quem conhece o problema</h3><p>As turmas misturam áreas de propósito: você trabalha com o agrônomo, a servidora e o gestor que trazem o problema real. O caminho segue para o mestrado PPGES e para o PampaTec.</p></div>
+</div>
+<h3 class="bloco">Problemas que você pode trazer</h3>
+<table class="who-table">
+<tr><th>Desenvolvimento de software</th><td>Conduzir agentes de programação com especificação, testes e revisão; modernizar sistemas legados com evidências.</td></tr>
+<tr><th>Operações e TI</th><td>Agentes para chamados e atendimento interno, automação de rotinas, observabilidade de qualidade e custo.</td></tr>
+<tr><th>Engenharias</th><td>Inspeção visual em linhas de produção e obras, manutenção preditiva com séries de sensores, leitura de normas técnicas.</td></tr>
+<tr><th>Segurança</th><td>Auditoria de soluções de IA, testes de uso indevido de agentes, políticas de uso de IA e detecção de fraudes.</td></tr>
+</table>
+<div class="req">
+<div><h3>O que pedimos</h3><ul><li>Diploma de graduação em qualquer área.</li><li>Cerca de 10 horas por semana, durante 12 meses.</li><li>Um problema real para resolver, seu ou do Banco de Desafios Reais.</li></ul></div>
+<div><h3>O que não pedimos</h3><ul><li>Saber programar.</li><li>Matemática avançada.</li><li>Inglês.</li><li>Experiência prévia com ferramentas de IA ou formação em computação.</li></ul></div>
+</div>
+</div>
+</section>
+<section id="metodo">
+<div class="wrap">
+<div class="sec-head">
+<h2>Um método de seis passos</h2>
+<p class="lead">O curso ensina um método de trabalho, e não uma linguagem de programação. Ele é apresentado no primeiro mês e aplicado em todos os componentes e no TCC.</p>
+</div>
+<ol class="steps six">
+<li><h3>Entender o problema</h3><p>Qual decisão ou tarefa quero melhorar? Quem é afetado? Como é feito hoje? Como vou saber que melhorou? A última resposta é o critério de sucesso.</p></li>
+<li><h3>Decompor</h3><p>Dividir o problema em partes que a IA resolve uma de cada vez: reunir, organizar, analisar, prever, explicar e apresentar.</p></li>
+<li><h3>Pedir bem</h3><p>Contexto, objetivo, dados, formato e critério de correção. Regra fixa: pedir um plano antes da solução e aprová-lo em linguagem comum.</p></li>
+<li><h3>Verificar sem ler código</h3><p>Caso de resposta conhecida, ordem de grandeza, explicação passo a passo, segunda opinião, dados alterados de propósito e amostra manual.</p></li>
+<li><h3>Atacar</h3><p>Onde a solução falha, com quais dados ela erra e quem pode ser prejudicado. É o papel do agente adversarial preparado pelo professor.</p></li>
+<li><h3>Decidir e responder</h3><p>Tomar a decisão, registrar o que a solução faz, onde ainda falha e como a IA foi usada, e assumir a responsabilidade.</p></li>
+</ol>
+<div class="sheet">
+<h3>Folha do método</h3>
+<p>Em cada entrega, você anexa uma folha de uma página com os seis passos: critério de sucesso, decomposição, plano aprovado, verificações feitas, ataques testados e limitações conhecidas.</p>
+</div>
+</div>
+</section>
+<section id="como">
+<div class="wrap">
+<div class="sec-head">
+<h2>Toda entrega passa pelo mesmo ciclo</h2>
+<p class="lead">Em cada componente, o professor prepara uma skill, um tutor de IA disponível a qualquer hora e alinhado ao conteúdo, e um agente adversarial, que tenta derrubar a sua solução antes da entrega. Quem não lê código precisa de outra forma de confiar no que a IA fez: aqui, a confiança vem de evidências.</p>
+</div>
+<ol class="steps">
+<li><h3>Problema real</h3><p>De preferência o seu, ou um desafio de uma organização parceira.</p></li>
+<li><h3>Skill e IA programadora</h3><p>Com apoio da skill, você formula os pedidos. A IA escreve e executa o código.</p></li>
+<li><h3>Ataque adversarial</h3><p>Um agente procura erros, casos extremos, vieses, vazamento de dados e falhas de segurança.</p></li>
+<li><h3>Correção</h3><p>Você responde às críticas, pede as correções e registra tudo num relatório de validação.</p></li>
+<li><h3>Avaliação humana</h3><p>O professor avalia a solução, o relatório e como você tratou as críticas. O agente não dá nota.</p></li>
+</ol>
+<p class="note">Em cada componente, a nota soma a solução, a folha do método e o relatório de validação adversarial (60%) e as atividades, fóruns e encontros ao vivo (40%). A aprovação exige menção mínima C e 75% de frequência.</p>
+</div>
+</section>
+<section id="matriz">
+<div class="wrap">
+<div class="sec-head">
+<h2>Dez componentes em dois semestres</h2>
+<p class="lead">Cada componente tem um nome que diz o tipo de problema que você aprende a resolver, seguido do nome técnico. Os marcados como destaque são os que mais pesam para o seu perfil. Toque em um componente para ver o conteúdo, como ele se aplica ao seu caso e o que entrega para o TCC.</p>
+</div>
+<div class="sem-grid">
+<div class="sem"><h3>1º semestre <small>meses 1 a 5, 210 h</small></h3>
+<details class="comp n">
+<summary><span class="code">EIA01</span><span class="cname">Trabalhar com IA: o Método<small>Fundamentos de IA Generativa e Desenvolvimento Assistido por IA (mês 1, nivelamento)</small></span><span class="ch">45 h</span></summary>
+<div class="cbody">
+<p class="noseu"><b>No seu caso.</b> Passar a pedir plano antes do código e a verificar sem ler cada linha, mesmo sabendo ler.</p>
+<p>O método de seis passos para resolver problemas com IA. Como funcionam os modelos de linguagem, em nível conceitual: contexto, limites e alucinação. Como pedir bem: contexto, objetivo, dados, formato e critério de correção. Pedir um plano antes da solução. Fazer a IA gerar e executar código em um ambiente na nuvem, sem programar. Verificar sem ler código: caso conhecido, conferência de ordem de grandeza, explicação passo a passo, segunda opinião, alteração proposital dos dados e amostra manual. Pensamento computacional para quem não programa. Privacidade e LGPD no uso cotidiano.</p>
+<p><b>O método aqui.</b> Todos os seis passos, com ênfase em pedir bem (passo 3) e verificar sem ler código (passo 4).</p>
+<p><b>Skill e IA adversarial.</b> A skill avalia os seus pedidos e sugere versões melhores. O agente adversarial insere erros sutis nos dados e no resultado para ver se você os percebe.</p>
+<p><b>Para o TCC.</b> Diagnóstico inicial do seu problema, com o critério de sucesso definido e uma primeira automação simples, verificada.</p>
+<p><b>Docentes.</b> Silvio Quincozes, Paulo Souza, Francisco Vogt, Dionatan Schmidt</p>
+</div>
+</details>
+<details class="comp">
+<summary><span class="code">EIA02</span><span class="cname">Não Ser Enganado pelos Números<small>Raciocínio Quantitativo e Estatística para IA</small></span><span class="ch">30 h</span></summary>
+<div class="cbody">
+<p class="noseu"><b>No seu caso.</b> Rigor estatístico para comparar modelos e versões: incerteza, amostras e vieses nas métricas.</p>
+<p>Médias, variação e distribuições. Gráficos que esclarecem e gráficos que enganam. Probabilidade e incerteza no dia a dia. Correlação e causalidade. Amostras e vieses. Como uma IA “aprende” a partir de exemplos, explicado sem fórmulas. Leitura crítica de números produzidos por IA.</p>
+<p><b>O método aqui.</b> Ênfase em verificar (passo 4): conferência de ordem de grandeza, amostra manual e alteração proposital dos dados.</p>
+<p><b>Skill e IA adversarial.</b> A skill explica conceitos com exemplos visuais do cotidiano. O agente adversarial apresenta conclusões estatísticas erradas, como causa inferida de correlação, para você refutar.</p>
+<p><b>Para o TCC.</b> Análise exploratória dos dados do seu problema, com as principais incertezas identificadas.</p>
+<p><b>Docentes.</b> Aline Lunkes, Dionatan Schmidt</p>
+</div>
+</details>
+<details class="comp">
+<summary><span class="code">EIA03</span><span class="cname">Organizar as Informações do Problema<small>Dados, Nuvem e Bancos de Dados para IA</small></span><span class="ch">30 h</span></summary>
+<div class="cbody">
+<p class="noseu"><b>No seu caso.</b> Organização de dados para IA, nuvem, custos e controle de acesso, com a IA montando a base.</p>
+<p>Onde estão as informações de um problema: planilhas, sistemas, documentos e imagens. Organização de dados para que a IA consiga usá-los. Da planilha a uma base de dados, com a IA fazendo a montagem. Perguntas aos dados em linguagem comum. Armazenamento e compartilhamento na nuvem. Quem pode ver o quê: privacidade, segurança e LGPD. Custos.</p>
+<p><b>O método aqui.</b> Ênfase em decompor (passo 2): quais informações cada parte do problema precisa e de onde vêm.</p>
+<p><b>Skill e IA adversarial.</b> A skill revisa a organização proposta e aponta inconsistências. O agente adversarial tenta extrair dados pessoais, faz perguntas que levam a respostas erradas e estima o custo da solução.</p>
+<p><b>Para o TCC.</b> Base de dados do seu projeto, organizada, documentada e pronta para as próximas etapas.</p>
+<p><b>Docentes.</b> Marcelo Luizelli, Francisco Vogt</p>
+</div>
+</details>
+<details class="comp">
+<summary><span class="code">EIA04</span><span class="cname">Prever e Decidir com Dados<small>Aprendizado de Máquina</small></span><span class="ch">45 h</span></summary>
+<div class="cbody">
+<p class="noseu"><b>No seu caso.</b> Comparação de modelos, vazamento de dados do futuro e sobreajuste, com métricas ligadas ao custo do erro.</p>
+<p>Problemas de previsão, classificação e agrupamento no trabalho e na região. Quando uma previsão ajuda a decidir e quando não ajuda. Pedir à IA que prepare os dados, treine e compare modelos. Como saber se um modelo é bom: acerto, erro e o custo de cada tipo de erro. Armadilhas comuns: dados do futuro misturados ao passado, modelos que decoram, tratamento desigual entre grupos. Explicar a previsão para quem vai decidir.</p>
+<p><b>O método aqui.</b> Ênfase em entender (passo 1): qual decisão a previsão apoia e qual erro é mais caro; e em atacar (passo 5).</p>
+<p><b>Skill e IA adversarial.</b> A skill guia o fluxo completo e pergunta o porquê de cada escolha. O agente adversarial procura dados do futuro misturados ao passado, modelos que decoram e desempenho desigual entre grupos.</p>
+<p><b>Para o TCC.</b> Modelo de referência aplicado ao seu problema, com o critério de sucesso medido e as limitações descritas.</p>
+<p><b>Docentes.</b> Aline Lunkes, Marcelo Luizelli</p>
+</div>
+</details>
+<details class="comp">
+<summary><span class="code">EIA05</span><span class="cname">IA com Textos, Sons e Séries de Dados<small>Aprendizado Profundo na Prática</small></span><span class="ch">30 h</span></summary>
+<div class="cbody">
+<p class="noseu"><b>No seu caso.</b> Modelos pré-treinados para texto, áudio e séries de sensores, como em manutenção preditiva.</p>
+<p>O que as redes neurais fazem bem e onde falham, explicado sem matemática. Modelos prontos (pré-treinados) e como adaptá-los com poucos exemplos. Aplicações com textos, áudios e séries de dados ao longo do tempo. Quantos e quais exemplos são necessários. Custo e tempo de uso.</p>
+<p><b>O método aqui.</b> Ênfase em verificar (passo 4) e atacar (passo 5): testar com exemplos difíceis e fora do padrão.</p>
+<p><b>Skill e IA adversarial.</b> A skill ajuda a escolher o modelo e a montar o conjunto de exemplos. O agente adversarial apresenta entradas fora do padrão e mede a degradação do resultado.</p>
+<p><b>Para o TCC.</b> Aplicação de um modelo pronto ao seu problema, quando pertinente; caso contrário, estudo de caso indicado pelo professor.</p>
+<p><b>Docentes.</b> Rodrigo Mansilha, Eliezer Flores, Francisco Vogt</p>
+</div>
+</details>
+<details class="comp hl">
+<summary><span class="code">EIA06</span><span class="cname">Dirigir a IA e Responder pelo Resultado<small>Engenharia de Soluções com IA (final do 1º semestre)</small></span><span class="ch">30 h</span></summary>
+<div class="cbody">
+<p class="noseu"><b>No seu caso.</b> Dirigir agentes de programação com especificação, medições de antes e depois e lista de defeitos conhecidos.</p>
+<p>Abstrair a execução não significa abstrair a responsabilidade. Camadas de abstração na produção de software, de compiladores à IA, e o que cada uma muda e não muda na responsabilidade de quem entrega. Do problema ao plano: decomposição, requisitos e critérios de sucesso mensuráveis. Evidências: testes, medições de antes e depois e os casos em que a solução piora. Revisão sem ler código, documentação honesta e declaração do uso de IA. Estudo de caso comparativo. Proposta técnica, relatório técnico e registro de programa de computador no INPI.</p>
+<p><b>O método aqui.</b> O aluno define o problema, o plano, os critérios de sucesso e os testes, e assina o resultado. A IA implementa, mede e rascunha a documentação.</p>
+<p><b>Skill e IA adversarial.</b> A skill atua como revisor técnico, cobrando evidências para cada afirmação. O agente adversarial simula um revisor exigente de projeto de código aberto, e você responde a cada ponto.</p>
+<p><b>Para o TCC.</b> Pré-projeto de TCC em formato de proposta técnica, com plano, critérios de sucesso, plano de medições, riscos conhecidos, linha e formato (artigo ou produto).</p>
+<p><b>Docentes.</b> Paulo Souza, Rodrigo Mansilha, Diego Kreutz</p>
+</div>
+</details>
+</div>
+<div class="sem"><h3>2º semestre <small>meses 6 a 10, com o TCC até o mês 12, 165 h</small></h3>
+<details class="comp">
+<summary><span class="code">EIA07</span><span class="cname">Ler, Resumir e Extrair de Documentos com IA<small>LLMs e Engenharia de Prompt</small></span><span class="ch">45 h</span></summary>
+<div class="cbody">
+<p class="noseu"><b>No seu caso.</b> Avaliação de LLMs com conjuntos de teste, consistência entre execuções e respostas em formato fixo.</p>
+<p>Uso de modelos de linguagem com documentos longos: editais, laudos, contratos, atas e normas. Resumo, comparação e extração de informações em tabelas. Pedidos avançados: exemplos, raciocínio passo a passo e respostas em formato fixo. Como medir a qualidade das respostas com um conjunto de testes. Consistência entre execuções. Alucinação e citações inventadas.</p>
+<p><b>O método aqui.</b> Ênfase em pedir bem (passo 3) e verificar (passo 4): conjunto de testes com respostas conhecidas.</p>
+<p><b>Skill e IA adversarial.</b> A skill funciona como laboratório de pedidos, comparando versões. O agente adversarial esconde instruções maliciosas nos documentos, provoca alucinações e mede a consistência.</p>
+<p><b>Para o TCC.</b> Componente de leitura ou extração de documentos aplicado ao seu problema, com conjunto de testes de qualidade.</p>
+<p><b>Docentes.</b> Silvio Quincozes</p>
+</div>
+</details>
+<details class="comp hl">
+<summary><span class="code">EIA08</span><span class="cname">Automatizar Tarefas com Agentes de IA<small>Agentes, Skills, RAG e Implantação</small></span><span class="ch">45 h</span></summary>
+<div class="cbody">
+<p class="noseu"><b>No seu caso.</b> Agentes com ferramentas, skills, RAG e publicação, com limites de permissão e acompanhamento de custo.</p>
+<p>O que é um agente de IA e quando vale a pena usar um. Agentes que consultam documentos da organização. Agentes que usam ferramentas: planilhas, e-mail, sistemas. Criação de skills. Definição do que o agente pode e não pode fazer. Publicação da solução para outras pessoas usarem. Acompanhamento de qualidade e custo.</p>
+<p><b>O método aqui.</b> Ênfase em decompor (passo 2) e atacar (passo 5): limites de permissão e testes de uso indevido.</p>
+<p><b>Skill e IA adversarial.</b> Aqui você constrói a sua própria skill. O agente adversarial testa uso indevido de ferramentas, respostas fora da base de documentos, ações não autorizadas e custo excessivo.</p>
+<p><b>Para o TCC.</b> Protótipo funcional da sua solução, com a primeira skill própria.</p>
+<p><b>Docentes.</b> Paulo Souza, Marcelo Luizelli, Diego Kreutz</p>
+</div>
+</details>
+<details class="comp v hl">
+<summary><span class="code">EIA09</span><span class="cname">IA que Enxerga: Imagens, Fotos e Drones<small>Visão Computacional e IA Multimodal</small></span><span class="ch">30 h</span></summary>
+<div class="cbody">
+<p class="noseu"><b>No seu caso.</b> Detecção, segmentação e vídeo para inspeção visual em linhas de produção e obras.</p>
+<p>O que a IA consegue reconhecer em imagens: classificar, localizar e contornar objetos. Modelos prontos e plataformas sem código. Como montar e marcar um conjunto de imagens. Modelos que combinam foto e pergunta. Imagens de satélite, de drone e de celular. Viés em conjuntos de imagens.</p>
+<p><b>O método aqui.</b> Ênfase em verificar (passo 4) e atacar (passo 5): imagens difíceis, de outras regiões e condições.</p>
+<p><b>Skill e IA adversarial.</b> A skill apoia a marcação de imagens e a avaliação dos resultados. O agente adversarial usa imagens com pouca luz, outros ângulos e ruído, e verifica viés de região ou estação do ano.</p>
+<p><b>Para o TCC.</b> Componente de imagens aplicado ao seu problema, quando pertinente; caso contrário, estudo de caso com imagens do agronegócio ou do ambiente.</p>
+<p><b>Docentes.</b> Eliezer Flores</p>
+</div>
+</details>
+<details class="comp hl">
+<summary><span class="code">EIA10</span><span class="cname">Usar IA com Segurança, Ética e Dentro da Lei<small>IA Adversarial, Cibersegurança, Ética e Governança</small></span><span class="ch">45 h</span></summary>
+<div class="cbody">
+<p class="noseu"><b>No seu caso.</b> Injeção de instruções, envenenamento de dados e segurança de agentes; o seu próprio agente adversarial.</p>
+<p>Como soluções de IA são atacadas: instruções maliciosas escondidas, dados envenenados e respostas manipuladas. Segurança de agentes e de integrações. Como atacar a própria solução antes que outros o façam. Vieses e explicabilidade. LGPD, regulação brasileira de IA e regulamento europeu. Política de uso de IA e gestão de riscos nas organizações.</p>
+<p><b>O método aqui.</b> Ênfase em atacar (passo 5) e responder (passo 6): relatório de validação e de riscos.</p>
+<p><b>Skill e IA adversarial.</b> A skill conduz uma auditoria de segurança, privacidade, vieses e explicabilidade. Aqui você constrói o seu próprio agente adversarial e o aplica à solução de um colega.</p>
+<p><b>Para o TCC.</b> Relatório de validação adversarial da sua solução, que integra o TCC.</p>
+<p><b>Docentes.</b> Diego Kreutz, Silvio Quincozes, Rodrigo Mansilha</p>
+</div>
+</details>
+</div>
+</div>
+<div class="legend">
+<span><i style="background:var(--ouro)"></i>Nivelamento</span>
+<span><i style="background:var(--roxo)"></i>Imagens e visão computacional</span>
+<span><i style="background:var(--azul)"></i>Demais componentes</span>
+</div>
+<div class="split" role="img" aria-label="Distribuição das 375 horas: nivelamento 45 h, fundamentos 165 h, aplicação 165 h">
+<div style="flex:45;background:var(--ouro)">45 h</div>
+<div style="flex:165;background:var(--azul)">165 h</div>
+<div style="flex:165;background:var(--verde)">165 h</div>
+</div>
+<div class="split-cap">
+<span>Nivelamento (EIA01), 12%</span><span>Fundamentos (EIA02 a EIA06), 44%</span><span>Aplicação (EIA07 a EIA10), 44%</span>
+</div>
+<p class="note">O TCC não tem créditos e não entra nas 375 horas. Agentes e cibersegurança somam 90 horas (EIA08 e EIA10) e aparecem, pela validação adversarial, em todos os demais componentes.</p>
+</div>
+</section>
+<section id="computacao" class="comp-sec">
+<div class="wrap two">
+<div>
+<h2>Modo Avançado, para quem já programa</h2>
+<p class="lead" style="margin-top:18px">A proposta prevê, em cada componente, um Modo Avançado opcional e sem créditos extras. O formato ainda está em definição pelo grupo proponente; os temas abaixo são os que estão em discussão.</p>
+<p>Os grupos de encontros ao vivo misturam áreas de propósito: você trabalha com o especialista que conhece o problema.</p>
+</div>
+<div class="adv">
+<dl>
+<dt>Desenvolvimento com agentes</dt><dd>Repositório real, especificação, plano, testes automatizados e revisão do código gerado.</dd>
+<dt>Visão computacional na borda</dt><dd>Modelos rodando em celular, drone ou câmera, com medição de custo e desempenho.</dd>
+<dt>LLMs abertos</dt><dd>Ajuste fino e avaliação automatizada com conjuntos de teste.</dd>
+<dt>Agentes em produção</dt><dd>Servidor MCP próprio, observabilidade e implantação.</dd>
+<dt>Segurança de IA</dt><dd>Red teaming automatizado e validação adversarial no pipeline de entrega contínua.</dd>
+<dt>Ponte para a pesquisa</dt><dd>Contato com o Mestrado em Engenharia de Software (PPGES) e com o PampaTec.</dd>
+</dl>
+</div>
+</div>
+</section>
+<section id="desafios">
+<div class="wrap">
+<div class="sec-head">
+<h2>Banco de Desafios Reais</h2>
+<p class="lead">Não tem um problema para trazer? Escolha um. A cada turma, organizações públicas e privadas propõem desafios com dados, contato responsável e regras de privacidade. No fim do curso, as soluções são apresentadas a elas no Dia de Demonstração.</p>
+</div>
+<div class="ch-list">
+<div class="ch-item priv"><span class="org">Indústria e startups do PampaTec</span><h3>Inspeção visual de qualidade</h3><p>Detectar defeitos em embalagens e peças a partir de câmeras na linha.</p></div>
+<div class="ch-item priv"><span class="org">Empresa de serviços</span><h3>Agente para chamados internos</h3><p>Classificar chamados e sugerir respostas com base na documentação, sem vazar dados entre clientes.</p></div>
+<div class="ch-item priv"><span class="org">Concessionária de energia ou saneamento</span><h3>Manutenção preditiva</h3><p>Antecipar falhas de equipamentos a partir de séries de sensores e registros de manutenção.</p></div>
+<div class="ch-item"><span class="org">Órgão público</span><h3>Auditar uma solução de IA</h3><p>Avaliar segurança, privacidade e vieses de um sistema de IA já em uso, com relatório de riscos.</p></div>
+</div>
+<p class="note">Os desafios acima são ilustrativos. O banco de cada turma será publicado com o edital, a partir da rede de parceiros da UNIPAMPA e do BIA, como a Prefeitura e a Câmara de Vereadores de Alegrete, o COREDE Fronteira Oeste, o SEBRAE, o Sicredi, a Fundação Maronna, o PampaTec e empresas da região.</p>
+</div>
+</section>
+<section id="tcc">
+<div class="wrap">
+<div class="sec-head">
+<h2>O TCC começa na seleção</h2>
+<p class="lead">O problema que você descreve no processo seletivo é o mesmo que você trabalha em todos os componentes e que se torna o seu TCC. Ao final das disciplinas, boa parte do trabalho já está construída e validada.</p>
+</div>
+<div class="tbl-scroll">
+<table class="cmp">
+<caption>Entregas que alimentam o TCC</caption>
+<tbody>
+<tr><th>Processo seletivo</th><td>Proposta de problema (até 2 páginas)</td></tr>
+<tr><th>EIA01</th><td>Diagnóstico inicial do seu problema, com o critério de sucesso definido e uma primeira automação simples, verificada.</td></tr>
+<tr><th>EIA02</th><td>Análise exploratória dos dados do seu problema, com as principais incertezas identificadas.</td></tr>
+<tr><th>EIA03</th><td>Base de dados do seu projeto, organizada, documentada e pronta para as próximas etapas.</td></tr>
+<tr><th>EIA04</th><td>Modelo de referência aplicado ao seu problema, com o critério de sucesso medido e as limitações descritas.</td></tr>
+<tr><th>EIA05</th><td>Aplicação de um modelo pronto ao seu problema, quando pertinente; caso contrário, estudo de caso indicado pelo professor.</td></tr>
+<tr><th>EIA06</th><td>Pré-projeto de TCC em formato de proposta técnica, com plano, critérios de sucesso, plano de medições, riscos conhecidos, linha e formato (artigo ou produto).</td></tr>
+<tr><th>EIA07</th><td>Componente de leitura ou extração de documentos aplicado ao seu problema, com conjunto de testes de qualidade.</td></tr>
+<tr><th>EIA08</th><td>Protótipo funcional da sua solução, com a primeira skill própria.</td></tr>
+<tr><th>EIA09</th><td>Componente de imagens aplicado ao seu problema, quando pertinente; caso contrário, estudo de caso com imagens do agronegócio ou do ambiente.</td></tr>
+<tr><th>EIA10</th><td>Relatório de validação adversarial da sua solução, que integra o TCC.</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note">Quando um componente não se aplica ao problema (por exemplo, imagens num problema só com textos), a entrega é substituída por um estudo de caso indicado pelo professor, sem prejuízo à avaliação.</p>
+<div class="tbl-scroll" style="margin-top:40px">
+<table class="cmp">
+<caption>Linhas mais próximas do seu perfil</caption>
+<thead><tr><th>Linha</th><th>Exemplos de TCC</th><th>Orientadores</th></tr></thead>
+<tbody>
+<tr><th>L2. LLMs, agentes e automação</th><td>Agente de atendimento com base em normas e manuais; extração de dados de editais e laudos; automação de processos administrativos</td><td>Silvio Quincozes, Paulo Souza, Marcelo Luizelli</td></tr>
+<tr><th>L3. Visão computacional e IA multimodal</th><td>Identificação de cultivares e falhas de plantio; inspeção visual; análise de imagens de satélite e drone</td><td>Eliezer Flores, Rodrigo Mansilha, Francisco Vogt</td></tr>
+<tr><th>L4. Segurança, robustez e governança de IA</th><td>Auditoria de soluções de IA em organizações; políticas de uso de IA; detecção de fraudes e ameaças</td><td>Diego Kreutz, Silvio Quincozes, Rodrigo Mansilha</td></tr>
+</tbody>
+</table>
+</div>
+<div class="sheet"><h3>Exemplos de TCC para o seu perfil</h3><ul style="margin:6px 0 0;padding-left:20px;color:var(--ink-soft)"><li>Agente de atendimento com base em manuais internos, com relatório de ataques e correções.</li><li>Inspeção visual de qualidade a partir de câmeras na linha de produção.</li><li>Auditoria de segurança de uma solução de IA em uso numa organização.</li></ul></div>
+<div class="vis-grid" style="margin-top:40px">
+<article style="border-color:var(--azul)"><h3>Artigo científico</h3><p>De 10 a 15 páginas, em condições de submissão a evento ou periódico da área.</p></article>
+<article style="border-color:var(--azul)"><h3>Produto de software</h3><p>Solução funcional, relatório técnico de 8 a 12 páginas, código e documentação em repositório, demonstração gravada e pedido de registro no INPI.</p></article>
+<article style="border-color:var(--azul)"><h3>Defesa</h3><p>A distância, no mês 12, com banca de dois membros. Pesam a formulação do problema, as verificações, a validação adversarial e a documentação honesta das limitações.</p></article>
+</div>
+</div>
+</section>
+<section id="docentes">
+<div class="wrap">
+<div class="sec-head">
+<h2>Quem ensina</h2>
+<p class="lead">Dez docentes do Campus Alegrete: nove doutores já definidos, quatro deles com experiência de pesquisa no exterior, e um décimo a definir. Cada docente prepara a skill e o agente adversarial dos seus componentes e orienta cerca de 10 TCCs.</p>
+</div>
+<div class="prof">
+<div><b>Aline Lunkes</b><span>Doutora em Ciências e Modelagem Computacional (LNCC). EIA02, EIA04. Linha L1.</span></div>
+<div><b>Diego Kreutz</b><span>Doutor em Informática (Universidade de Luxemburgo). EIA06, EIA08, EIA10. Linha L4.</span></div>
+<div><b>Dionatan Schmidt</b><span>Doutor em Matemática Aplicada (UFRGS). EIA01, EIA02. Linha L1.</span></div>
+<div><b>Eliezer Flores</b><span>Doutor em Computação (UFRGS). EIA05, EIA09. Linha L3.</span></div>
+<div><b>Francisco Vogt</b><span>Doutor em Ciência da Computação (Unicamp). EIA01, EIA03, EIA05, EIA09. Linha L1, L3.</span></div>
+<div><b>Marcelo Luizelli</b><span>Doutor em Computação (UFRGS). EIA03, EIA04, EIA08. Linha L1, L2.</span></div>
+<div><b>Paulo Souza</b><span>Doutor em Ciência da Computação (PUCRS). EIA01, EIA06, EIA08. Linha L2.</span></div>
+<div><b>Rodrigo Mansilha</b><span>Doutor em Ciência da Computação (UFRGS). EIA05, EIA06, EIA10. Linha L3, L4.</span></div>
+<div><b>Silvio Quincozes</b><span>Doutor em Ciência da Computação (UFF). EIA01, EIA07, EIA10. Linha L2, L4.</span></div>
+<div><b>10º docente, a definir</b><span>Perfil sugerido: experiência aplicada em agronegócio, gestão pública ou saúde.</span></div>
+</div>
+</div>
+</section>
+<section id="selecao">
+<div class="wrap">
+<div class="sec-head">
+<h2>Seleção em três etapas</h2>
+<p class="lead">A seleção não testa programação. Ela verifica se você tem um problema real, se sabe explicá-lo e se tem senso crítico diante do que a IA entrega. São 100 vagas por turma, para graduados em qualquer área.</p>
+</div>
+<div class="sel">
+<div><b>20</b><h3>Currículo</h3><p>Experiência profissional, projetos com dados ou decisões complexas, outra pós-graduação e produção técnica ou científica.</p></div>
+<div><b>40</b><h3>Proposta de problema</h3><p>Até duas páginas sobre um problema real e complexo, seu ou do Banco de Desafios Reais. Eliminatória: mínimo de 20 pontos.</p></div>
+<div><b>40</b><h3>Desafio prático com IA</h3><p>60 minutos resolvendo um pequeno problema com um assistente de IA e uma planilha que tem um erro de propósito, seguidos de 15 minutos de conversa com dois docentes.</p></div>
+</div>
+<details class="crit">
+<summary>Ver os critérios de pontuação</summary>
+<h4>Etapa 1: currículo (20 pontos)</h4>
+<div class="tbl-scroll"><table class="cmp"><thead><tr><th>Critério</th><th>Pontuação</th><th>Máximo</th></tr></thead><tbody>
+<tr><th>Experiência profissional na área de atuação</th><td>2 pontos por ano completo</td><td>10</td></tr>
+<tr><th>Projetos com dados, tecnologia ou decisões complexas</th><td>até 2 pontos por projeto comprovado</td><td>4</td></tr>
+<tr><th>Outra pós-graduação concluída</th><td>especialização: 1; mestrado ou doutorado: 2</td><td>2</td></tr>
+<tr><th>Produção técnica ou científica</th><td>1 ponto por item</td><td>4</td></tr>
+</tbody></table></div>
+<h4>Etapa 2: proposta de problema (40 pontos, até 8 por critério)</h4>
+<div class="tbl-scroll"><table class="cmp"><thead><tr><th>Critério</th><th>0 a 2</th><th>3 a 5</th><th>6 a 8</th></tr></thead><tbody>
+<tr><th>Clareza</th><td>Vago ou confuso</td><td>Compreensível, com lacunas</td><td>Claro, com contexto e exemplos</td></tr>
+<tr><th>Relevância</th><td>Impacto não demonstrado</td><td>Impacto local ou pontual</td><td>Impacto claro e mensurável</td></tr>
+<tr><th>Complexidade</th><td>Problema simples</td><td>Complexidade moderada</td><td>Complexo, com recorte possível</td></tr>
+<tr><th>Dados e acesso</th><td>Sem dados identificados</td><td>Dados existem, acesso incerto</td><td>Dados identificados e acessíveis</td></tr>
+<tr><th>Viabilidade</th><td>Inviável em 12 meses</td><td>Viável com ajustes</td><td>Viável e bem delimitado</td></tr>
+</tbody></table></div>
+<h4>Etapa 3: desafio prático e conversa (40 pontos)</h4>
+<div class="tbl-scroll"><table class="cmp"><thead><tr><th>Critério</th><th>O que se avalia</th><th>Pontos</th></tr></thead><tbody>
+<tr><th>Formulação</th><td>Explica o problema à IA com contexto, objetivo e critério de correção</td><td>8</td></tr>
+<tr><th>Verificação crítica</th><td>Confere o resultado e percebe o erro proposital ou inconsistências</td><td>8</td></tr>
+<tr><th>Decisão</th><td>Chega a uma recomendação e a justifica com os resultados</td><td>8</td></tr>
+<tr><th>Comunicação</th><td>Resume a solução e seus limites em linguagem simples</td><td>6</td></tr>
+<tr><th>Defesa da proposta</th><td>Responde a perguntas sobre o problema da Etapa 2</td><td>5</td></tr>
+<tr><th>Motivação</th><td>Objetivos com o curso e disponibilidade de tempo</td><td>5</td></tr>
+</tbody></table></div>
+<p class="note">Aprovação com 60 pontos; classificam-se os 100 primeiros, e os demais aprovados formam lista de espera. Desempate: maior nota na Etapa 2, maior nota na Etapa 3 e maior idade.</p>
+</details>
+<div class="faq" style="margin-top:56px">
+<details><summary>Sou da computação. O curso não vai ser básico demais?</summary><p>O núcleo é o mesmo para todos, porque o método vale para qualquer formação. A proposta prevê um Modo Avançado em cada componente, opcional e sem créditos extras, cujo formato ainda está em definição pelo grupo proponente. E dirigir agentes de IA com método é uma competência nova também para quem programa.</p></details>
+<details><summary>Posso escrever código à mão?</summary><p>O curso avalia a direção, as evidências e a validação, não a digitação de código. Nada impede que você leia e revise o que a IA gerou; no Modo Avançado, isso faz parte das atividades.</p></details>
+<details><summary>Já uso assistentes de programação. O que muda?</summary><p>O método: critério de sucesso antes do pedido, plano aprovado, verificação, ataque adversarial e documentação honesta, aplicados de forma sistemática e avaliados por docentes.</p></details>
+<details><summary>Preciso saber programar?</summary><p>Não. O nivelamento de 45 horas (EIA01) ensina a pedir, executar e conferir código gerado por IA. Não são exigidos programação, matemática avançada, inglês, experiência prévia com IA nem formação em computação.</p></details>
+<details><summary>Quanto tempo preciso dedicar?</summary><p>Cerca de 10 horas por semana, durante 12 meses. Cada componente tem cerca de 75% de atividades assíncronas e 25% de encontros ao vivo, gravados, em grupos de 25 alunos.</p></details>
+<details><summary>Posso usar IA nas atividades?</summary><p>Sim, e é parte do método. Em cada entrega você declara quais ferramentas usou e para quê e anexa as conversas mais relevantes. A responsabilidade pelo que é entregue, inclusive por erros da IA, é sempre sua.</p></details>
+<details><summary>Qual o valor?</summary><p>O curso é autofinanciado. O valor será definido com a fundação de apoio e publicado no edital, e inclui o custo de licenças e de uso de ferramentas de IA para todos os alunos. Ações afirmativas e eventuais descontos serão definidos com a PROPPI.</p></details>
+<details><summary>Qual o título?</summary><p>Especialista em Inteligência Artificial, pela Universidade Federal do Pampa, curso de pós-graduação lato sensu. O nome do título ainda está em revisão pelo grupo proponente.</p></details>
+</div>
+</div>
+</section>
+<section id="cronograma">
+<div class="wrap">
+<div class="sec-head">
+<h2>Doze meses, do nivelamento à defesa</h2>
+</div>
+<div class="tbl-scroll"><table class="cmp"><tbody>
+<tr><th>2 meses antes</th><td>Processo seletivo: inscrições, avaliação, desafio prático, resultado e matrícula</td></tr>
+<tr><th>Mês 1</th><td>EIA01, nivelamento</td></tr>
+<tr><th>Meses 2 a 5</th><td>EIA02 a EIA06</td></tr>
+<tr><th>Mês 5</th><td>Pré-projeto de TCC e definição da linha</td></tr>
+<tr><th>Mês 6</th><td>Termo de aceite de orientação</td></tr>
+<tr><th>Meses 6 a 10</th><td>EIA07 a EIA10 e encontros quinzenais de orientação</td></tr>
+<tr><th>Mês 11</th><td>Entrega do TCC à banca, 30 dias antes da defesa</td></tr>
+<tr><th>Mês 12</th><td>Defesas, Dia de Demonstração e encerramento</td></tr>
+</tbody></table></div>
+</div>
+</section>
+<section id="bia" class="bia">
+<div class="wrap">
+<div class="sec-head">
+<h2>A especialização do BIA para quem já se formou</h2>
+<p class="lead">O Campus Alegrete oferece o <a href="https://bia-unipampa.github.io">Bacharelado em Inteligência Artificial (BIA)</a>, de oito semestres e 3.210 horas, com currículo concebido do zero para a IA e uma trilha de Resolução de Problemas herdeira da aprendizagem baseada em problemas praticada desde 2011 na Engenharia de Software. A EIA leva essa ideia a quem já tem graduação, em 12 meses e a distância.</p>
+</div>
+<div class="bia-grid">
+<div><h3>Mesma metodologia</h3><p>Aprendizagem baseada em problemas reais, adaptada a profissionais e à educação a distância.</p></div>
+<div><h3>Mesmos docentes</h3><p>Docentes que atuam no BIA, na Ciência da Computação, na Engenharia de Software e no mestrado PPGES.</p></div>
+<div><h3>Mesma rede de parceiros</h3><p>Prefeitura e Câmara de Alegrete, COREDE Fronteira Oeste, SEBRAE, Sicredi, Fundação Maronna, PampaTec e empresas da região são convidados a propor desafios.</p></div>
+<div><h3>Uma comunidade só</h3><p>Estudantes do BIA participam do Dia de Demonstração; desafios que ficarem abertos podem seguir na trilha de RP do bacharelado, e vice-versa.</p></div>
+</div>
+<div class="path" aria-label="Caminho de formação">
+<span>BIA, graduação</span><span class="arrow">→</span><span>EIA, especialização</span><span class="arrow">→</span><span>PPGES, mestrado</span><span class="arrow">→</span><span>PampaTec, startup</span>
+</div>
+</div>
+</section>
+</main>
+<footer>
+<div class="wrap">
+<div>
+<b>Especialização em Inteligência Artificial Aplicada (EIA)</b><br>
+UNIPAMPA, Campus Alegrete, RS<br>
+Proposta em elaboração, versão 3 (v3) para engenharias e tecnologia, novembro de 2026. Conteúdo baseado no projeto pedagógico do curso (PPC).
+</div>
+<ul>
+<li><a href="proposta-eia-v3.html">Proposta v3, versão geral</a></li>
+<li><a href="proposta-eia-v3-agro.html">Versão para agronegócio e ambiente</a></li>
+<li><a href="proposta-eia-v3-setor-publico.html">Versão para setor público</a></li>
+<li><a href="proposta-eia-v3-tecnologia.html">Versão para engenharias e tecnologia</a></li>
+<li><a href="proposta-eia-v3-saude-educacao-direito-gestao.html">Versão para saúde, educação, direito e gestão</a></li>
+<li><a href="divulgacao-eia.html">Divulgação: todos os materiais</a></li>
+<li><a href="especializacoes-ia-BR.html">Análise das especializações em IA no Brasil</a></li>
+<li><a href="https://bia-unipampa.github.io">Bacharelado em Inteligência Artificial (BIA)</a></li>
+</ul>
+</div>
+</footer>
+<script>
+const msgs=[...document.querySelectorAll(".demo .msg")];
+const reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+function play(){
+msgs.forEach(m=>m.classList.remove("on"));
+if(reduce){msgs.forEach(m=>m.classList.add("on"));return;}
+msgs.forEach((m,i)=>setTimeout(()=>m.classList.add("on"),300+i*1100));
+}
+document.getElementById("replay").addEventListener("click",play);
+play();
+</script>
+</body>
+</html>

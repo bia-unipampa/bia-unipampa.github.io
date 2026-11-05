@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skills de IA · BIA · UNIPAMPA</title>
+  <meta name="description" content="Guia didático sobre skills de agentes de IA para desenvolvedores de software: o que são, como instalar e como usar as skills do repositório mattpocock/skills no Claude Code, Codex, Copilot e outros agentes." />
+  <meta name="theme-color" content="#06070d" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Skills de IA · BIA · UNIPAMPA" />
+  <meta property="og:description" content="O que são skills de agentes de IA e como usar as skills do repositório mattpocock/skills no dia a dia de quem desenvolve software." />
+  <meta property="og:image" content="../assets/img/og-image.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+  <link rel="stylesheet" href="../assets/css/pages.css" />
+  <style>
+    /* ----- componentes específicos desta página ----- */
+    .code { position: relative; margin-top: 16px; border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--bg-2); overflow: hidden; }
+    .code__bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 14px; border-bottom: 1px solid var(--line); font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-dim); }
+    .code__copy { font: inherit; color: var(--cyan); background: none; border: 1px solid var(--line-strong); border-radius: 999px; padding: 3px 12px; cursor: pointer; }
+    .code__copy:hover, .code__copy:focus-visible { border-color: var(--cyan); }
+    .code pre { margin: 0; padding: 16px 18px; overflow-x: auto; font-family: var(--font-mono); font-size: 0.86rem; line-height: 1.6; color: var(--ink); }
+    .code .c { color: var(--ink-dim); }
+    .code .k { color: var(--magenta); }
+    .code .s { color: var(--ia); }
+    code.inl { font-family: var(--font-mono); font-size: 0.88em; color: var(--ink); background: rgba(255,255,255,0.06); border: 1px solid var(--line); border-radius: 6px; padding: 1px 6px; }
+    .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 28px; align-items: start; }
+    @media (max-width: 900px) { .split { grid-template-columns: minmax(0, 1fr); } }
+    .anat { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+    .anat li { padding: 14px 18px; border-left: 3px solid var(--c); background: rgba(255,255,255,0.025); border-radius: 0 12px 12px 0; color: var(--ink-soft); }
+    .anat b { color: var(--ink); }
+    .dtable--wrap { overflow-x: auto; }
+    .dtable td:first-child { color: var(--ink); font-weight: 600; white-space: nowrap; }
+    .fail { border-top: 3px solid var(--c); }
+    .fail__q { font-style: italic; color: var(--ink-dim); font-size: 0.88rem; margin-top: 10px; }
+    .fail__fix { margin-top: 14px; }
+    .fail__fix code.inl { color: var(--c); }
+    .agents { display: flex; flex-direction: column; gap: 10px; }
+    .agents details { border: 1px solid var(--line); border-radius: 14px; background: rgba(255,255,255,0.02); }
+    .agents summary { cursor: pointer; padding: 16px 22px; font-weight: 600; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+    .agents summary::-webkit-details-marker { display: none; }
+    .agents summary::after { content: "+"; font-family: var(--font-mono); color: var(--cyan); }
+    .agents details[open] summary::after { content: "–"; }
+    .agents details > div { padding: 0 22px 20px; color: var(--ink-soft); }
+    .agents details > div .code { margin-top: 6px; }
+    .agents details > div p + .code, .agents details > div .code + p { margin-top: 12px; }
+    .filters { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-bottom: 26px; }
+    .filters__g { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+    .filters__t { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-dim); margin-right: 4px; }
+    .filters .chip { font: inherit; font-size: 0.82rem; cursor: pointer; }
+    .cat { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr)); gap: 16px; }
+    .sk { border-top: 3px solid var(--c); display: flex; flex-direction: column; min-width: 0; }
+    .sk h3 { font-family: var(--font-mono); font-size: 1.08rem; color: var(--c); }
+    .sk__meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+    .sk__tag { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-dim); border: 1px solid var(--line-strong); border-radius: 999px; padding: 2px 9px; }
+    .sk p { margin-top: 10px; }
+    .sk__src { margin-top: auto; padding-top: 14px; font-family: var(--font-mono); font-size: 0.76rem; }
+    .sk__src a { color: var(--ink-soft); text-decoration: underline; text-underline-offset: 3px; }
+    .sk__src a:hover { color: var(--c); }
+    .sk[hidden] { display: none; }
+    .steps--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    @media (max-width: 760px) { .steps--3 { grid-template-columns: minmax(0, 1fr); } }
+    code.inl { overflow-wrap: anywhere; }
+    .cat__count { font-family: var(--font-mono); font-size: 0.78rem; color: var(--ink-dim); margin-top: 18px; }
+    .flow { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; counter-reset: fl; }
+    .flow li { counter-increment: fl; position: relative; padding: 18px 16px; border: 1px solid var(--line); border-radius: var(--radius); background: rgba(255,255,255,0.025); }
+    .flow li::before { content: "0" counter(fl); font-family: var(--font-mono); font-size: 0.74rem; color: var(--magenta); letter-spacing: 0.1em; }
+    .flow code.inl { display: inline-block; margin: 8px 0 6px; color: var(--cyan); }
+    .flow p { color: var(--ink-soft); font-size: 0.88rem; }
+    @media (max-width: 1100px) { .flow { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    @media (max-width: 620px) { .flow { grid-template-columns: 1fr; } }
+    .chat { display: flex; flex-direction: column; gap: 12px; max-width: 880px; }
+    .msg { padding: 14px 18px; border-radius: 14px; border: 1px solid var(--line); color: var(--ink-soft); }
+    .msg b { display: block; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+    .msg--you { background: rgba(34,211,238,0.06); border-color: rgba(34,211,238,0.3); }
+    .msg--you b { color: var(--cyan); }
+    .msg--ai { background: rgba(217,70,239,0.05); border-color: rgba(217,70,239,0.28); }
+    .msg--ai b { color: var(--magenta); }
+    .msg ul { margin: 8px 0 0; padding-left: 1.2em; }
+    .msg li + li { margin-top: 4px; }
+    .tips { margin: 0; padding-left: 1.2em; color: var(--ink-soft); }
+    .tips li + li { margin-top: 10px; }
+    .tips b { color: var(--ink); }
+    .toc .chip { text-decoration: none; }
+    .toc { margin-top: 30px; }
+    .toc__t { font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-dim); margin: 0 0 12px; }
+    @media (prefers-reduced-motion: reduce) { .tile { transition: none; } }
+  </style>
+
+  <!-- Umami analytics (sem cookies, compatível com a LGPD) -->
+  <script defer src="https://stats-bia.iotedu.org/script.js" data-website-id="42daa7a0-8da8-4c04-96aa-3e7dc8e12986"></script>
+</head>
+<body>
+  <canvas id="neural" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ===================== NAV ===================== -->
+  <header class="nav" id="nav">
+    <a class="brand" href="../index.html" aria-label="BIA, início">
+      <span class="brand__mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" width="28" height="28"><circle cx="8" cy="9" r="3"/><circle cx="24" cy="7" r="2.4"/><circle cx="25" cy="22" r="3"/><circle cx="9" cy="24" r="2.6"/><circle cx="16" cy="16" r="2.2"/><path d="M8 9 16 16M24 7 16 16M25 22 16 16M9 24 16 16M8 9 24 7M25 22 9 24"/></svg>
+      </span>
+      <span class="brand__text">BIA</span>
+    </a>
+
+    <nav class="nav__links" aria-label="Navegação principal">
+      <a href="../index.html">Início</a>
+      <a href="../matriz.html">Matriz</a>
+      <a href="../grade.html">Monte sua grade</a>
+      <a href="../mercado.html">Mercado</a>
+      <a href="../inovacao.html">Inovação</a>
+      <a href="../por-que-bia.html">Por que o BIA</a>
+      <a href="../alegrete.html">Por que Alegrete</a>
+      <a href="../escolas/index.html">Escolas</a>
+      <a href="../feito-com-ia/index.html">Feito com IA</a>
+    </nav>
+
+    <div class="nav__right">
+      <a class="btn btn--solid nav__cta" href="../index.html#ingresso">Quero estudar</a>
+      <button class="nav__burger" id="burger" type="button" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="phero">
+      <div class="wrap">
+        <p class="phero__crumb"><a href="../index.html">BIA</a> / Skills de IA</p>
+        <h1 class="phero__title reveal">Skills de IA para quem <em>desenvolve software</em></h1>
+        <p class="phero__lead reveal">Agentes de programação como Claude Code, Codex e GitHub Copilot escrevem código rápido, mas nem sempre o código certo. <strong>Skills</strong> são pequenos manuais em Markdown que ensinam ao agente um jeito disciplinado de trabalhar: entrevistar você antes de começar, escrever o teste antes do código, depurar com método. Este guia explica o conceito e mostra, passo a passo, como usar o repositório aberto <a href="https://github.com/mattpocock/skills" target="_blank" rel="noopener">mattpocock/skills</a>, de Matt Pocock, educador conhecido pelos cursos de TypeScript.</p>
+        <div class="phero__actions reveal">
+          <a class="btn btn--solid" href="#instalar">Instalar em 30 segundos</a>
+          <a class="btn btn--ghost" href="#catalogo">Ver o catálogo de skills</a>
+        </div>
+        <nav class="toc reveal" aria-label="Seções desta página">
+          <p class="toc__t">Roteiro desta página</p>
+          <div class="chips">
+            <a class="chip" style="--c:var(--cyan)" href="#conceito"><span class="chip__dot"></span>1. O que é uma skill</a>
+            <a class="chip" style="--c:var(--pi)" href="#problemas"><span class="chip__dot"></span>2. Quatro problemas que elas resolvem</a>
+            <a class="chip" style="--c:var(--ia)" href="#instalar"><span class="chip__dot"></span>3. Instalação</a>
+            <a class="chip" style="--c:var(--fm)" href="#invocacao"><span class="chip__dot"></span>4. Quem aciona a skill</a>
+            <a class="chip" style="--c:var(--cp)" href="#catalogo"><span class="chip__dot"></span>5. Catálogo</a>
+            <a class="chip" style="--c:var(--cg)" href="#fluxo"><span class="chip__dot"></span>6. Fluxo de trabalho</a>
+            <a class="chip" style="--c:var(--fc)" href="#exemplo"><span class="chip__dot"></span>7. Exemplo de sessão</a>
+            <a class="chip" style="--c:var(--magenta)" href="#criar"><span class="chip__dot"></span>8. Crie a sua</a>
+          </div>
+        </nav>
+      </div>
+    </section>
+
+    <!-- ===================== 1. CONCEITO ===================== -->
+    <section class="section section--tight" id="conceito">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker">1 · Conceito</p>
+          <h2 class="section__title reveal">Uma skill é um procedimento que o agente carrega quando precisa</h2>
+          <p class="section__lead reveal">Pense numa receita de bolo guardada na gaveta. O agente sabe que a receita existe (lê só o título e uma linha de descrição) e só abre a gaveta quando a tarefa pede. Isso mantém o contexto do modelo enxuto e torna o comportamento repetível: a mesma skill produz o mesmo método, sessão após sessão.</p>
+        </header>
+        <div class="split">
+          <div class="reveal">
+            <ul class="anat">
+              <li style="--c:var(--cyan)"><b>Uma pasta, um arquivo principal.</b> Cada skill é uma pasta com um <code class="inl">SKILL.md</code>. Arquivos extras (exemplos, roteiros, scripts) ficam ao lado e são lidos sob demanda.</li>
+              <li style="--c:var(--magenta)"><b>Cabeçalho YAML.</b> O campo <code class="inl">name</code> dá o nome do comando; o <code class="inl">description</code> diz ao agente quando usar a skill. É a parte mais importante: uma descrição vaga faz a skill nunca ser acionada.</li>
+              <li style="--c:var(--ia)"><b>Corpo em Markdown.</b> Instruções em linguagem natural, escritas para o modelo: passos, regras, antipadrões e o formato esperado da resposta.</li>
+              <li style="--c:var(--cp)"><b>Portável.</b> O formato é texto puro, então a mesma skill funciona em vários agentes e modelos. Você pode ler, editar e versionar no git como qualquer código.</li>
+            </ul>
+          </div>
+          <div class="reveal">
+            <div class="code">
+              <div class="code__bar"><span>skills/productivity/grill-me/SKILL.md</span><button class="code__copy" type="button">Copiar</button></div>
+<pre><code><span class="k">---</span>
+<span class="k">name:</span> grill-me
+<span class="k">description:</span> A relentless interview to sharpen a plan or design.
+<span class="k">disable-model-invocation:</span> true
+<span class="k">---</span>
+
+Call the Skill tool with "grilling".</code></pre>
+            </div>
+            <p class="note" style="margin-top:12px">Esta é a skill inteira, copiada do repositório. Ela só pode ser acionada por você (<code class="inl">disable-model-invocation: true</code>) e delega todo o trabalho para outra skill, <code class="inl">grilling</code>, que contém o procedimento de entrevista. Skills pequenas e combináveis são a filosofia do repositório.</p>
+          </div>
+        </div>
+
+        <h3 class="section__title reveal" style="font-size:clamp(1.3rem,2.4vw,1.7rem);margin-top:56px">Skill, prompt, CLAUDE.md ou MCP?</h3>
+        <div class="dtable--wrap reveal">
+          <table class="dtable">
+            <thead><tr><th scope="col">Recurso</th><th scope="col">Quando entra no contexto</th><th scope="col">Serve para</th></tr></thead>
+            <tbody>
+              <tr><td>Prompt avulso</td><td>Só na mensagem em que você digita</td><td>Pedidos pontuais; some na próxima sessão</td></tr>
+              <tr><td>CLAUDE.md / AGENTS.md</td><td>Sempre, no início de toda sessão</td><td>Regras gerais do projeto (comandos de build, estilo, o que nunca fazer)</td></tr>
+              <tr><td>Skill</td><td>Sob demanda, quando a tarefa combina com a descrição ou quando você digita <code class="inl">/nome</code></td><td>Procedimentos reutilizáveis: TDD, depuração, revisão de código, escrita de PR</td></tr>
+              <tr><td>Servidor MCP</td><td>Quando o agente chama uma ferramenta exposta pelo servidor</td><td>Dar acesso a sistemas externos (banco de dados, issue tracker, navegador)</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">Regra prática: CLAUDE.md diz <em>o que é verdade</em> no projeto; uma skill diz <em>como fazer</em> um tipo de tarefa; MCP dá <em>acesso</em> a algo fora do computador.</p>
+      </div>
+    </section>
+
+    <!-- ===================== 2. PROBLEMAS ===================== -->
+    <section class="section section--tight" id="problemas">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker">2 · Por que existem</p>
+          <h2 class="section__title reveal">Quatro jeitos clássicos de um agente dar errado</h2>
+          <p class="section__lead reveal">O autor descreve o repositório como skills "para engenharia de verdade, não <em>vibe coding</em>". Cada grupo de skills ataca uma falha comum, apoiado em livros clássicos de engenharia de software.</p>
+        </header>
+        <div class="grid grid--2">
+          <article class="tile fail reveal" style="--c:var(--pi)">
+            <span class="tile__tag">Falha 1 · Desalinhamento</span>
+            <h3>O agente não fez o que eu queria</h3>
+            <p>Você acha que explicou bem; o agente entendeu outra coisa. A correção é uma sessão de perguntas antes de qualquer código.</p>
+            <p class="fail__q">"Ninguém sabe exatamente o que quer." Thomas e Hunt, <cite>The Pragmatic Programmer</cite></p>
+            <p class="fail__fix">Use: <code class="inl">/grill-me</code> e <code class="inl">/grill-with-docs</code></p>
+          </article>
+          <article class="tile fail reveal" style="--c:var(--cp)">
+            <span class="tile__tag">Falha 2 · Prolixidade</span>
+            <h3>O agente usa 20 palavras onde 1 bastaria</h3>
+            <p>Sem um vocabulário comum, o agente descreve tudo por extenso. Um glossário do domínio (<code class="inl">GLOSSARY.md</code>) e registros de decisão (ADRs) criam uma linguagem compartilhada, como na <em>Domain-Driven Design</em>.</p>
+            <p class="fail__q">Antes: "o problema quando uma aula dentro de uma seção do curso ganha um lugar no sistema de arquivos". Depois: "o problema na cascata de materialização".</p>
+            <p class="fail__fix">Use: <code class="inl">/grill-with-docs</code> e <code class="inl">domain-modeling</code></p>
+          </article>
+          <article class="tile fail reveal" style="--c:var(--ia)">
+            <span class="tile__tag">Falha 3 · Código que não funciona</span>
+            <h3>Alinhados, mas o resultado ainda quebra</h3>
+            <p>Sem retorno sobre como o código roda, o agente trabalha às cegas. A saída são laços de retorno curtos: tipos estáticos, testes automatizados e o ciclo vermelho, verde, refatorar.</p>
+            <p class="fail__q">"A velocidade do retorno é o seu limite de velocidade." Thomas e Hunt</p>
+            <p class="fail__fix">Use: <code class="inl">tdd</code> e <code class="inl">diagnosing-bugs</code></p>
+          </article>
+          <article class="tile fail reveal" style="--c:var(--fm)">
+            <span class="tile__tag">Falha 4 · Bola de lama</span>
+            <h3>O código cresce rápido e fica impossível de mudar</h3>
+            <p>Agentes aceleram a escrita de código e, junto, a entropia. A resposta é cuidar do design todo dia, preferindo <strong>módulos profundos</strong>: muita funcionalidade atrás de uma interface simples.</p>
+            <p class="fail__q">"Os melhores módulos são profundos." John Ousterhout, <cite>A Philosophy of Software Design</cite></p>
+            <p class="fail__fix">Use: <code class="inl">/improve-codebase-architecture</code> e <code class="inl">codebase-design</code></p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 3. INSTALAR ===================== -->
+    <section class="section section--tight" id="instalar">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker">3 · Instalação</p>
+          <h2 class="section__title reveal">Três passos, uma vez por máquina e uma vez por repositório</h2>
+          <p class="section__lead reveal">Há dois modos de instalação. Como <strong>plugin</strong>, as skills se atualizam sozinhas. Pelo <strong>skills.sh</strong>, os arquivos são copiados para o seu projeto e você pode editá-los, mas atualiza à mão. Escolha um modo por agente: instalar os dois deixa cada skill duplicada.</p>
+        </header>
+
+        <ol class="steps steps--3 reveal">
+          <li><h3>Instale as skills</h3><p>Escolha o seu agente abaixo e rode o comando correspondente no terminal.</p></li>
+          <li><h3>Configure o repositório</h3><p>Dentro do agente, rode <code class="inl">/setup-matt-pocock-skills</code> uma vez em cada projeto.</p></li>
+          <li><h3>Comece a usar</h3><p>Digite <code class="inl">/grill-me</code> ou <code class="inl">/ask-matt</code> e descreva o que você quer construir.</p></li>
+        </ol>
+
+        <h3 class="section__title reveal" style="font-size:clamp(1.3rem,2.4vw,1.7rem);margin-top:48px">Passo 1: escolha o seu agente</h3>
+        <div class="agents reveal" style="margin-top:20px">
+          <details open>
+            <summary>Claude Code (atualização automática)</summary>
+            <div>
+              <div class="code"><div class="code__bar"><span>terminal</span><button class="code__copy" type="button">Copiar</button></div><pre><code>claude plugin install mattpocock-skills@claude-plugins-official</code></pre></div>
+            </div>
+          </details>
+          <details>
+            <summary>Codex (atualiza ao iniciar)</summary>
+            <div>
+              <div class="code"><div class="code__bar"><span>terminal</span><button class="code__copy" type="button">Copiar</button></div><pre><code>codex plugin marketplace add mattpocock/skills
+codex plugin add mattpocock-skills@mattpocock</code></pre></div>
+            </div>
+          </details>
+          <details>
+            <summary>GitHub Copilot (CLI e VS Code)</summary>
+            <div>
+              <div class="code"><div class="code__bar"><span>terminal</span><button class="code__copy" type="button">Copiar</button></div><pre><code>copilot plugin marketplace add mattpocock/skills
+copilot plugin install mattpocock-skills@mattpocock</code></pre></div>
+              <p>Depois, uma única vez, acrescente ao arquivo <code class="inl">~/.copilot/settings.json</code> para receber atualizações:</p>
+              <div class="code"><div class="code__bar"><span>~/.copilot/settings.json</span><button class="code__copy" type="button">Copiar</button></div><pre><code>{
+  <span class="s">"extraKnownMarketplaces"</span>: {
+    <span class="s">"mattpocock"</span>: { <span class="s">"source"</span>: { <span class="s">"source"</span>: <span class="s">"github"</span>, <span class="s">"repo"</span>: <span class="s">"mattpocock/skills"</span> }, <span class="s">"autoUpdate"</span>: <span class="k">true</span> }
+  }
+}</code></pre></div>
+              <p>No VS Code, use o comando <strong>Chat: Install Plugin From Source</strong> e informe <code class="inl">https://github.com/mattpocock/skills</code>.</p>
+            </div>
+          </details>
+          <details>
+            <summary>Gemini CLI (atualização manual)</summary>
+            <div>
+              <div class="code"><div class="code__bar"><span>terminal</span><button class="code__copy" type="button">Copiar</button></div><pre><code>gemini skills install https://github.com/mattpocock/skills.git --path skills/engineering
+gemini skills install https://github.com/mattpocock/skills.git --path skills/productivity</code></pre></div>
+              <p>Para atualizar, rode os dois comandos de novo.</p>
+            </div>
+          </details>
+          <details>
+            <summary>Cursor, OpenCode, Windsurf e outros (arquivos editáveis)</summary>
+            <div>
+              <div class="code"><div class="code__bar"><span>terminal</span><button class="code__copy" type="button">Copiar</button></div><pre><code><span class="c"># agentes aceitos em -a: cursor, opencode, devin, windsurf, amp, pi</span>
+<span class="c"># sem -a, o instalador pergunta qual agente usar</span>
+npx skills@latest add mattpocock/skills -a cursor</code></pre></div>
+              <p>Quando o instalador perguntar quais skills levar, inclua <code class="inl">setup-matt-pocock-skills</code>. Para atualizar, rode <code class="inl">npx skills@latest update</code>; para receber skills novas, rode o <code class="inl">add</code> de novo.</p>
+            </div>
+          </details>
+        </div>
+
+        <h3 class="section__title reveal" style="font-size:clamp(1.3rem,2.4vw,1.7rem);margin-top:48px">Passo 2: configure o projeto</h3>
+        <p class="section__lead reveal">Abra o agente na pasta do projeto e digite <code class="inl">/setup-matt-pocock-skills</code>. Ele faz três perguntas e grava as respostas no repositório, para que as outras skills saibam onde trabalhar:</p>
+        <div class="grid grid--3" style="margin-top:22px">
+          <article class="tile reveal"><span class="tile__tag">Pergunta 1</span><h3>Onde ficam as tarefas?</h3><p>GitHub Issues, GitLab, arquivos locais ou outro sistema que você descrever. É para lá que <code class="inl">/to-spec</code> e <code class="inl">/to-tickets</code> publicam.</p></article>
+          <article class="tile reveal"><span class="tile__tag">Pergunta 2</span><h3>Quais rótulos de triagem?</h3><p>Os rótulos que você aplica às tarefas (ex.: <code class="inl">bug</code>, <code class="inl">needs-info</code>). A skill <code class="inl">/triage</code> usa esses rótulos.</p></article>
+          <article class="tile reveal"><span class="tile__tag">Pergunta 3</span><h3>Onde salvar os documentos?</h3><p>A pasta para o glossário do domínio, as ADRs e as especificações que as skills criarem.</p></article>
+        </div>
+        <p class="note">Dica: confira o que foi gravado com <code class="inl">git diff</code> antes de commitar. As skills são texto; vale a pena lê-las, como você leria qualquer dependência que entra no projeto.</p>
+      </div>
+    </section>
+
+    <!-- ===================== 4. INVOCAÇÃO ===================== -->
+    <section class="section section--tight" id="invocacao">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker">4 · Quem aciona</p>
+          <h2 class="section__title reveal">Skills que você chama e skills que o agente chama</h2>
+          <p class="section__lead reveal">O repositório divide as skills em um único eixo: quem pode acioná-las. Entender isso evita a frustração de esperar que o agente use sozinho algo que só você pode disparar.</p>
+        </header>
+        <div class="grid grid--2">
+          <article class="tile tile--line reveal" style="--c:var(--cyan)">
+            <span class="tile__tag">Acionada pelo usuário</span>
+            <h3>Você digita <code class="inl">/nome</code></h3>
+            <p>São <strong>orquestradoras</strong>: conduzem um processo inteiro, como uma entrevista, uma triagem ou a implementação de uma especificação. O cabeçalho tem <code class="inl">disable-model-invocation: true</code>, e a descrição é escrita para pessoas.</p>
+            <p>Exemplos: <code class="inl">/grill-me</code>, <code class="inl">/to-spec</code>, <code class="inl">/implement</code>, <code class="inl">/handoff</code>.</p>
+          </article>
+          <article class="tile tile--line reveal" style="--c:var(--magenta)">
+            <span class="tile__tag">Acionada pelo modelo</span>
+            <h3>O agente percebe que a tarefa combina</h3>
+            <p>Guardam a <strong>disciplina reutilizável</strong>. A descrição traz frases-gatilho ("use quando o usuário pedir TDD, falar em vermelho-verde-refatorar...") para o agente reconhecer a situação. Você também pode chamá-las pelo nome.</p>
+            <p>Exemplos: <code class="inl">tdd</code>, <code class="inl">diagnosing-bugs</code>, <code class="inl">code-review</code>, <code class="inl">grilling</code>.</p>
+          </article>
+        </div>
+        <p class="note">Regra de composição: uma skill acionada pelo usuário pode chamar skills acionadas pelo modelo, mas nunca outra skill acionada pelo usuário. Por isso <code class="inl">/grill-me</code> apenas diz "chame a ferramenta Skill com <em>grilling</em>".</p>
+      </div>
+    </section>
+
+    <!-- ===================== 5. CATÁLOGO ===================== -->
+    <section class="section section--tight" id="catalogo">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker">5 · Catálogo</p>
+          <h2 class="section__title reveal">As skills do repositório, uma por uma</h2>
+          <p class="section__lead reveal">Filtre por área e por quem aciona. As skills de <strong>engenharia</strong> são para trabalho com código; as de <strong>produtividade</strong> servem para qualquer tarefa. Na dúvida sobre qual usar, comece por <code class="inl">/ask-matt</code>, que funciona como um roteador.</p>
+        </header>
+        <div class="filters reveal" role="group" aria-label="Filtros do catálogo">
+          <div class="filters__g" data-filter="area">
+            <span class="filters__t">Área</span>
+            <button class="chip" type="button" style="--c:var(--cyan)" data-v="todas" aria-pressed="true"><span class="chip__dot"></span>Todas</button>
+            <button class="chip" type="button" style="--c:var(--ia)" data-v="eng" aria-pressed="false"><span class="chip__dot"></span>Engenharia</button>
+            <button class="chip" type="button" style="--c:var(--cp)" data-v="prod" aria-pressed="false"><span class="chip__dot"></span>Produtividade</button>
+          </div>
+          <div class="filters__g" data-filter="inv">
+            <span class="filters__t">Aciona</span>
+            <button class="chip" type="button" style="--c:var(--cyan)" data-v="todas" aria-pressed="true"><span class="chip__dot"></span>Todas</button>
+            <button class="chip" type="button" style="--c:var(--cg)" data-v="user" aria-pressed="false"><span class="chip__dot"></span>Você</button>
+            <button class="chip" type="button" style="--c:var(--fm)" data-v="model" aria-pressed="false"><span class="chip__dot"></span>O agente</button>
+          </div>
+        </div>
+        <div class="cat" id="cat"></div>
+        <p class="cat__count" id="cat-count" aria-live="polite"></p>
+        <p class="note">Descrições traduzidas e resumidas do README do repositório (novembro de 2026). O repositório também tem pastas <code class="inl">misc</code>, <code class="inl">in-progress</code> e <code class="inl">deprecated</code>, com skills experimentais ou antigas que não aparecem aqui.</p>
+      </div>
+    </section>
+
+    <!-- ===================== 6. FLUXO ===================== -->
+    <section class="section section--tight" id="fluxo">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker">6 · Fluxo de trabalho</p>
+          <h2 class="section__title reveal">Da ideia ao pull request</h2>
+          <p class="section__lead reveal">As skills foram desenhadas para se encaixar. Um fluxo típico para uma funcionalidade nova, do alinhamento à entrega, fica assim:</p>
+        </header>
+        <ol class="flow reveal">
+          <li><code class="inl">/grill-with-docs</code><p>O agente entrevista você, rodada por rodada, e atualiza o glossário e as ADRs.</p></li>
+          <li><code class="inl">/to-spec</code><p>Transforma a conversa numa especificação e a publica no gerenciador de tarefas.</p></li>
+          <li><code class="inl">/to-tickets</code><p>Quebra a especificação em tarefas pequenas, cada uma com suas dependências.</p></li>
+          <li><code class="inl">/implement</code><p>Constrói tarefa por tarefa, usando <code class="inl">tdd</code> nas fronteiras combinadas.</p></li>
+          <li><code class="inl">code-review</code><p>Revisa em dois eixos paralelos: padrões do projeto e fidelidade à especificação.</p></li>
+          <li><code class="inl">pr</code><p>Escreve a descrição do PR com resumo visual, evidência e risco da mudança.</p></li>
+        </ol>
+        <div class="grid grid--3" style="margin-top:26px">
+          <article class="tile reveal"><span class="tile__tag">Para bugs</span><h3>Depurar com método</h3><p>Descreva o sintoma. A skill <code class="inl">diagnosing-bugs</code> exige primeiro um laço de retorno que fique vermelho com o bug; depois, minimizar, levantar hipóteses, instrumentar, corrigir e deixar um teste de regressão.</p></article>
+          <article class="tile reveal"><span class="tile__tag">Manutenção</span><h3>Arquitetura a cada poucos dias</h3><p>Rode <code class="inl">/improve-codebase-architecture</code> periodicamente. Ele procura oportunidades de aprofundar módulos e entrega um relatório em HTML; você escolhe uma e o agente o entrevista sobre ela.</p></article>
+          <article class="tile reveal"><span class="tile__tag">Sessões longas</span><h3>Passar o bastão</h3><p>Quando a conversa ficar longa, <code class="inl">/handoff</code> resume o estado num documento para outro agente (ou você, amanhã) continuar sem perder contexto.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 7. EXEMPLO ===================== -->
+    <section class="section section--tight" id="exemplo">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker">7 · Na prática</p>
+          <h2 class="section__title reveal">Como é uma rodada de <code class="inl">/grill-me</code></h2>
+          <p class="section__lead reveal">A skill <code class="inl">grilling</code> organiza as decisões como uma <strong>árvore de projeto</strong>. Em cada rodada, o agente pergunta tudo o que já dá para decidir, numera as perguntas e sugere uma resposta. Você responde; a árvore avança. Exemplo ilustrativo:</p>
+        </header>
+        <div class="chat reveal">
+          <div class="msg msg--you"><b>Você</b>/grill-me Quero adicionar login com Google no sistema de matrículas.</div>
+          <div class="msg msg--ai"><b>Agente · rodada 1</b>
+            ❓ <strong>Q1, Contas existentes:</strong> alunos que já têm login por e-mail devem ter a conta vinculada automaticamente quando o e-mail do Google for o mesmo?<br />➡️ Recomendo: sim, vincular pelo e-mail verificado.
+            <br /><br />❓ <strong>Q2, Domínio:</strong> o login deve aceitar só contas institucionais (@unipampa.edu.br)?<br />➡️ Recomendo: sim, restringir ao domínio da universidade.
+          </div>
+          <div class="msg msg--you"><b>Você</b>Sim para Q1. Para Q2, aceitar também e-mails pessoais de candidatos que ainda não são alunos.</div>
+          <div class="msg msg--ai"><b>Agente · rodada 2</b>Essa resposta abriu novas decisões:
+            <ul><li>❓ <strong>Q3:</strong> que permissões um candidato tem antes da matrícula?</li><li>❓ <strong>Q4:</strong> quando o candidato vira aluno, a conta pessoal é migrada para a institucional?</li></ul>
+          </div>
+        </div>
+        <p class="note">Repare em três detalhes do procedimento: cada pergunta vem com uma recomendação (responder "sim" aceita a sugestão); perguntas que dependem de outras ainda abertas ficam para a rodada seguinte; e fatos que o agente pode descobrir sozinho (ler o código, consultar arquivos) ele mesmo busca, sem perguntar a você. O agente só começa a programar quando você confirmar que chegaram a um entendimento comum.</p>
+      </div>
+    </section>
+
+    <!-- ===================== 8. CRIAR ===================== -->
+    <section class="section section--tight" id="criar">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker">8 · Faça você mesmo</p>
+          <h2 class="section__title reveal">Adapte uma skill ou escreva a sua</h2>
+          <p class="section__lead reveal">O autor incentiva: "mexa nelas, faça delas suas". Como uma skill é só texto, criar a sua leva minutos. No Claude Code, skills pessoais ficam em <code class="inl">~/.claude/skills/</code> e as do projeto em <code class="inl">.claude/skills/</code>, versionadas com o código.</p>
+        </header>
+        <div class="split">
+          <div class="reveal">
+            <div class="code">
+              <div class="code__bar"><span>.claude/skills/migracao-banco/SKILL.md</span><button class="code__copy" type="button">Copiar</button></div>
+<pre><code><span class="k">---</span>
+<span class="k">name:</span> migracao-banco
+<span class="k">description:</span> Cria migrações de banco de dados seguras. Use quando
+  o usuário pedir para alterar o esquema, criar tabela ou coluna,
+  ou mencionar "migração".
+<span class="k">---</span>
+
+<span class="c"># Migração de banco</span>
+
+1. Leia o GLOSSARY.md para usar os nomes do domínio.
+2. Gere a migração com `npm run db:new -- &lt;nome&gt;`.
+3. Toda migração tem `up` e `down`. Nunca apague dados no `up`
+   sem confirmar com o usuário.
+4. Rode `npm run db:test` e mostre a saída antes de concluir.
+
+<span class="c">## Antipadrões</span>
+- Editar uma migração que já foi aplicada em produção.
+- Renomear coluna sem migrar os dados em duas etapas.</code></pre>
+            </div>
+          </div>
+          <div class="reveal">
+            <ol class="tips">
+              <li><b>A descrição é o gatilho.</b> Diga o que a skill faz e <em>quando</em> usar, com as palavras que você realmente digita. Se ela for só acionada por você, escreva a descrição para humanos e adicione <code class="inl">disable-model-invocation: true</code>.</li>
+              <li><b>Uma skill, um trabalho.</b> Prefira skills pequenas que chamam outras ("chame a ferramenta Skill com <em>tdd</em>") a um arquivo gigante.</li>
+              <li><b>Diga o porquê.</b> Regras com motivo são seguidas com mais critério do que ordens em maiúsculas.</li>
+              <li><b>Inclua o antipadrão.</b> Mostrar o erro típico ajuda o modelo a evitá-lo.</li>
+              <li><b>Detalhes vão para arquivos ao lado.</b> Exemplos longos ficam em arquivos como <code class="inl">tests.md</code>, lidos só quando necessários, como faz a skill <code class="inl">tdd</code>.</li>
+              <li><b>Teste e itere.</b> Use a skill em tarefas reais e ajuste o texto quando o agente errar. Para escrever melhor, use a própria skill <code class="inl">writing-for-agents</code> do repositório.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FAQ ===================== -->
+    <section class="section section--tight" id="faq">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker">Dúvidas frequentes</p>
+          <h2 class="section__title reveal">Antes de começar</h2>
+        </header>
+        <div class="faq reveal">
+          <details><summary>Preciso pagar ou usar um modelo específico?</summary><p>Não. O repositório é aberto e as skills funcionam com qualquer modelo. Você precisa apenas de um agente de programação compatível (Claude Code, Codex, Copilot, Gemini CLI, Cursor e outros), que pode ter custo próprio.</p></details>
+          <details><summary>Skills substituem saber programar?</summary><p>Não, e esse é o ponto. Elas codificam práticas de engenharia (testes, design de módulos, revisão, alinhamento de requisitos) que você precisa entender para avaliar o que o agente entrega. Quem conhece os fundamentos tira muito mais proveito delas.</p></details>
+          <details><summary>É seguro instalar skills de terceiros?</summary><p>Trate uma skill como qualquer dependência: ela muda o comportamento de um agente que pode editar arquivos e rodar comandos na sua máquina. Leia o conteúdo antes de instalar, prefira fontes conhecidas e revise as atualizações. O modo de arquivos editáveis facilita essa leitura.</p></details>
+          <details><summary>Qual a diferença para frameworks como Spec-Kit ou BMAD?</summary><p>Segundo o autor, esses frameworks assumem o controle do processo inteiro, o que dificulta corrigir quando algo dá errado. As skills de Matt Pocock são pequenas, independentes e combináveis: você usa só as que fazem sentido e adapta o resto.</p></details>
+          <details><summary>A skill não foi acionada. O que fazer?</summary><p>Verifique se ela é acionada pelo usuário (aí você precisa digitar <code class="inl">/nome</code>). Se for acionada pelo modelo, chame-a pelo nome ou reescreva o pedido com as palavras da descrição. Também confira se você não instalou o repositório duas vezes, por plugin e por skills.sh.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== CTA ===================== -->
+    <section class="section section--tight">
+      <div class="wrap">
+        <div class="callout reveal">
+          <h2>Quer ir além de usar agentes e aprender a construí-los?</h2>
+          <p>No Bacharelado em Inteligência Artificial da UNIPAMPA, em Alegrete-RS, você estuda como os modelos de linguagem e os agentes funcionam por dentro, aprende engenharia de software de verdade e usa IA para resolver problemas reais desde o primeiro semestre.</p>
+          <div class="phero__actions cta-actions">
+            <a class="btn btn--solid" href="../index.html#ingresso">Como entrar no BIA</a>
+            <a class="btn btn--ghost" href="https://github.com/mattpocock/skills" target="_blank" rel="noopener">Abrir o repositório no GitHub</a>
+          </div>
+        </div>
+        <p class="note">Fonte: <a href="https://github.com/mattpocock/skills" target="_blank" rel="noopener">mattpocock/skills</a> (README, documentação de invocação e arquivos SKILL.md, consultados em novembro de 2026), licença MIT. Comandos de instalação reproduzidos do README; nomes de comandos e de skills podem mudar em versões futuras, então confira sempre o repositório. O diálogo da seção 7 é ilustrativo. Guia didático do BIA, versão 1, novembro de 2026.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <div class="wrap footer__grid">
+      <div class="footer__brand">
+        <span class="brand__text">BIA</span>
+        <p>Bacharelado em Inteligência Artificial · Universidade Federal do Pampa · Campus Alegrete</p>
+      </div>
+      <nav class="footer__col" aria-label="Explore">
+        <h4>Explore</h4>
+        <a href="../matriz.html">Matriz</a>
+        <a href="../grade.html">Monte sua grade</a>
+        <a href="../mercado.html">Mercado</a>
+        <a href="../inovacao.html">Inovação</a>
+        <a href="../por-que-bia.html">Por que o BIA</a>
+        <a href="../alegrete.html">Por que Alegrete</a>
+        <a href="../escolas/index.html">BIA nas Escolas</a>
+        <a href="../feito-com-ia/index.html">Feito com IA</a>
+      </nav>
+      <nav class="footer__col" aria-label="Links">
+        <h4>Links</h4>
+        <a href="https://ai-horizon-labs.github.io" target="_blank" rel="noopener">AI Horizon Labs</a>
+        <a href="https://alegrete-rs.github.io" target="_blank" rel="noopener">Alegrete-RS</a>
+        <a href="https://www.unipampa.edu.br" target="_blank" rel="noopener">UNIPAMPA</a>
+      </nav>
+      <div class="footer__col">
+        <h4>Contato</h4>
+        <a href="mailto:bia@unipampa.edu.br">bia@unipampa.edu.br</a>
+        <a href="https://www.instagram.com/bia.unipampa/" target="_blank" rel="noopener">@bia.unipampa</a>
+        <span>Campus Alegrete-RS</span>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2026 AI Horizon Labs · UNIPAMPA. Todos os direitos reservados.</p>
+      <p class="footer__made">Coordenado pelo AI Horizon Labs</p>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      const REPO = "https://github.com/mattpocock/skills/blob/main/skills/";
+      const SKILLS = [
+        ["ask-matt", "eng", "user", "Pergunte qual skill ou fluxo serve para a sua situação. Um roteador sobre as skills acionadas pelo usuário."],
+        ["grill-with-docs", "eng", "user", "Sessão de perguntas que também constrói o modelo de domínio do projeto, refinando a terminologia e atualizando o GLOSSARY.md e as ADRs durante a conversa."],
+        ["triage", "eng", "user", "Move as tarefas (issues) por uma máquina de estados de papéis de triagem, usando os rótulos configurados."],
+        ["improve-codebase-architecture", "eng", "user", "Procura oportunidades de aprofundar módulos, apresenta um relatório visual em HTML e entrevista você sobre a opção escolhida."],
+        ["setup-matt-pocock-skills", "eng", "user", "Configura o repositório para as skills de engenharia: gerenciador de tarefas, rótulos e onde ficam os documentos. Rode uma vez por projeto."],
+        ["to-spec", "eng", "user", "Transforma a conversa atual numa especificação e a publica no gerenciador de tarefas. Sem entrevista: sintetiza o que já foi discutido."],
+        ["to-tickets", "eng", "user", "Quebra um plano ou especificação em tarefas pequenas (tracer bullets), cada uma declarando quais outras a bloqueiam."],
+        ["implement", "eng", "user", "Constrói o que a especificação ou as tarefas descrevem, usando tdd nas fronteiras combinadas e fechando com code-review antes do commit."],
+        ["implement-spec", "eng", "user", "Implementa uma especificação inteira num único ramo, rodando subagentes em paralelo sobre as tarefas prontas e fechando com code-review."],
+        ["wayfinder", "eng", "user", "Planeja trabalhos grandes demais para uma sessão como um mapa de tarefas de decisão, resolvidas uma de cada vez."],
+        ["retro", "eng", "user", "Depois de uma sessão, sugere melhorias no ambiente do agente: navegação, verificações automáticas, padrões de código e ferramentas."],
+        ["prototype", "eng", "model", "Constrói um protótipo descartável para responder a uma pergunta de design: um HTML único ou várias variações de interface alternáveis."],
+        ["diagnosing-bugs", "eng", "model", "Laço disciplinado para bugs difíceis e regressões de desempenho: laço de retorno, minimizar, hipóteses, instrumentar, corrigir e testar a regressão."],
+        ["research", "eng", "model", "Investiga uma pergunta em fontes primárias confiáveis e registra o resultado num Markdown com citações, como agente em segundo plano."],
+        ["tdd", "eng", "model", "Desenvolvimento guiado por testes no ciclo vermelho, verde, refatorar, uma fatia vertical por vez, testando só nas fronteiras públicas."],
+        ["domain-modeling", "eng", "model", "Constrói e afia o modelo de domínio: confronta termos com o glossário, testa cenários-limite e atualiza GLOSSARY.md e ADRs."],
+        ["codebase-design", "eng", "model", "Vocabulário e disciplina para módulos profundos: muito comportamento atrás de uma interface pequena, numa fronteira limpa e testável."],
+        ["code-review", "eng", "model", "Revisão em dois eixos, em subagentes paralelos: segue os padrões do projeto? Implementa fielmente a especificação?"],
+        ["pr", "eng", "model", "Formato da descrição de um pull request: resumo visual mínimo, evidência de antes e depois e avaliação do risco da mudança."],
+        ["wizard", "eng", "model", "Gera um assistente interativo em bash que guia uma pessoa por passos que só ela pode fazer, como criar credenciais ou configurar um painel."],
+        ["grill-me", "prod", "user", "Uma entrevista implacável sobre um plano ou design, até resolver cada ramo da árvore de decisões. Serve para qualquer assunto, não só código."],
+        ["handoff", "prod", "user", "Compacta a conversa atual num documento de passagem para que outro agente continue o trabalho."],
+        ["teach", "prod", "user", "Ensina um conceito ou habilidade ao longo de várias sessões, usando a pasta atual como espaço de estudo com memória."],
+        ["to-questionnaire", "prod", "user", "Transforma uma decisão que você não pode tomar sozinho num questionário em Markdown para a pessoa que pode responder."],
+        ["wait-what", "prod", "user", "Use quando uma resposta não fizer sentido: o agente reexplica em linguagem simples, com o contexto que faltava."],
+        ["grilling", "prod", "model", "O procedimento de entrevista por trás de grill-me, grill-with-docs, triage, wayfinder e improve-codebase-architecture."],
+        ["writing-for-agents", "prod", "model", "Como escrever documentos para agentes: skills, AGENTS.md, CLAUDE.md e qualquer texto que um agente lê."]
+      ];
+      const AREA = { eng: ["Engenharia", "engineering", "var(--ia)"], prod: ["Produtividade", "productivity", "var(--cp)"] };
+      const INV = { user: "Você aciona", model: "O agente aciona" };
+      const state = { area: "todas", inv: "todas" };
+      const cat = document.getElementById("cat");
+      const count = document.getElementById("cat-count");
+
+      const el = (tag, cls, text) => {
+        const n = document.createElement(tag);
+        if (cls) n.className = cls;
+        if (text) n.textContent = text;
+        return n;
+      };
+
+      const card = ([name, area, inv, desc]) => {
+        const a = el("article", "tile sk");
+        a.style.setProperty("--c", AREA[area][2]);
+        a.dataset.area = area;
+        a.dataset.inv = inv;
+        a.append(el("h3", "", inv === "user" ? "/" + name : name));
+        const meta = el("div", "sk__meta");
+        meta.append(el("span", "sk__tag", AREA[area][0]), el("span", "sk__tag", INV[inv]));
+        a.append(meta, el("p", "", desc));
+        const src = el("p", "sk__src");
+        const link = el("a", "", "Ler o SKILL.md");
+        link.href = REPO + AREA[area][1] + "/" + name + "/SKILL.md";
+        link.target = "_blank";
+        link.rel = "noopener";
+        src.append(link);
+        a.append(src);
+        return a;
+      };
+
+      SKILLS.forEach(s => cat.append(card(s)));
+
+      const apply = () => {
+        let shown = 0;
+        cat.querySelectorAll(".sk").forEach(c => {
+          const ok = (state.area === "todas" || c.dataset.area === state.area) && (state.inv === "todas" || c.dataset.inv === state.inv);
+          c.hidden = !ok;
+          if (ok) shown += 1;
+        });
+        count.textContent = shown + " de " + SKILLS.length + " skills";
+      };
+
+      document.querySelectorAll(".filters__g").forEach(g => {
+        g.addEventListener("click", e => {
+          const b = e.target.closest("button");
+          if (!b) return;
+          g.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+          state[g.dataset.filter] = b.dataset.v;
+          apply();
+        });
+      });
+      apply();
+
+      document.addEventListener("click", async e => {
+        const b = e.target.closest(".code__copy");
+        if (!b) return;
+        const text = b.closest(".code").querySelector("code").textContent;
+        try {
+          await navigator.clipboard.writeText(text);
+          b.textContent = "Copiado!";
+        } catch {
+          b.textContent = "Selecione e copie";
+        }
+        setTimeout(() => { b.textContent = "Copiar"; }, 1800);
+      });
+    })();
+  </script>
+  <script src="../assets/js/neural.js"></script>
+  <script src="../assets/js/site.js"></script>
+</body>
+</html>

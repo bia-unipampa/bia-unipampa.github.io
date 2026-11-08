@@ -1,0 +1,121 @@
+WEBVTT
+
+1
+00:00:01.400 --> 00:00:07.736
+<v CapivAI>Buenas, tchê! Eu sou a CapivAI, mascote do Bacharelado em Inteligência Artificial da UNIPAMPA.
+
+2
+00:00:08.056 --> 00:00:16.672
+<v Tatu>E eu sou o Tatu. Bah, o agente de IA escreve código rapidinho, mas quase nunca do jeito que eu queria!
+
+3
+00:00:16.992 --> 00:00:20.424
+<v CapivAI>Isso tem remédio: skills. Vem que eu te mostro.
+
+4
+00:00:21.494 --> 00:00:24.950
+<v Tatu>Skill? Tipo um prompt pronto?
+
+5
+00:00:25.270 --> 00:00:30.910
+<v CapivAI>Quase. Uma skill é um manual em Markdown: uma pasta com um arquivo SKILL.md.
+
+6
+00:00:31.230 --> 00:00:36.366
+<v CapivAI>O agente lê só o nome e a descrição, e abre o manual inteiro quando a tarefa pede.
+
+7
+00:00:36.686 --> 00:00:40.022
+<v Tatu>Ah, tipo receita guardada na gaveta!
+
+8
+00:00:40.342 --> 00:00:44.998
+<v CapivAI>Isso! Contexto enxuto e o mesmo método, sessão após sessão.
+
+9
+00:00:46.068 --> 00:00:49.308
+<v Tatu>E qual a diferença para o CLAUDE.md?
+
+10
+00:00:49.628 --> 00:00:58.052
+<v CapivAI>O CLAUDE.md diz o que é verdade no projeto. A skill diz como fazer uma tarefa. E o MCP dá acesso a sistemas de fora.
+
+11
+00:00:59.122 --> 00:01:02.722
+<v Tatu>Tá, mas que problema isso resolve de verdade?
+
+12
+00:01:03.042 --> 00:01:09.690
+<v CapivAI>Quatro falhas clássicas. O agente não entende o que tu queres. Usa vinte palavras onde uma bastaria.
+
+13
+00:01:10.010 --> 00:01:15.290
+<v CapivAI>O código não funciona. E o projeto vira uma bola de lama, impossível de mudar.
+
+14
+00:01:15.610 --> 00:01:19.090
+<v Tatu>Bah, essa última é o meu trabalho de conclusão...
+
+15
+00:01:20.160 --> 00:01:22.080
+<v Tatu>E como eu instalo?
+
+16
+00:01:22.400 --> 00:01:25.496
+<v CapivAI>No Claude Code, é um comando só no terminal.
+
+17
+00:01:25.816 --> 00:01:35.488
+<v CapivAI>Depois, em cada projeto, roda o setup-matt-pocock-skills. Ele pergunta onde ficam as tarefas, quais rótulos usar e onde salvar os documentos.
+
+18
+00:01:36.558 --> 00:01:39.150
+<v Tatu>E o agente usa tudo sozinho?
+
+19
+00:01:39.470 --> 00:01:43.910
+<v CapivAI>Depende. Algumas tu chamas digitando barra e o nome, como o /grill-me.
+
+20
+00:01:44.230 --> 00:01:50.686
+<v CapivAI>Outras, o agente aciona sozinho quando a tarefa combina com a descrição, como tdd e diagnosing-bugs.
+
+21
+00:01:51.756 --> 00:01:56.796
+<v Tatu>Deixa eu testar: /grill-me, quero login com Google no sistema de matrículas.
+
+22
+00:01:57.116 --> 00:02:02.348
+<v CapivAI>Viu? O agente responde com perguntas numeradas, cada uma com uma recomendação.
+
+23
+00:02:02.668 --> 00:02:08.380
+<v Tatu>Sim para a primeira. Na segunda, aceita também e-mail pessoal de candidato.
+
+24
+00:02:08.700 --> 00:02:14.748
+<v CapivAI>E a tua resposta abre novas perguntas. Ele só programa quando vocês chegam a um entendimento comum.
+
+25
+00:02:15.818 --> 00:02:17.954
+<v Tatu>E depois da entrevista?
+
+26
+00:02:18.274 --> 00:02:27.442
+<v CapivAI>O to-spec vira especificação, o to-tickets quebra em tarefas, o implement constrói com testes, o code-review revisa, e o pr escreve o pull request.
+
+27
+00:02:28.512 --> 00:02:31.128
+<v Tatu>E se eu quiser uma skill só minha?
+
+28
+00:02:31.448 --> 00:02:39.440
+<v CapivAI>É só texto: cria a pasta em .claude/skills, escreve o SKILL.md e capricha na descrição. Ela é o gatilho.
+
+29
+00:02:40.510 --> 00:02:45.238
+<v Tatu>Bah, agora eu quero é aprender a construir esses agentes por dentro!
+
+30
+00:02:45.558 --> 00:02:50.742
+<v CapivAI>Então vem para o BIA, na UNIPAMPA de Alegrete. Te esperamos, tchê!

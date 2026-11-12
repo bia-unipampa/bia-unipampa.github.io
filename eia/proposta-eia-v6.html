@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IA na Prática</title>
+<meta name="description" content="Proposta v6 da especialização IA na Prática (nome provisório) da UNIPAMPA, Campus Alegrete: 360 h em 12 meses, com 225 h no projeto integrador do aluno e nove disciplinas curtas, uma por mês, cada uma ligada a uma entrega no projeto.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ffffff;
+  --paper-2:#f3f6f7;
+  --ink:#13232d;
+  --ink-soft:#4a5c66;
+  --line:#d5dee2;
+  --azul:#1f4e66;
+  --verde:#1d8a52;
+  --ouro:#b57f1c;
+  --azul-bg:#e6eff3;
+  --verde-bg:#e3f3ea;
+  --ouro-bg:#f8eedb;
+  --code:#26343c;
+  --on-verde:#ffffff;
+  --maxw:1160px;
+  --display:"Archivo",system-ui,sans-serif;
+  --body:"Public Sans",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0f1a20;--paper-2:#15232b;--ink:#e8eef1;--ink-soft:#a7b6be;--line:#2a3b44;
+    --azul:#7fb4d0;--verde:#5ccf8f;--ouro:#e4b459;
+    --azul-bg:#173040;--verde-bg:#143326;--ouro-bg:#3a2d12;--code:#0a1217;--on-verde:#0f1a20;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0f1a20;--paper-2:#15232b;--ink:#e8eef1;--ink-soft:#a7b6be;--line:#2a3b44;
+  --azul:#7fb4d0;--verde:#5ccf8f;--ouro:#e4b459;
+  --azul-bg:#173040;--verde-bg:#143326;--ouro-bg:#3a2d12;--code:#0a1217;--on-verde:#0f1a20;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--azul);text-underline-offset:3px}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--ouro);outline-offset:3px;border-radius:4px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+@media (max-width:600px){.wrap{padding:0 16px}}
+h1,h2,h3{font-family:var(--display);line-height:1.08;margin:0;color:var(--ink)}
+h2{font-size:clamp(1.9rem,4.2vw,3rem);font-variation-settings:"wdth" 112;font-weight:800;letter-spacing:-.01em;max-width:24ch}
+h3{font-size:1.25rem;font-weight:700}
+p{margin:0 0 1em}
+.lead{font-size:1.2rem;color:var(--ink-soft);max-width:64ch}
+section{padding:88px 0;border-top:1px solid var(--line);scroll-margin-top:60px}
+@media (max-width:700px){section{padding:60px 0}}
+.sec-head{display:grid;gap:18px;margin-bottom:40px}
+.note{font-size:.92rem;color:var(--ink-soft);margin-top:18px}
+
+/* topo */
+.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:60px}
+.brand{font-family:var(--display);font-weight:900;font-variation-settings:"wdth" 125;font-size:1.25rem;text-decoration:none;color:var(--ink);letter-spacing:.02em;white-space:nowrap}
+.brand small{font-family:var(--body);font-weight:500;font-size:.8rem;color:var(--ink-soft);letter-spacing:0;margin-left:8px}
+.top nav{display:flex;gap:18px;font-size:.95rem;white-space:nowrap}
+.top nav a{color:var(--ink-soft);text-decoration:none}
+.top nav a:hover{color:var(--ink)}
+@media (max-width:1080px){.top nav{display:none}}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--body);font-weight:700;font-size:1rem;padding:12px 20px;border-radius:999px;text-decoration:none;border:2px solid var(--azul);cursor:pointer;background:transparent;color:var(--azul)}
+.btn-solid{background:var(--azul);color:var(--paper)}
+.top .btn{padding:7px 14px;font-size:.9rem}
+
+/* hero */
+.hero{padding:72px 0 0;border-top:0}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:start}
+@media (max-width:960px){.hero-grid{grid-template-columns:1fr;gap:40px}}
+.hero-grid>*{min-width:0}
+.kicker-hero{display:inline-block;font-family:var(--display);font-weight:900;font-variation-settings:"wdth" 118;font-size:1rem;letter-spacing:.08em;text-transform:uppercase;color:var(--verde);margin-bottom:14px}
+.hero h1{font-size:clamp(2.2rem,4.4vw,3.7rem);font-weight:900;font-variation-settings:"wdth" 108;letter-spacing:-.02em;line-height:.98}
+.hero h1 span{display:block}
+.hero h1 .l3{color:var(--verde)}
+.hero .lead{margin-top:26px}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);margin-top:64px;border-top:2px solid var(--ink)}
+.facts div{padding:18px 16px 26px 0}
+.facts b{display:block;font-family:var(--display);font-variation-settings:"wdth" 120;font-weight:800;font-size:1.9rem;line-height:1.1}
+.facts .fpi b{color:var(--verde)}
+.facts span{color:var(--ink-soft);font-size:.95rem}
+@media (max-width:700px){.facts{grid-template-columns:repeat(2,1fr)}}
+
+/* demonstração */
+.demo{border:1px solid var(--line);border-radius:14px;background:var(--paper-2);padding:20px;font-size:.98rem}
+.demo-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px;color:var(--ink-soft);font-size:.9rem}
+.demo-head button{background:none;border:1px solid var(--line);color:var(--ink-soft);border-radius:999px;padding:4px 12px;font:inherit;cursor:pointer}
+.msg{border-radius:10px;padding:12px 14px;margin:0 0 10px;opacity:0;transform:translateY(6px);transition:opacity .45s ease,transform .45s ease}
+.msg.on{opacity:1;transform:none}
+.msg .who{display:block;font-weight:700;font-size:.85rem;margin-bottom:3px}
+.m-aluno{background:var(--paper);border:1px solid var(--line)}
+.m-aluno .who{color:var(--azul)}
+.m-ia{background:var(--code);color:#dfe8ec}
+.m-ia .who{color:#8fd3ae}
+.m-tut{background:var(--azul-bg);border:1px solid color-mix(in srgb,var(--azul) 35%,transparent)}
+.m-tut .who{color:var(--azul)}
+.m-adv{background:var(--ouro-bg);border:1px solid color-mix(in srgb,var(--ouro) 40%,transparent)}
+.m-adv .who{color:var(--ouro)}
+.m-ok{background:var(--verde-bg);border:1px solid color-mix(in srgb,var(--verde) 35%,transparent)}
+.m-ok .who{color:var(--verde)}
+@media (prefers-reduced-motion: reduce){.msg{transition:none}}
+
+/* carga */
+.split{display:flex;height:56px;border-radius:8px;overflow:hidden;font-weight:700}
+.split div{display:flex;flex-direction:column;justify-content:center;padding:0 14px;min-width:0;line-height:1.2}
+.split small{font-weight:500;font-size:.85rem}
+.split .d{flex:135;background:var(--azul-bg);color:var(--ink);border:1px solid color-mix(in srgb,var(--azul) 30%,transparent);border-right:0;border-radius:8px 0 0 8px}
+.split .p{flex:225;background:var(--verde);color:var(--on-verde)}
+.months{display:grid;grid-template-columns:repeat(12,1fr);gap:6px;margin-top:40px;max-width:760px}
+.months div{display:flex;flex-direction:column;gap:2px;min-width:0}
+.months i{display:block;height:44px;border-radius:4px}
+.months .bd{background:var(--azul-bg);border:1px solid color-mix(in srgb,var(--azul) 30%,transparent)}
+.months .bp{background:var(--verde)}
+.months .full .bp{height:90px}
+.months span{text-align:center;font-size:.8rem;color:var(--ink-soft);margin-top:4px}
+.key{display:flex;flex-wrap:wrap;gap:6px 22px;margin-top:14px;font-size:.92rem;color:var(--ink-soft)}
+.key i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+
+/* mapa */
+.map-tools{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;margin-bottom:28px}
+.map-tools .btn{padding:8px 16px;font-size:.95rem}
+.cols{display:grid;grid-template-columns:1fr 88px 1fr;font-size:.85rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:12px}
+.cols span:nth-child(2){text-align:center;color:var(--verde)}
+.cols span:nth-child(3){color:var(--verde)}
+.mapa{list-style:none;margin:0;padding:0;position:relative}
+.mapa::before{content:"";position:absolute;top:0;bottom:0;left:calc(50% - 7px);width:14px;border-radius:7px;background:var(--verde)}
+.mapa li{position:relative}
+.m{display:grid;grid-template-columns:1fr 88px 1fr;align-items:center;padding:8px 0}
+.disc,.pi{min-width:0;border-radius:10px;padding:14px 16px}
+.disc{background:var(--azul-bg);border:1px solid color-mix(in srgb,var(--azul) 30%,transparent)}
+.disc.none{background:var(--paper);border:1px dashed var(--line);color:var(--ink-soft);font-size:.95rem}
+.pi{background:var(--paper);border:2px solid var(--verde)}
+.pi.full{background:var(--verde-bg)}
+.node{align-self:stretch;display:grid;place-items:center;background:linear-gradient(var(--azul),var(--azul)) center/100% 2px no-repeat}
+.node>span{position:relative;z-index:1;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--paper);border:3px solid var(--verde);font-family:var(--display);font-weight:900;font-size:1.05rem;color:var(--ink)}
+.m.marco .node>span{background:var(--verde);color:var(--on-verde)}
+.disc summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:auto 1fr auto;gap:4px 10px;align-items:baseline}
+.disc summary::-webkit-details-marker{display:none}
+.code{font-weight:700;font-size:.85rem;color:var(--azul)}
+.t{font-weight:700;line-height:1.3}
+.h{font-family:var(--display);font-weight:800;white-space:nowrap}
+.disc summary::after{content:"ver ementa";grid-column:2/4;font-size:.82rem;color:var(--azul);text-decoration:underline;text-underline-offset:3px}
+.disc details[open] summary::after{content:"fechar ementa"}
+.disc details p{margin:10px 0 0;font-size:.95rem;color:var(--ink-soft)}
+.pih{display:flex;justify-content:space-between;gap:10px;font-size:.82rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--verde);margin-bottom:4px}
+.pi p{margin:0;font-size:.98rem}
+.marco-tag{display:inline-block;margin-top:10px;font-size:.82rem;font-weight:700;color:var(--on-verde);background:var(--verde);border-radius:999px;padding:2px 10px}
+.eh{display:flex;justify-content:center;padding:28px 0 12px}
+.eh div{position:relative;z-index:1;background:var(--paper);border:2px solid var(--ink);border-radius:12px;padding:10px 18px;text-align:center;max-width:420px}
+.eh .mes{display:block;font-size:.82rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-soft)}
+.eh b{display:block;font-family:var(--display);font-variation-settings:"wdth" 112;font-weight:900;font-size:1.35rem;line-height:1.15}
+.eh small{display:block;color:var(--ink-soft);font-size:.9rem}
+.cap{display:flex;justify-content:center;padding:6px 0}
+.cap span{position:relative;z-index:1;background:var(--verde);color:var(--on-verde);border-radius:999px;padding:6px 16px;font-weight:700;font-size:.95rem;text-align:center}
+@media (max-width:760px){
+  .cols{display:none}
+  .mapa::before{left:15px}
+  .m{grid-template-columns:44px 1fr;grid-template-areas:"node disc" "node pi";gap:8px 0;padding:10px 0}
+  .disc{grid-area:disc;margin-left:10px}
+  .pi{grid-area:pi;margin-left:10px}
+  .node{grid-area:node;background:none;align-items:start;justify-items:start}
+  .node>span{width:34px;height:34px;font-size:.95rem;margin-top:8px}
+  .eh,.cap{justify-content:flex-start;padding-left:0}
+  .eh div{text-align:left;margin-left:0}
+}
+
+/* um mês */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+@media (max-width:860px){.steps{grid-template-columns:1fr}}
+.steps li{border-top:4px solid var(--azul);padding-top:14px;min-width:0}
+.steps li:nth-child(2){border-color:var(--verde)}
+.steps li:nth-child(3){border-color:var(--ouro)}
+.steps b{display:block;font-family:var(--display);font-weight:900;font-variation-settings:"wdth" 120;font-size:1.6rem;line-height:1.1;margin-bottom:6px}
+.steps p{color:var(--ink-soft);margin:0}
+
+/* projeto */
+.trilha{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+@media (max-width:860px){.trilha{grid-template-columns:1fr 1fr;gap:24px 0}}
+@media (max-width:520px){.trilha{grid-template-columns:1fr}}
+.trilha li{border-top:4px solid var(--verde);padding:14px 18px 0 0;min-width:0}
+.trilha b{display:block;font-family:var(--display);font-weight:900;font-variation-settings:"wdth" 120;font-size:1.5rem;line-height:1.1}
+.trilha strong{display:block;margin:4px 0}
+.trilha span{color:var(--ink-soft)}
+.sheet{margin-top:44px;border:1px solid var(--line);border-radius:12px;padding:18px 20px;max-width:80ch}
+.sheet h3{margin-bottom:6px}
+.sheet p{margin:14px 0 0;color:var(--ink-soft)}
+.rubrica{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
+.rubrica li{border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-weight:600}
+.big-idea{font-family:var(--display);font-weight:900;font-variation-settings:"wdth" 112;font-size:clamp(1.8rem,4.2vw,3rem);line-height:1.05;letter-spacing:-.015em;margin:56px 0 0;max-width:24ch}
+.big-idea span{display:block;color:var(--verde)}
+.metodo{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:28px;counter-reset:p}
+@media (max-width:860px){.metodo{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.metodo{grid-template-columns:1fr}}
+.metodo li{border-top:4px solid var(--azul);padding-top:12px;counter-increment:p;min-width:0}
+.metodo li:nth-child(n+4){border-color:var(--verde)}
+.metodo li::before{content:counter(p);display:block;font-family:var(--display);font-weight:900;font-size:1.8rem;line-height:1;color:var(--ink-soft);margin-bottom:8px}
+.metodo b{display:block;font-family:var(--display);font-size:1.2rem;margin-bottom:4px}
+.metodo span{color:var(--ink-soft)}
+.desafios{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:0 48px}
+@media (max-width:760px){.desafios{grid-template-columns:1fr}}
+.desafios li{padding:18px 0;border-bottom:1px solid var(--line);min-width:0}
+.desafios .org{display:block;font-size:.9rem;font-weight:700;color:var(--verde)}
+.desafios b{display:block;font-family:var(--display);font-size:1.15rem;margin:4px 0}
+.desafios li>span:last-child{color:var(--ink-soft)}
+.sessao{display:block;margin-top:8px;font-size:.88rem;font-weight:700;color:var(--verde)}
+.sessao::before{content:"";display:inline-block;width:10px;height:10px;background:var(--verde);transform:rotate(45deg);margin-right:8px;vertical-align:0}
+.sessoes{margin-top:44px;border:2px solid var(--verde);border-radius:12px;padding:20px 22px;max-width:80ch}
+.sessoes h3{margin-bottom:8px}
+.sessoes ul{margin:12px 0 0;padding-left:20px;color:var(--ink-soft)}
+.sessoes li{margin-bottom:8px}
+.sessoes li b{color:var(--ink)}
+.rules{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:44px}
+@media (max-width:860px){.rules{grid-template-columns:1fr}}
+.rules div{border-left:4px solid var(--verde);padding-left:16px}
+.rules h3{margin-bottom:6px}
+.rules p{color:var(--ink-soft);margin:0}
+
+/* para quem e escopo */
+.who-table{width:100%;border-collapse:collapse}
+.who-table th,.who-table td{text-align:left;vertical-align:top;padding:18px 16px 18px 0;border-bottom:1px solid var(--line)}
+.who-table th{font-family:var(--display);font-variation-settings:"wdth" 108;font-size:1.1rem;width:30%}
+.who-table td{color:var(--ink-soft)}
+@media (max-width:700px){.who-table th,.who-table td{display:block;width:100%;padding:0}.who-table th{padding-top:18px}.who-table td{padding-bottom:18px}}
+.sub-h{font-size:1.5rem;margin:48px 0 16px;padding-bottom:8px;border-bottom:2px solid var(--ink);scroll-margin-top:80px}
+.prereq{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:24px 28px}
+@media (max-width:980px){.prereq{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.prereq{grid-template-columns:1fr}}
+.prereq li{border-top:3px solid var(--verde);padding-top:12px;min-width:0}
+.prereq b{display:block;font-family:var(--display);font-size:1.1rem;line-height:1.2;margin-bottom:4px}
+.prereq span{color:var(--ink-soft);font-size:.97rem}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:40px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.two h3{margin-bottom:10px}
+.two ul{margin:0;padding-left:20px}
+.two li{margin-bottom:6px}
+.two .nao{color:var(--ink-soft)}
+.two .sim h3{color:var(--verde)}
+.notice{border-left:4px solid var(--ouro);background:var(--ouro-bg);padding:12px 16px;border-radius:6px;font-size:.98rem;max-width:80ch;margin-top:28px}
+
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+footer{border-top:1px solid var(--line);padding:48px 0 64px;color:var(--ink-soft);font-size:.95rem}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px}
+footer ul{list-style:none;margin:0;padding:0}
+footer li{margin-bottom:6px}
+@media print{
+  .top,.demo,.hero-ctas,.map-tools{display:none}
+  section{padding:24px 0}
+  .m,.eh{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<header class="top">
+<div class="wrap">
+<a class="brand" href="#inicio">IA na Prática<small>UNIPAMPA Alegrete</small></a>
+<nav aria-label="Seções">
+<a href="#carga">Carga horária</a>
+<a href="#mapa">Mapa do curso</a>
+<a href="#metodo">Método</a>
+<a href="#projeto">Projeto integrador</a>
+<a href="#pre-requisitos">Pré-requisitos</a>
+<a href="divulgacao-eia.html">Divulgação</a>
+</nav>
+<a class="btn btn-solid" href="#mapa">Ver o mapa</a>
+</div>
+</header>
+<main id="inicio">
+<section class="hero">
+<div class="wrap hero-grid">
+<div>
+<span class="kicker-hero">IA na Prática · nome provisório</span>
+<h1><span>Resolva um problema real</span><span>com inteligência artificial,</span><span class="l3">sem precisar programar.</span></h1>
+<p class="lead">Uma especialização da UNIPAMPA, Campus Alegrete, para empresários, microempreendedores e profissionais de qualquer área. O centro do curso é o projeto integrador: o aluno escolhe um problema real no primeiro mês e trabalha nele até a mostra pública do mês 12. Todo mês, uma disciplina curta traz o que o projeto precisa naquele momento.</p>
+<div class="hero-ctas">
+<a class="btn btn-solid" href="#mapa">Ver o mapa do curso</a>
+<a class="btn" href="#projeto">Como funciona o projeto</a>
+</div>
+</div>
+<aside class="demo" aria-label="Exemplo ilustrativo de um encontro no mês 1">
+<div class="demo-head"><span>Um encontro do mês 1 (exemplo ilustrativo)</span><button type="button" id="replay">Repetir</button></div>
+<div class="msg m-aluno"><span class="who">Aluno, dono de uma agropecuária</span>Controlo o estoque num caderno. Quero saber o que está acabando antes de faltar no balcão.</div>
+<div class="msg m-ia"><span class="who">Assistente de IA</span>Proposta: uma planilha com produto, quantidade, estoque mínimo e um aviso quando o produto chegar ao mínimo. Posso montar com 10 produtos de exemplo?</div>
+<div class="msg m-tut"><span class="who">Orientador do projeto</span>Pode, mas com dados fictícios por enquanto. Os dados reais da loja entram no mês 7, depois da disciplina de segurança.</div>
+<div class="msg m-adv"><span class="who">Conferência</span>Teste com três produtos cujo estoque você sabe de cor. O aviso disparou para os três? E para um produto com estoque zero?</div>
+<div class="msg m-ok"><span class="who">Entrega da semana 1</span>Planilha de estoque funcionando com 10 produtos fictícios e o aviso conferido. Primeiro passo do projeto integrador.</div>
+</aside>
+</div>
+<div class="wrap">
+<div class="facts">
+<div><b>360 h</b><span>em 12 meses, no formato híbrido</span></div>
+<div><b>30 h</b><span>por mês, num ritmo fixo</span></div>
+<div><b>9 disciplinas</b><span>de 15 h, uma por mês, nos meses 1 a 9</span></div>
+<div class="fpi"><b>225 h</b><span>no projeto integrador, 62,5% do curso</span></div>
+</div>
+</div>
+</section>
+
+<section id="carga">
+<div class="wrap">
+<div class="sec-head">
+<h2>A maior parte do curso é o projeto do aluno</h2>
+<p class="lead">De 360 h, 225 h são do projeto integrador. As disciplinas somam 135 h e existem para servir ao projeto: cada uma é curta, acontece no mês em que o projeto precisa dela e termina com uma entrega no projeto.</p>
+</div>
+<div class="split" role="img" aria-label="Carga horária: 135 h em disciplinas (37,5%) e 225 h no projeto integrador (62,5%).">
+<div class="d">135 h<small>9 disciplinas</small></div>
+<div class="p">225 h<small>projeto integrador, 62,5%</small></div>
+</div>
+<div class="months" role="img" aria-label="Carga por mês: nos meses 1 a 9, 15 h de disciplina e 15 h de projeto; nos meses 10 a 12, 30 h de projeto.">
+<div><i class="bd"></i><i class="bp"></i><span>1</span></div>
+<div><i class="bd"></i><i class="bp"></i><span>2</span></div>
+<div><i class="bd"></i><i class="bp"></i><span>3</span></div>
+<div><i class="bd"></i><i class="bp"></i><span>4</span></div>
+<div><i class="bd"></i><i class="bp"></i><span>5</span></div>
+<div><i class="bd"></i><i class="bp"></i><span>6</span></div>
+<div><i class="bd"></i><i class="bp"></i><span>7</span></div>
+<div><i class="bd"></i><i class="bp"></i><span>8</span></div>
+<div><i class="bd"></i><i class="bp"></i><span>9</span></div>
+<div class="full"><i class="bp"></i><span>10</span></div>
+<div class="full"><i class="bp"></i><span>11</span></div>
+<div class="full"><i class="bp"></i><span>12</span></div>
+</div>
+<div class="key"><span><i style="background:var(--azul-bg);border:1px solid var(--azul)"></i>Disciplina do mês, 15 h</span><span><i style="background:var(--verde)"></i>Projeto integrador, 15 h por mês nos meses 1 a 9 e 30 h nos meses 10 a 12</span></div>
+</div>
+</section>
+
+<section id="mapa">
+<div class="wrap">
+<div class="sec-head">
+<h2>O mapa do curso: cada disciplina alimenta o projeto</h2>
+<p class="lead">A linha verde é o projeto integrador, do mês 1 ao mês 12. À esquerda, a disciplina do mês; à direita, o que ela vira no projeto. Cada etapa de três meses fecha com um marco: uma sessão em que todos os alunos apresentam o projeto a todos os professores, avaliada pela mesma rubrica.</p>
+</div>
+<div class="map-tools">
+<button type="button" class="btn" id="toggle-all" aria-controls="mapa-lista">Abrir todas as ementas</button>
+<span class="note" style="margin:0">Toque numa disciplina para ver a ementa.</span>
+</div>
+<div class="cols" aria-hidden="true"><span>Disciplina do mês</span><span>Mês</span><span>No projeto integrador</span></div>
+<ol class="mapa" id="mapa-lista">
+<li class="cap"><span>Semana 1: o projeto começa</span></li>
+
+<li class="eh"><div><span class="mes">Etapa 1 · meses 1 a 3</span><b>Começar fazendo</b><small>45 h de disciplinas e 45 h de projeto</small></div></li>
+<li class="m">
+<div class="disc"><details><summary><span class="code">C01</span><span class="t">Primeiros passos: IA e o mundo digital</span><span class="h">15 h</span></summary><p>O que é IA generativa, em nível conceitual: contexto, limites e alucinação. Arquivos, pastas, contas, nuvem e navegador: o mínimo de como o digital funciona para não ficar refém da IA. Primeiro uso orientado de um assistente de IA.</p></details></div>
+<div class="node"><span><i class="sr">Mês </i>1</span></div>
+<div class="pi"><span class="pih"><span>Mês 1</span><span>15 h</span></span><p>Problema escolhido e uma primeira solução simples funcionando, com dados fictícios, já na semana 1.</p></div>
+</li>
+<li class="m">
+<div class="disc"><details><summary><span class="code">C02</span><span class="t">Pedir bem: do problema ao pedido</span><span class="h">15 h</span></summary><p>Descrever o problema: quem é afetado, como é resolvido hoje e como saber que melhorou. Dividir o problema em partes. Pedir com contexto, objetivo, dados, formato e critério de correção. Pedir um plano antes da solução. Conferir o resultado sem ler código.</p></details></div>
+<div class="node"><span><i class="sr">Mês </i>2</span></div>
+<div class="pi"><span class="pih"><span>Mês 2</span><span>15 h</span></span><p>Problema descrito, com o critério que vai dizer, no mês 11, se ele foi resolvido. Plano do projeto aprovado pelo orientador.</p></div>
+</li>
+<li class="m marco">
+<div class="disc"><details><summary><span class="code">C03</span><span class="t">IA no dia a dia do negócio</span><span class="h">15 h</span></summary><p>Usos imediatos: textos, e-mails, atendimento, resumo de documentos e contratos, transcrição de áudios e leitura de fotos e notas. Onde a IA economiza tempo e onde ela erra. Conferir antes de usar.</p></details></div>
+<div class="node"><span><i class="sr">Mês </i>3</span></div>
+<div class="pi"><span class="pih"><span>Mês 3</span><span>15 h</span></span><p>Duas tarefas ligadas ao problema feitas com IA, com o tempo antes e depois.</p><span class="marco-tag">Marco 1: problema, plano e primeiros ganhos</span><span class="sessao">Sessão de apresentação, com todos os professores</span></div>
+</li>
+
+<li class="eh"><div><span class="mes">Etapa 2 · meses 4 a 6</span><b>Construir</b><small>45 h de disciplinas e 45 h de projeto</small></div></li>
+<li class="m">
+<div class="disc"><details><summary><span class="code">C04</span><span class="t">Minha primeira ferramenta</span><span class="h">15 h</span></summary><p>Construir com a IA uma ferramenta de uso próprio: formulário, planilha inteligente, pequeno aplicativo ou página. Pedir, aprovar, testar com casos de resposta conhecida e corrigir. Versões e como voltar atrás.</p></details></div>
+<div class="node"><span><i class="sr">Mês </i>4</span></div>
+<div class="pi"><span class="pih"><span>Mês 4</span><span>15 h</span></span><p>Primeira versão da ferramenta do projeto, testada com casos de resposta conhecida.</p></div>
+</li>
+<li class="m">
+<div class="disc"><details><summary><span class="code">C05</span><span class="t">Os dados do meu negócio</span><span class="h">15 h</span></summary><p>Onde estão os dados do negócio. Da anotação e da planilha a uma base organizada. Perguntas aos dados em linguagem comum. Médias, variação e gráficos que esclarecem ou enganam. Correlação não é causa; amostras pequenas e vieses. Previsões simples, como demanda e estoque, e o cuidado com elas.</p></details></div>
+<div class="node"><span><i class="sr">Mês </i>5</span></div>
+<div class="pi"><span class="pih"><span>Mês 5</span><span>15 h</span></span><p>Base de dados do projeto organizada, com dados fictícios, e ligada à ferramenta.</p></div>
+</li>
+<li class="m marco">
+<div class="disc"><details><summary><span class="code">C06</span><span class="t">Guardar, publicar e compartilhar</span><span class="h">15 h</span></summary><p>Onde a ferramenta fica guardada e como não perder o trabalho. Histórico de versões. Publicar para outras pessoas usarem. Quem pode ver e quem pode alterar. Documentar para que outra pessoa entenda.</p></details></div>
+<div class="node"><span><i class="sr">Mês </i>6</span></div>
+<div class="pi"><span class="pih"><span>Mês 6</span><span>15 h</span></span><p>Ferramenta publicada e documentada, em uso por alguém além do aluno.</p><span class="marco-tag">Marco 2: primeira versão publicada</span><span class="sessao">Sessão de apresentação, com todos os professores</span></div>
+</li>
+
+<li class="eh"><div><span class="mes">Etapa 3 · meses 7 a 9</span><b>Conectar</b><small>45 h de disciplinas e 45 h de projeto</small></div></li>
+<li class="m">
+<div class="disc"><details><summary><span class="code">C07</span><span class="t">Usar com segurança e saber o limite</span><span class="h">15 h</span></summary><p>LGPD na prática: dados de clientes, consentimento e anonimização. Golpes e ataques a ferramentas com IA, como instruções maliciosas escondidas. Senhas, acessos e cópias de segurança. Vieses e decisões que precisam de uma pessoa. Quando o problema cresce e é hora de chamar um profissional.</p></details></div>
+<div class="node"><span><i class="sr">Mês </i>7</span></div>
+<div class="pi"><span class="pih"><span>Mês 7</span><span>15 h</span></span><p>Projeto revisado por um colega em busca de falhas e liberado para usar dados reais.</p></div>
+</li>
+<li class="m">
+<div class="disc"><details><summary><span class="code">C08</span><span class="t">IA conectada: conectores, skills e agentes</span><span class="h">15 h</span></summary><p>Ligar a IA às ferramentas que o aluno já usa: e-mail, agenda, planilhas e documentos. O que é um conector, uma skill e um agente, em linguagem de negócio. Agentes que consultam os documentos da empresa e citam a fonte. Ensinar à IA o jeito de trabalhar da empresa. O que o agente pode e não pode fazer.</p></details></div>
+<div class="node"><span><i class="sr">Mês </i>8</span></div>
+<div class="pi"><span class="pih"><span>Mês 8</span><span>15 h</span></span><p>Ferramenta conectada a pelo menos uma fonte real de informação, como e-mail, agenda ou planilha.</p></div>
+</li>
+<li class="m marco">
+<div class="disc"><details><summary><span class="code">C09</span><span class="t">Automatizar o que se repete</span><span class="h">15 h</span></summary><p>Encontrar as tarefas repetitivas do negócio. Automatizar sequências de passos com IA. Avisos, relatórios e respostas automáticas. Quando automatizar não compensa. Custo de uso.</p></details></div>
+<div class="node"><span><i class="sr">Mês </i>9</span></div>
+<div class="pi"><span class="pih"><span>Mês 9</span><span>15 h</span></span><p>Uma automação em funcionamento, com o tempo economizado medido.</p><span class="marco-tag">Marco 3: conectado, seguro e automatizado</span><span class="sessao">Sessão de apresentação, com todos os professores</span></div>
+</li>
+
+<li class="eh"><div><span class="mes">Etapa 4 · meses 10 a 12</span><b>Entregar</b><small>90 h, todas no projeto</small></div></li>
+<li class="m">
+<div class="disc none">Sem disciplina: o mês é todo do projeto.</div>
+<div class="node"><span><i class="sr">Mês </i>10</span></div>
+<div class="pi full"><span class="pih"><span>Mês 10</span><span>30 h</span></span><p>Projeto consolidado com dados reais: corrigir o que o uso mostrou e completar o que faltou.</p></div>
+</li>
+<li class="m">
+<div class="disc none">Sem disciplina: o mês é todo do projeto.</div>
+<div class="node"><span><i class="sr">Mês </i>11</span></div>
+<div class="pi full"><span class="pih"><span>Mês 11</span><span>30 h</span></span><p>Teste com quem tem o problema e ajustes. O resultado é medido pelo critério definido no mês 2.</p></div>
+</li>
+<li class="m marco">
+<div class="disc none">Sem disciplina: o mês é todo do projeto.</div>
+<div class="node"><span><i class="sr">Mês </i>12</span></div>
+<div class="pi full"><span class="pih"><span>Mês 12</span><span>30 h</span></span><p>Documentação final, declaração do uso de IA e apresentação.</p><span class="marco-tag">Marco 4: problema resolvido e apresentado</span><span class="sessao">Mostra pública, com todos os professores</span></div>
+</li>
+<li class="cap"><span>Mostra pública dos projetos</span></li>
+</ol>
+<p class="note">As ementas descrevem competências, sem nomes de produtos, para não envelhecerem antes da formatura.</p>
+</div>
+</section>
+
+<section id="mes">
+<div class="wrap">
+<div class="sec-head">
+<h2>Como funciona um mês</h2>
+<p class="lead">Nos meses 1 a 9, as 30 h do mês se dividem ao meio entre a disciplina e o projeto. Nos meses 10 a 12, as 30 h são todas do projeto.</p>
+</div>
+<ol class="steps">
+<li><b>Aprender, 15 h</b><p>A disciplina do mês, num encontro presencial concentrado e em atividades a distância. O conteúdo é o que o projeto pede naquele momento, e não antes.</p></li>
+<li><b>Aplicar, 15 h</b><p>O aluno leva o que aprendeu para o próprio problema. A cada 15 dias, o grupo de projeto se reúne com o orientador, e cada aluno mostra o que avançou.</p></li>
+<li><b>Entregar</b><p>Todo mês termina com uma entrega no projeto, registrada no diário do projeto. A nota da disciplina vem dessa entrega. A cada três meses, o projeto é apresentado numa sessão com todos os professores.</p></li>
+</ol>
+<p class="big-idea">Construir desde a semana 1. <span>A base entra quando o projeto pede.</span></p>
+</div>
+</section>
+
+<section id="metodo">
+<div class="wrap">
+<div class="sec-head">
+<h2>O método, em seis passos</h2>
+<p class="lead">É o jeito de trabalhar com a IA em todas as entregas do projeto. Os passos são apresentados em C01 e C02 e usados até a mostra pública.</p>
+</div>
+<ol class="metodo">
+<li><b>Entender o problema</b><span>Qual tarefa ou decisão quero melhorar? Quem é afetado? Como é feito hoje? Como vou saber que melhorou?</span></li>
+<li><b>Dividir em partes</b><span>Quebrar o problema em pedaços que a IA resolve um de cada vez.</span></li>
+<li><b>Pedir bem</b><span>Contexto, objetivo, dados, formato e critério de correção. Pedir um plano antes da solução.</span></li>
+<li><b>Conferir sem ler código</b><span>Casos de resposta conhecida, ordem de grandeza, segunda opinião e dados alterados de propósito.</span></li>
+<li><b>Procurar falhas</b><span>Onde a solução erra, com quais dados ela falha e quem pode ser prejudicado.</span></li>
+<li><b>Decidir e responder</b><span>Usar ou não usar, registrar o que a solução faz e onde falha, e responder pelo resultado.</span></li>
+</ol>
+</div>
+</section>
+
+<section id="projeto">
+<div class="wrap">
+<div class="sec-head">
+<h2>Projeto integrador: 225 h, do mês 1 ao mês 12</h2>
+<p class="lead">O aluno escolhe um problema real no primeiro mês e trabalha nele até o fim. Cada disciplina acrescenta uma peça, e os quatro marcos mostram o projeto crescendo.</p>
+</div>
+<ol class="trilha">
+<li><b>Mês 3</b><strong>Marco 1 · sessão de apresentação</strong><span>Problema descrito, plano aprovado e primeiros ganhos medidos.</span></li>
+<li><b>Mês 6</b><strong>Marco 2 · sessão de apresentação</strong><span>Primeira versão publicada, documentada e em uso.</span></li>
+<li><b>Mês 9</b><strong>Marco 3 · sessão de apresentação</strong><span>Liberada para dados reais, conectada e com uma automação.</span></li>
+<li><b>Mês 12</b><strong>Marco 4 · mostra pública</strong><span>Problema resolvido e apresentado numa mostra pública.</span></li>
+</ol>
+<div class="sessoes">
+<h3>Sessões de apresentação dos projetos</h3>
+<p>Ao fim de cada etapa, nos meses 3, 6 e 9, há uma sessão presencial em que cada aluno apresenta o seu projeto, em cerca de 10 minutos, para a turma e para todos os professores do curso. A do mês 12 é a mostra pública, aberta à comunidade e a quem tem o problema.</p>
+<ul>
+<li><b>Todos os professores veem todos os projetos.</b> Quem ensina uma disciplina sabe o que os alunos estão construindo e ajusta o que vem a seguir.</li>
+<li><b>O aluno treina explicar.</b> A cada três meses, o aluno precisa mostrar o que funciona e explicar o que fez, que é o último critério da rubrica.</li>
+<li><b>A turma aprende com os projetos dos colegas.</b> Soluções de uma área servem para outra, e os colegas apontam falhas que o dono do problema não vê.</li>
+</ul>
+</div>
+<div class="sheet">
+<h3>Avaliado sempre pela mesma rubrica</h3>
+<ul class="rubrica">
+<li>Problema bem descrito</li>
+<li>Funciona</li>
+<li>Foi testado</li>
+<li>Está documentado</li>
+<li>O aluno sabe explicar</li>
+</ul>
+<p>A mesma rubrica nos quatro marcos permite comparar projetos muito diferentes de forma justa. O último critério responde à pergunta “se a IA faz o app, o que se avalia?”: avalia-se o problema, a conferência e a capacidade de explicar o que foi feito, não a autoria do código.</p>
+</div>
+<div class="rules">
+<div><h3>Um problema real</h3><p>Do próprio aluno ou do Banco de Desafios Reais, para quem chega sem um problema definido.</p></div>
+<div><h3>Dados fictícios até o mês 7</h3><p>Os dados reais entram depois da disciplina de segurança e da revisão feita por um colega.</p></div>
+<div><h3>Orientação desde o mês 1</h3><p>Cada aluno tem um orientador que acompanha o projeto do começo à mostra pública.</p></div>
+<div><h3>Grupos de áreas diferentes</h3><p>Cerca de cinco alunos por grupo, cada um com o seu problema. Quem não conhece o problema faz as perguntas que o dono já não faz.</p></div>
+<div><h3>Quando um tema não se aplica</h3><p>Se a disciplina do mês não serve ao problema, as horas de projeto daquele mês reforçam a entrega em curso ou um estudo de caso indicado pelo professor.</p></div>
+<div><h3>O trabalho final é o projeto escrito</h3><p>Cada marco gera uma parte do relatório final: problema, solução, testes, resultado medido e declaração do uso de IA.</p></div>
+</div>
+</div>
+</section>
+
+<section id="desafios">
+<div class="wrap">
+<div class="sec-head">
+<h2>Banco de Desafios Reais</h2>
+<p class="lead">Não tem um problema para trazer? Escolha um. A cada turma, negócios e organizações da região propõem desafios, com uma pessoa responsável e regras para o uso dos dados. O banco é publicado com o edital, porque o projeto começa na semana 1.</p>
+</div>
+<ul class="desafios">
+<li><span class="org">Comércio</span><b>Estoque que avisa antes de faltar</b><span>Controle de produtos, estoque mínimo e previsão simples de demanda na safra.</span></li>
+<li><span class="org">Serviços</span><b>Agenda e atendimento</b><span>Respostas a clientes, confirmação de horários e lembretes automáticos.</span></li>
+<li><span class="org">Agronegócio</span><b>Registros de campo</b><span>Anotações, fotos e áudios do campo organizados numa base consultável.</span></li>
+<li><span class="org">Setor público</span><b>Pedidos do cidadão</b><span>Triagem de solicitações, com resumo e encaminhamento para revisão de uma pessoa.</span></li>
+</ul>
+<p class="note">Exemplos ilustrativos. O banco de cada turma sai da rede de parceiros da UNIPAMPA e do BIA na região.</p>
+</div>
+</section>
+
+<section id="para-quem">
+<div class="wrap">
+<div class="sec-head">
+<h2>Para quem é o curso</h2>
+<p class="lead">Pessoas com um problema real para resolver, não um diploma em computação.</p>
+</div>
+<table class="who-table">
+<tbody>
+<tr><th scope="row">Empresários locais</th><td>Comércio, serviços e agronegócio da região.</td></tr>
+<tr><th scope="row">Microempreendedores</th><td>Quem faz tudo sozinho e precisa ganhar tempo.</td></tr>
+<tr><th scope="row">Profissionais de outras áreas</th><td>Administração, saúde, educação e direito.</td></tr>
+<tr><th scope="row">Curiosos com graduação</th><td>Quem quer tirar uma ideia do papel.</td></tr>
+</tbody>
+</table>
+<h3 class="sub-h" id="pre-requisitos">Pré-requisitos mínimos</h3>
+<ul class="prereq">
+<li><b>Iniciativa e proatividade</b><span>Ir atrás da solução sem esperar o passo a passo pronto.</span></li>
+<li><b>Vontade de aprender</b><span>Disposição para experimentar, errar, conferir e tentar de novo.</span></li>
+<li><b>Independência</b><span>Avançar no projeto entre os encontros, com autonomia.</span></li>
+<li><b>Disponibilidade</b><span>Cerca de 30 h por mês, incluindo os encontros presenciais concentrados.</span></li>
+<li><b>Um problema real</b><span>Seu, do seu trabalho ou do Banco de Desafios Reais.</span></li>
+<li><b>Uso diário do computador</b><span>Arquivos, pastas, navegador e e-mail fazem parte da sua rotina.</span></li>
+<li><b>Experiência básica com IA</b><span>Já usou um assistente de IA para resolver problemas do seu dia a dia.</span></li>
+<li><b>Graduação em qualquer área</b><span>Exigência de todo curso de especialização.</span></li>
+</ul>
+<div class="two">
+<div class="nao"><h3>O que não pedimos</h3><ul><li>Saber programar.</li><li>Matemática avançada.</li><li>Formação em computação.</li></ul></div>
+</div>
+<div class="two">
+<div class="sim"><h3>O curso é</h3><ul><li>Resolver problemas locais, familiares e de pequenos negócios.</li><li>Construir ferramentas para uso próprio ou de poucas pessoas.</li><li>Aprender a pedir, conferir e publicar com IA.</li></ul></div>
+<div class="nao"><h3>O curso não é</h3><ul><li>Um curso de programação.</li><li>Desenvolvimento de sistemas de grande escala.</li><li>Sites com milhões de acessos ou bancos de dados gigantes.</li></ul></div>
+</div>
+<p class="notice"><b>Não exige saber programar, e não ensina a programar:</b> ensina a usar a IA para construir. Quando o problema cresce, o caminho é um profissional ou um mestrado.</p>
+</div>
+</section>
+</main>
+<footer>
+<div class="wrap">
+<div>
+<b>IA na Prática (nome provisório)</b><br>
+Especialização da UNIPAMPA, Campus Alegrete, RS<br>
+Proposta em elaboração, versão 6 (v6), novembro de 2026. <a href="proposta-eia-v5.html">Ver a versão anterior (v5)</a>.
+</div>
+<ul>
+<li><a href="index.html">Página central das discussões</a></li>
+<li><a href="divulgacao-eia.html">Divulgação: todos os materiais</a></li>
+<li><a href="flyer-eia-v1.html">Flyer</a> · <a href="folder-eia-v1.html">Folder</a></li>
+<li><a href="especializacoes-ia-BR.html">Análise das especializações em IA no Brasil</a></li>
+<li><a href="https://bia-unipampa.github.io">Bacharelado em Inteligência Artificial (BIA)</a></li>
+</ul>
+</div>
+</footer>
+<script>
+(() => {
+  const msgs = [...document.querySelectorAll(".demo .msg")];
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function play() {
+    msgs.forEach((m) => m.classList.remove("on"));
+    if (reduce) {
+      msgs.forEach((m) => m.classList.add("on"));
+      return;
+    }
+    msgs.forEach((m, i) => setTimeout(() => m.classList.add("on"), 300 + i * 1100));
+  }
+  document.getElementById("replay").addEventListener("click", play);
+  play();
+
+  const toggle = document.getElementById("toggle-all");
+  const ementas = [...document.querySelectorAll("#mapa-lista details")];
+  toggle.addEventListener("click", () => {
+    const abrir = ementas.some((d) => !d.open);
+    ementas.forEach((d) => {
+      d.open = abrir;
+    });
+    toggle.textContent = abrir ? "Fechar todas as ementas" : "Abrir todas as ementas";
+  });
+})();
+</script>
+</body>
+</html>
